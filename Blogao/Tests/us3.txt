@@ -1,0 +1,92 @@
+#######################################################################################################
+#User Story-- Alterar Perfil
+#
+#Altera os dados do perfil de um usuário. Após cadastrado, um usuário pode alterar seus dados cadastrais. (ex.: alterar senha). Para alteração, #o id de sessão deve ser informado.
+#
+#Dados que podem ser alterados:
+#*Senha;
+#*Nome de exibição;
+#*Email;
+#*Sexo;
+#*Data_de_nascimento;
+#*Endereço;
+#*Interesses;
+#*Quem sou eu;
+#*Filmes favoritos;
+#*Musicas favoritas;
+#*Livros favoritos
+#
+#Restrições:
+#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+#    -Campo não-nulo:
+#        *Senha;
+############################################################################################################
+
+#Carrega dados persistidos anteriormente
+loadData
+
+#Efetua login do usuário
+idSession1=logon login=mariasilva senha=qwe2
+
+nameUser1=getProfileInformationBySessionId idSession=${idSession1} atributo=nome_exibicao
+
+#Validação: Verifica se sessão informada é válida
+expectError "Sessão inválida" changeProfileInformation idSession=XXX atributo=senha valor=sdf@gmail
+
+#Validação: Verifica se atributo é válido
+expectError "Atributo Inválido" changeProfileInformation idSession=${idSession1} atributo=XXX valor=das@gmail.com
+expectError "Atributo Inválido" changeProfileInformation idSession=${idSession1} atributo="" valor=das@gmail.com
+expectError "Atributo Inválido" changeProfileInformation idSession=${idSession1} atributo= valor=das@gmail.com
+
+#Validação: Verifica se senha é não nula
+expectError "Senha inválida" changeProfileInformation idSession=${idSession1} atributo=senha valor=""
+expectError "Senha inválida" changeProfileInformation idSession=${idSession1} atributo=senha valor=
+
+changeProfileInformation idSession=${idSession1} atributo=senha valor=1234
+changeProfileInformation idSession=${idSession1} atributo=nome_exibicao valor="M. Silva"
+changeProfileInformation idSession=${idSession1} atributo=sexo valor="Não informado"
+changeProfileInformation idSession=${idSession1} atributo=dataNasc valor=31/12/1981
+changeProfileInformation idSession=${idSession1} atributo=endereco valor="Avenida dos vagabundos"
+changeProfileInformation idSession=${idSession1} atributo=interesses valor="Masoquismo"
+changeProfileInformation idSession=${idSession1} atributo=quem_sou_eu valor="Ainda não sei"
+changeProfileInformation idSession=${idSession1} atributo=filmes valor="A volta dos que não foram"
+changeProfileInformation idSession=${idSession1} atributo=musicas valor=""
+changeProfileInformation idSession=${idSession1} atributo=livros valor=
+
+nameUser2=getProfileInformationBySessionId idSession=${idSession1} atributo=nome_exibicao
+
+#Validação: verifica se dados foram alterados
+expectDifferent ${nameUser1} echo ${nameUser2}
+
+#Validacao: Sexo tem de assumir um dos seguintes valores: "Feminino", "Masculino", "Não informado"
+expectError "Sexo inválido" changeProfileInformation idSession=${idSession1} atributo=sexo valor=AAA
+expectError "Sexo inválido" changeProfileInformation idSession=${idSession1} atributo=sexo valor=
+expectError "Sexo inválido" changeProfileInformation idSession=${idSession1} atributo=sexo valor=""
+
+
+createProfile login=mariarocha senha=senhona nome_exibicao="M. Rocha" email=maria@hotmail.com sexo="Não informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+
+
+#Validacao: Email tem de ser único no sistema
+expectError "Email existente" changeProfileInformation idSession=${idSession1} atributo=email valor=maria@hotmail.com
+
+#Validacao: Email não pode ser nulo
+expectError "Email inválido" changeProfileInformation idSession=${idSession1} atributo=email valor=
+expectError "Email inválido" changeProfileInformation idSession=${idSession1} atributo=email valor=""
+
+#Validação: Login não pode ser nulo nem ja ser existente
+expectError "Login inválido" changeProfileInformation idSession=${idSession1} atributo=login valor=""
+expectError "Login inválido" changeProfileInformation idSession=${idSession1} atributo=login valor=
+expectError "Login existente" changeProfileInformation idSession=${idSession1} atributo=login valor=sicrano
+
+
+
+#Validação: Data inválida
+expectError "Data inválida" changeProfileInformation idSession=${idSession1} atributo=dataNasc valor=01/13/1980
+
+#Desloga usuário
+logoff idSession=${idSession1}
+
+#Salva os dados de forma permanente
+saveData
+

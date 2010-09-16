@@ -1,0 +1,44 @@
+##################################################################################
+#User Story-- Deletar post
+#Permite a deleção de um determinado post de um blog. Todos os comentários associados ao post devem ser igualmente deletados
+#Restrições
+#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+####################################################################################
+
+#Carrega dados persistidos anteriormente
+loadData
+
+
+#Efetua login dos usuários
+sessionId1=logon login=sicrano senha=senhona
+
+blogId1=getBlogByLogin login=sicrano index=0
+
+postId1=getPost blogId=${blogId1} index=0
+
+tmpComentario=getComment postId=${postId1} index=0
+
+#Recupera o texto de um comentário
+expect "que massa esse seu novo post" getCommentText idComentario=${idComentario1}
+
+#Recupera o autor do comentário
+expect mariasilva getCommentAuthor idComentario=${idComentario1}
+
+#Deleta um post e seus comentários
+deletePost sessionId=${sessionId1} postId=${postId1}
+
+#validação: nao é possível deletar duas vezes o post
+expectError "Post inválido" deletePost sessionId=${sessionId1} postId=${postId1}
+
+expectError "Comentário inválido" getCommentAuthor idComentario=${idComentario1}
+expectError "Comentário inválido" getCommentText idComentario=${idComentario1}
+
+
+expectError "Post inválido" getPostInformation id=${postId1} atributo=titulo
+
+#Desloga usuarios
+logoff sessionId=${sessionId1}
+
+#Salva os dados de forma permanente
+saveData
+

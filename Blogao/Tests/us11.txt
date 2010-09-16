@@ -1,0 +1,34 @@
+########################################################################################
+#User Story-- Deletar conta de usuário
+#Remove a conta do usuário do sistema.
+#Restrições:
+#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+#   
+########################################################################################
+
+#Carrega dados persistidos anteriormente
+loadData
+
+
+#Efetua login dos usuários
+sessionId1=logon login=sicrano senha=senhona
+
+#Criação blogs
+blogId1=createBlog sessionId=${sessionId1} titulo="Meu primeiro blog" descricao="Quidquid latine dictum sit, altum viditur"
+blogId2=createBlog sessionId=${sessionId1} titulo="Meu segundo blog" descricao="Quidquid latine dictum sit, altum viditur"
+
+postId1=createPost sessionId=${sessionId1} blogId=${blogId1} titulo="Meu primeiro post" texto="Sobre esse primeiro post, iremos falar sobre..."
+postId2=createPost sessionId=${sessionId1} blogId=${blogId2} titulo="Meu segundo post" texto=
+
+#Deleta o perfil de um usuário
+deleteProfile sesionId=${sessionId1}
+
+expectError "Blog inválido" getNumberOfPosts blogId=${blogId1}
+expectError "Blog inválido" getNumberOfPosts blogId=${blogId2}
+
+#Salva os dados de forma permanente
+saveData
+
+
+
+
