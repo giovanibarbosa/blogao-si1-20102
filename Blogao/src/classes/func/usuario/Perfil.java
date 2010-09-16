@@ -8,10 +8,8 @@ import classes.Texto;
 
 public class Perfil {
 
-	// Dados obrigatorios:
 	public Logavel logavel;
 	public Email email;
-	// Dados nao obrigatorios:
 	public String nomeDeExibicao;
 	public String endereco;
 	public Texto interesses;
