@@ -1,5 +1,7 @@
 package interfaces;
 
+import classes.*;
+
 /**
  * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  *
@@ -7,18 +9,18 @@ package interfaces;
 public interface PerfilIF {
 	
 	// Dados obrigatorios:
-	public String getLogin();
-	public String getSenha();
-	public String getEmail();
+	public Login getLogin();
+	public Senha getSenha();
+	public Email getEmail();
 	// Dados nao obrigatorios:
 	public String getNomeDeExibicao();
 	public String getEndereco();
-	public String getInteresses();
+	public Texto getInteresses();
 	public String getDataDeNascimento();
-	public String getQuemSouEu();
-	public String getFilmesFavoritos();
-	public String getMusicasFavoritas();
-	public String getLivrosFavoritos();
+	public Texto getQuemSouEu();
+	public Texto getFilmesFavoritos();
+	public Texto getMusicasFavoritas();
+	public Texto getLivrosFavoritos();
 //   	* Login;
 //		* E-mail
 //		Obs.: O campo sexo obrigatoriamente deve assumir
