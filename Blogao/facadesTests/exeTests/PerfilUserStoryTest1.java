@@ -9,7 +9,7 @@ import classes.func.usuario.FacadePerfil;
 import easyaccept.EasyAcceptFacade;
 
 /**
- * 
+ * Classe necessaria para rodar um teste.
  * @author Tiago Leite - tiagohsl@lsd.ufcg.edu.br
  *
  */
