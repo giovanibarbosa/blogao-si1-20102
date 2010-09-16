@@ -1,0 +1,116 @@
+#User Story-- Editar postagem 
+#
+#
+#Permite a edição de um post existente. os seguintes campos podem ser alterados:
+#*Título do post
+#*Texto
+#*Áudio
+#*Vídeo
+#*Imagem
+#
+#No caso dos recursos multimídia, o cliente deve ser capaz de definir se deseja manter os dados existentes no servidor, ou se serão deletados.
+#Restrições:
+#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+#   
+#    -Campos não-nulo:
+#        *Título do post    
+#Obs.: No caso do acesso via celular, não é necessário implementar a edição dos recursos multimídia existentes, ou seja, será realizada apenas #a edição da parte textual do post
+
+#Carrega dados persistidos anteriormente
+loadData
+
+#Efetua login dos usuários
+sessionId1=logon login=sicrano senha=senhona
+sessionId2=logon login=mariasilva senha=qwe2
+
+expect 0 getNumberOfBlogsByLogin login=mariasilva
+expect 1 getNumberOfBlogsBySessionId login=${sessionId1}
+
+#Indice do blog esta no intervalo 0<=x<numBlogs
+blogId1=getBlogBySessionId id=${sessionId1} index=0
+blogId2=getBlogByLogin login=sicrano index=0
+
+expect ${blogId1} echo ${blogId2}
+
+expect 1 getNumberOfPosts blogId=${blogId1}
+
+postId1=getPost blogId=${blogId1} index=0
+
+#o metodo changePostInformation sera responsavel por alterar apenas a parte textual de um post. 
+changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor="Meu novo titulo"
+changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=texto valor="Minha nova descricao"
+
+#validação: post inválido
+expectError "Post inválido" changePostInformation sessionId=${sessionId1} postId=XXX atributo=texto valor="Minha nova descricao"
+expectError "Post inválido" changePostInformation sessionId=${sessionId1} postId="" atributo=texto valor="Minha nova descricao"
+expectError "Post inválido" changePostInformation sessionId=${sessionId1} postId= atributo=texto valor="Minha nova descricao"
+
+#Validação: sessão inválida
+expectError "Sessão inválida" changePostInformation sessionId=XXX postId=${postId1} atributo=titulo valor="Meu novo titulo"
+
+#Validação: atributo inválido
+expectError "Atributo inválido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo= valor="Meu novo titulo"
+expectError "Atributo inválido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo="" valor="Meu novo titulo"
+expectError "Atributo inválido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=XXX valor="Meu novo titulo"
+
+#Validação: Titulo nao pode ser vazio
+expectError "Título obrigatório" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor=
+expectError "Título obrigatório" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor=""
+
+#Recupera numero de recursos multimidia
+expect 3 getNumberOfSounds id=${postId1}
+expect 3 getNumberOfMovies id=${postId1}
+expect 3 getNumberOfPictures id=${postId1}
+
+#Recupera primeiro video do post e o deleta
+tmpVideo1=getMovie id=${postId1} index=0
+deleteMovie sessionId=${sessionId1} ${tmpVideo1}
+
+#Recupera primeiro video do post e o deleta
+tmpVideo1=getMovie id=${postId1} index=0
+deleteMovie sessionId=${sessionId1} ${tmpVideo1}
+
+#Recupera primeiro video do post e o deleta
+tmpVideo1=getMovie id=${postId1} index=0
+deleteMovie sessionId=${sessionId1} ${tmpVideo1}
+
+expectError "Índice incorreto" getMovie id=${postId1} index=0
+
+#Indice do recurso esta no intervalo 0<=x<numRecurso
+tmpAudio1=getSound id=${postId1} index=0
+deleteSound sessionId=${sessionId1} id=${tmpAudio1}
+
+#Indice do recurso esta no intervalo 0<=x<numRecurso
+tmpAudio1=getSound id=${postId1} index=0
+deleteSound sessionId=${sessionId1} id=${tmpAudio1}
+
+#Indice do recurso esta no intervalo 0<=x<numRecurso
+tmpAudio1=getSound id=${postId1} index=0
+deleteSound sessionId=${sessionId1} id=${tmpAudio1}
+
+expectError "Índice incorreto" getSound id=${postId1} index=0
+
+
+
+#Indice do recurso esta no intervalo 0<=x<numRecurso
+tmpImagem1=getPicture id=${postId1} index=0
+deletePicture sessionId=${sessionId1} id=${tmpImagem1}
+
+#Indice do recurso esta no intervalo 0<=x<numRecurso
+tmpImagem1=getPicture id=${postId1} index=0
+deletePicture sessionId=${sessionId1} id=${tmpImagem1}
+
+#Indice do recurso esta no intervalo 0<=x<numRecurso
+tmpImagem1=getPicture id=${postId1} index=0
+deletePicture sessionId=${sessionId1} id=${tmpImagem1}
+
+expectError "Índice incorreto" getPicture id=${postId1} index=0
+
+#Desloga usuarios
+logoff sessionId=${sessionId1}
+logoff sessionId=${sessionId2}
+
+#Salva os dados de forma permanente
+saveData
+
+

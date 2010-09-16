@@ -1,0 +1,54 @@
+#########################################################################################
+#User Story-- Adicionar comentários
+#
+#Permite a adição de comentários sobre postagens. (Ex.: Usuário A emite comentário sobre um post do usuário B)
+#Restrições:
+#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+#   
+#############################################################################################
+
+#Carrega dados persistidos anteriormente
+loadData
+
+createProfile login=zefina senha=123456 nome_exibicao= email=zef@gmail.com sexo="Não informado" dataNasc=01/01/1980 endereco= interesses= quem_sou_eu= filmes= musicas= livros=
+
+#Efetua login dos usuários
+sessionId1=logon login=sicrano senha=senhona
+sessionId2=logon login=mariasilva senha=qwe2
+sessionId3=logon login=zefina senha=123456
+
+
+
+blogId1=getBlogByLogin login=sicrano index=0
+
+postId1=getPost blogId=${blogId1} index=0
+
+
+idComentario1=addComment sessionId=${sessionId2} postId=${postId1} texto="que massa esse seu novo post"
+idComentario2=addComment sessionId=${sessionId3} postId=${postId1} texto="Tb acho ;)"
+
+expect 2 getNumberOfComments postId=${postId1}
+
+tmpComentario=getComment postId=${postId1} index=0
+
+expect ${idComentario1} echo ${tmpComentario}
+
+#Recupera o texto de um comentário
+expect "que massa esse seu novo post" getCommentText idComentario=${idComentario1}
+
+#Recupera o autor do comentário
+expect mariasilva getCommentAuthor idComentario=${idComentario1}
+
+#Desloga usuarios
+logoff sessionId=${sessionId1}
+logoff sessionId=${sessionId2}
+logoff sessionId=${sessionId3}
+
+#Salva os dados de forma permanente
+saveData
+
+
+ 
+
+
+

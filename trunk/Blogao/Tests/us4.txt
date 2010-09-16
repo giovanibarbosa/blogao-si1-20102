@@ -1,0 +1,64 @@
+####################################################################################################
+#User Story-- Criar Blogs
+#
+#Cadastra um Blog, associando-o a um usuário. No ato da criação deve-se fornecer as seguintes informações:
+#*Titulo do blog
+#*Descrição do Bloco
+#
+#Restrições
+#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+#   
+#    -Campos obrigatórios:
+#        *Titulo do blog;
+#
+# O blog, diferentemente de um usuário, terá o conceito de id's. 
+#Isto é necessário porque em um blog não existe nenhuma informação única (Como o login em usuários).
+#Podem existir blogs com mesmo nome e descrição
+#
+######################################################################################################
+
+#Limpa quaisquer dados pre-existentes
+cleanPersistence
+
+#Cria um usuário
+createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo="Não informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+
+#Efetua login do usuário
+idSession1=logon login=sicrano senha=senhona
+
+#Validação: Id de sessão inválido
+expectError "Sessão inválida" createBlog idSession=XXX titulo="myblog" descricao="Quidquid latine dictum sit, altum viditur"
+
+#Validação: Título do blog obrigatório
+expectError "Você deve especificar um título para o blog" createBlog idSession=${idSession1} titulo= descricao="Quidquid latine dictum sit, altum viditur"
+expectError "Você deve especificar um título para o blog" createBlog idSession=${idSession1} titulo="" descricao="Quidquid latine dictum sit, altum viditur"
+
+#Cria um blog
+idBlog=createBlog idSession=${idSession1} titulo="Meu primeiro blog" descricao="Quidquid latine dictum sit, altum viditur"
+idBlog2=createBlog idSession=${idSession1} titulo="Meu segundo blog" descricao="Whatever is said in Latin sounds profound"
+
+expectDifferent ${idBlog} echo ${idBlog2}
+
+#Retorna informações do blog a partir do id do blog
+expect "Meu primeiro blog" getBlogInformation id=${idBlog} atributo=titulo
+expect "Quidquid latine dictum sit, altum viditur" getBlogInformation id=${idBlog} atributo=descricao
+
+expect "Meu segundo blog" getBlogInformation id=${idBlog2} atributo=titulo
+expect "Whatever is said in Latin sounds profound" getBlogInformation id=${idBlog2} atributo=descricao
+
+#Deve ser possivel recuperar o proprietario do blog
+expect sicrano getBlogInformation id=${idBlog} atributo=dono
+expect sicrano getBlogInformation id=${idBlog2} atributo=dono
+
+
+expectError "Atributo inválido" getBlogInformation id=${idBlog2} atributo=XXX
+expectError "Atributo inválido" getBlogInformation id=${idBlog2} atributo=""
+expectError "Atributo inválido" getBlogInformation id=${idBlog2} atributo= 
+
+
+#Desloga usuário
+logoff idSession=${idSession1}
+
+#Salva os dados de forma permanente
+saveData
+
