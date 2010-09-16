@@ -26,8 +26,8 @@ public class Email {
 	 * @throws Exception caso o email seja vazio ou null.
 	 */
 	public void setEmail(String novoEmail) throws ArgumentInvalidException {
-		if (novoEmail == null || novoEmail != "") {
-			throw new ArgumentInvalidException("Email invalido");			
+		if (novoEmail == null || novoEmail == "") {
+			throw new ArgumentInvalidException("Email inválido");			
 		}			
 		this.email = novoEmail;
 	}

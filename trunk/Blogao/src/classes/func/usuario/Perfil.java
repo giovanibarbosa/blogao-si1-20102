@@ -19,6 +19,15 @@ public class Perfil {
 	public Texto musicasFavoritas;
 	public Texto livrosFavoritos;
 	
+	public Perfil(Logavel userLog, Email email) {
+		setLogavel(userLog);
+		setEmail(email);
+	}
+	
+	public void setLogavel(Logavel userLog) {
+		this.logavel = userLog;
+	}
+	
 	public Login getLogin() {
 		return logavel.getLogin();
 	}

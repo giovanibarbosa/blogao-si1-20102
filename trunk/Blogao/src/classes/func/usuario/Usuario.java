@@ -8,6 +8,14 @@ public class Usuario implements Logavel{
 
 	private Login login;
 	private Senha senha;
+	
+	public Usuario(){}
+	
+	public Usuario(Login log, Senha sen) {
+		setLogin(log);
+		setSenha(sen);
+	}
+	
 	@Override
 	public Login getLogin() {
 		return login;
