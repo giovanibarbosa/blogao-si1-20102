@@ -8,7 +8,6 @@ package classes;
 public class Texto {
 	private String titulo;
 	private String corpo;
-	private String textoCompleto;
 	
 	/**
 	 * Contrutor da classe, atribui os paramentos(apos serem validados)
@@ -77,8 +76,7 @@ public class Texto {
 	 * @return
 	 */
 	public String getTextoCompleto() {
-		textoCompleto = titulo + "\n" + corpo;
-		return textoCompleto;
+		return titulo + "\n" + corpo;
 	}
 	
 
