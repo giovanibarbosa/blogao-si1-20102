@@ -1,4 +1,7 @@
 package classes;
+
+import ourExceptions.ArgumentInvalidException;
+
 /**
  * Classe que implementa o objeto Texto do Blogao.
  * Classe que e responsavel pela manipulacao e edicao de um texto.
@@ -14,8 +17,9 @@ public class Texto {
 	 * aos atributos corpo e titulo da classe.
 	 * @param titulo
 	 * @param corpo
+	 * @throws ArgumentInvalidException 
 	 */
-	public Texto(String titulo, String corpo){
+	public Texto(String titulo, String corpo) throws ArgumentInvalidException{
 		if(validaCorpo(corpo))
 			this.corpo = corpo;
 		if(validaTitulo(titulo))
@@ -27,9 +31,9 @@ public class Texto {
 	 * @param titulo
 	 * @return um booleno referente a validacao ou nao da entrada.
 	 */
-	private boolean validaTitulo(String titulo) {
+	private boolean validaTitulo(String titulo) throws ArgumentInvalidException {
 		if(titulo == null)
-			return false;
+			throw new ArgumentInvalidException("Titulo do texto inválido.");
 		return true;
 	}
 	/**
@@ -37,10 +41,11 @@ public class Texto {
 	 * nao sera aceita entradas "null's" e vazias.
 	 * @param corpo
 	 * @return um booleno referente a validacao ou nao da entrada.
+	 * @throws ArgumentInvalidException 
 	 */
-	private boolean validaCorpo(String corpo) {
+	private boolean validaCorpo(String corpo) throws ArgumentInvalidException {
 		if(corpo == null || corpo.trim().equals(""))
-			return false;
+			throw new ArgumentInvalidException("Corpo do texto inválido");
 		return true;
 	}
 	/**
