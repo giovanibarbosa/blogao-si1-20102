@@ -1,4 +1,4 @@
-package classes;
+package classes.func.multimidia;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
