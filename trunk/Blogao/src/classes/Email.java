@@ -31,10 +31,5 @@ public class Email {
 		}			
 		this.email = novoEmail;
 	}
-	
-	public static void main(String[] args) throws Exception {
-		Email em = new Email(" ");
-		
-	}
 
 }
