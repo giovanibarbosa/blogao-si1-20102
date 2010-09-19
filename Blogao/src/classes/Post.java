@@ -4,7 +4,7 @@ import ourExceptions.ArgumentInvalidException;
 
 public class Post {
 	private Texto post;
-	public Post(Texto post){
+	public Post(Texto post) throws ArgumentInvalidException{
 		if(validaPost(post)){
 			this.post = post;
 		}else{
