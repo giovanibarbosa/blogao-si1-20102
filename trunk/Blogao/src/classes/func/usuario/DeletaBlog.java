@@ -8,15 +8,13 @@ import ourExceptions.ArgumentInvalidException;
 
 import classes.Blog;
 import classes.Post;
-
+//VER US10.
 public class DeletaBlog {
 	private Usuario usuario;
-	private Blog blog;
 	
-	public DeletaBlog(Usuario usuario, Blog blog){
+	public DeletaBlog(Usuario usuario){
 		//subtende-se que o usuario ja existe entao n precisa validar novamente
 		this.usuario = usuario;
-		this.blog = blog;
 	}
 	
 	/**
@@ -24,7 +22,7 @@ public class DeletaBlog {
 	 * @return boolean caso tenha sido bem sucessida a operacao.
 	 * @throws ArgumentInvalidException 
 	 */
-	public boolean deletaPosts() throws ArgumentInvalidException{
+	public boolean deletaPosts(Blog blog) throws ArgumentInvalidException{
 		if(blog != null){
 			if(!blog.listaDePosts().isEmpty()){
 				Iterator<Post> itPosts = (Iterator) blog.listaDePosts().iterator();
@@ -42,13 +40,17 @@ public class DeletaBlog {
 	
 	}
 	
-	
-	public boolean deletaBlog() throws ArgumentInvalidException{
+	/**
+	 * Metodo que exclui um dado blog de um usuario.
+	 * @return boolean caso tenha sido bem sucessida a operacao.
+	 * @throws ArgumentInvalidException 
+	 */
+	public boolean deletaBlog(Blog blog) throws ArgumentInvalidException{
 		if(usuario != null){
 			if(!usuario.listaDeBlogs().isEmpty()){
 				Iterator<Blog> itBlogs = (Iterator) usuario.listaDeBlogs().iterator();
 				while(itBlogs.hasNext()){
-					if(itBlogs.next() != null && itBlogs.next() instanceof Blog){
+					if(itBlogs.next() != null && itBlogs.next() instanceof Blog && blog.equals(itBlogs.next())){
 						itBlogs.next().deleta();
 					}else{
 						throw new ArgumentInvalidException("Blog inválido.");
