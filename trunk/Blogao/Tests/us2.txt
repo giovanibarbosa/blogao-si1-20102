@@ -1,7 +1,10 @@
 #########################################################################################################
 #User Story-- Gerenciamento de sessão
 #
-#O objetivo desse user story é implementar controle de sessão dos usuário no sistema. Caberá a sua API gerar um 'id' de sessão quando um #usuário se logar no sistema e gerenciar requisições a partir desse id. Da mesma forma, os clientes devem se utilizar desse id para efetuar #alguns tipos de requisições  (ex.: alterar informações do perfil do usuário)   
+#O objetivo desse user story é implementar controle de sessão dos usuário no sistema.
+#Caberá a sua API gerar um 'id' de sessão quando um #usuário se logar no sistema e gerenciar 
+#requisições a partir desse id. Da mesma forma, os clientes devem se utilizar desse id para efetuar 
+#alguns tipos de requisições  (ex.: alterar informações do perfil do usuário)   
 #
 #Restrições:
 #    -O usuário não pode se logar duas vezes ao mesmo tempo no sistema
