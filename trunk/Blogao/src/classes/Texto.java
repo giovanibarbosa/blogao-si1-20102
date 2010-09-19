@@ -33,7 +33,7 @@ public class Texto {
 	 */
 	private boolean validaTitulo(String titulo) throws ArgumentInvalidException {
 		if(titulo == null)
-			throw new ArgumentInvalidException("Titulo do texto inválido.");
+			throw new ArgumentInvalidException("Post inválido");
 		return true;
 	}
 	/**
