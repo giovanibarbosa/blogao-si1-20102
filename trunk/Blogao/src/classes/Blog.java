@@ -3,7 +3,7 @@ package classes;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
-
+//VER US4.
 public class Blog {
 	private String titulo;
 	private Texto descricao;
