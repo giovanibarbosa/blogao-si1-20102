@@ -22,8 +22,13 @@ public class Texto {
 	public Texto(String titulo, String corpo) throws ArgumentInvalidException{
 		if(validaCorpo(corpo))
 			this.corpo = corpo;
+		else
+			throw new ArgumentInvalidException("Corpo inválido");
+		
 		if(validaTitulo(titulo))
 			this.titulo = titulo.trim();
+		else
+			throw new ArgumentInvalidException("Titulo inválido");
 	}
 	/**
 	 * metodo responsavel pela validacao do parametro titulo,
@@ -31,9 +36,9 @@ public class Texto {
 	 * @param titulo
 	 * @return um booleno referente a validacao ou nao da entrada.
 	 */
-	private boolean validaTitulo(String titulo) throws ArgumentInvalidException {
+	private boolean validaTitulo(String titulo) {
 		if(titulo == null)
-			throw new ArgumentInvalidException("Post inválido");
+			return false;
 		return true;
 	}
 	/**
@@ -43,10 +48,11 @@ public class Texto {
 	 * @return um booleno referente a validacao ou nao da entrada.
 	 * @throws ArgumentInvalidException 
 	 */
-	private boolean validaCorpo(String corpo) throws ArgumentInvalidException {
+	private boolean validaCorpo(String corpo) {
 		if(corpo == null || corpo.trim().equals(""))
-			throw new ArgumentInvalidException("Corpo do texto inválido");
-		return true;
+			return true;
+		else
+			return true;
 	}
 	/**
 	 * Metodo que retorna o titulo do texo.

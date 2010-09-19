@@ -2,14 +2,53 @@ package classes;
 
 import java.util.List;
 
+import ourExceptions.ArgumentInvalidException;
+
 public class Blog {
+	private String titulo;
+	private Texto descricao;
+	
+	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException{
+		if(validaTitulo(titulo)){
+			this.titulo = titulo;
+			this.descricao = descricao;
+		}else{
+			throw new ArgumentInvalidException("Você deve especificar um título para o blog");
+		}
+		
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public Texto getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(Texto descricao) {
+		this.descricao = descricao;
+	}
+
+	private boolean validaTitulo(String titulo) throws ArgumentInvalidException {
+		if(titulo == null || titulo.trim().equals(""))
+			return false;
+		else
+			return true;
+	}
+
 	public List<Post> listaDePosts(){
+		//AQUI TERA O RELACIONAMENTO COM O DAO, CAPTURANDO TODOS OS POSTS PARA ESSE BLOG.
 		return null;
 		
 	}
 
 	public void deleta() {
-		// TODO Auto-generated method stub
+		//ESSE METODO IRA SE RELACIONAR COM O DAO.
 		
 	}
 
@@ -19,13 +58,8 @@ public class Blog {
 	           return false;
 	    }
 	    Blog outra = (Blog) objeto;
-	    //DEVE-SE TER MAIS COMPARADORES.
-	    return getNome() == outra.getNome();
+	    return getTitulo() == outra.getTitulo() && getDescricao() == outra.getDescricao();
 	
 	    }
 
-	private String getNome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	}
