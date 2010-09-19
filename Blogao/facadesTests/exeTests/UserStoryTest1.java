@@ -4,7 +4,7 @@ package exeTests;
 import java.util.ArrayList;
 import java.util.List;
 
-import classes.func.usuario.FacadePerfil;
+import classes.func.usuario.FacadeUserStore1;
 
 import easyaccept.EasyAcceptFacade;
 
@@ -13,7 +13,7 @@ import easyaccept.EasyAcceptFacade;
  * @author Tiago Leite - tiagohsl@lsd.ufcg.edu.br
  *
  */
-public class PerfilUserStoryTest1 {
+public class UserStoryTest1 {
 	
 	public static void main(String[] args) {
 		List<String> files = new ArrayList<String>();
@@ -21,7 +21,7 @@ public class PerfilUserStoryTest1 {
         //Put the us1.txt file into the "test scripts" list
         files.add("Tests/us1.txt");
         
-        FacadePerfil perfFac = new FacadePerfil();
+        FacadeUserStore1 perfFac = new FacadeUserStore1();
         
         EasyAcceptFacade eaFacade = new EasyAcceptFacade(perfFac, files);
         
