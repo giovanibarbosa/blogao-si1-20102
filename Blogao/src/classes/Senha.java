@@ -24,7 +24,7 @@ public class Senha {
 	}
 	
 	private boolean validaSenha(String senha) {
-		if (senha != null && !senha.equals(""))
+		if (senha != null && !senha.trim().isEmpty())
             return true;
         return false;
 	}

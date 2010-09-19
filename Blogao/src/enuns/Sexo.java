@@ -17,5 +17,26 @@ public enum Sexo {
 	public String getSexo() {
 		return tipo;
 	}
+	
+	public static boolean verificaSexo(String sex) {
+		if (sex == null || sex.trim().isEmpty()
+				|| (!sex.equalsIgnoreCase("Masculino") &&
+					!sex.equalsIgnoreCase("Feminino") &&
+					!sex.equalsIgnoreCase("Não informado"))) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static Sexo setadorSexo(String sex) {
+		if (sex.equalsIgnoreCase(Sexo.Fem.getSexo())) {
+			return Sexo.Fem;
+		}
+		else if (sex.equalsIgnoreCase(Sexo.Mas.getSexo())) {
+			return Sexo.Mas;
+		}
+		return Sexo.Nao_Inf;		
+	}
+
 
 }

@@ -3,6 +3,7 @@ package classes.func.usuario;
 import classes.Email;
 import classes.Login;
 import classes.Senha;
+import enuns.Sexo;
 import interfaces.Logavel;
 
 
@@ -35,8 +36,12 @@ public class FacadePerfil {
 		Senha sen = new Senha(senha);
 		Email mail = new Email(email);
 		
+		//Sexo sex = new Sexo(sexo);
+		
 		user1 = new Usuario(log, sen);
-		perfil1 = new Perfil(user1, mail);		
+		perfil1 = new Perfil(user1, mail);	
+		perfil1.setSexo(sexo);
+		perfil1.setDataDeNascimento(dataNasc);
 	}
 	
 	
