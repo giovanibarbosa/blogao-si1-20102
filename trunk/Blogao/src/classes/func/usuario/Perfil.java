@@ -12,17 +12,17 @@ import enuns.Sexo;
 
 public class Perfil {
 
-	public Logavel logavel;
-	public Email email;
-	public String nomeDeExibicao;
-	public String endereco;
-	public Texto interesses;
-	public Data dataDeNascimento;
-	public Sexo sexo;
-	public Texto quemSouEu;
-	public Texto filmesFavoritos;
-	public Texto musicasFavoritas;
-	public Texto livrosFavoritos;
+	private Logavel logavel;
+	private Email email;
+	private String nomeDeExibicao;
+	private String endereco;
+	private Texto interesses;
+	private Data dataDeNascimento;
+	private Sexo sexo;
+	private Texto quemSouEu;
+	private Texto filmesFavoritos;
+	private Texto musicasFavoritas;
+	private Texto livrosFavoritos;
 	
 	public Perfil(Logavel userLog, Email email) {
 		setLogavel(userLog);
@@ -77,7 +77,7 @@ public class Perfil {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);			
 		}catch (Exception e) {
-			throw new ArgumentInvalidException("Data inválida");
+			throw new ArgumentInvalidException("Data invï¿½lida");
 		}
 		
 	}
@@ -108,7 +108,7 @@ public class Perfil {
 	
 	public void setSexo(String sex) throws ArgumentInvalidException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException("Sexo inválido");
+			throw new ArgumentInvalidException("Sexo invï¿½lido");
 		}
 		this.sexo = Sexo.setadorSexo(sex);		
 	}
