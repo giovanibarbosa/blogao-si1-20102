@@ -31,6 +31,17 @@ public class Texto {
 			throw new ArgumentInvalidException("Titulo inválido");
 	}
 	/**
+	 * Contrutor apenas para um texto com corpo.
+	 * @param corpo
+	 * @throws ArgumentInvalidException
+	 */
+	public Texto(String corpo) throws ArgumentInvalidException{
+		if(validaCorpo(corpo))
+			this.corpo = corpo;
+		else
+			throw new ArgumentInvalidException("Corpo inválido");
+	}
+	/**
 	 * metodo responsavel pela validacao do parametro titulo,
 	 * nao sera aceita entradas "null's"
 	 * @param titulo
