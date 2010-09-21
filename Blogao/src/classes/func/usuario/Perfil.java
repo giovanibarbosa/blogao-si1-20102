@@ -24,6 +24,8 @@ public class Perfil {
 	private Texto musicasFavoritas;
 	private Texto livrosFavoritos;
 	
+	
+	
 	public Perfil(Logavel userLog, Email email) {
 		setLogavel(userLog);
 		setEmail(email);
@@ -77,7 +79,7 @@ public class Perfil {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);			
 		}catch (Exception e) {
-			throw new ArgumentInvalidException("Data invï¿½lida");
+			throw new ArgumentInvalidException("Data inválida");
 		}
 		
 	}
@@ -108,7 +110,7 @@ public class Perfil {
 	
 	public void setSexo(String sex) throws ArgumentInvalidException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException("Sexo invï¿½lido");
+			throw new ArgumentInvalidException("Sexo inválido");
 		}
 		this.sexo = Sexo.setadorSexo(sex);		
 	}
