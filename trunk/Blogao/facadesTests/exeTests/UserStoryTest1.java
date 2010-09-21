@@ -20,6 +20,9 @@ public class UserStoryTest1 {
 		
         //Put the us1.txt file into the "test scripts" list
         files.add("Tests/us1.txt");
+        files.add("Tests/us2.txt");
+        files.add("Tests/us3.txt");
+        files.add("Tests/us4.txt");
         
         FacadeUserStore1 perfFac = new FacadeUserStore1();
         
