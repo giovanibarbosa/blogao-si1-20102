@@ -9,7 +9,7 @@ import classes.Senha;
 import classes.Texto;
 
 /**
- * Facade de Blog. Essa classe chama os metodos necessários para o teste.
+ * Facade de Blog. Essa classe chama os metodos necessï¿½rios para o teste.
  * @author Tiago
  */
 public class FacadeUserStore4 {
@@ -32,7 +32,7 @@ public class FacadeUserStore4 {
 		
 		
 		user1 = new Usuario(log, sen);
-		perfil1 = new Perfil(user1, mail);	
+		perfil1 = new Perfil();	
 		perfil1.setSexo(sexo);
 		perfil1.setDataDeNascimento(dataNasc);
 	}
