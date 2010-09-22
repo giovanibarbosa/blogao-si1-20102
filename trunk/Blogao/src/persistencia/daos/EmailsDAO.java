@@ -12,7 +12,6 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import ourExceptions.PersistenceException;
-import classes.Blog;
 import classes.Email;
 
 /**
