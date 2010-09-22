@@ -11,7 +11,8 @@ import java.util.List;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import classes.Blog;
 import classes.Email;
 
 /**
@@ -48,11 +49,10 @@ public class EmailsDAO {
 
 	// FIXME
 	// acho que n vamos precisar atualizar os emails
-	public void atualizar(Email email) throws ArgumentInvalidException,
-			IOException {
+	public void atualizar(Email email) throws PersistenceException, IOException {
 		if (email == null
 				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
-			throw new ArgumentInvalidException("O email nao é válido");
+			throw new PersistenceException("O email nao é válido");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
 	}
@@ -62,23 +62,23 @@ public class EmailsDAO {
 	 * 
 	 * @param email
 	 *            O {@link Email} a ser criado
-	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
 	 *             Caso o email passado como parametro seja null ou ja exista
 	 *             como dado persistente
 	 * @throws IOException
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
-	public void criar(Email email) throws ArgumentInvalidException, IOException {
+	public void criar(Email email) throws PersistenceException, IOException {
 		if (email == null
 				|| new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists())
-			throw new ArgumentInvalidException("O email nao é válido");
+			throw new PersistenceException("O email nao é válido");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
 	}
 
 	// FIXME
 	public void atualizar(Email email, Email novoEmail)
-			throws ArgumentInvalidException {
+			throws PersistenceException {
 	}
 
 	/**
@@ -86,14 +86,14 @@ public class EmailsDAO {
 	 * 
 	 * @param email
 	 *            O {@link Email} a ser apagado
-	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
 	 *             Caso o email passado como parametro seja null ou não exista
 	 *             como dado persistente
 	 */
-	public void deletar(Email email) throws ArgumentInvalidException {
+	public void deletar(Email email) throws PersistenceException {
 		if (email == null
 				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
-			throw new ArgumentInvalidException("O email nao é válido");
+			throw new PersistenceException("O email nao é válido");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -116,6 +116,16 @@ public class EmailsDAO {
 			}
 		}
 		return emails;
+	}
+
+	/**
+	 * Limpa todos os arquivos contendo os emails {@link Email}
+	 */
+	public void limparEmails() {
+		for (File arquivo : arrayDosArquivos()) {
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+				arquivo.delete();
+		}
 	}
 
 	/**
