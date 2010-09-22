@@ -7,6 +7,7 @@ import ourExceptions.ArgumentInvalidException;
 public class Blog {
 	private String titulo;
 	private Texto descricao;
+	private List<Blog> listaSubBlogs;
 	
 	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException{
 		if(validaTitulo(titulo)){
@@ -50,6 +51,21 @@ public class Blog {
 	public void deleta() {
 		//ESSE METODO IRA SE RELACIONAR COM O DAO.
 		
+	}
+	
+
+	/**
+	 * @return the listaSubBlogs
+	 */
+	public List<Blog> getListaSubBlogs() {
+		return listaSubBlogs;
+	}
+
+	/**
+	 * @param listaSubBlogs the listaSubBlogs to set
+	 */
+	public void setListaSubBlogs(List<Blog> listaSubBlogs) {
+		this.listaSubBlogs = listaSubBlogs;
 	}
 
 	@Override
