@@ -9,12 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
 import classes.Blog;
-import classes.Email;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+/**
+ * Classe DAO que cria, deleta, atualiza e recupera blogs ({@link Blog})
+ * 
+ * 
+ */
 public class BlogsDAO {
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
@@ -50,9 +55,9 @@ public class BlogsDAO {
 	 * @throws IOException
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
-	public void criar(Blog blog) throws ArgumentInvalidException, IOException {
+	public void criar(Blog blog) throws PersistenceException, IOException {
 		if (blog == null)
-			throw new ArgumentInvalidException("O blog nao pode ser criado");
+			throw new PersistenceException("O blog nao pode ser criado");
 		blog.setId(geraId());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		xstream.toXML(blog, new FileOutputStream(file));
@@ -67,10 +72,10 @@ public class BlogsDAO {
 	 *             Caso o blog passado como parametro seja null ou nÃ£o exista
 	 *             como dado persistente
 	 */
-	public void deletar(Blog blog) throws ArgumentInvalidException {
+	public void deletar(Blog blog) throws PersistenceException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new ArgumentInvalidException("O blog não pode ser removido");
+			throw new PersistenceException("O blog nï¿½o pode ser removido");
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -111,13 +116,23 @@ public class BlogsDAO {
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
 	public void atualizar(Blog blog, Blog blogAtualizado)
-			throws ArgumentInvalidException, IOException {
+			throws PersistenceException, IOException {
 		if (blog == null || blogAtualizado == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new ArgumentInvalidException("O blog não pode ser atualizado");
+			throw new PersistenceException("O blog nï¿½o pode ser atualizado");
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.renameTo(new File(CAMINHO + blogAtualizado + TIPO_DE_ARQUIVO));
 		xstream.toXML(blogAtualizado, new FileOutputStream(file));
+	}
+
+	/**
+	 * Limpa todos os arquivos contendo os blogs {@link Blog}
+	 */
+	public void limparBlogs() {
+		for (File arquivo : arrayDosArquivos()) {
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+				arquivo.delete();
+		}
 	}
 
 	/**
