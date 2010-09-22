@@ -6,6 +6,7 @@ import ourExceptions.ArgumentInvalidException;
 //VER US4.
 public class Blog {
 	private String titulo;
+	private int id;
 	private Texto descricao;
 	private List<Blog> listaSubBlogs;
 	
@@ -14,7 +15,7 @@ public class Blog {
 			this.titulo = titulo;
 			this.descricao = descricao;
 		}else{
-			throw new ArgumentInvalidException("Você deve especificar um título para o blog");
+			throw new ArgumentInvalidException("Vocï¿½ deve especificar um tï¿½tulo para o blog");
 		}
 		
 	}
@@ -53,6 +54,13 @@ public class Blog {
 		
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the listaSubBlogs
