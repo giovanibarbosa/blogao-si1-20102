@@ -109,8 +109,11 @@ public class EmailsDAO {
 	public List<Email> recuperaEmails() throws FileNotFoundException {
 		List<Email> emails = new ArrayList<Email>();
 		for (File arquivo : arrayDosArquivos()) {
-			Email email = (Email) xstream.fromXML(new FileInputStream(arquivo));
-			emails.add(email);
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
+				Email email = (Email) xstream.fromXML(new FileInputStream(
+						arquivo));
+				emails.add(email);
+			}
 		}
 		return emails;
 	}

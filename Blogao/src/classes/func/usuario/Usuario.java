@@ -66,6 +66,8 @@ public class Usuario implements Logavel{
 		return null;
 	}
 	
-	
+	public String toString(){
+		return login.toString();
+	}
 
 }
