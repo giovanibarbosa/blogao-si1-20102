@@ -26,10 +26,9 @@ public class Perfil {
 	
 	
 	
-	public Perfil(Logavel userLog, Email email) {
-		setLogavel(userLog);
-		setEmail(email);
-	}
+//	public Perfil(Logavel userLog, Email email) {
+//		setEmail(email);
+//	}
 	
 	public void setLogavel(Logavel userLog) {
 		this.logavel = userLog;

@@ -11,12 +11,15 @@ public class Usuario implements Logavel{
 
 	private Login login;
 	private Senha senha;
+	private Perfil perfil;
+	
 	
 	public Usuario(){}
 	
-	public Usuario(Login log, Senha sen) {
+	public Usuario(Login log, Senha sen, Perfil perfil) {
 		setLogin(log);
 		setSenha(sen);
+		setPerfil(perfil);
 	}
 	
 	@Override
@@ -39,6 +42,20 @@ public class Usuario implements Logavel{
 		this.senha = senha;
 	}
 	
+	/**
+	 * @return the perfil
+	 */
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	/**
+	 * @param perfil the perfil to set
+	 */
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+
 	//CLASSE A SER IMPLEMENTADA, QUE SE RELACIONA COM O BD.
 	public List<Blog> listaDeBlogs(){
 		return null;

@@ -43,8 +43,10 @@ public class FacadeUserStore1 {
 		Email mail = new Email(email);
 		
 		
-		user1 = new Usuario(log, sen);
-		perfil1 = new Perfil(user1, mail);	
+		perfil1 = new Perfil();	
+		perfil1.setEmail(mail);
+		user1 = new Usuario(log, sen, perfil1);
+		
 		perfil1.setSexo(sexo);
 		perfil1.setDataDeNascimento(dataNasc);
 	}
