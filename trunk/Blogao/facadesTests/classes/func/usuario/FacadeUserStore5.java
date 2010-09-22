@@ -32,7 +32,7 @@ public class FacadeUserStore5 {
 		
 		
 		user1 = new Usuario(log, sen);
-		perfil1 = new Perfil(user1, mail);	
+		perfil1 = new Perfil();	
 		perfil1.setSexo(sexo);
 		perfil1.setDataDeNascimento(dataNasc);
 	}
