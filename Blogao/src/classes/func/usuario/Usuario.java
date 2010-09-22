@@ -11,7 +11,7 @@ public class Usuario implements Logavel{
 
 	private Login login;
 	private Senha senha;
-	private Perfil perfil;
+//	private Perfil perfil;
 	
 	
 	public Usuario(){}
@@ -19,7 +19,7 @@ public class Usuario implements Logavel{
 	public Usuario(Login log, Senha sen, Perfil perfil) {
 		setLogin(log);
 		setSenha(sen);
-		setPerfil(perfil);
+		//setPerfil(perfil);
 	}
 	
 	public Usuario(Login log, Senha sen) {
@@ -50,16 +50,16 @@ public class Usuario implements Logavel{
 	/**
 	 * @return the perfil
 	 */
-	public Perfil getPerfil() {
+/*	public Perfil getPerfil() {
 		return perfil;
-	}
+	}*/
 
 	/**
 	 * @param perfil the perfil to set
 	 */
-	public void setPerfil(Perfil perfil) {
+/*	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
-	}
+	}*/
 
 	//CLASSE A SER IMPLEMENTADA, QUE SE RELACIONA COM O BD.
 	public List<Blog> listaDeBlogs(){

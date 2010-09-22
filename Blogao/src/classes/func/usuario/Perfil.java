@@ -10,8 +10,7 @@ import classes.Texto;
 import classes.func.Data;
 import enuns.Sexo;
 
-public class Perfil {
-
+public class Perfil {	
 	private Logavel logavel;
 	private Email email;
 	private String nomeDeExibicao;
@@ -29,6 +28,8 @@ public class Perfil {
 //	public Perfil(Logavel userLog, Email email) {
 //		setEmail(email);
 //	}
+	
+	//LOGAVEL REPRESENTA O USUARIO.
 	
 	public void setLogavel(Logavel userLog) {
 		this.logavel = userLog;
