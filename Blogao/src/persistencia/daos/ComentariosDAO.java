@@ -10,7 +10,6 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import classes.Blog;
 import classes.Comentario;
 
 import com.thoughtworks.xstream.XStream;
@@ -123,11 +122,11 @@ public class ComentariosDAO {
 	/**
 	 * Recupera um {@link Comentario} de um arquivo xml
 	 * 
-	 * @param blog
+	 * @param comentario
 	 *            O {@link Comentario} a ser recuperado do arquivo xml
 	 * @return O {@link Comentario} recuperado de um arquivo xml
 	 * @throws PersistenceException
-	 *             Caso o blog passado como parametro seja null ou não exista
+	 *             Caso o usuario passado como parametro seja null ou não exista
 	 *             como dado persistente
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
@@ -144,7 +143,7 @@ public class ComentariosDAO {
 	/**
 	 * Limpa todos os arquivos contendo os comentarios {@link Comentario}
 	 */
-	public void limparBlogs() {
+	public void limparUsuarios() {
 		for (File arquivo : arrayDosArquivos()) {
 			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
 				arquivo.delete();
@@ -152,9 +151,9 @@ public class ComentariosDAO {
 	}
 	
 	/**
-	 * Recupera um array dos arquivos contidos no path dos blogs
+	 * Recupera um array dos arquivos contidos no path dos comentarios
 	 * 
-	 * @return O array dos arquivos contidos no path dos blogs
+	 * @return O array dos arquivos contidos no path dos comentarios
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);

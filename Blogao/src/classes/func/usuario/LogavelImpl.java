@@ -43,5 +43,10 @@ public class LogavelImpl implements Logavel {
 		}
 
 	}
+	
+	public String toString(){
+		return login.toString();
+		
+	}
 
 }
