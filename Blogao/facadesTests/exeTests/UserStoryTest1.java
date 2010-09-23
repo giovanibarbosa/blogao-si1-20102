@@ -23,7 +23,7 @@ public class UserStoryTest1 {
 //        files.add("Tests/us2.txt");
 //        files.add("Tests/us3.txt");
 //        files.add("Tests/us4.txt");
-        files.add("Tests/us5.txt");
+       // files.add("Tests/us5.txt");
         
         FacadeUserStore1 perfFac = new FacadeUserStore1();
         

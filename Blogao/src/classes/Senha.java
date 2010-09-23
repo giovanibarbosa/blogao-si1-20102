@@ -20,7 +20,7 @@ public class Senha {
 	
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
 		if (!validaSenha(novaSenha)) {
-			throw new ArgumentInvalidException("Senha invalida");
+			throw new ArgumentInvalidException("Senha inválida");
 		}
 		this.senha = novaSenha;
 	}

@@ -36,7 +36,7 @@ public class Email {
 	 */
 	public void setEmail(String novoEmail) throws ArgumentInvalidException {
 		if (novoEmail == null || novoEmail.trim().isEmpty()) {
-			throw new ArgumentInvalidException("Email invï¿½lido");
+			throw new ArgumentInvalidException("Email inválido");
 		}
 		this.email = novoEmail;
 	}

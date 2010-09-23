@@ -39,7 +39,7 @@ public class Login {
 	
 	public void setLogin(String login) throws ArgumentInvalidException {
 		if (!validaLogin(login)) {
-			throw new ArgumentInvalidException("Login invalido");
+			throw new ArgumentInvalidException("Login inválido");
 		}
 		this.login = login;
 		
@@ -60,9 +60,10 @@ public class Login {
 		return retorno;
 	}
 	
-//	public static void main(String[] args) throws Exception {
-//		Login log = new Login("tiago");
-//	}
+	public boolean verificaExistenciaLogin(String login) {
+		return true;
+	}
+	
 	
 
 }
