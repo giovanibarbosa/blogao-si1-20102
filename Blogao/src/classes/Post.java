@@ -1,11 +1,14 @@
 package classes;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import ourExceptions.ArgumentInvalidException;
 
 public class Post {
 	private Texto post;
+	private ArrayList<Comentario> comentarios;
+
 	public Post(Texto post) throws ArgumentInvalidException{
 		if(validaPost(post)){
 			this.post = post;
@@ -42,6 +45,29 @@ public class Post {
 			e.printStackTrace();
 		}
 		return retorno;
+	}
+	
+	
+	public ArrayList<Comentario> getComentarios() {
+		return comentarios;
+	}
+	
+	public boolean addComentario(Comentario comentario) {
+		if(comentarios.contains(comentario)){
+			return false;
+		}else{
+			comentarios.add(comentario);
+			return true;
+		}
+	}
+	
+	public boolean removeComentario(Comentario comentario){
+		if(comentarios.contains(comentario)){
+			comentarios.remove(comentario);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }
