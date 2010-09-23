@@ -1,25 +1,45 @@
 package classes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import persistencia.daos.BlogsDAO;
 //VER US4.
 public class Blog {
 	private String titulo;
 	private int id;
 	private Texto descricao;
 	private List<Blog> listaSubBlogs;
+	private BlogsDAO blogDao;
 	
 	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException{
 		if(validaTitulo(titulo)){
 			this.titulo = titulo;
 			this.descricao = descricao;
+			blogDao.getInstance();
 		}else{
-			throw new ArgumentInvalidException("Vocï¿½ deve especificar um tï¿½tulo para o blog");
+			throw new ArgumentInvalidException(codificaString("Você deve especificar um título para o blog"));
 		}
 		
 	}
 	
+	/**
+	 * Metodo que codifica a String para o padrao ISO.
+	 * @param string
+	 * @return
+	 */
+	private String codificaString(String string) {
+		String retorno = "";
+		try {
+			retorno = new String(string.getBytes(), "ISO-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -44,13 +64,21 @@ public class Blog {
 	}
 
 	public List<Post> listaDePosts(){
-		//AQUI TERA O RELACIONAMENTO COM O DAO, CAPTURANDO TODOS OS POSTS PARA ESSE BLOG.
-		return null;
+		return null ;
 		
 	}
-
+	
+	/**
+	 * Metodo responsavel pela exclusao do blog;
+	 * @throws PersistenceException
+	 */
 	public void deleta() {
-		//ESSE METODO IRA SE RELACIONAR COM O DAO.
+		try {
+			blogDao.deletar(this);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -77,6 +105,9 @@ public class Blog {
 	}
 
 	@Override
+	/**
+	 * Metodo que verifica a igualdade entre objetos.
+	 */
 	public boolean equals(Object objeto) {
 	    if (!(objeto instanceof Blog)) {
 	           return false;

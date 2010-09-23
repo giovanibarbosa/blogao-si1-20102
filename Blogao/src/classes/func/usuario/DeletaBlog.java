@@ -51,7 +51,8 @@ public class DeletaBlog {
 				Iterator<Blog> itBlogs = (Iterator) usuario.listaDeBlogs().iterator();
 				while(itBlogs.hasNext()){
 					if(itBlogs.next() != null && itBlogs.next() instanceof Blog && blog.equals(itBlogs.next())){
-						itBlogs.next().deleta();
+						Blog b = itBlogs.next();
+						b.deleta();
 					}else{
 						throw new ArgumentInvalidException("Blog inválido.");
 					}	

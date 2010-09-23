@@ -1,5 +1,7 @@
 package classes;
 
+import java.io.UnsupportedEncodingException;
+
 import ourExceptions.ArgumentInvalidException;
 
 public class Post {
@@ -25,6 +27,21 @@ public class Post {
 	public boolean deleta(){
 		return false;
 		
+	}
+	
+	/**
+	 * Metodo que codifica a String para o padrao ISO.
+	 * @param string
+	 * @return
+	 */
+	private String codificaString(String string) {
+		String retorno = "";
+		try {
+			retorno = new String(string.getBytes(), "ISO-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return retorno;
 	}
 	
 }
