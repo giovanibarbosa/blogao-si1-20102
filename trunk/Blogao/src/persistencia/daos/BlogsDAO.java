@@ -29,7 +29,7 @@ public class BlogsDAO {
 	private static BlogsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	public BlogsDAO() {
+	private BlogsDAO() {
 
 	}
 
@@ -98,6 +98,27 @@ public class BlogsDAO {
 			}
 		}
 		return blogs;
+	}
+
+	/**
+	 * Recupera um {@link Blog} de um arquivo xml
+	 * 
+	 * @param blog
+	 *            O {@link Blog} a ser recuperado do arquivo xml
+	 * @return O {@link Blog} recuperado de um arquivo xml
+	 * @throws PersistenceException
+	 *             Caso o blog passado como parametro seja null ou não exista
+	 *             como dado persistente
+	 * @throws FileNotFoundException
+	 *             Caso haja algum problema com arquivos ({@link File})
+	 */
+	public Blog recupera(Blog blog) throws PersistenceException,
+			FileNotFoundException {
+		if (blog == null
+				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
+			throw new PersistenceException("Blog inexistente");
+		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
+		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
 
 	/**

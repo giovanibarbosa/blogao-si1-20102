@@ -30,7 +30,7 @@ public class EmailsDAO {
 	private static EmailsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	public EmailsDAO() {
+	private EmailsDAO() {
 
 	}
 
@@ -70,7 +70,7 @@ public class EmailsDAO {
 	public void criar(Email email) throws PersistenceException, IOException {
 		if (email == null
 				|| new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException("Email existente");
+			throw new PersistenceException("O email nao é válido");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
 	}
@@ -115,6 +115,27 @@ public class EmailsDAO {
 			}
 		}
 		return emails;
+	}
+
+	/**
+	 * Recupera um {@link Email} de um arquivo xml
+	 * 
+	 * @param email
+	 *            O {@link Email} a ser recuperado do arquivo xml
+	 * @return O {@link Email} recuperado de um arquivo xml
+	 * @throws PersistenceException
+	 *             Caso o email passado como parametro seja null ou não exista
+	 *             como dado persistente
+	 * @throws FileNotFoundException
+	 *             Caso haja algum problema com arquivos ({@link File})
+	 */
+	public Email recupera(Email email) throws PersistenceException,
+			FileNotFoundException {
+		if (email == null
+				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
+			throw new PersistenceException("Email inexistente");
+		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
+		return (Email) xstream.fromXML(new FileInputStream(file));
 	}
 
 	/**
