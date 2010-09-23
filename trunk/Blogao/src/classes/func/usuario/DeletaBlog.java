@@ -5,6 +5,7 @@ package classes.func.usuario;
 import java.util.Iterator;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
 
 import classes.Blog;
 import classes.Post;
@@ -28,7 +29,12 @@ public class DeletaBlog {
 				Iterator<Post> itPosts = (Iterator) blog.listaDePosts().iterator();
 				while(itPosts.hasNext()){
 					if(itPosts.next() != null && itPosts.next() instanceof Post){
-						itPosts.next().deleta();
+						try {
+							itPosts.next().deleta();
+						} catch (PersistenceException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}else{
 						throw new ArgumentInvalidException("Post inválido.");
 					}	

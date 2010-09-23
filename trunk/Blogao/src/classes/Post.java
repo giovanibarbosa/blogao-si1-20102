@@ -1,17 +1,20 @@
 package classes;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import persistencia.daos.ComentariosDAO;
 import persistencia.daos.PostsDAO;
 
 public class Post {
 	private Texto post;
-	private ArrayList<Comentario> comentarios;
 	private PostsDAO postDao;
+	private ComentariosDAO comentDao;
 
 	public Post(Texto post) throws ArgumentInvalidException{
 		if(validaPost(post)){
@@ -29,10 +32,10 @@ public class Post {
 	/**destructor do post.
 	 * 
 	 * @return
+	 * @throws PersistenceException 
 	 */
-	//ESSE METODO DEVE INTERAGIR COM O BD.
-	public boolean deleta(){
-		return false;
+	public void deleta() throws PersistenceException{
+		postDao.deletar(this);
 		
 	}
 	
@@ -51,29 +54,67 @@ public class Post {
 		return retorno;
 	}
 	
-	
-	public ArrayList<Comentario> getComentarios() {
-		return comentarios;
+	/**
+	 * retorna a lista de comentarios do post.
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	public List<Comentario> getComentarios(){
+		List<Comentario>listaDeComentarios = new ArrayList<Comentario>();
+		try {
+			listaDeComentarios = comentDao.recuperaComentarios();
+		} catch (Exception e) {
+			System.out.println("Erro ao acessar a lista de comentarios.");
+		}
+		return listaDeComentarios;
 	}
-	
-	public boolean addComentario(Comentario comentario) {
-		if(comentarios.contains(comentario)){
+	/**
+	 * Adiciona um comentario ao um post.
+	 * @param comentario
+	 * @return
+	 * @throws FileNotFoundException 
+	 */
+	public boolean addComentario(Comentario comentario){
+		if(getComentarios().contains(comentario)){
 			return false;
 		}else{
-			comentarios.add(comentario);
+			try {
+				comentDao.criar(comentario);
+			} catch (PersistenceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return true;
 		}
 	}
 	
+	/**
+	 * remove um comentario do post.
+	 * @param comentario
+	 * @return
+	 */
 	public boolean removeComentario(Comentario comentario){
-		if(comentarios.contains(comentario)){
-			comentarios.remove(comentario);
+		if(getComentarios().contains(comentario)){
+			try {
+				comentDao.deletar(comentario);
+			} catch (PersistenceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
+	/**
+	 * Salva as alteracoes do post.
+	 * @throws PersistenceException
+	 * @throws IOException
+	 */
 	public void saveData() throws PersistenceException, IOException{
 		postDao.getInstance();
 		postDao.atualizar(this , this);
