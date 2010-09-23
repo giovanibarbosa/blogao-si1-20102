@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.Email;
+import classes.func.usuario.Usuario;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -69,13 +70,13 @@ public class LogaveisDAO {
 	 * @throws IOException
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
-	public void criar(Logavel logavel) throws PersistenceException,
+	public void criar(Usuario user1) throws PersistenceException,
 			IOException {
-		if (logavel == null
-				|| new File(CAMINHO + logavel + TIPO_DE_ARQUIVO).exists())
+		if (user1 == null
+				|| new File(CAMINHO + user1 + TIPO_DE_ARQUIVO).exists())
 			throw new PersistenceException("Login existente");
-		File file = new File(CAMINHO + logavel + TIPO_DE_ARQUIVO);
-		xstream.toXML(logavel, new FileOutputStream(file));
+		File file = new File(CAMINHO + user1 + TIPO_DE_ARQUIVO);
+		xstream.toXML(user1, new FileOutputStream(file));
 	}
 
 	/**

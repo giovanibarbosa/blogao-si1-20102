@@ -7,59 +7,49 @@ import classes.Blog;
 import classes.Login;
 import classes.Senha;
 
-public class Usuario implements Logavel{
+public class Usuario {
 
-	private Login login;
-	private Senha senha;
-//	private Perfil perfil;
-	
-	
-	public Usuario(){}
-	
-	public Usuario(Login log, Senha sen, Perfil perfil) {
-		setLogin(log);
-		setSenha(sen);
-		//setPerfil(perfil);
-	}
+	private Logavel logavel;
+	private Perfil perfil;
 	
 	public Usuario(Login log, Senha sen) {
-		setLogin(log);
-		setSenha(sen);
-	}
-
-	@Override
-	public Login getLogin() {
-		return login;
-	}
-
-	@Override
-	public Senha getSenha() {
-		return senha;
-	}
-
-	@Override
-	public void setLogin(Login login) {
-		this.login = login;
-	}
-
-	@Override
-	public void setSenha(Senha senha) {
-		this.senha = senha;
+		// colocar a instancia de uma implementacao do logavel
+		//logavel = new LogavelImpl(log, sen); 
 	}
 	
+	public Usuario(Login log, Senha sen, Perfil per) {
+		
+	}
+
+	public Login getLogin() {
+		return logavel.getLogin();
+	}
+	
+	public void setLogin(Login log) {
+		logavel.setLogin(log);
+	}
+	
+	public Senha getSenha() {
+		return logavel.getSenha();
+	}
+	
+	public void setSenha(Senha sen) {
+		logavel.setSenha(sen);
+	}
 	/**
 	 * @return the perfil
 	 */
-/*	public Perfil getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
-	}*/
+	}
 
 	/**
 	 * @param perfil the perfil to set
 	 */
-/*	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
-	}*/
+	public void setPerfil(Perfil perfil) {
+		if (perfil != null )
+			this.perfil = perfil;
+	}
 
 	//CLASSE A SER IMPLEMENTADA, QUE SE RELACIONA COM O BD.
 	public List<Blog> listaDeBlogs(){
@@ -67,7 +57,7 @@ public class Usuario implements Logavel{
 	}
 	
 	public String toString(){
-		return login.toString();
+		return logavel.toString();
 	}
 
 }

@@ -20,9 +20,13 @@ public class Senha {
 	
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
 		if (!validaSenha(novaSenha)) {
-			throw new ArgumentInvalidException("Senha inválida");
+			throw new ArgumentInvalidException("Senha invalida");
 		}
 		this.senha = novaSenha;
+	}
+	
+	public String getSenha() {
+		return senha;
 	}
 	
 	private boolean validaSenha(String senha) {

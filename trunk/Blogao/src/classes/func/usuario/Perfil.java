@@ -11,7 +11,7 @@ import classes.func.Data;
 import enuns.Sexo;
 
 public class Perfil {	
-	private Logavel logavel;
+	
 	private Email email;
 	private String nomeDeExibicao;
 	private String endereco;
@@ -29,24 +29,6 @@ public class Perfil {
 //		setEmail(email);
 //	}
 	
-	//LOGAVEL REPRESENTA O USUARIO.
-	
-	public void setLogavel(Logavel userLog) {
-		this.logavel = userLog;
-	}
-	
-	public Login getLogin() {
-		return logavel.getLogin();
-	}
-	public void setLogin(Login login) {
-		logavel.setLogin(login);
-	}
-	public Senha getSenha() {
-		return logavel.getSenha();
-	}
-	public void setSenha(Senha senha) {
-		logavel.setSenha(senha);
-	}
 	public Email getEmail() {
 		return email;
 	}
@@ -79,7 +61,7 @@ public class Perfil {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);			
 		}catch (Exception e) {
-			throw new ArgumentInvalidException("Data inválida");
+			throw new ArgumentInvalidException("Data invï¿½lida");
 		}
 		
 	}
@@ -110,7 +92,7 @@ public class Perfil {
 	
 	public void setSexo(String sex) throws ArgumentInvalidException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException("Sexo inválido");
+			throw new ArgumentInvalidException("Sexo invï¿½lido");
 		}
 		this.sexo = Sexo.setadorSexo(sex);		
 	}

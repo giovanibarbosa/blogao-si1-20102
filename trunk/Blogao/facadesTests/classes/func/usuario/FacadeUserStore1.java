@@ -18,7 +18,7 @@ import persistencia.daos.*;
 public class FacadeUserStore1 {
 
 	private Perfil perfil1;
-	private Logavel user1;
+	private Usuario user1;
 
 	private LogaveisDAO logDAO = LogaveisDAO.getInstance();
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
