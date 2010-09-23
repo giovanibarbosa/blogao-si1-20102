@@ -4,6 +4,7 @@ import classes.Email;
 import classes.Login;
 import classes.Senha;
 import interfaces.Logavel;
+import persistencia.daos.*;
 
 
 /**
@@ -15,6 +16,7 @@ public class FacadeUserStore1 {
 	
 	private Perfil perfil1;
 	private Logavel user1;
+	private LogaveisDAO logDAO = new LogaveisDAO();
 	
 	
 	//TODO APAGAR OS DADOS SALVOS
@@ -47,8 +49,10 @@ public class FacadeUserStore1 {
 		perfil1.setEmail(mail);
 		user1 = new Usuario(log, sen, perfil1);
 		
+		
 		perfil1.setSexo(sexo);
 		perfil1.setDataDeNascimento(dataNasc);
+		logDAO.criar(user1);
 	}
 	
 	

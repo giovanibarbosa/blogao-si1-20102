@@ -8,10 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.Email;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
 import interfaces.Logavel;
 
 /**
@@ -47,10 +50,10 @@ public class LogaveisDAO {
 
 	// acho que n vamos precisar atualizar os emails
 	public void atualizar(Logavel logavel, Logavel newLogavel)
-			throws ArgumentInvalidException, IOException {
+			throws PersistenceException, IOException {
 		if (logavel == null || newLogavel == null
 				|| !(new File(CAMINHO + logavel + TIPO_DE_ARQUIVO).exists()))
-			throw new ArgumentInvalidException("O login nao é válido");
+			throw new PersistenceException("O login nao é válido");
 		File file = new File(CAMINHO + logavel + TIPO_DE_ARQUIVO);
 		xstream.toXML(logavel, new FileOutputStream(file));
 	}
@@ -60,17 +63,17 @@ public class LogaveisDAO {
 	 * 
 	 * @param email
 	 *            O {@link Logavel} a ser criado
-	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
 	 *             Caso o logavel passado como parametro seja null ou ja exista
 	 *             como dado persistente
 	 * @throws IOException
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
-	public void criar(Logavel logavel) throws ArgumentInvalidException,
+	public void criar(Logavel logavel) throws PersistenceException,
 			IOException {
 		if (logavel == null
 				|| new File(CAMINHO + logavel + TIPO_DE_ARQUIVO).exists())
-			throw new ArgumentInvalidException("O login nao é válido");
+			throw new PersistenceException("Login existente");
 		File file = new File(CAMINHO + logavel + TIPO_DE_ARQUIVO);
 		xstream.toXML(logavel, new FileOutputStream(file));
 	}
@@ -80,14 +83,14 @@ public class LogaveisDAO {
 	 * 
 	 * @param logavel
 	 *            O {@link Logavel} a ser apagado
-	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
 	 *             Caso o logavel passado como parametro seja null ou não exista
 	 *             como dado persistente
 	 */
-	public void deletar(Logavel logavel) throws ArgumentInvalidException {
+	public void deletar(Logavel logavel) throws PersistenceException {
 		if (logavel == null
 				|| !(new File(CAMINHO + logavel + TIPO_DE_ARQUIVO).exists()))
-			throw new ArgumentInvalidException("O logavell nao é válido");
+			throw new PersistenceException("O logavell nao é válido");
 		File file = new File(CAMINHO + logavel + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -112,6 +115,16 @@ public class LogaveisDAO {
 		return logaveis;
 	}
 
+	/**
+	 * Limpa todos os arquivos contendo os logaveis {@link Logavel}
+	 */
+	public void limparLogaveis() {
+		for (File arquivo : arrayDosArquivos()) {
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+				arquivo.delete();
+		}
+	}
+	
 	/**
 	 * Recupera um array dos arquivos contidos no path dos emails
 	 * 
