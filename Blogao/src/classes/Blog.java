@@ -1,11 +1,13 @@
 package classes;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
+import persistencia.daos.ComentariosDAO;
 
 //VER US4.
 public class Blog {
@@ -13,13 +15,17 @@ public class Blog {
 	private int id;
 	private Texto descricao;
 	private List<Blog> listaSubBlogs;
-	private BlogsDAO blogDao;
+	private BlogsDAO blogDao = BlogsDAO.getInstance();
+	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
+	private List<Integer> idsComentarios;
 
 	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException {
 		if (validaTitulo(titulo)) {
 			this.titulo = titulo;
 			this.descricao = descricao;
-			blogDao.getInstance();
+			this.idsComentarios = new ArrayList<Integer>();
+			this.listaSubBlogs = new ArrayList<Blog>();
+			
 		} else {
 			throw new ArgumentInvalidException(
 					codificaString("Voc� deve especificar um t�tulo para o blog"));
@@ -121,6 +127,24 @@ public class Blog {
 		return getTitulo() == outra.getTitulo()
 				&& getDescricao() == outra.getDescricao();
 
+	}
+	
+	public void addSubBlog(Blog subblog){
+		listaSubBlogs.add(subblog);
+	}
+	
+	public void removeSubBlog(Blog subblog) throws PersistenceException{
+		blogDao.deletar(subblog);
+		listaSubBlogs.remove(subblog);
+	}
+	
+	public void addComentario(int idComentario){
+		idsComentarios.add(idComentario);
+	}
+	
+	public void removeComentario(Integer idComentario) throws PersistenceException{
+		cmtDAO.deletar(idComentario);
+		idsComentarios.remove(idComentario);
 	}
 
 	public String toString() {
