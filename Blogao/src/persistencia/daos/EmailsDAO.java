@@ -30,7 +30,7 @@ public class EmailsDAO {
 	private static EmailsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private EmailsDAO() {
+	public EmailsDAO() {
 
 	}
 
@@ -70,7 +70,7 @@ public class EmailsDAO {
 	public void criar(Email email) throws PersistenceException, IOException {
 		if (email == null
 				|| new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException("O email nao é válido");
+			throw new PersistenceException("Email existente");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
 	}

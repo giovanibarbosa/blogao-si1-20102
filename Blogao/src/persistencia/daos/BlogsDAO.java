@@ -29,7 +29,7 @@ public class BlogsDAO {
 	private static BlogsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private BlogsDAO() {
+	public BlogsDAO() {
 
 	}
 
