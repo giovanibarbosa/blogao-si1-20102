@@ -1,9 +1,14 @@
 
 package classes;
 
+import interfaces.Logavel;
+
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
+import persistencia.daos.LogaveisDAO;
 
 /**
  * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
@@ -12,15 +17,15 @@ import ourExceptions.ArgumentInvalidException;
 public class Login {
 	
 	private String login;
+	private LogaveisDAO daoLogavel = LogaveisDAO.getInstance();
 	
 	public Login(String login) throws Exception {
 		setLogin(login);
 	}
 	
-	//FIXME Verificar esse patterns.. 
 	private boolean validaLogin(String login) {
 		// verificar se tem numero minimo e/ou maximo de caracteres
-		if (login != null && !login.equals("") )//&& login.matches("\\.+"))
+		if (login != null && !login.equals(""))//&& login.matches("\\.+"))
             return true;
         return false;
 	}
@@ -37,9 +42,12 @@ public class Login {
 		return login;
 	}
 	
-	public void setLogin(String login) throws ArgumentInvalidException {
+	public void setLogin(String login) throws Exception {
 		if (!validaLogin(login)) {
 			throw new ArgumentInvalidException("Login inválido");
+		}
+		else if (!verificaExistenciaLogin(login)) {
+			throw new ArgumentInvalidException("Login Existente");
 		}
 		this.login = login;
 		
@@ -60,7 +68,13 @@ public class Login {
 		return retorno;
 	}
 	
-	public boolean verificaExistenciaLogin(String login) {
+	public boolean verificaExistenciaLogin(String login) throws FileNotFoundException {
+		List<Logavel> listaLogins = daoLogavel.recuperaLogaveis();	
+		
+		for (Logavel log : listaLogins) {
+			if (log.getLogin().getLogin().equals(login))
+				return false;			
+		}		
 		return true;
 	}
 	
