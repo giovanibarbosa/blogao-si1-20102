@@ -46,16 +46,6 @@ public class EmailsDAO {
 
 	}
 
-	// FIXME
-	// acho que n vamos precisar atualizar os emails
-	public void atualizar(Email email) throws PersistenceException, IOException {
-		if (email == null
-				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O email nao é válido");
-		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
-		xstream.toXML(email, new FileOutputStream(file));
-	}
-
 	/**
 	 * Cria um {@link Email} no formato de arquivo xml
 	 * 
@@ -73,11 +63,6 @@ public class EmailsDAO {
 			throw new PersistenceException("O email nao é válido");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
-	}
-
-	// FIXME
-	public void atualizar(Email email, Email novoEmail)
-			throws PersistenceException {
 	}
 
 	/**
