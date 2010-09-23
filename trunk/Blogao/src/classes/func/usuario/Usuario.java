@@ -13,12 +13,12 @@ public class Usuario {
 	private Perfil perfil;
 	
 	public Usuario(Login log, Senha sen) {
-		// colocar a instancia de uma implementacao do logavel
-		//logavel = new LogavelImpl(log, sen); 
+		logavel = new LogavelImpl(log, sen); 
 	}
 	
 	public Usuario(Login log, Senha sen, Perfil per) {
-		
+		logavel = new LogavelImpl(log, sen); 
+		setPerfil(per);
 	}
 
 	public Login getLogin() {

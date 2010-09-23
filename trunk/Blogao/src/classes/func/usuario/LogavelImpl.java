@@ -10,6 +10,11 @@ public class LogavelImpl implements Logavel {
 	private Login login;
 	private Senha senha;
 	
+	public LogavelImpl(Login log, Senha sen) {
+		setLogin(log);
+		setSenha(sen);
+	}
+	
 	@Override
 	public Login getLogin() {
 		return login;
