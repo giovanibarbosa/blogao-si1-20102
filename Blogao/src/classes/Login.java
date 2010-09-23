@@ -13,8 +13,6 @@ public class Login {
 	
 	private String login;
 	
-	
-	
 	public Login(String login) throws Exception {
 		setLogin(login);
 	}
@@ -41,7 +39,7 @@ public class Login {
 	
 	public void setLogin(String login) throws ArgumentInvalidException {
 		if (!validaLogin(login)) {
-			throw new ArgumentInvalidException("Login inválido");
+			throw new ArgumentInvalidException("Login invalido");
 		}
 		this.login = login;
 		
