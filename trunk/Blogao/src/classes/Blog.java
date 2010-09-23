@@ -28,7 +28,7 @@ public class Blog {
 			
 		} else {
 			throw new ArgumentInvalidException(
-					codificaString("Vocï¿½ deve especificar um tï¿½tulo para o blog"));
+					codificaString("Você deve especificar um título para o blog"));
 		}
 
 	}

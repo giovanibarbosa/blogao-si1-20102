@@ -1,13 +1,17 @@
 package classes;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import persistencia.daos.PostsDAO;
 
 public class Post {
 	private Texto post;
 	private ArrayList<Comentario> comentarios;
+	private PostsDAO postDao;
 
 	public Post(Texto post) throws ArgumentInvalidException{
 		if(validaPost(post)){
@@ -69,5 +73,11 @@ public class Post {
 			return false;
 		}
 	}
+	
+	public void saveData() throws PersistenceException, IOException{
+		postDao.getInstance();
+		postDao.atualizar(this , this);
+	}
+	
 	
 }
