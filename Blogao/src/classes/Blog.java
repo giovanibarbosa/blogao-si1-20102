@@ -6,6 +6,7 @@ import java.util.List;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
+
 //VER US4.
 public class Blog {
 	private String titulo;
@@ -13,20 +14,22 @@ public class Blog {
 	private Texto descricao;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao;
-	
-	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException{
-		if(validaTitulo(titulo)){
+
+	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException {
+		if (validaTitulo(titulo)) {
 			this.titulo = titulo;
 			this.descricao = descricao;
 			blogDao.getInstance();
-		}else{
-			throw new ArgumentInvalidException(codificaString("Você deve especificar um título para o blog"));
+		} else {
+			throw new ArgumentInvalidException(
+					codificaString("Vocï¿½ deve especificar um tï¿½tulo para o blog"));
 		}
-		
+
 	}
-	
+
 	/**
 	 * Metodo que codifica a String para o padrao ISO.
+	 * 
 	 * @param string
 	 * @return
 	 */
@@ -57,19 +60,20 @@ public class Blog {
 	}
 
 	private boolean validaTitulo(String titulo) throws ArgumentInvalidException {
-		if(titulo == null || titulo.trim().equals(""))
+		if (titulo == null || titulo.trim().equals(""))
 			return false;
 		else
 			return true;
 	}
 
-	public List<Post> listaDePosts(){
-		return null ;
-		
+	public List<Post> listaDePosts() {
+		return null;
+
 	}
-	
+
 	/**
 	 * Metodo responsavel pela exclusao do blog;
+	 * 
 	 * @throws PersistenceException
 	 */
 	public void deleta() {
@@ -79,9 +83,9 @@ public class Blog {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -98,7 +102,8 @@ public class Blog {
 	}
 
 	/**
-	 * @param listaSubBlogs the listaSubBlogs to set
+	 * @param listaSubBlogs
+	 *            the listaSubBlogs to set
 	 */
 	public void setListaSubBlogs(List<Blog> listaSubBlogs) {
 		this.listaSubBlogs = listaSubBlogs;
@@ -109,12 +114,17 @@ public class Blog {
 	 * Metodo que verifica a igualdade entre objetos.
 	 */
 	public boolean equals(Object objeto) {
-	    if (!(objeto instanceof Blog)) {
-	           return false;
-	    }
-	    Blog outra = (Blog) objeto;
-	    return getTitulo() == outra.getTitulo() && getDescricao() == outra.getDescricao();
-	
-	    }
+		if (!(objeto instanceof Blog)) {
+			return false;
+		}
+		Blog outra = (Blog) objeto;
+		return getTitulo() == outra.getTitulo()
+				&& getDescricao() == outra.getDescricao();
 
 	}
+
+	public String toString() {
+		return String.valueOf(getId());
+	}
+
+}
