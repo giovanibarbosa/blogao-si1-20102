@@ -1,5 +1,7 @@
 package classes;
 
+import java.io.UnsupportedEncodingException;
+
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -47,5 +49,20 @@ public class Email {
 	public String toString() {
 		return email;
 	}
-
+	
+	
+	/**
+	 * Metodo que codifica a String para o padrao ISO.
+	 * @param string
+	 * @return
+	 */
+	private String codificaString(String string) {
+		String retorno = "";
+		try {
+			retorno = new String(string.getBytes(), "ISO-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
 }
