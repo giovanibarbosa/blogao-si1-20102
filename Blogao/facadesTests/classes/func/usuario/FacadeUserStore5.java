@@ -100,30 +100,36 @@ public class FacadeUserStore5 {
 		try {
 			String login = gerente.getLogin(idSessao);
 			Usuario us = userDAO.recupera(login);
-			List<Blog> listBlog = us.getListaBlogs();
+			List<Blog> listBlog = us.listaDeBlogs();
 			Blog blog = null;
 			Blog blogMod = null;
-			
-			for(int i = listBlog.size(); i > 0; i--){
-				if(listBlog.get(i).getId().equals(id.hashCode())){
+
+			/*for(int i = listBlog.size(); i >1; i--){
+				if(listBlog.get(i).getId().equals(id)){
 					blog = listBlog.get(i);
 					blogMod = listBlog.get(i);
 				}
 			}
 			
 			if(blog == null){
-				throw new Exception("Blog inválido");
-			}
-			
-			if(atributo.equals("descricao")){
-				blogMod.setDescricao(novoValor);
-			}else if(atributo.equals("titulo")){
-				blogMod.setTitulo(novoValor);
+				throw new Exception("Blog invÃ¡lido");
+			}*/
+			if(novoValor != null && !(novoValor.trim().equals(""))){
+				if(atributo.equals("descricao")){
+					blogMod.setDescricao(novoValor);
+				}else if(atributo.equals("titulo")){
+					blogMod.setTitulo(novoValor);
+				}else{
+					throw new Exception("Atributo inválido");
+				}
+				
+				blogsDAO.atualizar(blog, blogMod);
+				
 			}else{
-				throw new Exception("Atributo inválido");
+				throw new Exception("Você deve especificar um título para o blog");
 			}
 			
-			blogsDAO.atualizar(blog, blogMod);
+			
 			
 			
 		} catch (ArgumentInvalidException e) {
@@ -153,4 +159,6 @@ public class FacadeUserStore5 {
 	
 	//TODO SALVA TODOS OS DADOS NO BD
 	public void saveData() {}
+	
 }
+
