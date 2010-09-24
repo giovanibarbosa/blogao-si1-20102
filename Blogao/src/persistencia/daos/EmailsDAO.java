@@ -58,9 +58,8 @@ public class EmailsDAO {
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
 	public void criar(Email email) throws PersistenceException, IOException {
-		if (email == null
-				|| new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException("O email nao é válido");
+		if (new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists())
+			throw new PersistenceException("Email existente");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
 	}
