@@ -80,7 +80,9 @@ public class FacadeUserStore4 {
 	}
 	
 	//TODO RETORNA OS ATRIBUTOS DO BLOG.
-	public void getBlogInformation(String titulo, String descricao){}
+	public void getBlogInformation(String idBLog, String atributo) {
+		
+	}
 	
 	/**
 	 * 
@@ -95,6 +97,16 @@ public class FacadeUserStore4 {
 		try {
 			return gerente.logon(login, senha);
 		} catch (PersistenceException e){
+			throw e;
+		}
+	}
+	
+	public void saveData() {}
+	
+	public void logoff(String idSession) throws Exception {
+		try {
+			gerente.logoff(idSession);			
+		} catch (Exception e) {
 			throw e;
 		}
 	}
