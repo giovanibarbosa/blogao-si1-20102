@@ -37,26 +37,13 @@ public class Login {
 	
 	public void setLogin(String login) throws ArgumentInvalidException {
 		if (!validaLogin(login)) {
-			throw new ArgumentInvalidException("Login inv·lido");
+			throw new ArgumentInvalidException("Login inv√°lido");
 		}
 		this.login = login;
 		
 	}
 	
-	/**
-	 * Metodo que codifica a String para o padrao ISO.
-	 * @param string
-	 * @return
-	 */
-	private String codificaString(String string) {
-		String retorno = "";
-		try {
-			retorno = new String(string.getBytes(), "ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return retorno;
-	}	
+
 	
 	@Override
 	public boolean equals(Object login) {
