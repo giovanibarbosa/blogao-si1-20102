@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 
 import persistencia.daos.BlogsDAO;
@@ -24,7 +25,7 @@ public class Usuario {
 		listaBlogs = new ArrayList<Blog>();
 	}
 	
-	public Usuario(Login log, Senha sen, Perfil per) throws Exception {
+	public Usuario(Login log, Senha sen, Perfil per) {
 		this.logavel = new LogavelImpl(log, sen);
 		setPerfil(per);
 		listaBlogs = new ArrayList<Blog>();
@@ -34,7 +35,7 @@ public class Usuario {
 		return logavel.getLogin();
 	}
 	
-	public void setLogin(Login log) throws Exception {
+	public void setLogin(Login log) throws ArgumentInvalidException {
 		logavel.setLogin(log);
 	}
 	

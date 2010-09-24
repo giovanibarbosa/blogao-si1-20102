@@ -34,15 +34,15 @@ public class GerenciadorDeSessoes {
 			Usuario us = userDAO.recupera(login);
 			if (us.getSenha().equals(senha)) {
 				if (logados.containsValue(login)) {
-					throw new ArgumentInvalidException("Usu�rio j� logado");
+					throw new ArgumentInvalidException("Usuário já logado");
 				}
 				logados.put(idSessao, login);
 				return idSessao;
 			} else {
-				throw new PersistenceException("Login ou senha inv�lido");
+				throw new PersistenceException("Login ou senha inválido");
 			}
 		} catch (PersistenceException e) {
-			throw new PersistenceException("Login ou senha inv�lido");
+			throw new PersistenceException("Login ou senha inválido");
 		}
 
 	}
