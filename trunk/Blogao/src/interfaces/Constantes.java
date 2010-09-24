@@ -36,6 +36,7 @@ public interface Constantes {
 	static final String USUARIO_EXISTENTE = "Usuário existente";
 	static final String USUARIO_INEXISTENTE = "Usuário inexistente";
 	static final String ERRO_LISTA_COMENTARIOS = "Erro ao acessar a lista de comentarios.";
+	static final String SENHA_INVALIDA = "Senha inválida";
 	
 	
 	
