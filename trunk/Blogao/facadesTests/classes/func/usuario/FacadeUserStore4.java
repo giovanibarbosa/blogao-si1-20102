@@ -15,6 +15,7 @@ import classes.GerenciadorDeSessoes;
 import classes.Login;
 import classes.Senha;
 import classes.Texto;
+import classes.func.GerenciadorDeBlogs;
 
 /**
  * Facade de Blog. Essa classe chama os metodos necess�rios para o teste.
@@ -25,6 +26,7 @@ public class FacadeUserStore4 {
 	private Perfil perfil1;
 	private Usuario user1;
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs();
 	
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
@@ -68,23 +70,27 @@ public class FacadeUserStore4 {
 	}
 	
 	//TODO CRIA O BLOG
-	public void createBlog(String idSession, String titulo, String descricao) throws Exception{
+	public String createBlog(String idSession, String titulo, String descricao) throws Exception{
 		try {
-			String login = gerente.getLogin(idSession);
-			Usuario us = userDAO.recupera(login);
-			blog = new Blog(titulo, descricao);
-			us.getListaBlogs().add(blog);
-			blogsDAO.criar(blog);			
+			return gerenciaBlogs.createBlog(idSession, titulo, descricao);		
 			
 		} catch (Exception e) {
-			throw e;			
+			throw e;
 		}
 	}
 	
 	//TODO RETORNA OS ATRIBUTOS DO BLOG.
 	public void getBlogInformation(String titulo, String descricao){}
 	
-	//TODO METODO QUE LOGA O USUARIO
+	/**
+	 * 
+	 * @param login
+	 * @param senha
+	 * @return
+	 * @throws PersistenceException
+	 * @throws FileNotFoundException
+	 * @throws ArgumentInvalidException
+	 */
 	public String logon(String login, String senha)throws PersistenceException, FileNotFoundException, ArgumentInvalidException {
 		try {
 			return gerente.logon(login, senha);
