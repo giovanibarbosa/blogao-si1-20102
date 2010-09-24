@@ -10,7 +10,6 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import classes.Email;
 import classes.Post;
 
 import com.thoughtworks.xstream.XStream;
