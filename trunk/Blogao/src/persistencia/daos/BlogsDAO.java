@@ -1,5 +1,7 @@
 package persistencia.daos;
 
+import interfaces.Constantes;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -57,7 +59,7 @@ public class BlogsDAO {
 	 */
 	public void criar(Blog blog) throws PersistenceException, IOException {
 		if (blog == null)
-			throw new PersistenceException("O blog nao pode ser criado");
+			throw new PersistenceException(Constantes.BLOG_NAO_CRIADO);
 		blog.setId(geraId());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		xstream.toXML(blog, new FileOutputStream(file));
@@ -75,7 +77,7 @@ public class BlogsDAO {
 	public void deletar(Blog blog) throws PersistenceException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O blog não pode ser removido");
+			throw new PersistenceException(Constantes.BLOG_NAO_REMOVIDO);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -116,7 +118,7 @@ public class BlogsDAO {
 			FileNotFoundException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Blog inexistente");
+			throw new PersistenceException(Constantes.BLOG_EXISTENTE);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
@@ -140,7 +142,7 @@ public class BlogsDAO {
 			throws PersistenceException, IOException {
 		if (blog == null || blogAtualizado == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O blog não pode ser atualizado");
+			throw new PersistenceException(Constantes.BLOG_NAO_PODE_SER_ATUALIZADO);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.renameTo(new File(CAMINHO + blogAtualizado + TIPO_DE_ARQUIVO));
 		xstream.toXML(blogAtualizado, new FileOutputStream(file));
