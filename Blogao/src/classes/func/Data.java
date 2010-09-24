@@ -1,5 +1,7 @@
 package classes.func;
 
+import interfaces.Constantes;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -90,14 +92,14 @@ public class Data {
 	
 	public void setData(String data) throws ArgumentInvalidException {
 		if (!verificaData(data)) {
-			throw new ArgumentInvalidException("Data inválida");			
+			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
 		}		
 		try {
 			Calendar date = conversorData(data);
 			this.data = date;
 			
 		} catch (Exception e) {
-			throw new ArgumentInvalidException("Data inválida");			
+			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
 		}
 		
 	}
