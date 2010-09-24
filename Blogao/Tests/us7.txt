@@ -1,25 +1,25 @@
 #User Story-- Editar postagem 
 #
 #
-#Permite a ediÁ„o de um post existente. os seguintes campos podem ser alterados:
-#*TÌtulo do post
+#Permite a edi√ß√£o de um post existente. os seguintes campos podem ser alterados:
+#*T√≠tulo do post
 #*Texto
-#*¡udio
-#*VÌdeo
+#*√Åudio
+#*V√≠deo
 #*Imagem
 #
-#No caso dos recursos multimÌdia, o cliente deve ser capaz de definir se deseja manter os dados existentes no servidor, ou se ser„o deletados.
-#RestriÁıes:
-#    -O usu·rio deve estar logado no sistema (Fornecimento de um id de sess„o v·lido)
+#No caso dos recursos multim√≠dia, o cliente deve ser capaz de definir se deseja manter os dados existentes no servidor, ou se ser√£o deletados.
+#Restri√ß√µes:
+#    -O usu√°rio deve estar logado no sistema (Fornecimento de um id de sess√£o v√°lido)
 #   
-#    -Campos n„o-nulo:
-#        *TÌtulo do post    
-#Obs.: No caso do acesso via celular, n„o È necess·rio implementar a ediÁ„o dos recursos multimÌdia existentes, ou seja, ser· realizada apenas #a ediÁ„o da parte textual do post
+#    -Campos n√£o-nulo:
+#        *T√≠tulo do post    
+#Obs.: No caso do acesso via celular, n√£o √© necess√°rio implementar a edi√ß√£o dos recursos multim√≠dia existentes, ou seja, ser√° realizada apenas #a edi√ß√£o da parte textual do post
 
 #Carrega dados persistidos anteriormente
 loadData
 
-#Efetua login dos usu·rios
+#Efetua login dos usu√°rios
 sessionId1=logon login=sicrano senha=senhona
 sessionId2=logon login=mariasilva senha=qwe2
 
@@ -40,22 +40,22 @@ postId1=getPost blogId=${blogId1} index=0
 changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor="Meu novo titulo"
 changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=texto valor="Minha nova descricao"
 
-#validaÁ„o: post inv·lido
-expectError "Post inv·lido" changePostInformation sessionId=${sessionId1} postId=XXX atributo=texto valor="Minha nova descricao"
-expectError "Post inv·lido" changePostInformation sessionId=${sessionId1} postId="" atributo=texto valor="Minha nova descricao"
-expectError "Post inv·lido" changePostInformation sessionId=${sessionId1} postId= atributo=texto valor="Minha nova descricao"
+#valida√ß√£o: post inv√°lido
+expectError "Post inv√°lido" changePostInformation sessionId=${sessionId1} postId=XXX atributo=texto valor="Minha nova descricao"
+expectError "Post inv√°lido" changePostInformation sessionId=${sessionId1} postId="" atributo=texto valor="Minha nova descricao"
+expectError "Post inv√°lido" changePostInformation sessionId=${sessionId1} postId= atributo=texto valor="Minha nova descricao"
 
-#ValidaÁ„o: sess„o inv·lida
-expectError "Sess„o inv·lida" changePostInformation sessionId=XXX postId=${postId1} atributo=titulo valor="Meu novo titulo"
+#Valida√ß√£o: sess√£o inv√°lida
+expectError "Sess√£o inv√°lida" changePostInformation sessionId=XXX postId=${postId1} atributo=titulo valor="Meu novo titulo"
 
-#ValidaÁ„o: atributo inv·lido
-expectError "Atributo inv·lido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo= valor="Meu novo titulo"
-expectError "Atributo inv·lido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo="" valor="Meu novo titulo"
-expectError "Atributo inv·lido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=XXX valor="Meu novo titulo"
+#Valida√ß√£o: atributo inv√°lido
+expectError "Atributo inv√°lido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo= valor="Meu novo titulo"
+expectError "Atributo inv√°lido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo="" valor="Meu novo titulo"
+expectError "Atributo inv√°lido" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=XXX valor="Meu novo titulo"
 
-#ValidaÁ„o: Titulo nao pode ser vazio
-expectError "TÌtulo obrigatÛrio" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor=
-expectError "TÌtulo obrigatÛrio" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor=""
+#Valida√ß√£o: Titulo nao pode ser vazio
+expectError "T√≠tulo obrigat√≥rio" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor=
+expectError "T√≠tulo obrigat√≥rio" changePostInformation sessionId=${sessionId1} postId=${postId1} atributo=titulo valor=""
 
 #Recupera numero de recursos multimidia
 expect 3 getNumberOfSounds id=${postId1}
@@ -74,7 +74,7 @@ deleteMovie sessionId=${sessionId1} ${tmpVideo1}
 tmpVideo1=getMovie id=${postId1} index=0
 deleteMovie sessionId=${sessionId1} ${tmpVideo1}
 
-expectError "Õndice incorreto" getMovie id=${postId1} index=0
+expectError "√çndice incorreto" getMovie id=${postId1} index=0
 
 #Indice do recurso esta no intervalo 0<=x<numRecurso
 tmpAudio1=getSound id=${postId1} index=0
@@ -88,7 +88,7 @@ deleteSound sessionId=${sessionId1} id=${tmpAudio1}
 tmpAudio1=getSound id=${postId1} index=0
 deleteSound sessionId=${sessionId1} id=${tmpAudio1}
 
-expectError "Õndice incorreto" getSound id=${postId1} index=0
+expectError "√çndice incorreto" getSound id=${postId1} index=0
 
 
 
@@ -104,7 +104,7 @@ deletePicture sessionId=${sessionId1} id=${tmpImagem1}
 tmpImagem1=getPicture id=${postId1} index=0
 deletePicture sessionId=${sessionId1} id=${tmpImagem1}
 
-expectError "Õndice incorreto" getPicture id=${postId1} index=0
+expectError "√çndice incorreto" getPicture id=${postId1} index=0
 
 #Desloga usuarios
 logoff sessionId=${sessionId1}
@@ -112,5 +112,4 @@ logoff sessionId=${sessionId2}
 
 #Salva os dados de forma permanente
 saveData
-
 

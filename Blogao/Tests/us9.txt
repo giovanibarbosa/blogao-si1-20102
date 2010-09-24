@@ -1,15 +1,15 @@
 ##################################################################################
 #User Story-- Deletar post
-#Permite a deleÁ„o de um determinado post de um blog. Todos os coment·rios associados ao post devem ser igualmente deletados
-#RestriÁıes
-#    -O usu·rio deve estar logado no sistema (Fornecimento de um id de sess„o v·lido)
+#Permite a dele√ß√£o de um determinado post de um blog. Todos os coment√°rios associados ao post devem ser igualmente deletados
+#Restri√ß√µes
+#    -O usu√°rio deve estar logado no sistema (Fornecimento de um id de sess√£o v√°lido)
 ####################################################################################
 
 #Carrega dados persistidos anteriormente
 loadData
 
 
-#Efetua login dos usu·rios
+#Efetua login dos usu√°rios
 sessionId1=logon login=sicrano senha=senhona
 
 blogId1=getBlogByLogin login=sicrano index=0
@@ -18,27 +18,26 @@ postId1=getPost blogId=${blogId1} index=0
 
 tmpComentario=getComment postId=${postId1} index=0
 
-#Recupera o texto de um coment·rio
+#Recupera o texto de um coment√°rio
 expect "que massa esse seu novo post" getCommentText idComentario=${idComentario1}
 
-#Recupera o autor do coment·rio
+#Recupera o autor do coment√°rio
 expect mariasilva getCommentAuthor idComentario=${idComentario1}
 
-#Deleta um post e seus coment·rios
+#Deleta um post e seus coment√°rios
 deletePost sessionId=${sessionId1} postId=${postId1}
 
-#validaÁ„o: nao È possÌvel deletar duas vezes o post
-expectError "Post inv·lido" deletePost sessionId=${sessionId1} postId=${postId1}
+#valida√ß√£o: nao √© poss√≠vel deletar duas vezes o post
+expectError "Post inv√°lido" deletePost sessionId=${sessionId1} postId=${postId1}
 
-expectError "Coment·rio inv·lido" getCommentAuthor idComentario=${idComentario1}
-expectError "Coment·rio inv·lido" getCommentText idComentario=${idComentario1}
+expectError "Coment√°rio inv√°lido" getCommentAuthor idComentario=${idComentario1}
+expectError "Coment√°rio inv√°lido" getCommentText idComentario=${idComentario1}
 
 
-expectError "Post inv·lido" getPostInformation id=${postId1} atributo=titulo
+expectError "Post inv√°lido" getPostInformation id=${postId1} atributo=titulo
 
 #Desloga usuarios
 logoff sessionId=${sessionId1}
 
 #Salva os dados de forma permanente
 saveData
-
