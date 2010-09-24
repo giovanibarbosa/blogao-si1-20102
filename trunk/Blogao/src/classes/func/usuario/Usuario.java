@@ -1,7 +1,12 @@
 package classes.func.usuario;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ourExceptions.PersistenceException;
+
+import persistencia.daos.BlogsDAO;
 
 import interfaces.Logavel;
 import classes.Blog;
@@ -59,9 +64,15 @@ public class Usuario {
 		this.logavel = log;
 	}
 
-	//CLASSE A SER IMPLEMENTADA, QUE SE RELACIONA COM O BD.
-	public List<Blog> listaDeBlogs(){
-		return null;
+
+	public List<Blog> listaDeBlogs() throws FileNotFoundException{
+		BlogsDAO blogsDao = BlogsDAO.getInstance();
+		return blogsDao.recuperaBlogs();
+	}
+	
+	public Blog getBlog(Blog blog) throws FileNotFoundException, PersistenceException{
+		BlogsDAO blogsDao = BlogsDAO.getInstance();
+		return blogsDao.recupera(blog);
 	}
 	
 	public String toString(){
