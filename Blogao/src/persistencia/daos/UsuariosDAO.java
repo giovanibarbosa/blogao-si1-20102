@@ -105,6 +105,27 @@ public class UsuariosDAO {
 		return usuarios;
 	}
 	
+//	/**
+//	 * Recupera um {@link Usuario} de um arquivo xml
+//	 * 
+//	 * @param usuario
+//	 *            O {@link Usuario} a ser recuperado do arquivo xml
+//	 * @return O {@link Usuario} recuperado de um arquivo xml
+//	 * @throws PersistenceException
+//	 *             Caso o usuario passado como parametro seja null ou não exista
+//	 *             como dado persistente
+//	 * @throws FileNotFoundException
+//	 *             Caso haja algum problema com arquivos ({@link File})
+//	 */
+//	public Usuario recupera(Usuario usuario) throws PersistenceException,
+//			FileNotFoundException {
+//		if (usuario == null
+//				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
+//			throw new PersistenceException("Usuario inexistente");
+//		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
+//		return (Usuario) xstream.fromXML(new FileInputStream(file));
+//	}
+	
 	/**
 	 * Recupera um {@link Usuario} de um arquivo xml
 	 * 
@@ -117,7 +138,7 @@ public class UsuariosDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public Usuario recupera(Usuario usuario) throws PersistenceException,
+	public Usuario recupera(String usuario) throws PersistenceException,
 			FileNotFoundException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
@@ -125,7 +146,6 @@ public class UsuariosDAO {
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		return (Usuario) xstream.fromXML(new FileInputStream(file));
 	}
-	
 	/**
 	 * Limpa todos os arquivos contendo os usuarios {@link Usuario}
 	 */
