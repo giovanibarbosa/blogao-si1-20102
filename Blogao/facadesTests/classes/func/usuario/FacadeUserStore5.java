@@ -105,14 +105,14 @@ public class FacadeUserStore5 {
 			Blog blogMod = null;
 			
 			for(int i = listBlog.size(); i > 0; i--){
-				if(listBlog.get(i).getId() == id.hashCode()){
+				if(listBlog.get(i).getId().equals(id.hashCode())){
 					blog = listBlog.get(i);
 					blogMod = listBlog.get(i);
 				}
 			}
 			
 			if(blog == null){
-				throw new Exception("Blog inv·lido");
+				throw new Exception("Blog inv√°lido");
 			}
 			
 			if(atributo.equals("descricao")){
@@ -120,7 +120,7 @@ public class FacadeUserStore5 {
 			}else if(atributo.equals("titulo")){
 				blogMod.setTitulo(novoValor);
 			}else{
-				throw new Exception("Atributo inv·lido");
+				throw new Exception("Atributo inv√°lido");
 			}
 			
 			blogsDAO.atualizar(blog, blogMod);
