@@ -32,7 +32,7 @@ public class UserStoryTest1 {
         files2.add("Tests/us2.txt");
         files3.add("Tests/us3.txt");
         files4.add("Tests/us4.txt");
-//        files5.add("Tests/us5.txt");
+        files5.add("Tests/us5.txt");
 //        files.add("Tests/us4.txt");
        // files.add("Tests/us5.txt");
         
@@ -66,7 +66,7 @@ public class UserStoryTest1 {
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
         System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
-//          System.out.println(eaFacade5.getCompleteResults());
+        System.out.println(eaFacade5.getCompleteResults());
 	}
 
 }
