@@ -83,7 +83,7 @@ public class FacadeUserStore5 {
 	public void createBlog(String idSession, String titulo, String descricao){	
 		try {
 			Texto desc = new Texto(descricao);
-			blog = new Blog(titulo, desc);
+			//blog = new Blog(titulo, desc);
 
 			blogsDAO.criar(blog);
 		} catch (PersistenceException e) {
@@ -106,16 +106,7 @@ public class FacadeUserStore5 {
 	
 	//TODO REALIZA AS MUDANCAS NO BLOG.
 	public void changeBlogInformation(String idSession, String id, String titulo, String valor) throws FileNotFoundException, PersistenceException{
-		String login;
-		try {
-			login = gerente.getLogin(idSession);
-			
-			Usuario us = userDAO.recupera(login);
-			
-			Blog bg = us.getBlog(titulo);
-		} catch (ArgumentInvalidException e) {
-			e.printStackTrace();
-		}
+
 
 	}
 	
