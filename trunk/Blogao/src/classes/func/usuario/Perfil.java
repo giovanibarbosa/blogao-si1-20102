@@ -1,19 +1,17 @@
 package classes.func.usuario;
 
 
+import org.apache.tools.ant.Main;
+
 import ourExceptions.ArgumentInvalidException;
-import interfaces.Logavel;
 import classes.Email;
-import classes.Login;
-import classes.Senha;
-import classes.Texto;
 import classes.func.Data;
 import enuns.Sexo;
 
 public class Perfil {	
 	
 	private Email email;
-	private String nomeDeExibicao = "";
+	private String nomeDeExibicao;
 	private String endereco;
 	private String interesses;
 	private Data dataDeNascimento;
@@ -22,6 +20,17 @@ public class Perfil {
 	private String filmesFavoritos;
 	private String musicasFavoritas;
 	private String livrosFavoritos;
+	
+	private static final int EMAIL = 96619420;
+	private static final int NOME = 513276986;
+	private static final int ENDERECO = 1731028937;
+	private static final int INTERESSES = -1598911081;
+	private static final int DATA = 1788869133;
+	private static final int SEXO = 3526857;
+	private static final int QUEM = -2073846039;
+	private static final int FILMES = -1274498766;
+	private static final int MUSICAS = 1412695319;
+	private static final int LIVROS = -1102420835;
 	
 	
 	
@@ -104,5 +113,42 @@ public class Perfil {
 	public String toString(){
 		return nomeDeExibicao;
 	}
+	
+	public String getAtributo(String atributo) throws ArgumentInvalidException {
+		if (atributo ==null)
+			throw new ArgumentInvalidException("Atributo inválido");
+		int codigoAtributo = atributo.hashCode();
+		
+		switch(codigoAtributo) {
+			case(EMAIL):
+				return this.email.toString();
+			case(NOME):
+				return this.nomeDeExibicao;
+			case(ENDERECO):
+				return this.endereco;
+			case(INTERESSES):
+				return this.interesses;
+			case(DATA):
+				return Data.calendarToString(dataDeNascimento.getData());
+			case(SEXO):
+				return sexo.getSexo();
+			case(QUEM):
+				return quemSouEu;
+			case(FILMES):
+				return filmesFavoritos;
+			case(MUSICAS):
+				return musicasFavoritas;
+			case(LIVROS):
+				return livrosFavoritos;
+				
+			default:
+				throw new ArgumentInvalidException("Atributo inválido");
+		}		
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("livros".hashCode());
+	}
+
 	
 }
