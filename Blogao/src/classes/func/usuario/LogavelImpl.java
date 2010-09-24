@@ -9,7 +9,7 @@ public class LogavelImpl implements Logavel {
 	private Login login;
 	private Senha senha;
 	
-	public LogavelImpl(Login log, Senha sen) throws Exception {
+	public LogavelImpl(Login log, Senha sen) {
 		setLogin(log);
 		setSenha(sen);
 	}
@@ -25,7 +25,7 @@ public class LogavelImpl implements Logavel {
 	}
 
 	@Override
-	public void setLogin(Login log) throws Exception {
+	public void setLogin(Login log){
 		this.login = log;
 
 	}

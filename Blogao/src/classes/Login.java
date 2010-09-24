@@ -1,12 +1,6 @@
 
 package classes;
 
-import interfaces.Logavel;
-
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -42,8 +36,6 @@ public class Login {
 		this.login = login;
 		
 	}
-	
-
 	
 	@Override
 	public boolean equals(Object login) {

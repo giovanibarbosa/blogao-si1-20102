@@ -3,6 +3,7 @@
  */
 package interfaces;
 
+import ourExceptions.ArgumentInvalidException;
 import classes.*;
 
 /**
@@ -13,7 +14,7 @@ public interface Logavel {
 	
 	public Login getLogin();
 	public Senha getSenha();
-	public void setLogin(Login login) throws Exception;
+	public void setLogin(Login login) throws ArgumentInvalidException;
 	public void setSenha(Senha senha);
 
 }
