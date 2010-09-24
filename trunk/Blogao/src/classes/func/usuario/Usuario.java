@@ -12,11 +12,11 @@ public class Usuario {
 	private Logavel logavel;
 	private Perfil perfil;
 	
-	public Usuario(Login log, Senha sen) {
+	public Usuario(Login log, Senha sen) throws Exception {
 		logavel = new LogavelImpl(log, sen); 
 	}
 	
-	public Usuario(Login log, Senha sen, Perfil per) {
+	public Usuario(Login log, Senha sen, Perfil per) throws Exception {
 		logavel = new LogavelImpl(log, sen); 
 		setPerfil(per);
 	}
@@ -25,7 +25,7 @@ public class Usuario {
 		return logavel.getLogin();
 	}
 	
-	public void setLogin(Login log) {
+	public void setLogin(Login log) throws Exception {
 		logavel.setLogin(log);
 	}
 	
