@@ -17,7 +17,9 @@ public class Usuario {
 	}
 	
 	public Usuario(Login log, Senha sen, Perfil per) throws Exception {
-		logavel = new LogavelImpl(log, sen); 
+		this.logavel = new LogavelImpl(log, sen);
+		//setLogavel(logavel);	
+		 
 		setPerfil(per);
 	}
 
@@ -49,6 +51,10 @@ public class Usuario {
 	public void setPerfil(Perfil perfil) {
 		if (perfil != null )
 			this.perfil = perfil;
+	}
+	
+	public void setLogavel(Logavel log) {
+		this.logavel = log;
 	}
 
 	//CLASSE A SER IMPLEMENTADA, QUE SE RELACIONA COM O BD.

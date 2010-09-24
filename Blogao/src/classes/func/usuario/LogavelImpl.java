@@ -1,6 +1,5 @@
 package classes.func.usuario;
 
-import ourExceptions.ArgumentInvalidException;
 import classes.Login;
 import classes.Senha;
 import interfaces.Logavel;
@@ -26,21 +25,15 @@ public class LogavelImpl implements Logavel {
 	}
 
 	@Override
-	public void setLogin(Login login) throws Exception {
-		try {
-			login.setLogin(login.getLogin());
-		} catch (ArgumentInvalidException e) {
-			// TODO pensar em lancamento de excecao, ou tratamento
-		}
+	public void setLogin(Login log) throws Exception {
+		this.login = log;
+
 	}
 
 	@Override
-	public void setSenha(Senha senha) {
-		try {
-			senha.setSenha(senha.getSenha());
-		} catch (ArgumentInvalidException e) {
-			// TODO lancar ou tratar excecao
-		}
+	public void setSenha(Senha sen) {
+		this.senha = sen;
+
 
 	}
 	
