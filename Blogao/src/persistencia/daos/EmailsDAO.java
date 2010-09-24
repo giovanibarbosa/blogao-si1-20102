@@ -76,7 +76,7 @@ public class EmailsDAO {
 	public void deletar(Email email) throws PersistenceException {
 		if (email == null
 				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O email nao √© v√°lido");
+			throw new PersistenceException("O email n„o È v·lido");
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
