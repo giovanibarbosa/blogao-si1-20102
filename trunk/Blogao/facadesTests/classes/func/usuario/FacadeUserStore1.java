@@ -20,14 +20,14 @@ public class FacadeUserStore1 {
 	private Perfil perfil1;
 	private Usuario user1;
 
-	private LogaveisDAO logDAO = LogaveisDAO.getInstance();
+	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
 	private PostsDAO postsDAO = PostsDAO.getInstance();
 
 	// TODO APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
-		logDAO.limparLogaveis();
+		userDAO.limparUsuarios();
 		blogsDAO.limparBlogs();
 		emailsDAO.limparEmails();
 		postsDAO.limparPosts();
@@ -68,8 +68,7 @@ public class FacadeUserStore1 {
 		user1 = new Usuario(log, sen, perfil1);
 
 		emailsDAO.criar(mail);
-		logDAO.criar(user1);
-		System.out.println("consegui chegar aqui");
+		userDAO.criar(user1);
 	}
 
 }
