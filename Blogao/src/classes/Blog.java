@@ -13,13 +13,13 @@ import persistencia.daos.ComentariosDAO;
 public class Blog {
 	private String titulo;
 	private int id;
-	private Texto descricao;
+	private String descricao;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
 	private List<Integer> idsComentarios;
 
-	public Blog(String titulo, Texto descricao) throws ArgumentInvalidException {
+	public Blog(String titulo, String descricao) throws ArgumentInvalidException {
 		if (validaTitulo(titulo)) {
 			this.titulo = titulo;
 			this.descricao = descricao;
@@ -57,11 +57,11 @@ public class Blog {
 		this.titulo = titulo;
 	}
 
-	public Texto getDescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(Texto descricao) {
+	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
