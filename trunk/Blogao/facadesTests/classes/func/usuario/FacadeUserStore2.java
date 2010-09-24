@@ -22,6 +22,7 @@ public class FacadeUserStore2 {
 	private Usuario user;
 	private UsuariosDAO usuarioDao;
 	private List<Usuario> logados = new ArrayList<Usuario>();
+	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	
 	
 	
@@ -33,7 +34,21 @@ public class FacadeUserStore2 {
 	
 	
 	//TODO METODO QUE LOGA O USUARIO
-//	public void logon(String login, String senha) throws Exception{
+	public void logon(String login, String senha) throws Exception{
+		try {
+			Usuario us = userDAO.recupera(login);
+			if (us.getLogin().getLogin().equals(senha)) {
+				if (logados.contains(us)) {
+					throw new Exception("Usuário já logado");
+				}
+				logados.add(us);
+				//usuario ira logar e sera criada uma ID de sessao para o mesmo.
+			} else {
+				throw new Exception("Login ou senha inválido");
+			}
+		} catch (Exception e) {
+			throw new Exception("Login ou senha inválido");
+		}
 //		Login log = new Login(login);
 //		Senha sen = new Senha(senha);
 //		Logavel logavel = new LogavelImpl(log, sen);
@@ -45,12 +60,16 @@ public class FacadeUserStore2 {
 //		}else{
 //			throw new Exception("Login ou senha inválido");
 //		}
-//	}
+	}
 	
 	//TODO METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
-//	public boolean isUserLogged(String login) throws Exception{
-//		Login log = new Login(login);
-//		
+	public boolean isUserLogged(String login) throws Exception{
+		try {
+			Usuario us = userDAO.recupera(login);
+			return logados.contains(us) ? true : false;		
+		} catch (Exception e) {
+			e.getMessage();			
+		}		
 //		if(existeLogavel(log)){
 //			for(int i = logados.size(); i >= 0; i-- ){
 //				if(logados.get(i).getLogin().equals(log))
@@ -58,9 +77,9 @@ public class FacadeUserStore2 {
 //			}
 //			return false;
 //		}
-//		
-//		throw new Exception("Usuário inexistente");
-//	}
+		
+		throw new Exception("Usuário inexistente");
+	}
 	
 	/**
 	 * metodo que retorna a existencia de um logavel dado seu login.
@@ -81,16 +100,14 @@ public class FacadeUserStore2 {
 
 
 	//VERIFICAR SE ESSE 'ID' VAI SER UM DOUBLE MESMO
-	public void getProfileInformationBySessionId(int id, String login, String senha, String nome_exibicao, String email,
-			String sexo, String dataNasc, String endereco, String interesses, String quem_sou_eu,
-			String filmes, String musicas, String livros){}
+	public String getProfileInformationBySessionId(int id, String atributo){
+		return null;
+	}
 	
 	//TODO METODO QUE DESLOGA O USUARIO.
-	public void logoff(String login) throws Exception{
-		for(int i = logados.size(); i >= 0; i-- ){
-			if(logados.get(i).getLogin().equals(new Login(login)));
-				logados.remove(i);
-		}
+	public void logoff(String idSession) throws Exception{
+		
 	}
+	
 	
 }
