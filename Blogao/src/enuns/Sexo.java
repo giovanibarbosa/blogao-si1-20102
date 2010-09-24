@@ -6,7 +6,7 @@ package enuns;
  *
  */
 public enum Sexo {
-	Mas("Masculino"), Fem("Feminino"), Nao_Inf("Nao informado");
+	Mas("Masculino"), Fem("Feminino"), Nao_Inf("Não informado");
 	
 	private final String tipo;
 	

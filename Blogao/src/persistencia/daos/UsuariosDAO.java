@@ -62,7 +62,7 @@ public class UsuariosDAO {
 	public void criar(Usuario usuario) throws PersistenceException, IOException {
 		if (usuario == null
 				|| new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException("Usuario existente.");
+			throw new PersistenceException("Login existente");
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		xstream.toXML(usuario, new FileOutputStream(file));
 	}

@@ -1,5 +1,9 @@
 package classes.func.usuario;
 
+import java.io.FileNotFoundException;
+
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
 import classes.Email;
 import classes.Login;
 import classes.Senha;
@@ -39,7 +43,28 @@ public class FacadeUserStore1 {
 
 	// TODO FAZER ESTE METODO
 	// Precisa-se do BD para tal!
-	public void getProfileInformation(String login, String atributo) {
+	public String getProfileInformation(String login, String atributo) throws ArgumentInvalidException {
+		String retorno;
+		try {
+			Usuario us = userDAO.recupera(login);
+			Perfil perf = us.getPerfil();
+			retorno = perf.getAtributo(atributo);
+			
+			if(retorno == null)
+				return login;
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			return e.getMessage();
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			return e.getMessage();
+		} catch (ArgumentInvalidException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+		return retorno;
+		
 
 	}
 
