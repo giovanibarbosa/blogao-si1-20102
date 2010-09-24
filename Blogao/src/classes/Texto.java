@@ -25,12 +25,12 @@ public class Texto {
 		if(validaCorpo(corpo))
 			this.corpo = corpo;
 		else
-			throw new ArgumentInvalidException("Corpo inv·lido");
+			throw new ArgumentInvalidException("Corpo inv√°lido");
 		
 		if(validaTitulo(titulo))
 			this.titulo = titulo.trim();
 		else
-			throw new ArgumentInvalidException("Titulo inv·lido");
+			throw new ArgumentInvalidException("Titulo inv√°lido");
 	}
 	/**
 	 * Contrutor apenas para um texto com corpo.
@@ -41,7 +41,7 @@ public class Texto {
 		if(validaCorpo(corpo))
 			this.corpo = corpo;
 		else
-			throw new ArgumentInvalidException("Corpo inv·lido");
+			throw new ArgumentInvalidException("Corpo inv√°lido");
 	}
 	/**
 	 * metodo responsavel pela validacao do parametro titulo,
@@ -103,20 +103,7 @@ public class Texto {
 		return titulo + "\n" + corpo;
 	}
 	
-	/**
-	 * Metodo que codifica a String para o padrao ISO.
-	 * @param string
-	 * @return
-	 */
-	private String codificaString(String string) {
-		String retorno = "";
-		try {
-			retorno = new String(string.getBytes(), "ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return retorno;
-	}
+
 	
 
 }
