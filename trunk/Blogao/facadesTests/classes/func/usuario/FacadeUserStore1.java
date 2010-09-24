@@ -7,7 +7,6 @@ import ourExceptions.PersistenceException;
 import classes.Email;
 import classes.Login;
 import classes.Senha;
-import interfaces.Logavel;
 import persistencia.daos.*;
 
 /**
@@ -29,7 +28,7 @@ public class FacadeUserStore1 {
 	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
 	private PostsDAO postsDAO = PostsDAO.getInstance();
 
-	// TODO APAGAR OS DADOS SALVOS
+	//APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
 		userDAO.limparUsuarios();
 		blogsDAO.limparBlogs();
@@ -37,12 +36,11 @@ public class FacadeUserStore1 {
 		postsDAO.limparPosts();
 	}
 
-	// TODO SALVA TODOS OS DADOS NO BD
+	//SALVA TODOS OS DADOS NO BD
 	public void saveData() {
 	}
 
-	// TODO FAZER ESTE METODO
-	// Precisa-se do BD para tal!
+	//FAZER ESTE METODO
 	public String getProfileInformation(String login, String atributo) throws ArgumentInvalidException {
 		String retorno;
 		try {
@@ -54,13 +52,10 @@ public class FacadeUserStore1 {
 				return login;
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			return e.getMessage();
 		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
 			return e.getMessage();
 		} catch (ArgumentInvalidException e) {
-			// TODO Auto-generated catch block
 			throw e;
 		}
 		return retorno;
@@ -68,7 +63,7 @@ public class FacadeUserStore1 {
 
 	}
 
-	// TODO Armazenar no BD.
+	//Armazenar no BD.
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
