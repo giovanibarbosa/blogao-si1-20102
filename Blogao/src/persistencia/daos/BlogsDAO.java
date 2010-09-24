@@ -122,6 +122,27 @@ public class BlogsDAO {
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
+	
+	/**
+	 * Recupera um {@link Blog} de um arquivo xml
+	 * 
+	 * @param blog
+	 *            O {@link Blog} a ser recuperado do arquivo xml, segundo seu id
+	 * @return O {@link Blog} recuperado de um arquivo xml
+	 * @throws PersistenceException
+	 *             Caso o blog passado como parametro seja null ou nÃ£o exista
+	 *             como dado persistente
+	 * @throws FileNotFoundException
+	 *             Caso haja algum problema com arquivos ({@link File})
+	 */
+	public Blog recupera(String id) throws PersistenceException,
+			FileNotFoundException {
+		if (id == null
+				|| !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
+			throw new PersistenceException("Blog inexistente");
+		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
+		return (Blog) xstream.fromXML(new FileInputStream(file));
+	}
 
 	/**
 	 * Atualiza as informacoes do {@link Blog} passado como parametro a partir
