@@ -1,12 +1,14 @@
 package enuns;
 
+import interfaces.Constantes;
+
 /**
  * Enum de Sexo
  * @author Tiago Leite - tiagohsl@lsd.ufcg.edu.br
  *
  */
 public enum Sexo {
-	Mas("Masculino"), Fem("Feminino"), Nao_Inf("Não informado");
+	Mas("Masculino"), Fem("Feminino"), Nao_Inf(Constantes.NAO_INFORMADO);
 	
 	private final String tipo;
 	
@@ -22,7 +24,7 @@ public enum Sexo {
 		if (sex == null || sex.trim().isEmpty()
 				|| (!sex.equalsIgnoreCase("Masculino") &&
 					!sex.equalsIgnoreCase("Feminino") &&
-					!sex.equalsIgnoreCase("Não informado"))) {
+					!sex.equalsIgnoreCase(Constantes.NAO_INFORMADO))) {
 			return false;
 		}
 		return true;
