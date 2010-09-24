@@ -142,7 +142,7 @@ public class UsuariosDAO {
 			FileNotFoundException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Usuario inexistente");
+			throw new PersistenceException("Usuário inexistente");
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		return (Usuario) xstream.fromXML(new FileInputStream(file));
 	}

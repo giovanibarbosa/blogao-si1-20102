@@ -65,5 +65,12 @@ public class Usuario {
 	public String toString(){
 		return logavel.toString();
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if (!(obj instanceof Usuario)) return false;
+		Usuario user = (Usuario) obj;
+		return user.getLogin().equals(this.getLogin());
+	}
 
 }

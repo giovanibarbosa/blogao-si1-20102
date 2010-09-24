@@ -54,6 +54,10 @@ public class Senha {
 		return retorno;
 	}
 	
+	public boolean equals(String senha){
+		if(senha == null) return false;
+		return this.senha.equals(senha);
+	}
 	
 
 }

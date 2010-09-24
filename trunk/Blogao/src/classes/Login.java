@@ -30,15 +30,7 @@ public class Login {
 	public String getLogin() {
 		return login;
 	}
-	
-	public boolean equals(Object login) {
-		if (!(login instanceof Login)){
-			return false;
-		}
-		Login login2 = (Login) login;
-		return login2.getLogin().equals(this.login);
-	}
-	
+		
 	public String toString() {
 		return login;
 	}
@@ -65,5 +57,14 @@ public class Login {
 		}
 		return retorno;
 	}	
+	
+	@Override
+	public boolean equals(Object login) {
+		if (!(login instanceof Login)){
+			return false;
+		}
+		Login login2 = (Login) login;
+		return login2.getLogin().equals(this.getLogin());
+	}
 
 }
