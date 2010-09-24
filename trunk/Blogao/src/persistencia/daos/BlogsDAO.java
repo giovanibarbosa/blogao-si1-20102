@@ -75,7 +75,7 @@ public class BlogsDAO {
 	public void deletar(Blog blog) throws PersistenceException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O blog n�o pode ser removido");
+			throw new PersistenceException("O blog não pode ser removido");
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -140,7 +140,7 @@ public class BlogsDAO {
 			throws PersistenceException, IOException {
 		if (blog == null || blogAtualizado == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O blog n�o pode ser atualizado");
+			throw new PersistenceException("O blog não pode ser atualizado");
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.renameTo(new File(CAMINHO + blogAtualizado + TIPO_DE_ARQUIVO));
 		xstream.toXML(blogAtualizado, new FileOutputStream(file));
@@ -173,13 +173,13 @@ public class BlogsDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	private int geraId() throws FileNotFoundException {
+	private String geraId() throws FileNotFoundException {
 		List<Blog> lista = recuperaBlogs();
 		int index = 0;
 		for (int i = 1; i < lista.size(); i++) {
-			if (lista.get(i).getId() > lista.get(index).getId())
+			if (Integer.parseInt(lista.get(i).getId()) > Integer.parseInt(lista.get(index).getId()))
 				index = i;
 		}
-		return lista.isEmpty() ? 1 : lista.get(index).getId() + 1;
+		return lista.isEmpty() ? "1" : (Integer.parseInt(lista.get(index).getId()) + 1)+ "";
 	}
 }
