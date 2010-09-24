@@ -2,6 +2,8 @@ package classes.func.usuario;
 
 
 
+import interfaces.Constantes;
+
 import java.io.FileNotFoundException;
 import java.util.Iterator;
 
@@ -37,7 +39,7 @@ public class DeletaBlog {
 							e.printStackTrace();
 						}
 					}else{
-						throw new ArgumentInvalidException("Post inválido.");
+						throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
 					}	
 				}
 				return true;
@@ -62,7 +64,7 @@ public class DeletaBlog {
 						Blog b = itBlogs.next();
 						b.deleta();
 					}else{
-						throw new ArgumentInvalidException("Blog inválido.");
+						throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 					}	
 				}
 				return true;
