@@ -2,6 +2,7 @@ package classes.func.usuario;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -80,22 +81,10 @@ public class FacadeUserStore5 {
 	}
 	
 	//TODO CRIA O BLOG
-	public void createBlog(String idSession, String titulo, String descricao){	
-		try {
-			Texto desc = new Texto(descricao);
-			//blog = new Blog(titulo, desc);
-
+	public void createBlog(String idSession, String titulo, String descricao) throws ArgumentInvalidException, PersistenceException, IOException{	
+			blog = new Blog(titulo, descricao);
 			blogsDAO.criar(blog);
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (ArgumentInvalidException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 	
 	//TODO RETORNA OS ATRIBUTOS DO BLOG.
@@ -105,8 +94,51 @@ public class FacadeUserStore5 {
 	}
 	
 	//TODO REALIZA AS MUDANCAS NO BLOG.
-	public void changeBlogInformation(String idSession, String id, String titulo, String valor) throws FileNotFoundException, PersistenceException{
+	public void changeBlogInformation(String idSessao, String atributo, String id,
+		String novoValor) throws Exception {
+		
+		try {
+			String login = gerente.getLogin(idSessao);
+			Usuario us = userDAO.recupera(login);
+			List<Blog> listBlog = us.getListaBlogs();
+			Blog blog = null;
+			Blog blogMod = null;
+			
+			for(int i = listBlog.size(); i > 0; i--){
+				if(listBlog.get(i).getId() == id.hashCode()){
+					blog = listBlog.get(i);
+					blogMod = listBlog.get(i);
+				}
+			}
+			
+			if(blog == null){
+				throw new Exception("Blog inválido");
+			}
+			
+			if(atributo.equals("descricao")){
+				blogMod.setDescricao(novoValor);
+			}else if(atributo.equals("titulo")){
+				blogMod.setTitulo(novoValor);
+			}else{
+				throw new Exception("Atributo inválido");
+			}
+			
+			blogsDAO.atualizar(blog, blogMod);
+			
+			
+		} catch (ArgumentInvalidException e) {
+			throw e;
+		} catch (FileNotFoundException e) {
+			throw e;
+		} catch (PersistenceException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} catch (Exception e) {
+			throw e;
+		}
 
+		
 
 	}
 	
