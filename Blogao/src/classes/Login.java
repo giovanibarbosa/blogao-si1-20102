@@ -17,14 +17,12 @@ import persistencia.daos.LogaveisDAO;
 public class Login {
 	
 	private String login;
-	private LogaveisDAO daoLogavel = LogaveisDAO.getInstance();
 	
-	public Login(String login) throws Exception {
+	public Login(String login) throws ArgumentInvalidException {
 		setLogin(login);
 	}
 	
 	private boolean validaLogin(String login) {
-		// verificar se tem numero minimo e/ou maximo de caracteres
 		if (login != null && !login.equals(""))//&& login.matches("\\.+"))
             return true;
         return false;
@@ -34,20 +32,21 @@ public class Login {
 		return login;
 	}
 	
-	public boolean equals(Login login) {
-		return login.getLogin().equals(this.login);
+	public boolean equals(Object login) {
+		if (!(login instanceof Login)){
+			return false;
+		}
+		Login login2 = (Login) login;
+		return login2.getLogin().equals(this.login);
 	}
 	
 	public String toString() {
 		return login;
 	}
 	
-	public void setLogin(String login) throws Exception {
+	public void setLogin(String login) throws ArgumentInvalidException {
 		if (!validaLogin(login)) {
 			throw new ArgumentInvalidException("Login inválido");
-		}
-		else if (!verificaExistenciaLogin(login)) {
-			throw new ArgumentInvalidException("Login Existente");
 		}
 		this.login = login;
 		
@@ -66,18 +65,6 @@ public class Login {
 			e.printStackTrace();
 		}
 		return retorno;
-	}
-	
-	public boolean verificaExistenciaLogin(String login) throws FileNotFoundException {
-		List<Logavel> listaLogins = daoLogavel.recuperaLogaveis();	
-		
-		for (Logavel log : listaLogins) {
-			if (log.getLogin().getLogin().equals(login))
-				return false;			
-		}		
-		return true;
-	}
-	
-	
+	}	
 
 }
