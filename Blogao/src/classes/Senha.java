@@ -14,8 +14,12 @@ public class Senha {
 	
 	private String senha;
 	
-	public Senha(String senha) throws Exception {
-		setSenha(senha);
+	public Senha(String senha) throws ArgumentInvalidException {
+		try {
+			setSenha(senha);
+		} catch (ArgumentInvalidException e){
+			throw e;
+		}
 	}
 	
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
