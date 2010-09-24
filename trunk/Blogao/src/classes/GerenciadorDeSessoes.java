@@ -34,15 +34,15 @@ public class GerenciadorDeSessoes {
 			Usuario us = userDAO.recupera(login);
 			if (us.getSenha().equals(senha)) {
 				if (logados.containsValue(login)) {
-					throw new ArgumentInvalidException("Usuário já logado");
+					throw new ArgumentInvalidException("Usuï¿½rio jï¿½ logado");
 				}
 				logados.put(idSessao, login);
 				return idSessao;
 			} else {
-				throw new PersistenceException("Login ou senha inválido");
+				throw new PersistenceException("Login ou senha invï¿½lido");
 			}
 		} catch (PersistenceException e) {
-			throw new PersistenceException("Login ou senha inválido");
+			throw new PersistenceException("Login ou senha invï¿½lido");
 		}
 
 	}
@@ -70,7 +70,7 @@ public class GerenciadorDeSessoes {
 	public String getProfileInformationBySessionId(String id, String atributo)
 			throws ArgumentInvalidException {
 		if (!(logados.containsKey(id)))
-			throw new ArgumentInvalidException("Sessão inválida");
+			throw new ArgumentInvalidException("SessÃ£o invÃ¡lida");
 		String retorno;
 		String login = logados.get(id);
 		if (atributo.equals("login"))
@@ -96,7 +96,7 @@ public class GerenciadorDeSessoes {
 	// METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
 		if (logados.remove(idSession) == null)
-			throw new ArgumentInvalidException("Sessão inválida");
+			throw new ArgumentInvalidException("SessÃ£o invÃ¡lida");
 
 	}
 
@@ -113,7 +113,7 @@ public class GerenciadorDeSessoes {
 	public String getLogin(String idSessao) throws ArgumentInvalidException {
 		String login = logados.get(idSessao);
 		if (login == null) {
-			throw new ArgumentInvalidException("Sessão inválida");
+			throw new ArgumentInvalidException("SessÃ£o invÃ¡lida");
 		}
 		return login;
 	}

@@ -6,7 +6,7 @@ package enuns;
  *
  */
 public enum Sexo {
-	Mas("Masculino"), Fem("Feminino"), Nao_Inf("Não informado");
+	Mas("Masculino"), Fem("Feminino"), Nao_Inf("NÃ£o informado");
 	
 	private final String tipo;
 	
@@ -22,7 +22,7 @@ public enum Sexo {
 		if (sex == null || sex.trim().isEmpty()
 				|| (!sex.equalsIgnoreCase("Masculino") &&
 					!sex.equalsIgnoreCase("Feminino") &&
-					!sex.equalsIgnoreCase("Não informado"))) {
+					!sex.equalsIgnoreCase("NÃ£o informado"))) {
 			return false;
 		}
 		return true;

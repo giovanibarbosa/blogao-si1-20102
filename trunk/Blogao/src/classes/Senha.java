@@ -1,7 +1,5 @@
 package classes;
 
-import java.io.UnsupportedEncodingException;
-
 import ourExceptions.ArgumentInvalidException;
 
 
@@ -24,7 +22,7 @@ public class Senha {
 	
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
 		if (!validaSenha(novaSenha)) {
-			throw new ArgumentInvalidException("Senha inv·lida");
+			throw new ArgumentInvalidException("Senha inv√°lida");
 		}
 		this.senha = novaSenha;
 	}
@@ -37,21 +35,6 @@ public class Senha {
 		if (senha != null && !senha.trim().isEmpty())
             return true;
         return false;
-	}
-	
-	/**
-	 * Metodo que codifica a String para o padrao ISO.
-	 * @param string
-	 * @return
-	 */
-	private String codificaString(String string) {
-		String retorno = "";
-		try {
-			retorno = new String(string.getBytes(), "ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return retorno;
 	}
 	
 	public boolean equals(String senha){
