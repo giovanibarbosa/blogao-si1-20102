@@ -2,6 +2,7 @@ package classes.func.usuario;
 
 
 
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 
 import ourExceptions.ArgumentInvalidException;
@@ -50,8 +51,9 @@ public class DeletaBlog {
 	 * Metodo que exclui um dado blog de um usuario.
 	 * @return boolean caso tenha sido bem sucessida a operacao.
 	 * @throws ArgumentInvalidException 
+	 * @throws FileNotFoundException 
 	 */
-	public boolean deletaBlog(Blog blog) throws ArgumentInvalidException{
+	public boolean deletaBlog(Blog blog) throws ArgumentInvalidException, FileNotFoundException{
 		if(usuario != null){
 			if(!usuario.listaDeBlogs().isEmpty()){
 				Iterator<Blog> itBlogs = (Iterator) usuario.listaDeBlogs().iterator();
