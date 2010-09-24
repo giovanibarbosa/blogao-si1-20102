@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
-import persistencia.daos.LogaveisDAO;
 
 /**
  * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
