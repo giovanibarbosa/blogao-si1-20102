@@ -1,5 +1,7 @@
 package persistencia.daos;
 
+import interfaces.Constantes;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -59,7 +61,7 @@ public class ComentariosDAO {
 	 */
 	public void criar(Comentario comentario) throws PersistenceException, IOException {
 		if (comentario == null)
-			throw new PersistenceException("O comentario nao pode ser criado");
+			throw new PersistenceException(Constantes.COMENTARIO_NAO_CRIADO);
 		comentario.setId(geraId());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		xstream.toXML(comentario, new FileOutputStream(file));
@@ -77,7 +79,7 @@ public class ComentariosDAO {
 	public void deletar(Comentario comentario) throws PersistenceException {
 		if (comentario == null
 				|| !(new File(CAMINHO + comentario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O comentario n�o pode ser removido");
+			throw new PersistenceException(Constantes.COMENTARIO_NAO_PODE_SER_REMOVIDO);
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -94,7 +96,7 @@ public class ComentariosDAO {
 	public void deletar(Integer id) throws PersistenceException {
 		if (id == null
 				|| !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O comentario n�o pode ser removido");
+			throw new PersistenceException(Constantes.COMENTARIO_NAO_PODE_SER_REMOVIDO);
 		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -135,7 +137,7 @@ public class ComentariosDAO {
 			FileNotFoundException {
 		if (comentario == null
 				|| !(new File(CAMINHO + comentario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Comentario inexistente");
+			throw new PersistenceException(Constantes.COMENTARIO_INEXISTENTE);
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		return (Comentario) xstream.fromXML(new FileInputStream(file));
 	}

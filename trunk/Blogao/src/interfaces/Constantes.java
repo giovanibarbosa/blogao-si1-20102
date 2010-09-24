@@ -22,7 +22,7 @@ public interface Constantes {
 	static final String BLOG_NAO_REMOVIDO = "O blog não pode ser removido";
 	static final String BLOG_EXISTENTE = "Blog inexistente";
 	static final String BLOG_NAO_PODE_SER_ATUALIZADO = "O blog não pode ser atualizado";
-	static final String COMENTARIO_NAO_CRIADO = "O comentario nao pode ser criado";
+	static final String COMENTARIO_NAO_CRIADO = "O comentario não pode ser criado";
 	static final String COMENTARIO_NAO_PODE_SER_REMOVIDO = "O comentario não pode ser removido";
 	static final String EMAIL_NAO_VALIDO = "O email não é válido";
 	static final String EMAIL_EXISTENTE = "Email existente";
@@ -38,6 +38,7 @@ public interface Constantes {
 	static final String ERRO_LISTA_COMENTARIOS = "Erro ao acessar a lista de comentarios.";
 	static final String SENHA_INVALIDA = "Senha inválida";
 	static final String BLOG_INVALIDO = "Blog inválido";
+	static final String COMENTARIO_INEXISTENTE = "Comentario inexistente";
 	
 	
 	
