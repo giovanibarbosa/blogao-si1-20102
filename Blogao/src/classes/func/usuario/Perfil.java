@@ -1,5 +1,7 @@
 package classes.func.usuario;
 
+import interfaces.Constantes;
+
 import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
@@ -79,7 +81,7 @@ public class Perfil {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);
 		} catch (Exception e) {
-			throw new ArgumentInvalidException("Data inválida");
+			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
 		}
 
 	}
@@ -118,7 +120,7 @@ public class Perfil {
 
 	public void setSexo(String sex) throws ArgumentInvalidException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException("Sexo inválido");
+			throw new ArgumentInvalidException(Constantes.SEXO_INVALIDO);
 		}
 		this.sexo = Sexo.setadorSexo(sex);
 	}
@@ -133,7 +135,7 @@ public class Perfil {
 
 	public String getAtributo(String atributo) throws ArgumentInvalidException {
 		if (atributo == null)
-			throw new ArgumentInvalidException("Atributo Inválido");
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		int codigoAtributo = atributo.hashCode();
 
 		switch (codigoAtributo) {
@@ -159,14 +161,14 @@ public class Perfil {
 			return livrosFavoritos;
 
 		default:
-			throw new ArgumentInvalidException("Atributo Inválido");
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
 	}
 
 	public void setAtributo(String atributo, String novoValor)
 			throws ArgumentInvalidException, PersistenceException, IOException {
 		if (atributo == null)
-			throw new ArgumentInvalidException("Atributo Inválido");
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		int codigoAtributo = atributo.hashCode();
 
 		switch (codigoAtributo) {
@@ -203,7 +205,7 @@ public class Perfil {
 			break;
 
 		default:
-			throw new ArgumentInvalidException("Atributo Inválido");
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
 	}
 
