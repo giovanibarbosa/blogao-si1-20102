@@ -22,7 +22,7 @@ public class Email {
 	 * @throws Exception
 	 *             caso o email seja vazio ou null
 	 */
-	public Email(String email) throws Exception {
+	public Email(String email) throws ArgumentInvalidException {
 		setEmail(email);
 	}
 

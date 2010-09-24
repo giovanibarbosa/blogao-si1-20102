@@ -1,8 +1,5 @@
 package classes.func.usuario;
 
-
-import org.apache.tools.ant.Main;
-
 import ourExceptions.ArgumentInvalidException;
 import classes.Email;
 import classes.func.Data;
@@ -66,7 +63,7 @@ public class Perfil {
 		return dataDeNascimento;
 	}
 	
-	public void setDataDeNascimento(String dataDeNasc) throws Exception {
+	public void setDataDeNascimento(String dataDeNasc) throws ArgumentInvalidException {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);			
 		}catch (Exception e) {
@@ -146,9 +143,46 @@ public class Perfil {
 		}		
 	}
 	
-	public static void main(String[] args) {
-		System.out.println("livros".hashCode());
+	public void setAtributo(String atributo, String novoValor) throws ArgumentInvalidException {
+		if (atributo ==null)
+			throw new ArgumentInvalidException("Atributo Inválido");
+		int codigoAtributo = atributo.hashCode();
+		
+		switch(codigoAtributo) {
+			case(EMAIL):
+				this.setEmail(new Email(novoValor));
+				break;
+			case(NOME):
+				this.setNomeDeExibicao(novoValor);
+				break;
+			case(ENDERECO):
+				this.setEndereco(novoValor);
+				break;
+			case(INTERESSES):
+				this.setInteresses(novoValor);
+				break;
+			case(DATA):
+				this.setDataDeNascimento(novoValor);
+				break;
+			case(SEXO):
+				this.setSexo(novoValor);
+				break;
+			case(QUEM):
+				this.setQuemSouEu(novoValor);
+				break;
+			case(FILMES):
+				this.setFilmesFavoritos(novoValor);
+				break;
+			case(MUSICAS):
+				this.setMusicasFavoritas(novoValor);
+				break;
+			case(LIVROS):
+				this.setLivrosFavoritos(novoValor);
+				break;
+				
+			default:
+				throw new ArgumentInvalidException("Atributo Inválido");
+		}		
 	}
-
-	
+		
 }
