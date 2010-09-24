@@ -12,7 +12,7 @@ import persistencia.daos.ComentariosDAO;
 //VER US4.
 public class Blog {
 	private String titulo;
-	private int id;
+	private String id;
 	private String descricao;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
@@ -28,7 +28,7 @@ public class Blog {
 			
 		} else {
 			throw new ArgumentInvalidException(
-					codificaString("Você deve especificar um título para o blog"));
+					codificaString("Vocï¿½ deve especificar um tï¿½tulo para o blog"));
 		}
 
 	}
@@ -93,11 +93,11 @@ public class Blog {
 
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
