@@ -1,5 +1,6 @@
 package classes.func;
 
+import ourExceptions.ArgumentInvalidException;
 import classes.Blog;
 import classes.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
@@ -23,21 +24,19 @@ public class GerenciadorDeBlogs {
 	 * @throws Exception
 	 */
 	public String createBlog(String idSession, String titulo, String descricao) throws Exception{
-		Blog blog = null;
 		try {
-			blog = new Blog(titulo, descricao);
-		} catch (Exception e) {
-			throw e;
-		}
-		try {
+			Blog blog = new Blog(titulo, descricao);
 			String login = gerente.getLogin(idSession);
 			Usuario us = userDAO.recupera(login);
 			us.listaDeBlogs().add(blog);
 			blogsDAO.criar(blog);
-			return String.valueOf(blog.getTitulo());
+			return String.valueOf(blog.getTitulo().hashCode());
+		
+		} catch (ArgumentInvalidException e) {
+			throw e;
 			
 		} catch (Exception e) {
-			throw e;			
+			throw e;
 		}
 	}
 
