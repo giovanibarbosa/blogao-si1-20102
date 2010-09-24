@@ -1,5 +1,7 @@
 package classes;
 
+import interfaces.Constantes;
+
 import java.io.UnsupportedEncodingException;
 
 import ourExceptions.ArgumentInvalidException;
@@ -36,7 +38,7 @@ public class Email {
 	 */
 	public void setEmail(String novoEmail) throws ArgumentInvalidException {
 		if (novoEmail == null || novoEmail.trim().isEmpty()) {
-			throw new ArgumentInvalidException("Email inválido");
+			throw new ArgumentInvalidException(Constantes.EMAIL_INVALIDO);
 		}
 		this.email = novoEmail;
 	}
