@@ -15,7 +15,16 @@ public class Post {
 	private Texto post;
 	private PostsDAO postDao;
 	private ComentariosDAO comentDao;
+	private int id;
 
+
+	
+	/**
+	 * Construtor da classe Post, que recebe como parametro
+	 * o texto do post.
+	 * @param post
+	 * @throws ArgumentInvalidException
+	 */
 	public Post(Texto post) throws ArgumentInvalidException{
 		if(validaPost(post)){
 			this.post = post;
@@ -23,12 +32,7 @@ public class Post {
 			throw new ArgumentInvalidException("Atriburo inválido");
 		}
 	}
-	private boolean validaPost(Texto post) {
-		if(post == null || post.getCorpo().trim().equals(""))
-			return true;
-		else
-			return true;
-	}
+	
 	/**destructor do post.
 	 * 
 	 * @return
@@ -120,5 +124,31 @@ public class Post {
 		postDao.atualizar(this , this);
 	}
 	
+	/**
+	 * @return o id do Post.
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * Altera o id do Post.
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	/**
+	 * Metodo que valida as exigencias do post.
+	 * @param post
+	 * @return
+	 */
+	private boolean validaPost(Texto post) {
+		if(post == null || post.getCorpo().trim().equals(""))
+			return true;
+		else
+			return true;
+	}
 	
 }
