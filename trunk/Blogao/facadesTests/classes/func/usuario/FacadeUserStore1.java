@@ -69,6 +69,7 @@ public class FacadeUserStore1 {
 
 		emailsDAO.criar(mail);
 		logDAO.criar(user1);
+		System.out.println("consegui chegar aqui");
 	}
 
 }

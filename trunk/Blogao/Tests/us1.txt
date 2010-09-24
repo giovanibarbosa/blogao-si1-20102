@@ -53,7 +53,7 @@ expectError "Sexo inválido" createProfile login=mariasilva senha=qwe2 nome_exibi
 expectError "Data inválida" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="msilva@hotmail.com" sexo="Não informado" dataNasc=01/13/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 #Criacao de um usuario
-createProfile login=mariasilvab senha=qwe2 nome_exibicao="Maria Silva B" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo="Não informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 #Validacao: login Ãºnico
