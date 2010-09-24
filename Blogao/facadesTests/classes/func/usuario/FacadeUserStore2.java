@@ -4,7 +4,12 @@ import interfaces.Logavel;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
 
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.EmailsDAO;
@@ -17,96 +22,85 @@ import classes.Senha;
 /**
  * Facade do Gerenciamento de Secao. Usado para os testes.
  * @author Tiago B.
+ * @author Rodolfo Marinho
  */
 public class FacadeUserStore2 {
 	private Usuario user;
-	private UsuariosDAO usuarioDao;
-	private List<Usuario> logados = new ArrayList<Usuario>();
+	private Map<Integer, String> logados = new HashMap<Integer, String>();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	
-	
-	
-	
-	//TODO CARREGA TODOS OS DADOS DO BD
+	//CARREGA TODOS OS DADOS DO BD
 	public void loadData(){
-		usuarioDao = UsuariosDAO.getInstance();
+		userDAO = UsuariosDAO.getInstance();
 	}
 	
 	
-	//TODO METODO QUE LOGA O USUARIO
-	public void logon(String login, String senha) throws Exception{
+	//METODO QUE LOGA O USUARIO
+	public int logon(String login, String senha) throws Exception{
 		try {
+			int idSessao = login.hashCode();
 			Usuario us = userDAO.recupera(login);
-			if (us.getLogin().getLogin().equals(senha)) {
-				if (logados.contains(us)) {
+			if (us.getSenha().equals(senha)) {
+				if (logados.containsValue(login)) {
 					throw new Exception("Usuário já logado");
 				}
-				logados.add(us);
-				//usuario ira logar e sera criada uma ID de sessao para o mesmo.
+				logados.put(idSessao,login);
+				return idSessao;
 			} else {
-				throw new Exception("Login ou senha inválido");
+				throw new PersistenceException("Login ou senha inválido");
 			}
-		} catch (Exception e) {
+		} catch (PersistenceException e) {
 			throw new Exception("Login ou senha inválido");
 		}
-//		Login log = new Login(login);
-//		Senha sen = new Senha(senha);
-//		Logavel logavel = new LogavelImpl(log, sen);
-//		List<Logavel> listaDeLogaveis = logavelDao.recuperaLogaveis();
-//		
-//		if(listaDeLogaveis != null && listaDeLogaveis.contains(logavel)){
-//			user = new Usuario(log, sen);
-//			usuarioDao.criar(user);
-//		}else{
-//			throw new Exception("Login ou senha inválido");
-//		}
+
 	}
 	
-	//TODO METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
-	public boolean isUserLogged(String login) throws Exception{
-		try {
-			Usuario us = userDAO.recupera(login);
-			return logados.contains(us) ? true : false;		
-		} catch (Exception e) {
-			e.getMessage();			
-		}		
-//		if(existeLogavel(log)){
-//			for(int i = logados.size(); i >= 0; i-- ){
-//				if(logados.get(i).getLogin().equals(log))
-//					return true;
-//			}
-//			return false;
-//		}
-		
-		throw new Exception("Usuário inexistente");
+	//METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
+	public boolean isUserLogged(String login) throws PersistenceException, FileNotFoundException {
+		try{
+			userDAO.recupera(login);
+			return logados.containsValue(login);
+		} catch (PersistenceException e){
+			throw e;
+		}
+				
 	}
 	
 	/**
 	 * metodo que retorna a existencia de um logavel dado seu login.
 	 * @param log
 	 * @return
-	 * @throws FileNotFoundException
+	 * @throws ArgumentInvalidException 
 	 */
-//	private boolean existeLogavel(Login log) throws FileNotFoundException {
-//		List<Logavel> listaDeLogaveis = logavelDao.recuperaLogaveis();
-//		
-//		for(int i = listaDeLogaveis.size(); i >=0; i--){
-//			if(listaDeLogaveis.get(i).getLogin().equals(log))
-//				return true;
-//		}
-//		return false;
-//		
-//	}
-
 
 	//VERIFICAR SE ESSE 'ID' VAI SER UM DOUBLE MESMO
-	public String getProfileInformationBySessionId(int id, String atributo){
-		return null;
+	public String getProfileInformationBySessionId(int id, String atributo) throws ArgumentInvalidException{
+		if (!(logados.containsKey(id))) throw new ArgumentInvalidException("Sessão inválida");
+		String retorno;
+		String login = logados.get(id);
+		if (atributo.equals("login")) return login;
+		try {
+			Usuario us = userDAO.recupera(login);
+			Perfil perf = us.getPerfil();
+			retorno = perf.getAtributo(atributo);
+			
+			if(retorno == null)
+				return null;
+			
+		} catch (FileNotFoundException e) {
+			return e.getMessage();
+		} catch (PersistenceException e) {
+			return e.getMessage();
+		} catch (ArgumentInvalidException e) {
+			throw e;
+		}
+		return retorno;
 	}
 	
-	//TODO METODO QUE DESLOGA O USUARIO.
-	public void logoff(String idSession) throws Exception{
-		
+	//METODO QUE DESLOGA O USUARIO.
+	public void logoff(int idSession) throws ArgumentInvalidException{
+		if (logados.remove(idSession) == null) throw new ArgumentInvalidException("Sessão inválida");
+			
 	}
 	
 	
