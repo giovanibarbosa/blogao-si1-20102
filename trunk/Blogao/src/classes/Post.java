@@ -1,5 +1,7 @@
 package classes;
 
+import interfaces.Constantes;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +31,7 @@ public class Post {
 		if(validaPost(post)){
 			this.post = post;
 		}else{
-			throw new ArgumentInvalidException("Atriburo inválido");
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
 	}
 	
@@ -55,7 +57,7 @@ public class Post {
 		try {
 			listaDeComentarios = comentDao.recuperaComentarios();
 		} catch (Exception e) {
-			System.out.println("Erro ao acessar a lista de comentarios.");
+			System.out.println(Constantes.ERRO_LISTA_COMENTARIOS);
 		}
 		return listaDeComentarios;
 	}

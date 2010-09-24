@@ -35,6 +35,7 @@ public interface Constantes {
 	static final String USUARIO_NAO_PODE_SER_REMOVIDO = "O usuário não pode ser removido";
 	static final String USUARIO_EXISTENTE = "Usuário existente";
 	static final String USUARIO_INEXISTENTE = "Usuário inexistente";
+	static final String ERRO_LISTA_COMENTARIOS = "Erro ao acessar a lista de comentarios.";
 	
 	
 	
