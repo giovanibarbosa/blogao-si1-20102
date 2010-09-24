@@ -32,7 +32,7 @@ public class GerenciadorDeBlogs {
 		try {
 			String login = gerente.getLogin(idSession);
 			Usuario us = userDAO.recupera(login);
-			us.getListaBlogs().add(blog);
+			us.listaDeBlogs().add(blog);
 			blogsDAO.criar(blog);
 			return String.valueOf(blog.getTitulo());
 			
