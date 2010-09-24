@@ -12,7 +12,7 @@ import persistencia.daos.ComentariosDAO;
 //VER US4.
 public class Blog {
 	private String titulo;
-	private int id;
+	private String id;
 	private String descricao;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
@@ -32,6 +32,7 @@ public class Blog {
 		}
 
 	}
+
 
 	/**
 	 * Metodo que codifica a String para o padrao ISO.
@@ -92,11 +93,11 @@ public class Blog {
 
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
