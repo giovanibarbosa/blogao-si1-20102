@@ -105,6 +105,30 @@ public class UsuariosDAO {
 		return usuarios;
 	}
 	
+	/**
+	 * Atualiza as informacoes do {@link Usuario} passado como parametro a partir
+	 * de um {@link Usuario} atualizado
+	 * 
+	 * @param usuario
+	 *            O {@link Usuario} a ser atualizado
+	 * @param usuarioAtualizado
+	 *            O {@link Usuario} atualizado
+	 * @throws ArgumentInvalidException
+	 *             Caso o {@link Usuario} a ser atualizado ou o {@link Usuario}
+	 *             atualizado sejam null, ou o {@link Usuario} a ser atualizado nao
+	 *             exista de forma persistente
+	 * @throws IOException
+	 *             Caso haja algum problema com arquivos ({@link File})
+	 */
+	public void atualizar(Usuario usuario, Usuario usuarioAtualizado)
+			throws PersistenceException, IOException {
+		if (usuario == null || usuarioAtualizado == null
+				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
+			throw new PersistenceException("Usuario inexistente");
+		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
+		xstream.toXML(usuarioAtualizado, new FileOutputStream(file));
+	}
+	
 //	/**
 //	 * Recupera um {@link Usuario} de um arquivo xml
 //	 * 

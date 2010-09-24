@@ -1,11 +1,13 @@
 package classes.func.usuario;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.UsuariosDAO;
 import classes.GerenciadorDeSessoes;
+import classes.Senha;
 
 /**
  * Facade de alteracao do perfil. Necessarios para os testes US3
@@ -43,13 +45,20 @@ public class FacadeUserStore3 {
 
 	// TODO SETA TODAS AS VARIAVEIS DO PERFIL E TESTA-AS.
 	public void changeProfileInformation(String idSessao, String atributo,
-			String novoValor) throws FileNotFoundException, PersistenceException, ArgumentInvalidException{
+			String novoValor) throws PersistenceException, ArgumentInvalidException, IOException{
 		try {
 			String login = gerente.getLogin(idSessao);
-			
 			Usuario us = userDAO.recupera(login);
-			Perfil perf = us.getPerfil();
-
+			Usuario usMod = userDAO.recupera(login);
+			if ("senha".equals(atributo)){
+				usMod.setSenha(new Senha(novoValor));
+			}
+			else{ 
+				Perfil perfil = usMod.getPerfil();
+				perfil.setAtributo(atributo, novoValor);
+			}
+			userDAO.atualizar(us, usMod);
+			
 		} catch (FileNotFoundException e) {
 			throw e;
 		} catch (PersistenceException e) {
