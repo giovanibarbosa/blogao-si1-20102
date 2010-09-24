@@ -1,6 +1,7 @@
 
 package classes;
 
+import interfaces.Constantes;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -31,7 +32,7 @@ public class Login {
 	
 	public void setLogin(String login) throws ArgumentInvalidException {
 		if (!validaLogin(login)) {
-			throw new ArgumentInvalidException("Login inválido");
+			throw new ArgumentInvalidException(Constantes.LOGIN_INVALIDO);
 		}
 		this.login = login;
 		
