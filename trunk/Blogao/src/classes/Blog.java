@@ -12,7 +12,7 @@ import persistencia.daos.ComentariosDAO;
 //VER US4.
 public class Blog {
 	private String titulo;
-	private String id;
+	private int id;
 	private String descricao;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
@@ -41,13 +41,13 @@ public class Blog {
 	 * @return
 	 */
 	private String codificaString(String string) {
-		String retorno = "";
-		try {
-			retorno = new String(string.getBytes(), "ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return retorno;
+//		String retorno = "";
+//		try {
+//			retorno = new String(string.getBytes(), "ISO-8859-1");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+		return string;
 	}
 
 	public String getTitulo() {
@@ -67,7 +67,7 @@ public class Blog {
 	}
 
 	private boolean validaTitulo(String titulo) throws ArgumentInvalidException {
-		if (titulo == null || titulo.trim().equals(""))
+		if (titulo == null || titulo.trim().isEmpty())
 			return false;
 		else
 			return true;
@@ -93,11 +93,11 @@ public class Blog {
 
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
