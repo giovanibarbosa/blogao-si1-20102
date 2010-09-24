@@ -10,7 +10,7 @@ public class LogavelImpl implements Logavel {
 	private Login login;
 	private Senha senha;
 	
-	public LogavelImpl(Login log, Senha sen) {
+	public LogavelImpl(Login log, Senha sen) throws Exception {
 		setLogin(log);
 		setSenha(sen);
 	}
@@ -26,7 +26,7 @@ public class LogavelImpl implements Logavel {
 	}
 
 	@Override
-	public void setLogin(Login login) {
+	public void setLogin(Login login) throws Exception {
 		try {
 			login.setLogin(login.getLogin());
 		} catch (ArgumentInvalidException e) {
