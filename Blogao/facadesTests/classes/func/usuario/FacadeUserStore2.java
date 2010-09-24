@@ -8,7 +8,6 @@ import java.util.List;
 
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.EmailsDAO;
-import persistencia.daos.LogaveisDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 
@@ -17,12 +16,11 @@ import classes.Senha;
 
 /**
  * Facade do Gerenciamento de Secao. Usado para os testes.
- * @author Tiago
+ * @author Tiago B.
  */
 public class FacadeUserStore2 {
 	private Usuario user;
 	private UsuariosDAO usuarioDao;
-	private LogaveisDAO logavelDao;
 	private List<Usuario> logados = new ArrayList<Usuario>();
 	
 	
@@ -31,39 +29,38 @@ public class FacadeUserStore2 {
 	//TODO CARREGA TODOS OS DADOS DO BD
 	public void loadData(){
 		usuarioDao = UsuariosDAO.getInstance();
-		logavelDao = LogaveisDAO.getInstance();
 	}
 	
 	
 	//TODO METODO QUE LOGA O USUARIO
-	public void logon(String login, String senha) throws Exception{
-		Login log = new Login(login);
-		Senha sen = new Senha(senha);
-		Logavel logavel = new LogavelImpl(log, sen);
-		List<Logavel> listaDeLogaveis = logavelDao.recuperaLogaveis();
-		
-		if(listaDeLogaveis != null && listaDeLogaveis.contains(logavel)){
-			user = new Usuario(log, sen);
-			usuarioDao.criar(user);
-		}else{
-			throw new Exception("Login ou senha inválido");
-		}
-	}
+//	public void logon(String login, String senha) throws Exception{
+//		Login log = new Login(login);
+//		Senha sen = new Senha(senha);
+//		Logavel logavel = new LogavelImpl(log, sen);
+//		List<Logavel> listaDeLogaveis = logavelDao.recuperaLogaveis();
+//		
+//		if(listaDeLogaveis != null && listaDeLogaveis.contains(logavel)){
+//			user = new Usuario(log, sen);
+//			usuarioDao.criar(user);
+//		}else{
+//			throw new Exception("Login ou senha inválido");
+//		}
+//	}
 	
 	//TODO METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
-	public boolean isUserLogged(String login) throws Exception{
-		Login log = new Login(login);
-		
-		if(existeLogavel(log)){
-			for(int i = logados.size(); i >= 0; i-- ){
-				if(logados.get(i).getLogin().equals(log))
-					return true;
-			}
-			return false;
-		}
-		
-		throw new Exception("Usuário inexistente");
-	}
+//	public boolean isUserLogged(String login) throws Exception{
+//		Login log = new Login(login);
+//		
+//		if(existeLogavel(log)){
+//			for(int i = logados.size(); i >= 0; i-- ){
+//				if(logados.get(i).getLogin().equals(log))
+//					return true;
+//			}
+//			return false;
+//		}
+//		
+//		throw new Exception("Usuário inexistente");
+//	}
 	
 	/**
 	 * metodo que retorna a existencia de um logavel dado seu login.
@@ -71,16 +68,16 @@ public class FacadeUserStore2 {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private boolean existeLogavel(Login log) throws FileNotFoundException {
-		List<Logavel> listaDeLogaveis = logavelDao.recuperaLogaveis();
-		
-		for(int i = listaDeLogaveis.size(); i >=0; i--){
-			if(listaDeLogaveis.get(i).getLogin().equals(log))
-				return true;
-		}
-		return false;
-		
-	}
+//	private boolean existeLogavel(Login log) throws FileNotFoundException {
+//		List<Logavel> listaDeLogaveis = logavelDao.recuperaLogaveis();
+//		
+//		for(int i = listaDeLogaveis.size(); i >=0; i--){
+//			if(listaDeLogaveis.get(i).getLogin().equals(log))
+//				return true;
+//		}
+//		return false;
+//		
+//	}
 
 
 	//VERIFICAR SE ESSE 'ID' VAI SER UM DOUBLE MESMO
