@@ -1,5 +1,6 @@
 package classes.func.usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.Logavel;
@@ -11,16 +12,17 @@ public class Usuario {
 
 	private Logavel logavel;
 	private Perfil perfil;
+	private List<Blog> listaBlogs;
 	
 	public Usuario(Login log, Senha sen) throws Exception {
 		logavel = new LogavelImpl(log, sen); 
+		listaBlogs = new ArrayList<Blog>();
 	}
 	
 	public Usuario(Login log, Senha sen, Perfil per) throws Exception {
 		this.logavel = new LogavelImpl(log, sen);
-		//setLogavel(logavel);	
-		 
 		setPerfil(per);
+		listaBlogs = new ArrayList<Blog>();
 	}
 
 	public Login getLogin() {
@@ -66,6 +68,13 @@ public class Usuario {
 		return logavel.toString();
 	}
 	
+	/**
+	 * @return the listaBlogs
+	 */
+	public List<Blog> getListaBlogs() {
+		return listaBlogs;
+	}
+
 	@Override
 	public boolean equals(Object obj){
 		if (!(obj instanceof Usuario)) return false;
