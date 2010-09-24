@@ -1,5 +1,7 @@
 package classes;
 
+import interfaces.Constantes;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Blog {
 			
 		} else {
 			throw new ArgumentInvalidException(
-					codificaString("Voc� deve especificar um t�tulo para o blog"));
+					codificaString(Constantes.ESPECIFICA_TITULO));
 		}
 
 	}
