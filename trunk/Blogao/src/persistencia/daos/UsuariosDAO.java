@@ -1,5 +1,7 @@
 package persistencia.daos;
 
+import interfaces.Constantes;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,7 +62,7 @@ public class UsuariosDAO {
 	public void criar(Usuario usuario) throws PersistenceException, IOException {
 		if (usuario == null
 				|| new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException("Login existente");
+			throw new PersistenceException(Constantes.LOGIN_EXISTENTE);
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		xstream.toXML(usuario, new FileOutputStream(file));
 	}
@@ -77,7 +79,7 @@ public class UsuariosDAO {
 	public void deletar(Usuario usuario) throws PersistenceException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O usuario nao pode ser removido");
+			throw new PersistenceException(Constantes.USUARIO_NAO_PODE_SER_REMOVIDO);
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -121,7 +123,7 @@ public class UsuariosDAO {
 			IOException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Usuario inexistente");
+			throw new PersistenceException(Constantes.USUARIO_EXISTENTE);
 		this.deletar(usuario);
 		this.criar(usuario);
 	}
@@ -142,7 +144,7 @@ public class UsuariosDAO {
 			FileNotFoundException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Usuário inexistente");
+			throw new PersistenceException(Constantes.USUARIO_INEXISTENTE);
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		return (Usuario) xstream.fromXML(new FileInputStream(file));
 	}
