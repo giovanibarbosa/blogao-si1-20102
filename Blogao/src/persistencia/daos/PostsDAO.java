@@ -1,5 +1,7 @@
 package persistencia.daos;
 
+import interfaces.Constantes;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,7 +54,7 @@ public class PostsDAO {
 	 */
 	public void criar(Post post) throws PersistenceException, IOException {
 		if (post == null)
-			throw new PersistenceException("O post nao pode ser criado");
+			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_CRIADO);
 		post.setId(geraId());
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		xstream.toXML(post, new FileOutputStream(file));
@@ -70,7 +72,7 @@ public class PostsDAO {
 	public void deletar(Post post) throws PersistenceException {
 		if (post == null
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O post n�o pode ser removido");
+			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_REMOVIDO);
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -114,7 +116,7 @@ public class PostsDAO {
 			throws PersistenceException, IOException {
 		if (post == null || postAtualizado == null
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O post n�o pode ser atualizado");
+			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_ATUALIZADO);
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		file.renameTo(new File(CAMINHO + postAtualizado + TIPO_DE_ARQUIVO));
 		xstream.toXML(postAtualizado, new FileOutputStream(file));
@@ -136,7 +138,7 @@ public class PostsDAO {
 			FileNotFoundException {
 		if (post == null
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Post inexistente");
+			throw new PersistenceException(Constantes.POST_INEXISTENTE);
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		return (Post) xstream.fromXML(new FileInputStream(file));
 	}
