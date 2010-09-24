@@ -29,7 +29,7 @@ public class Post {
 		if(validaPost(post)){
 			this.post = post;
 		}else{
-			throw new ArgumentInvalidException("Atriburo inv·lido");
+			throw new ArgumentInvalidException("Atriburo inv√°lido");
 		}
 	}
 	
@@ -43,20 +43,7 @@ public class Post {
 		
 	}
 	
-	/**
-	 * Metodo que codifica a String para o padrao ISO.
-	 * @param string
-	 * @return
-	 */
-	private String codificaString(String string) {
-		String retorno = "";
-		try {
-			retorno = new String(string.getBytes(), "ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return retorno;
-	}
+
 	
 	/**
 	 * retorna a lista de comentarios do post.
