@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.func.usuario.FacadeUserStore1;
+import classes.func.usuario.FacadeUserStore2;
 
 import easyaccept.EasyAcceptFacade;
 
@@ -16,22 +17,29 @@ import easyaccept.EasyAcceptFacade;
 public class UserStoryTest1 {
 	
 	public static void main(String[] args) {
-		List<String> files = new ArrayList<String>();
+		List<String> files1 = new ArrayList<String>();
+		List<String> files2 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
-        files.add("Tests/us1.txt");
-//        files.add("Tests/us2.txt");
+        files1.add("Tests/us1.txt");
+		
+        files2.add("Tests/us2.txt");
 //        files.add("Tests/us3.txt");
 //        files.add("Tests/us4.txt");
        // files.add("Tests/us5.txt");
         
-        FacadeUserStore1 perfFac = new FacadeUserStore1();
+        //Testes para a us1.txt
+        FacadeUserStore1 perfFac1 = new FacadeUserStore1();        
+        EasyAcceptFacade eaFacade1 = new EasyAcceptFacade(perfFac1, files1);        
+        eaFacade1.executeTests();
         
-        EasyAcceptFacade eaFacade = new EasyAcceptFacade(perfFac, files);
+        //Testes para a us2.txt        
+        FacadeUserStore2 perfFac2 = new FacadeUserStore2();
+        EasyAcceptFacade eaFacade2 = new EasyAcceptFacade(perfFac2, files2);  
+        eaFacade2.executeTests();
         
-        eaFacade.executeTests();
-        
-        System.out.println(eaFacade.getCompleteResults());
+        System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
+        System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
         
         
 	}
