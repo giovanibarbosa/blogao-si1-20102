@@ -15,8 +15,8 @@ import classes.Senha;
 /**
  * Facade de alteracao do perfil. Necessarios para os testes US3
  * 
- * @author Tiago
  * @author Rodolfo Marinho
+ * 
  */
 public class FacadeUserStore3 {
 	private UsuariosDAO userDAO;
@@ -49,7 +49,7 @@ public class FacadeUserStore3 {
 		}
 	}
 
-	// TODO SETA TODAS AS VARIAVEIS DO PERFIL E TESTA-AS.
+	// SETA TODAS AS VARIAVEIS DO PERFIL E TESTA-AS.
 	public void changeProfileInformation(String idSessao, String atributo,
 			String novoValor) throws PersistenceException,
 			ArgumentInvalidException, IOException {
@@ -58,11 +58,14 @@ public class FacadeUserStore3 {
 			Usuario us = userDAO.recupera(login);
 			if ("senha".equals(atributo)) {
 				us.setSenha(new Senha(novoValor));
-			} 
-			else if ("login".equals(atributo)){
+			} else if ("login".equals(atributo)) {
+				Usuario usTemp = userDAO.recupera(login);
 				us.setLogin(new Login(novoValor));
+				userDAO.criar(us);
+				userDAO.deletar(usTemp);
+
 			}
-					
+
 			else {
 				Perfil perfil = us.getPerfil();
 				perfil.setAtributo(atributo, novoValor);
@@ -111,7 +114,8 @@ public class FacadeUserStore3 {
 	}
 
 	// TODO METODO QUE DESLOGA O USUARIO.
-	public void logoff() {
+	public void logoff(String idSession) throws ArgumentInvalidException {
+		gerente.logoff(idSession);
 	}
 
 	// TODO SALVA TODOS OS DADOS NO BD
