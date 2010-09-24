@@ -39,6 +39,7 @@ public interface Constantes {
 	static final String SENHA_INVALIDA = "Senha inválida";
 	static final String BLOG_INVALIDO = "Blog inválido";
 	static final String COMENTARIO_INEXISTENTE = "Comentario inexistente";
+	static final String EMAIL_INEXISTENTE = "Email inexistente";
 	
 	
 	

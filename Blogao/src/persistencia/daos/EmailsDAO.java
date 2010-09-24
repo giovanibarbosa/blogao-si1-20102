@@ -1,5 +1,7 @@
 package persistencia.daos;
 
+import interfaces.Constantes;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -59,7 +61,7 @@ public class EmailsDAO {
 	 */
 	public void criar(Email email) throws PersistenceException, IOException {
 		if (new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException("Email existente");
+			throw new PersistenceException(Constantes.EMAIL_EXISTENTE);
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		xstream.toXML(email, new FileOutputStream(file));
 	}
@@ -76,7 +78,7 @@ public class EmailsDAO {
 	public void deletar(Email email) throws PersistenceException {
 		if (email == null
 				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O email não é válido");
+			throw new PersistenceException(Constantes.EMAIL_NAO_VALIDO);
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -117,7 +119,7 @@ public class EmailsDAO {
 			FileNotFoundException {
 		if (email == null
 				|| !(new File(CAMINHO + email + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Email inexistente");
+			throw new PersistenceException(Constantes.EMAIL_INEXISTENTE);
 		File file = new File(CAMINHO + email + TIPO_DE_ARQUIVO);
 		return (Email) xstream.fromXML(new FileInputStream(file));
 	}
