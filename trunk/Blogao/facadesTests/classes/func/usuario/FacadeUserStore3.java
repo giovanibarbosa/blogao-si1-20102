@@ -49,15 +49,14 @@ public class FacadeUserStore3 {
 		try {
 			String login = gerente.getLogin(idSessao);
 			Usuario us = userDAO.recupera(login);
-			Usuario usMod = userDAO.recupera(login);
 			if ("senha".equals(atributo)){
-				usMod.setSenha(new Senha(novoValor));
+				us.setSenha(new Senha(novoValor));
 			}
 			else{ 
-				Perfil perfil = usMod.getPerfil();
+				Perfil perfil = us.getPerfil();
 				perfil.setAtributo(atributo, novoValor);
 			}
-			userDAO.atualizar(us, usMod);
+			userDAO.atualizar(us);
 			
 		} catch (FileNotFoundException e) {
 			throw e;

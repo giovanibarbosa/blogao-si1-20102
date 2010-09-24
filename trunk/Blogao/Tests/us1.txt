@@ -1,28 +1,28 @@
 ###############################################################################################################
 #User Story-- Criar perfil
-#Criar um novo perfil. No ato do cadastro, diversos dados podem ser informados de forma a compor o perfil de um novo usu�rio.
+#Criar um novo perfil. No ato do cadastro, diversos dados podem ser informados de forma a compor o perfil de um novo usuário.
 
 #Dados Informados:
 #*login;
 #*Senha;
-#*Nome de exibi��o;
+#*Nome de exibição;
 #*Email;
 #*Sexo;
 #*Data de nascimento;
-#*Endere�o;
+#*Endereço;
 #*Interesses;
 #*Quem sou eu;
 #*Filmes favoritos;
 #*Musicas favoritas;
 #*Livros favoritos
 
-#Restri��es:
-#    -Campos obrigat�rios:
+#Restrições:
+#    -Campos obrigatórios:
 #           *login;
 #           *Senha;
 #           *email;
        
-#    -Campo único no sistema (N�o � possivel existir outro perfil com mesmo dado)
+#    -Campo único no sistema (Não é possivel existir outro perfil com mesmo dado)
 #        *login;
 #        *email
 #################################################################################################################        
@@ -32,29 +32,29 @@
 cleanPersistence
 
 #Validacao: login vazio
-expectError "Login inv�lido" createProfile login= senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
-expectError "Login inv�lido" createProfile login="" senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino 01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Login inválido" createProfile login= senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Login inválido" createProfile login="" senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino 01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 
 #Validacao: senha vazia
-expectError "Senha inv�lida" createProfile login=mariasilva senha= nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
-expectError "Senha inv�lida" createProfile login=mariasilva senha="" nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Senha inválida" createProfile login=mariasilva senha= nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Senha inválida" createProfile login=mariasilva senha="" nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 
 #Validacao: email vazio
-expectError "Email inv�lido" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email= sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
-expectError "Email inv�lido" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="" sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Email inválido" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email= sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Email inválido" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="" sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 
-#Validacao: Sexo tem de assumir um dos seguintes valores: "Feminino", "Masculino", "N�o informado"
-expectError "Sexo inv�lido" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="msilva@hotmail.com" sexo=AAA dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+#Validacao: Sexo tem de assumir um dos seguintes valores: "Feminino", "Masculino", "Não informado"
+expectError "Sexo inválido" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="msilva@hotmail.com" sexo=AAA dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 #Validacao: Data de nascimento tem de ser um valor válido
-expectError "Data inv�lida" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="msilva@hotmail.com" sexo="N�o informado" dataNasc=01/13/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+expectError "Data inválida" createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email="msilva@hotmail.com" sexo="Não informado" dataNasc=01/13/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 #Criacao de um usuario
 createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
-createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo="N�o informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo="Não informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
 #Validacao: login único
 expectError "Login existente" createProfile login=mariasilva senha=dfsqwe2 nome_exibicao="Maria da Silva" email=madsfria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua da cocaina" interesses="hockey" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
@@ -78,10 +78,10 @@ expect "poeira em alto mar" getProfileInformation login=mariasilva atributo=livr
 #Caso o nome de exibição seja vazio deve ser retornado o login do usuário
 expect sicrano getProfileInformation login=sicrano atributo=nome_exibicao
 
-#Validação: atributo inv�lido
-expectError "Atributo inv�lido" getProfileInformation login=mariasilva atributo=XXX
-expectError "Atributo inv�lido" getProfileInformation login=mariasilva atributo=""
-expectError "Atributo inv�lido" getProfileInformation login=mariasilva atributo= 
+#Validação: atributo inválido
+expectError "Atributo Inválido" getProfileInformation login=mariasilva atributo=XXX
+expectError "Atributo Inválido" getProfileInformation login=mariasilva atributo=""
+expectError "Atributo Inválido" getProfileInformation login=mariasilva atributo= 
 
 
 #Salva os dados de forma permanente

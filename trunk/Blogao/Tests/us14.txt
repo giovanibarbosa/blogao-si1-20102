@@ -73,4 +73,3 @@ expect 2 getNumberOfAllSubComments idComentario=${idComentario1}
 expect 1 getNumberOfAllSubComments idComentario=${idComentario2} 
 expect 0 getNumberOfAllSubComments idComentario=${idComentario3} 
 
-

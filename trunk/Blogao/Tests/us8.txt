@@ -1,18 +1,18 @@
 #########################################################################################
-#User Story-- Adicionar comentários
+#User Story-- Adicionar comentÃ¡rios
 #
-#Permite a adição de comentários sobre postagens. (Ex.: Usuário A emite comentário sobre um post do usuário B)
-#Restrições:
-#    -O usuário deve estar logado no sistema (Fornecimento de um id de sessão válido)
+#Permite a adiÃ§Ã£o de comentÃ¡rios sobre postagens. (Ex.: UsuÃ¡rio A emite comentÃ¡rio sobre um post do usuÃ¡rio B)
+#RestriÃ§Ãµes:
+#    -O usuÃ¡rio deve estar logado no sistema (Fornecimento de um id de sessÃ£o vÃ¡lido)
 #   
 #############################################################################################
 
 #Carrega dados persistidos anteriormente
 loadData
 
-createProfile login=zefina senha=123456 nome_exibicao= email=zef@gmail.com sexo="Não informado" dataNasc=01/01/1980 endereco= interesses= quem_sou_eu= filmes= musicas= livros=
+createProfile login=zefina senha=123456 nome_exibicao= email=zef@gmail.com sexo="NÃ£o informado" dataNasc=01/01/1980 endereco= interesses= quem_sou_eu= filmes= musicas= livros=
 
-#Efetua login dos usuários
+#Efetua login dos usuÃ¡rios
 sessionId1=logon login=sicrano senha=senhona
 sessionId2=logon login=mariasilva senha=qwe2
 sessionId3=logon login=zefina senha=123456
@@ -33,10 +33,10 @@ tmpComentario=getComment postId=${postId1} index=0
 
 expect ${idComentario1} echo ${tmpComentario}
 
-#Recupera o texto de um comentário
+#Recupera o texto de um comentÃ¡rio
 expect "que massa esse seu novo post" getCommentText idComentario=${idComentario1}
 
-#Recupera o autor do comentário
+#Recupera o autor do comentÃ¡rio
 expect mariasilva getCommentAuthor idComentario=${idComentario1}
 
 #Desloga usuarios
@@ -49,6 +49,5 @@ saveData
 
 
  
-
 
 

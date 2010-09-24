@@ -1,19 +1,19 @@
 #User Story-- Criar postagem 
 #
-#Cadastra uma nova postagem. Cada nova postagem deve possuir uma data de criaÁ„o gerada pelo servidor. Ao inserir uma nova entrada, deve-se #fornecer as seguintes informaÁıes:
-#*TÌtulo do post
+#Cadastra uma nova postagem. Cada nova postagem deve possuir uma data de cria√ß√£o gerada pelo servidor. Ao inserir uma nova entrada, deve-se #fornecer as seguintes informa√ß√µes:
+#*T√≠tulo do post
 #*Texto
-#*¡udios
-#*VÌdeos
+#*√Åudios
+#*V√≠deos
 #*Imagens
 #
-#RestriÁıes
-#    -O usu·rio deve estar logado no sistema (Fornecimento de um id de sess„o v·lido)
+#Restri√ß√µes
+#    -O usu√°rio deve estar logado no sistema (Fornecimento de um id de sess√£o v√°lido)
 #   
-#    -Campos obrigatÛrios:
-#        *TÌtulo do post
+#    -Campos obrigat√≥rios:
+#        *T√≠tulo do post
 #        
-#Obs.: No caso do acesso via celular, n„o È necess·rio implementar a adiÁ„o de recursos multimÌdia, ou seja, a postagem ser· constituÌda apenas #de texto
+#Obs.: No caso do acesso via celular, n√£o √© necess√°rio implementar a adi√ß√£o de recursos multim√≠dia, ou seja, a postagem ser√° constitu√≠da apenas #de texto
 
 #Limpa quaisquer dados pre-existentes
 cleanPersistence
@@ -21,63 +21,63 @@ cleanPersistence
 #Recupera a data de hoje, no format dd/MM/yyyy
 data1=todaysDate
 
-#Cria dois usu·rio
-createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo="N„o informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
+#Cria dois usu√°rio
+createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo="N√£o informado" dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
 
-#Efetua login dos usu·rios
+#Efetua login dos usu√°rios
 sessionId1=logon login=sicrano senha=senhona
 sessionId2=logon login=mariasilva senha=qwe2
 
-#CriaÁ„o de um blog
+#Cria√ß√£o de um blog
 blogId1=createBlog sessionId=${sessionId1} titulo="Meu primeiro blog" descricao="Quidquid latine dictum sit, altum viditur"
 
-#CriaÁ„o de um post. Inicialmente, um post ser· composto pelo titulo e pela parte textual. Posteriormente ser· possÌvel adicionar os #recursos multimÌdia. No momento da criaÁ„o ser· gerado 
+#Cria√ß√£o de um post. Inicialmente, um post ser√° composto pelo titulo e pela parte textual. Posteriormente ser√° poss√≠vel adicionar os #recursos multim√≠dia. No momento da cria√ß√£o ser√° gerado 
 postId1=createPost sessionId=${sessionId1} blogId=${blogId1} titulo="Meu primeiro post" texto="Sobre esse primeiro post, iremos falar sobre..."
 
-#ValidaÁ„o: id de sess„o v·lido
-expectError "Sess„o inv·lida" createPost sessionId=${sessionId2} blogId=${blogId1} titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
-expectError "Sess„o inv·lida" createPost sessionId= blogId=${blogId1} titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
-expectError "Sess„o inv·lida" createPost sessionId="" blogId=${blogId1} titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
+#Valida√ß√£o: id de sess√£o v√°lido
+expectError "Sess√£o inv√°lida" createPost sessionId=${sessionId2} blogId=${blogId1} titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
+expectError "Sess√£o inv√°lida" createPost sessionId= blogId=${blogId1} titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
+expectError "Sess√£o inv√°lida" createPost sessionId="" blogId=${blogId1} titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
 
-#ValidaÁ„o: id de blog v·lido
-expectError "Blog inv·lido" createPost sessionId=${sessionId1} blogId=XXX titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
-expectError "Blog inv·lido" createPost sessionId=${sessionId1} blogId= titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
-expectError "Blog inv·lido" createPost sessionId=${sessionId1} blogId="" titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
+#Valida√ß√£o: id de blog v√°lido
+expectError "Blog inv√°lido" createPost sessionId=${sessionId1} blogId=XXX titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
+expectError "Blog inv√°lido" createPost sessionId=${sessionId1} blogId= titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
+expectError "Blog inv√°lido" createPost sessionId=${sessionId1} blogId="" titulo="Meu segundo post" texto="Sobre esse primeiro post, iremos falar sobre..."
 
-#ValidaÁ„o: titulo do post obrigatÛrio
-expectError "TÌtulo obrigatÛrio" createPost sessionId=${sessionId1} blogId=${blogId1} titulo="" texto="Sobre esse primeiro post, iremos falar sobre..."
-expectError "TÌtulo obrigatÛrio" createPost sessionId=${sessionId1} blogId=${blogId1} titulo= texto="Sobre esse primeiro post, iremos falar sobre..."
+#Valida√ß√£o: titulo do post obrigat√≥rio
+expectError "T√≠tulo obrigat√≥rio" createPost sessionId=${sessionId1} blogId=${blogId1} titulo="" texto="Sobre esse primeiro post, iremos falar sobre..."
+expectError "T√≠tulo obrigat√≥rio" createPost sessionId=${sessionId1} blogId=${blogId1} titulo= texto="Sobre esse primeiro post, iremos falar sobre..."
 
-#Adiciona um ·udio a um determinado post. sera possivel adicionar uma descricao sobre esse recurso. Devera ser utilizado codificacao Base64
+#Adiciona um √°udio a um determinado post. sera possivel adicionar uma descricao sobre esse recurso. Devera ser utilizado codificacao Base64
 #para transformar os bytes do arquivo em uma string e dessa forma ser passada via web services (isto e necessario devido a restricoes da
 #especificacao web services para jme). Veja no arquivo em anexo "Conversao" como converter um array de bytes numa string via codificacao 
-#Base64. Isto È v·lido para audio, video e imagens
+#Base64. Isto √© v√°lido para audio, video e imagens
 audioId1=attachSound sessionId=${sessionId1} postId=${postId1} descricao="Meu primeiro audio" dado="meu audio1"
 audioId2=attachSound sessionId=${sessionId1} postId=${postId1} descricao= dado="meu audio2"
 audioId3=attachSound sessionId=${sessionId1} postId=${postId1} descricao="" dado="meu audio3"
 
-#ValidaÁ„o: dado vazio
-expectError "Dado inv·lido" attachSound sessionId=${sessionId1} postId=${postId1} descricao="" dado=""
-expectError "Dado inv·lido" attachSound sessionId=${sessionId1} postId=${postId1} descricao="" dado=
+#Valida√ß√£o: dado vazio
+expectError "Dado inv√°lido" attachSound sessionId=${sessionId1} postId=${postId1} descricao="" dado=""
+expectError "Dado inv√°lido" attachSound sessionId=${sessionId1} postId=${postId1} descricao="" dado=
 
 #Adiciona videos ao post.
 videoId1=attachMovie sessionId=${sessionId1} postId=${postId1} descricao="Meu primeiro video" dado="meu video1"
 videoId2=attachMovie sessionId=${sessionId1} postId=${postId1} descricao= dado="meu video2"
 videoId3=attachMovie sessionId=${sessionId1} postId=${postId1} descricao="" dado="meu video3"
 
-#ValidaÁ„o: dado vazio
-expectError "Dado inv·lido" attachMovie sessionId=${sessionId1} postId=${postId1} descricao="" dado=""
-expectError "Dado inv·lido" attachMovie sessionId=${sessionId1} postId=${postId1} descricao="" dado=
+#Valida√ß√£o: dado vazio
+expectError "Dado inv√°lido" attachMovie sessionId=${sessionId1} postId=${postId1} descricao="" dado=""
+expectError "Dado inv√°lido" attachMovie sessionId=${sessionId1} postId=${postId1} descricao="" dado=
 
 #Adiciona imagens ao post
 imagemId1=attachPicture sessionId=${sessionId1} postId=${postId1} descricao="Minha primeira imagem" dado="minha imagem1"
 imagemId2=attachPicture sessionId=${sessionId1} postId=${postId1} descricao= dado="minha imagem2"
 imagemId3=attachPicture sessionId=${sessionId1} postId=${postId1} descricao="" dado="minha imagem3"
 
-#ValidaÁ„o: dado vazio
-expectError "Dado inv·lido" attachPicture sessionId=${sessionId1} postId=${postId1} descricao="" dado=""
-expectError "Dado inv·lido" attachPicture sessionId=${sessionId1} postId=${postId1} descricao="" dado=
+#Valida√ß√£o: dado vazio
+expectError "Dado inv√°lido" attachPicture sessionId=${sessionId1} postId=${postId1} descricao="" dado=""
+expectError "Dado inv√°lido" attachPicture sessionId=${sessionId1} postId=${postId1} descricao="" dado=
 
 #Recupera informacoes do post
 expect "Meu primeiro post" getPostInformation id=${postId1} atributo=titulo
@@ -123,4 +123,3 @@ logoff sessionId=${sessionId2}
 
 #Salva os dados de forma permanente
 saveData
-

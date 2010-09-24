@@ -71,18 +71,17 @@ public class UsuariosDAO {
 	 * @param usuario
 	 *            O {@link Usuario} a ser apagado
 	 * @throws ArgumentInvalidException
-	 *             Caso o usuario passado como parametro seja null ou nao
-	 *             exista como dado persistente
+	 *             Caso o usuario passado como parametro seja null ou nao exista
+	 *             como dado persistente
 	 */
 	public void deletar(Usuario usuario) throws PersistenceException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(
-					"O usuario nao pode ser removido");
+			throw new PersistenceException("O usuario nao pode ser removido");
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
-	
+
 	/**
 	 * Recupera todos os usuarios ({@link Usuario}) como forma de {@link List}
 	 * 
@@ -102,10 +101,10 @@ public class UsuariosDAO {
 		}
 		return usuarios;
 	}
-	
+
 	/**
-	 * Atualiza as informacoes do {@link Usuario} passado como parametro a partir
-	 * de um {@link Usuario} atualizado
+	 * Atualiza as informacoes do {@link Usuario} passado como parametro a
+	 * partir de um {@link Usuario} atualizado
 	 * 
 	 * @param usuario
 	 *            O {@link Usuario} a ser atualizado
@@ -113,20 +112,20 @@ public class UsuariosDAO {
 	 *            O {@link Usuario} atualizado
 	 * @throws ArgumentInvalidException
 	 *             Caso o {@link Usuario} a ser atualizado ou o {@link Usuario}
-	 *             atualizado sejam null, ou o {@link Usuario} a ser atualizado nao
-	 *             exista de forma persistente
+	 *             atualizado sejam null, ou o {@link Usuario} a ser atualizado
+	 *             nao exista de forma persistente
 	 * @throws IOException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public void atualizar(Usuario usuario, Usuario usuarioAtualizado)
-			throws PersistenceException, IOException {
-		if (usuario == null || usuarioAtualizado == null
+	public void atualizar(Usuario usuario) throws PersistenceException,
+			IOException {
+		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException("Usuario inexistente");
-		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
-		xstream.toXML(usuarioAtualizado, new FileOutputStream(file));
+		this.deletar(usuario);
+		this.criar(usuario);
 	}
-	
+
 	/**
 	 * Recupera um {@link Usuario} de um arquivo xml
 	 * 
@@ -134,8 +133,8 @@ public class UsuariosDAO {
 	 *            O {@link Usuario} a ser recuperado do arquivo xml
 	 * @return O {@link Usuario} recuperado de um arquivo xml
 	 * @throws PersistenceException
-	 *             Caso o usuario passado como parametro seja null ou não exista
-	 *             como dado persistente
+	 *             Caso o usuario passado como parametro seja null ou não
+	 *             exista como dado persistente
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
@@ -147,7 +146,7 @@ public class UsuariosDAO {
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		return (Usuario) xstream.fromXML(new FileInputStream(file));
 	}
-	
+
 	/**
 	 * Limpa todos os arquivos contendo os usuarios {@link Usuario}
 	 */
@@ -157,7 +156,7 @@ public class UsuariosDAO {
 				arquivo.delete();
 		}
 	}
-	
+
 	/**
 	 * Recupera um array dos arquivos contidos no path dos usuarios
 	 * 
