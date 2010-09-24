@@ -67,7 +67,7 @@ public class Perfil {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);			
 		}catch (Exception e) {
-			throw new ArgumentInvalidException("Data inválida");
+			throw new ArgumentInvalidException("Data invÃ¡lida");
 		}
 		
 	}
@@ -98,7 +98,7 @@ public class Perfil {
 	
 	public void setSexo(String sex) throws ArgumentInvalidException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException("Sexo inválido");
+			throw new ArgumentInvalidException("Sexo invÃ¡lido");
 		}
 		this.sexo = Sexo.setadorSexo(sex);		
 	}
@@ -113,7 +113,7 @@ public class Perfil {
 	
 	public String getAtributo(String atributo) throws ArgumentInvalidException {
 		if (atributo ==null)
-			throw new ArgumentInvalidException("Atributo inválido");
+			throw new ArgumentInvalidException("Atributo invÃ¡lido");
 		int codigoAtributo = atributo.hashCode();
 		
 		switch(codigoAtributo) {
@@ -139,13 +139,13 @@ public class Perfil {
 				return livrosFavoritos;
 				
 			default:
-				throw new ArgumentInvalidException("Atributo inválido");
+				throw new ArgumentInvalidException("Atributo invÃ¡lido");
 		}		
 	}
 	
 	public void setAtributo(String atributo, String novoValor) throws ArgumentInvalidException {
 		if (atributo ==null)
-			throw new ArgumentInvalidException("Atributo Inválido");
+			throw new ArgumentInvalidException("Atributo InvÃ¡lido");
 		int codigoAtributo = atributo.hashCode();
 		
 		switch(codigoAtributo) {
@@ -181,7 +181,7 @@ public class Perfil {
 				break;
 				
 			default:
-				throw new ArgumentInvalidException("Atributo Inválido");
+				throw new ArgumentInvalidException("Atributo InvÃ¡lido");
 		}		
 	}
 		
