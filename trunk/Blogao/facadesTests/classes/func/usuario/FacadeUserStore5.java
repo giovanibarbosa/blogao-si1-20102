@@ -100,11 +100,12 @@ public class FacadeUserStore5 {
 		try {
 			String login = gerente.getLogin(idSessao);
 			Usuario us = userDAO.recupera(login);
-			List<Blog> listBlog = us.listaDeBlogs();
+			List<Blog> listBlog = us.getListaBlogs();
+			
 			Blog blog = null;
 			Blog blogMod = null;
 
-			/*for(int i = listBlog.size(); i >1; i--){
+			/*for(int i = listBlog.size(); i > 1; i--){
 				if(listBlog.get(i).getId().equals(id)){
 					blog = listBlog.get(i);
 					blogMod = listBlog.get(i);
@@ -112,8 +113,9 @@ public class FacadeUserStore5 {
 			}
 			
 			if(blog == null){
-				throw new Exception("Blog invÃ¡lido");
+				throw new Exception("Blog inválido");
 			}*/
+			
 			if(novoValor != null && !(novoValor.trim().equals(""))){
 				if(atributo.equals("descricao")){
 					blogMod.setDescricao(novoValor);
