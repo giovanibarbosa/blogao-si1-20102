@@ -13,15 +13,15 @@ import enuns.Sexo;
 public class Perfil {	
 	
 	private Email email;
-	private String nomeDeExibicao;
+	private String nomeDeExibicao = "";
 	private String endereco;
-	private Texto interesses;
+	private String interesses;
 	private Data dataDeNascimento;
 	private Sexo sexo;
-	private Texto quemSouEu;
-	private Texto filmesFavoritos;
-	private Texto musicasFavoritas;
-	private Texto livrosFavoritos;
+	private String quemSouEu;
+	private String filmesFavoritos;
+	private String musicasFavoritas;
+	private String livrosFavoritos;
 	
 	
 	
@@ -47,10 +47,10 @@ public class Perfil {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public Texto getInteresses() {
+	public String getInteresses() {
 		return interesses;
 	}
-	public void setInteresses(Texto interesses) {
+	public void setInteresses(String interesses) {
 		this.interesses = interesses;
 	}
 	public Data getDataDeNascimento() {
@@ -65,28 +65,28 @@ public class Perfil {
 		}
 		
 	}
-	public Texto getQuemSouEu() {
+	public String getQuemSouEu() {
 		return quemSouEu;
 	}
-	public void setQuemSouEu(Texto quemSouEu) {
+	public void setQuemSouEu(String quemSouEu) {
 		this.quemSouEu = quemSouEu;
 	}
-	public Texto getFilmesFavoritos() {
+	public String getFilmesFavoritos() {
 		return filmesFavoritos;
 	}
-	public void setFilmesFavoritos(Texto filmesFavoritos) {
+	public void setFilmesFavoritos(String filmesFavoritos) {
 		this.filmesFavoritos = filmesFavoritos;
 	}
-	public Texto getMusicasFavoritas() {
+	public String getMusicasFavoritas() {
 		return musicasFavoritas;
 	}
-	public void setMusicasFavoritas(Texto musicasFavoritas) {
+	public void setMusicasFavoritas(String musicasFavoritas) {
 		this.musicasFavoritas = musicasFavoritas;
 	}
-	public Texto getLivrosFavoritos() {
+	public String getLivrosFavoritos() {
 		return livrosFavoritos;
 	}
-	public void setLivrosFavoritos(Texto livrosFavoritos) {
+	public void setLivrosFavoritos(String livrosFavoritos) {
 		this.livrosFavoritos = livrosFavoritos;
 	}
 	
@@ -101,5 +101,8 @@ public class Perfil {
 		return sexo;
 	}
 	
+	public String toString(){
+		return nomeDeExibicao;
+	}
 	
 }

@@ -31,9 +31,6 @@ public class LogavelImpl implements Logavel {
 			login.setLogin(login.getLogin());
 		} catch (ArgumentInvalidException e) {
 			// TODO pensar em lancamento de excecao, ou tratamento
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

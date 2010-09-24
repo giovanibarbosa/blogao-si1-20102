@@ -54,11 +54,19 @@ public class FacadeUserStore1 {
 		Email mail = new Email(email);
 
 		perfil1 = new Perfil();
+		perfil1.setNomeDeExibicao(nome_exibicao);
 		perfil1.setEmail(mail);
-		user1 = new Usuario(log, sen, perfil1);
-
 		perfil1.setSexo(sexo);
 		perfil1.setDataDeNascimento(dataNasc);
+		perfil1.setEndereco(endereco);
+		perfil1.setInteresses(interesses);
+		perfil1.setQuemSouEu(quem_sou_eu);
+		perfil1.setFilmesFavoritos(filmes);
+		perfil1.setMusicasFavoritas(musicas);
+		perfil1.setLivrosFavoritos(livros);
+
+		user1 = new Usuario(log, sen, perfil1);
+
 		emailsDAO.criar(mail);
 		logDAO.criar(user1);
 	}
