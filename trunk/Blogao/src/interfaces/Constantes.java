@@ -14,7 +14,7 @@ public interface Constantes {
 	static final String EMAIL_INVALIDO = "Email inválido";
 	static final String USUARIO_LOGADO = "Usuário já logado";
 	static final String LOGIN_INVALIDO = "Login inválido";
-	static final String ATRIBUTO_INVALIDO = "Atributo inválido";
+	static final String ATRIBUTO_INVALIDO = "Atributo Inválido";
 	static final String DATA_INVALIDA = "Data inválida";
 	static final String POST_INVALIDO = "Post inválido";
 	static final String NAO_INFORMADO = "Não informado";
