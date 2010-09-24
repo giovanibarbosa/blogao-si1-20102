@@ -54,7 +54,7 @@ public class LogaveisDAO {
 			throws PersistenceException, IOException {
 		if (logavel == null || newLogavel == null
 				|| !(new File(CAMINHO + logavel + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O login nao √© v√°lido");
+			throw new PersistenceException("O login n„o È v·lido");
 		File file = new File(CAMINHO + logavel + TIPO_DE_ARQUIVO);
 		xstream.toXML(logavel, new FileOutputStream(file));
 	}
@@ -91,7 +91,7 @@ public class LogaveisDAO {
 	public void deletar(Logavel logavel) throws PersistenceException {
 		if (logavel == null
 				|| !(new File(CAMINHO + logavel + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("O logavell nao √© v√°lido");
+			throw new PersistenceException("O logavel n„o È v·lido");
 		File file = new File(CAMINHO + logavel + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
