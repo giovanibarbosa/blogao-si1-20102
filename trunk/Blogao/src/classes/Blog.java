@@ -19,17 +19,19 @@ public class Blog {
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
-	private List<Integer> idsComentarios;
+	
+	private List<Post> posts;
 
 	public Blog(String titulo, String descricao, String idSessao)
 			throws ArgumentInvalidException {
 		if (validaTitulo(titulo)) {
 			this.titulo = titulo;
 			this.descricao = descricao;
-			this.idsComentarios = new ArrayList<Integer>();
+//			this.idsComentarios = new ArrayList<Integer>();
 			this.listaSubBlogs = new ArrayList<Blog>();
 			this.idSessao = idSessao;
 			this.setId(gerarId());
+			posts = new ArrayList<Post>();
 
 		} else {
 			throw new ArgumentInvalidException(Constantes.ESPECIFICA_TITULO);
@@ -135,19 +137,25 @@ public class Blog {
 		listaSubBlogs.remove(subblog);
 	}
 
-	public void addComentario(int idComentario) {
-		idsComentarios.add(idComentario);
-	}
-
-	public void removeComentario(Integer idComentario)
-			throws PersistenceException {
-		cmtDAO.deletar(idComentario);
-		idsComentarios.remove(idComentario);
-	}
-
 	@Override
 	public String toString() {
 		return getId();
+	}
+	
+	
+	
+	public boolean addPost(Post post) {
+		if (posts.contains(post))
+			return false;
+		posts.add(post);
+		return true;
+	}
+	
+	public boolean removePost(Post post) {
+		if (!posts.contains(post))
+			return false;
+		posts.remove(post);
+		return true;
 	}
 
 }
