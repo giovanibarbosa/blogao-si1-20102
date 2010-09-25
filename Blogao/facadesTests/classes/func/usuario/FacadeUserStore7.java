@@ -71,9 +71,10 @@ public class FacadeUserStore7 {
 		return gerenciaBlogs.recuperaIdBlogDesejado(sessionID, index);
 	}
 	
-	//TODO Fazer...
-	public int getBlogByLogin(String login, int index) {
-		return 0; //retorna o blogID
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getBlogByLogin(String login, int index) throws FileNotFoundException,
+					PersistenceException {
+		return gerenciaBlogs.recuperaIdBlogPorLogin(login, index);
 	}
 	
 	//TODO Fazer...
@@ -110,23 +111,29 @@ public class FacadeUserStore7 {
 	public int getMovie(String postID, int index) {
 		return 0; //id movie
 	}
-	
+	//TODO Fazer...
 	public int getSound(String postID, int index) {
 		return 0;		 //id som
 	}
 	
+	//TODO Fazer...
 	public int getPicture(String postID, int index) {
 		return 0;		//id imagem
 	}
 	
+	//TODO Fazer...
 	public void deleteMovie(String sessionID, String idMovie) {}
 	
+	//TODO Fazer...
 	public void deletePicture(String sessionID, String idImagem) {}
 	
+	//TODO Fazer...
 	public void deleteSound(String sessionID, String idSom) {}
 	
+	//TODO Fazer...
 	public void logoff (String sessionID) {}
 	
+	//TODO Fazer...
 	public void saveData() {}
 	
 	
