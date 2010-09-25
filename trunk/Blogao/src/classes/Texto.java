@@ -22,15 +22,11 @@ public class Texto {
 	 * @throws ArgumentInvalidException 
 	 */
 	public Texto(String titulo, String corpo) throws ArgumentInvalidException{
-		if(validaCorpo(corpo))
-			this.corpo = corpo;
-		else
-			throw new ArgumentInvalidException("Corpo inválido");
-		
+
 		if(validaTitulo(titulo))
 			this.titulo = titulo.trim();
 		else
-			throw new ArgumentInvalidException("Titulo inválido");
+			throw new ArgumentInvalidException("Título obrigatório");
 	}
 	/**
 	 * Contrutor apenas para um texto com corpo.
@@ -50,7 +46,7 @@ public class Texto {
 	 * @return um booleno referente a validacao ou nao da entrada.
 	 */
 	private boolean validaTitulo(String titulo) {
-		if(titulo == null)
+		if(titulo == null || titulo.trim().equals(""))
 			return false;
 		return true;
 	}
