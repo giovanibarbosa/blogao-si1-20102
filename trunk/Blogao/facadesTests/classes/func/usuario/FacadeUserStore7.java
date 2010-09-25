@@ -35,7 +35,7 @@ public class FacadeUserStore7 {
 	 * Loga
 	 * @param login
 	 * @param senha
-	 * @return
+	 * @return String 
 	 * @throws PersistenceException
 	 * @throws FileNotFoundException
 	 * @throws ArgumentInvalidException
