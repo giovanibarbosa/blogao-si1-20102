@@ -1,4 +1,4 @@
-package classes;
+package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,8 +8,10 @@ import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
-import classes.func.GerenciadorDeBlogs;
-import classes.func.usuario.Usuario;
+import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.Post;
+import classes.Blog;
+import classes.Texto;
 
 public class GerenciadorDePosts {
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();

@@ -1,4 +1,4 @@
-package classes;
+package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
 
@@ -8,6 +8,9 @@ import persistencia.daos.EmailsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
+import classes.Login;
+import classes.Senha;
+import classes.Email;
 
 public class GerenciadorDePerfis {
 	

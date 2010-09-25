@@ -6,9 +6,7 @@ import java.io.FileNotFoundException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 
-import persistencia.daos.UsuariosDAO;
-
-import classes.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeSessoes;
 
 /**
  * Facade do Gerenciamento de Secao. Usado para os testes.
@@ -17,15 +15,14 @@ import classes.GerenciadorDeSessoes;
  */
 public class FacadeUserStore2 {
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
-	private UsuariosDAO userDAO;
 	
-	//CARREGA TODOS OS DADOS DO BD
+	// TODO CARREGA TODOS OS DADOS DO BD
 	public void loadData(){
-		userDAO = UsuariosDAO.getInstance();
+		
 	}
 	
 	
-	// TODO METODO QUE LOGA O USUARIO
+	//METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha) throws PersistenceException, FileNotFoundException, ArgumentInvalidException{
 		try {
 			return gerente.logon(login, senha);

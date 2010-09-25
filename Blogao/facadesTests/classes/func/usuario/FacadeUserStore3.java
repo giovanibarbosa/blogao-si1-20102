@@ -4,10 +4,9 @@ import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import persistencia.daos.EmailsDAO;
 import persistencia.daos.UsuariosDAO;
-import classes.GerenciadorDePerfis;
-import classes.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDePerfis;
+import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.Login;
 import classes.Senha;
 
@@ -19,14 +18,12 @@ import classes.Senha;
  */
 public class FacadeUserStore3 {
 	private UsuariosDAO userDAO;
-	private EmailsDAO mailDAO;
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDePerfis gerenteDoPerfil = new GerenciadorDePerfis();
 
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() {
 		userDAO = UsuariosDAO.getInstance();
-		mailDAO = EmailsDAO.getInstance();
 	}
 
 	// METODO QUE LOGA O USUARIO

@@ -9,9 +9,9 @@ import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.Blog;
-import classes.GerenciadorDePerfis;
-import classes.GerenciadorDeSessoes;
-import classes.func.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDePerfis;
+import classes.gerenciadores.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeBlogs;
 
 /**
  * Facade de Blog. Essa classe chama os metodos necess�rios para o teste.

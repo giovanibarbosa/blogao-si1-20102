@@ -1,4 +1,4 @@
-package classes.func;
+package classes.gerenciadores;
 
 import interfaces.Constantes;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Blog;
-import classes.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.UsuariosDAO;

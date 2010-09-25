@@ -1,6 +1,6 @@
 package classes.func.usuario;
 
-import classes.GerenciadorDePerfis;
+import classes.gerenciadores.GerenciadorDePerfis;
 import persistencia.daos.*;
 
 /**
