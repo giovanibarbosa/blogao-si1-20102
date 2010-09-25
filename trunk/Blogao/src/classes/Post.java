@@ -25,9 +25,12 @@ public class Post {
 	private Imagem imagem;
 	private Audio audio;
 	private Video video;
+	private String blogRaiz;
 
 
 	
+
+
 
 
 	/**
@@ -36,10 +39,11 @@ public class Post {
 	 * @param post
 	 * @throws ArgumentInvalidException
 	 */
-	public Post(Texto post) throws ArgumentInvalidException{
+	public Post(Texto post, String blog) throws ArgumentInvalidException{
 		if(validaPost(post)){
 			this.post = post;
 			setId(gerarId());
+			setBlogRaiz(blog);
 		}else{
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
@@ -180,6 +184,14 @@ public class Post {
 
 	public void setVideo(Video video) {
 		this.video = video;
+	}
+	
+	public String getBlogRaiz() {
+		return blogRaiz;
+	}
+
+	public void setBlogRaiz(String blogRaiz) {
+		this.blogRaiz = blogRaiz;
 	}
 	
 }
