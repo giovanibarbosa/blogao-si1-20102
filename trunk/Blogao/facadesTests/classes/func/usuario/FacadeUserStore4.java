@@ -69,7 +69,7 @@ public class FacadeUserStore4 {
 		userDAO.criar(user1);
 	}
 	
-	//TODO CRIA O BLOG
+	//FIXME
 	public String createBlog(String idSession, String titulo, String descricao) throws Exception{
 		try {
 			return gerenciaBlogs.createBlog(idSession, titulo, descricao);		
@@ -80,7 +80,17 @@ public class FacadeUserStore4 {
 	}
 	
 	//TODO RETORNA OS ATRIBUTOS DO BLOG.
-	public void getBlogInformation(String idBLog, String atributo) {
+	public String getBlogInformation(String idBlog, String atributo) throws ArgumentInvalidException, FileNotFoundException {
+		String retorno;
+		try {
+			Blog blog = blogsDAO.recuperaBlogPorId(idBlog);
+			return blog.getAtributo(atributo);
+			
+		} catch (FileNotFoundException e) {
+			throw e;
+		} catch (ArgumentInvalidException e) {
+			throw e;
+		}
 		
 	}
 	
