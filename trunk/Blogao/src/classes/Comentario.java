@@ -4,7 +4,7 @@ import ourExceptions.ArgumentInvalidException;
 
 public class Comentario {
 
-	private int id;
+	private String id;
 	private Texto corpoComentario;
 	
 	/**
@@ -15,9 +15,18 @@ public class Comentario {
 	public Comentario(String corpo){
 		try {
 			corpoComentario =  new Texto(corpo);
+			setId(gerarId());
 		} catch (ArgumentInvalidException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Gera o id da classe.
+	 * @return
+	 */
+	private String gerarId() {
+		return String.valueOf(this.hashCode());
 	}
 	
 	/**
@@ -30,13 +39,13 @@ public class Comentario {
 	 * Seta o id do Comentario.
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	/**
 	 * @return o id do comnetario.
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 		
