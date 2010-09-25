@@ -39,11 +39,11 @@ public class Post {
 	 * @param post
 	 * @throws ArgumentInvalidException
 	 */
-	public Post(Texto post, String blog) throws ArgumentInvalidException{
+	public Post(Texto post, String idBlog) throws ArgumentInvalidException{
 		if(validaPost(post)){
 			this.post = post;
 			setId(gerarId());
-			setBlogRaiz(blog);
+			setBlogRaiz(idBlog);
 		}else{
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
