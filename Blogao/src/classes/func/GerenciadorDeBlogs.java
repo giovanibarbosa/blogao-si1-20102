@@ -17,10 +17,11 @@ public class GerenciadorDeBlogs {
 	
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
+	private GerenciadorDeSessoes gerenteDeSessao;
 	
-	private GerenciadorDeSessoes gerenteDeSessao = new GerenciadorDeSessoes();
-	
-	
+	public GerenciadorDeBlogs(GerenciadorDeSessoes gerenteSessoes){
+		this.gerenteDeSessao = gerenteSessoes;
+	}
 	/**
 	 * 
 	 * @param idSession
@@ -35,7 +36,6 @@ public class GerenciadorDeBlogs {
 			String login = gerenteDeSessao.getLogin(idSession);
 			
 			Usuario us = userDAO.recupera(login);
-			gerenteDeSessao.logon(login, us.getSenha().getSenha());
 			us.listaDeBlogs().add(blog);
 			blogsDAO.criar(blog);
 			return blog.getId();
