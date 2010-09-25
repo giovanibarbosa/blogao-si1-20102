@@ -30,6 +30,7 @@ public class Post {
 	public Post(Texto post) throws ArgumentInvalidException{
 		if(validaPost(post)){
 			this.post = post;
+			setId(gerarId());
 		}else{
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
@@ -111,6 +112,14 @@ public class Post {
 	public void saveData() throws PersistenceException, IOException{
 		postDao.getInstance();
 		postDao.atualizar(this , this);
+	}
+	
+	/**
+	 * Metodo que gera o id da classe.
+	 * @return
+	 */
+	private String gerarId() {
+		return String.valueOf(this.hashCode());
 	}
 	
 	/**
