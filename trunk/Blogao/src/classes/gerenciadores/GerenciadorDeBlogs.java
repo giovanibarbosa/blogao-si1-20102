@@ -26,6 +26,7 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeSessoes gerenteDeSessao;
+	private GerenciadorDeUsuarios gerenteUsuarios = new GerenciadorDeUsuarios();
 
 	private List<Blog> listaDeBlogs;
 	
@@ -109,7 +110,8 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		return blogsDAO.recupera(idBlog);
 	}
 	
-	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException, PersistenceException, ArgumentInvalidException{
+	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException,
+						PersistenceException, ArgumentInvalidException{
 		Blog blog = blogsDAO.recupera(idBlog);
 		if(!idSessao.equals(blog.getIdSessao())){
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
@@ -117,7 +119,8 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		return blog;
 	}
 	
-	public int totalDeBlogsPorLogin(String login) throws ArgumentInvalidException, FileNotFoundException, PersistenceException{
+	public int totalDeBlogsPorLogin(String login) throws ArgumentInvalidException,
+						FileNotFoundException, PersistenceException{
 //		try {
 		Usuario user = userDAO.recupera(login);
 		return user.getListaBlogs().size();
@@ -129,6 +132,20 @@ public class GerenciadorDeBlogs implements Gerenciador{
 //		}
 		
 	}
+	
+	public int totalDeBlogsPorSessao(String sessionID) throws ArgumentInvalidException,
+						FileNotFoundException, PersistenceException {
+		return userDAO.recupera(gerenteDeSessao.getLogin(sessionID)).getListaBlogs().size();
+		
+	}
+	
+	public int recuperaIdBlogDesejado(String sessionID, int index) throws 
+					FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Usuario user = gerenteUsuarios.recuperaUsuarioPorIdSessao(sessionID);
+		return Integer.valueOf(user.getListaBlogs().get(index).getId());
+		
+	}
+	
 
 
 	@Override
