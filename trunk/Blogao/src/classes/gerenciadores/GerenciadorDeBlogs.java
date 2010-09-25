@@ -5,6 +5,7 @@ import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -24,6 +25,8 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeSessoes gerenteDeSessao;
 
+	private List<Blog> listaDeBlogs;
+	
 	public GerenciadorDeBlogs(GerenciadorDeSessoes gerenteSessoes) {
 		this.gerenteDeSessao = gerenteSessoes;
 	}
