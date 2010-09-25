@@ -77,8 +77,8 @@ public class UserStoryTest1 {
         System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
-//        System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
-//        //System.out.println(eaFacade5.getCompleteResults());
+        System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
+        System.out.println(eaFacade5.getCompleteResults());
 //        System.out.println(eaFacade5.getCompleteResults());
 //        System.out.println(eaFacade6.getCompleteResults());
 //        System.out.println(eaFacade8.getCompleteResults());

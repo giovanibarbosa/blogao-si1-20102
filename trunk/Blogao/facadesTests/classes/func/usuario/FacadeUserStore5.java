@@ -13,6 +13,7 @@ import persistencia.daos.UsuariosDAO;
 import interfaces.Logavel;
 import classes.Blog;
 import classes.Email;
+import classes.GerenciadorDePerfis;
 import classes.GerenciadorDeSessoes;
 import classes.Login;
 import classes.Senha;
@@ -26,6 +27,7 @@ public class FacadeUserStore5 {
 	private Perfil perfil1;
 	private Usuario user1;
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
 	private Blog blog;
 
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
@@ -42,32 +44,19 @@ public class FacadeUserStore5 {
 		postsDAO.limparPosts();
 	}
 	
-	//TODO Armazenar no BD.
+	//Armazenar no BD.
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
-
-		Login log = new Login(login);
-		Senha sen = new Senha(senha);
-		Email mail = new Email(email);
-
-		perfil1 = new Perfil();
-		perfil1.setNomeDeExibicao(nome_exibicao);
-		perfil1.setEmail(mail);
-		perfil1.setSexo(sexo);
-		perfil1.setDataDeNascimento(dataNasc);
-		perfil1.setEndereco(endereco);
-		perfil1.setInteresses(interesses);
-		perfil1.setQuemSouEu(quem_sou_eu);
-		perfil1.setFilmesFavoritos(filmes);
-		perfil1.setMusicasFavoritas(musicas);
-		perfil1.setLivrosFavoritos(livros);
-
-		user1 = new Usuario(log, sen, perfil1);
-
-		emailsDAO.criar(mail);
-		userDAO.criar(user1);
+		
+		try {
+			gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
+					dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
+			
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	// METODO QUE LOGA O USUARIO

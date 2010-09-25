@@ -8,13 +8,9 @@ import persistencia.daos.BlogsDAO;
 import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
-import interfaces.Logavel;
 import classes.Blog;
-import classes.Email;
+import classes.GerenciadorDePerfis;
 import classes.GerenciadorDeSessoes;
-import classes.Login;
-import classes.Senha;
-import classes.Texto;
 import classes.func.GerenciadorDeBlogs;
 
 /**
@@ -22,11 +18,9 @@ import classes.func.GerenciadorDeBlogs;
  * @author Tiago
  */
 public class FacadeUserStore4 {
-	private Blog blog;
-	private Perfil perfil1;
-	private Usuario user1;
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs();
+	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
 	
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
@@ -46,27 +40,14 @@ public class FacadeUserStore4 {
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
-
-		Login log = new Login(login);
-		Senha sen = new Senha(senha);
-		Email mail = new Email(email);
-
-		perfil1 = new Perfil();
-		perfil1.setNomeDeExibicao(nome_exibicao);
-		perfil1.setEmail(mail);
-		perfil1.setSexo(sexo);
-		perfil1.setDataDeNascimento(dataNasc);
-		perfil1.setEndereco(endereco);
-		perfil1.setInteresses(interesses);
-		perfil1.setQuemSouEu(quem_sou_eu);
-		perfil1.setFilmesFavoritos(filmes);
-		perfil1.setMusicasFavoritas(musicas);
-		perfil1.setLivrosFavoritos(livros);
-
-		user1 = new Usuario(log, sen, perfil1);
-
-		emailsDAO.criar(mail);
-		userDAO.criar(user1);
+		
+		try {
+			gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
+					dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
+			
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	//FIXME
