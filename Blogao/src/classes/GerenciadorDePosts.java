@@ -16,9 +16,12 @@ public class GerenciadorDePosts {
 	private PostsDAO postsDAO = PostsDAO.getInstance();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeBlogs gerenteDeBlogs;
+	private GerenciadorDeSessoes gerenteDeSessao;
 	
-	public GerenciadorDePosts(GerenciadorDeBlogs gerenteBlogs){
+	public GerenciadorDePosts(GerenciadorDeSessoes gereteDeSessao, GerenciadorDeBlogs gerenteBlogs){
+		this.gerenteDeSessao = gereteDeSessao;
 		this.gerenteDeBlogs = gerenteBlogs;
+		
 	}
 	
 	/**
@@ -26,19 +29,23 @@ public class GerenciadorDePosts {
 	 * @param idBlog
 	 * @param titulo
 	 * @param texto
+	 * @param texto2 
 	 * @return
 	 * @throws IOException
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 */
-	public String createPost(String idBlog, String titulo, String texto) throws IOException, ArgumentInvalidException, PersistenceException {
+	public String createPost(String idSessao, String idBlog, String titulo, String texto) throws IOException, ArgumentInvalidException, PersistenceException {
 		Post post;
 		try {
+			gerenteDeSessao.getLogin(idSessao);
 			Blog blog = gerenteDeBlogs.getBlog(idBlog);
+			Blog blogOld = gerenteDeBlogs.getBlog(idBlog);
 			Texto txt = new Texto(titulo, texto);
 			post = new Post(txt, idBlog);
 			blog.listaDePosts().add(post);
 			postsDAO.criar(post);
+			blogsDAO.atualizar(blogOld, blog);
 			
 			
 		} catch (FileNotFoundException e) {
