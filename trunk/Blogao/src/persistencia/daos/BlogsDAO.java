@@ -117,7 +117,7 @@ public class BlogsDAO {
 			FileNotFoundException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.BLOG_EXISTENTE);
+			throw new PersistenceException(Constantes.BLOG_INEXISTENTE);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
@@ -137,7 +137,8 @@ public class BlogsDAO {
 	public Blog recupera(String id) throws PersistenceException,
 			FileNotFoundException {
 		if (id == null || !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException("Blog inexistente");
+			throw new PersistenceException(Constantes.BLOG_INVALIDO);
+
 		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
@@ -148,8 +149,6 @@ public class BlogsDAO {
 	 * 
 	 * @param blog
 	 *            O {@link Blog} a ser atualizado
-	 * @param blogAtualizado
-	 *            O {@link Blog} atualizado
 	 * @throws ArgumentInvalidException
 	 *             Caso o {@link Blog} a ser atualizado ou o {@link Blog}
 	 *             atualizado sejam null, ou o {@link Blog} a ser atualizado nao
@@ -157,15 +156,13 @@ public class BlogsDAO {
 	 * @throws IOException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public void atualizar(Blog blog, Blog blogAtualizado)
-			throws PersistenceException, IOException {
-		if (blog == null || blogAtualizado == null
+	public void atualizar(Blog blog) throws PersistenceException, IOException {
+		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(
 					Constantes.BLOG_NAO_PODE_SER_ATUALIZADO);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
-		file.renameTo(new File(CAMINHO + blogAtualizado + TIPO_DE_ARQUIVO));
-		xstream.toXML(blogAtualizado, new FileOutputStream(file));
+		xstream.toXML(blog, new FileOutputStream(file));
 	}
 
 	/**
