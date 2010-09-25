@@ -89,7 +89,7 @@ public class FacadeUserStore6 {
 	
 	//TODO CRIA O BLOG
 	public void createBlog(String idSession, String titulo, String descricao) throws ArgumentInvalidException, PersistenceException, IOException{	
-		blog = new Blog(titulo, descricao);
+		blog = new Blog(titulo, descricao, user1.getLogin().getLogin());
 		blogsDAO.criar(blog);
 
 	}
