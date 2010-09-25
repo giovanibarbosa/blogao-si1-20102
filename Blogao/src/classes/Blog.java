@@ -147,7 +147,7 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return String.valueOf(getId());
+		return getId();
 	}
 
 }
