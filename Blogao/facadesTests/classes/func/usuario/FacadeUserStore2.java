@@ -1,10 +1,7 @@
 package classes.func.usuario;
 
-import interfaces.Logavel;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -19,9 +16,8 @@ import classes.GerenciadorDeSessoes;
  * @author Rodolfo Marinho
  */
 public class FacadeUserStore2 {
-	private Map<Integer, String> logados = new HashMap<Integer, String>();
-	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private UsuariosDAO userDAO;
 	
 	//CARREGA TODOS OS DADOS DO BD
 	public void loadData(){
