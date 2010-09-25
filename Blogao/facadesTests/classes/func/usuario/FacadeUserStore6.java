@@ -14,16 +14,20 @@ import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.Blog;
 import classes.Email;
+import classes.GerenciadorDePosts;
 import classes.GerenciadorDeSessoes;
 import classes.Login;
 import classes.Post;
 import classes.Senha;
 import classes.Texto;
+import classes.func.GerenciadorDeBlogs;
 
 public class FacadeUserStore6 {
 	private Perfil perfil1;
 	private Usuario user1;
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs(gerente);
+	private GerenciadorDePosts gerentePost = new GerenciadorDePosts(gerenteBlog);
 	private Blog blog;
 	private Post post;
 
@@ -88,27 +92,20 @@ public class FacadeUserStore6 {
 	}
 	
 	//TODO CRIA O BLOG
-	public void createBlog(String idSession, String titulo, String descricao) throws ArgumentInvalidException, PersistenceException, IOException{	
-		blog = new Blog(titulo, descricao, user1.getLogin().getLogin());
-		blogsDAO.criar(blog);
+	public void createBlog(String idSession, String titulo, String descricao) throws Exception{	
+		
+		try {
+			gerenteBlog.createBlog(idSession, titulo, descricao);
+		} catch (Exception e) {
+			throw e;
+		}
 
 	}
 	
 	//TODO CRIA O POST
 	public String createPost(String idSession, String idBlog, String titulo, String texto) throws ArgumentInvalidException, PersistenceException, IOException{
-		Texto txt = new Texto(titulo, texto);
-		try {
-			post = new Post(txt);
-			postsDAO.criar(post);
-		} catch (ArgumentInvalidException e) {
-			throw e;
-		} catch (PersistenceException e) {
-			throw e;
-		} catch (IOException e) {
-			throw e;
-		}
+		return gerentePost.createPost(idBlog, titulo, texto);
 
-		return post.getId();
 	}
 	
 	//TODO METODO QUE DESLOGA O USUARIO.
