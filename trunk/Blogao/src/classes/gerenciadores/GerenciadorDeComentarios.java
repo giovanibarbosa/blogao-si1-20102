@@ -21,12 +21,6 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	}
 	
 	@Override
-	public void cleanPersistence() {
-		comentariosDAO.limparComentarios();
-
-	}
-
-	@Override
 	public void saveData() {
 		// TODO Auto-generated method stub
 
