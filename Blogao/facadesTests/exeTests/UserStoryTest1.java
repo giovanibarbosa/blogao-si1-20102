@@ -9,6 +9,8 @@ import classes.func.usuario.FacadeUserStore2;
 import classes.func.usuario.FacadeUserStore3;
 import classes.func.usuario.FacadeUserStore4;
 import classes.func.usuario.FacadeUserStore5;
+import classes.func.usuario.FacadeUserStore6;
+import classes.func.usuario.FacadeUserStore8;
 
 import easyaccept.EasyAcceptFacade;
 
@@ -27,14 +29,18 @@ public class UserStoryTest1 {
 		List<String> files3 = new ArrayList<String>();
 		List<String> files4 = new ArrayList<String>();
 		List<String> files5 = new ArrayList<String>();
+		List<String> files6 = new ArrayList<String>();
+		List<String> files8 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
         files1.add("Tests" + SEPARADOR + "us1.txt");
 		
         files2.add("Tests" + SEPARADOR + "us2.txt");
-        files3.add("Tests" + SEPARADOR +"us3.txt");
+        files3.add("Tests" + SEPARADOR + "us3.txt");
         files4.add("Tests" + SEPARADOR + "us4.txt");
         files5.add("Tests" + SEPARADOR + "us5.txt");
+        files6.add("Tests" + SEPARADOR + "us6.txt");
+        files8.add("Tests" + SEPARADOR + "us8.txt");
 //        files.add("Tests/us4.txt");
        // files.add("Tests/us5.txt");
         
@@ -62,6 +68,14 @@ public class UserStoryTest1 {
         EasyAcceptFacade eaFacade5= new EasyAcceptFacade(perfFac5, files5);  
         eaFacade5.executeTests();
         
+        FacadeUserStore6 perfFac6 = new FacadeUserStore6();
+        EasyAcceptFacade eaFacade6= new EasyAcceptFacade(perfFac6, files6);  
+        eaFacade6.executeTests();
+        
+        FacadeUserStore8 perfFac8 = new FacadeUserStore8();
+        EasyAcceptFacade eaFacade8= new EasyAcceptFacade(perfFac8, files8);  
+        eaFacade8.executeTests();
+        
         
         
         System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
@@ -69,6 +83,8 @@ public class UserStoryTest1 {
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
         System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
         System.out.println(eaFacade5.getCompleteResults());
+        System.out.println(eaFacade6.getCompleteResults());
+        System.out.println(eaFacade8.getCompleteResults());
 	}
 
 }
