@@ -50,6 +50,54 @@ public class Post {
 		}
 	}
 	
+	/**
+	 * Classe que adiciona um comentario a lista.
+	 * @param coment
+	 */
+	public void addComentario2(Comentario coment){
+		if(comentarios.contains(coment))
+			comentarios.add(coment);
+	}
+	
+	/**
+	 * Remove o comentarios da lista.
+	 * @param coment
+	 */
+	public void removeComentario2(Comentario coment){
+		if(!comentarios.contains(coment))
+			comentarios.remove(coment);
+	}
+	
+	/**
+	 * Retorna a lista de comentarios.
+	 * @return
+	 */
+	public List<Comentario> getListaComentarios(){
+		return comentarios;
+	}
+	
+	/**
+	 * Retorna o tamanho da lista de comentarios.
+	 * @return
+	 */
+	public int getTamanhoDaLista(){
+		return comentarios.size();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**destructor do post.
 	 * 
 	 * @return
