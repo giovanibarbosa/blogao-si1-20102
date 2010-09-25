@@ -27,7 +27,7 @@ public class FacadeUserStore6 {
 	private Usuario user1;
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs(gerente);
-	private GerenciadorDePosts gerentePost = new GerenciadorDePosts(gerenteBlog);
+	private GerenciadorDePosts gerentePost = new GerenciadorDePosts(gerente, gerenteBlog);
 	private Blog blog;
 	private Post post;
 
@@ -104,7 +104,7 @@ public class FacadeUserStore6 {
 	
 	//TODO CRIA O POST
 	public String createPost(String idSession, String idBlog, String titulo, String texto) throws ArgumentInvalidException, PersistenceException, IOException{
-		return gerentePost.createPost(idBlog, titulo, texto);
+		return gerentePost.createPost(idSession, idBlog, titulo, texto);
 
 	}
 	
