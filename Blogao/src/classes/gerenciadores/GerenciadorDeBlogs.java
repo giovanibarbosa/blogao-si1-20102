@@ -104,11 +104,6 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		return blogsDAO.recupera(idBlog);
 	}
 
-	@Override
-	public void cleanPersistence() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void saveData() {

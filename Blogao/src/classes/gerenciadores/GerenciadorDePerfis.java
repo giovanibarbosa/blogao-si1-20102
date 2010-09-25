@@ -71,14 +71,6 @@ public class GerenciadorDePerfis implements Gerenciador {
 		return retorno;
 	}
 
-
-	@Override
-	public void cleanPersistence() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	@Override
 	public void saveData() {
 		// TODO Auto-generated method stub
@@ -91,7 +83,5 @@ public class GerenciadorDePerfis implements Gerenciador {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 
 }

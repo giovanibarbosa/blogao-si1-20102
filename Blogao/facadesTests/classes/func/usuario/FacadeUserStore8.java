@@ -9,14 +9,12 @@ import persistencia.daos.ComentariosDAO;
 import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
-import classes.Blog;
-import classes.Comentario;
-import classes.Email;
 import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.gerenciadores.GerenciadorDeComentarios;
+import classes.Comentario;
 import classes.Login;
 import classes.Senha;
 
@@ -35,7 +33,6 @@ public class FacadeUserStore8 {
 	private GerenciadorDePerfis gerentePerfis;
 	private GerenciadorDeBlogs gerenteBlogs;
 	private GerenciadorDePosts gerentePosts;
-	private Blog blog;
 
 	private UsuariosDAO userDAO;
 	private BlogsDAO blogsDAO;
@@ -55,6 +52,8 @@ public class FacadeUserStore8 {
 	public void loadData() {
 		gerenteComentarios.loadData();
 		gerentePosts.loadData();
+		gerentePerfis.loadData();
+		
 	}
 
 	// TODO Armazenar no BD.

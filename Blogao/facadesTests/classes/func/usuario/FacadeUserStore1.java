@@ -1,36 +1,31 @@
 package classes.func.usuario;
 
+import interfaces.Gerenciador;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
-import persistencia.daos.*;
 
 /**
  * Facade do Perfil. Utilizada para chamar os metodos necessarios para os
  * testes.
  * 
  * @author Tiago Leite - tiagohsl@lsd.ufcg.edu.br
- * @colaborator Rodolfo Marinho - rodolfo (at) grupomarinho (dot) com (dot) br
+ * @colaborator Rodolfo Marinho - rodolfo@lcc.ufcg.edu.br
  * @colaborator Giovani Barbosa - giovanibarbosa (at) gmail (dot) com
  * 
  */
 public class FacadeUserStore1 {
 
 	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
-
-	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
-	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
-	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
-	private PostsDAO postsDAO = PostsDAO.getInstance();
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
 	//APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
-		userDAO.limparUsuarios();
-		blogsDAO.limparBlogs();
-		emailsDAO.limparEmails();
-		postsDAO.limparPosts();
+		gerenteDados.cleanPersistence();
 	}
 
 	//SALVA TODOS OS DADOS NO BD
 	public void saveData() {
+		gerenteDados.saveData(new Gerenciador[]{gerentePerfis});
 	}
 
 	//FAZER ESTE METODO
