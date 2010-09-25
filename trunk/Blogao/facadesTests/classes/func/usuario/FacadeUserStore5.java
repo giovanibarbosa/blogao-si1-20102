@@ -78,7 +78,7 @@ public class FacadeUserStore5 {
 	// CRIA O BLOG
 	public String createBlog(String idSessao, String titulo, String descricao)
 			throws ArgumentInvalidException, PersistenceException, IOException {
-		blog = new Blog(titulo, descricao, gerente.getLogin(idSessao));
+		blog = new Blog(titulo, descricao, idSessao);
 		blogsDAO.criar(blog);
 		return blog.getId();
 	}
@@ -98,6 +98,8 @@ public class FacadeUserStore5 {
 			if (!gerente.getLogados().containsKey(idSessao)) throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 			
 			blog = blogsDAO.recupera(id);
+			System.out.println(blog.getIdSessao());
+			System.out.println(idSessao + "\n");
 			gerenteBlogs.changeBlogInformation(blog, atributo, novoValor);
 			if (!blog.getIdSessao().equals(idSessao)) throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 			
