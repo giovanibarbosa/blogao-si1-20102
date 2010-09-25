@@ -21,7 +21,7 @@ public interface Constantes {
 	static final String NAO_INFORMADO = "Não informado";
 	static final String BLOG_NAO_CRIADO = "O blog nao pode ser criado";
 	static final String BLOG_NAO_REMOVIDO = "O blog não pode ser removido";
-	static final String BLOG_EXISTENTE = "Blog inexistente";
+	static final String BLOG_INEXISTENTE = "Blog inexistente";
 	static final String BLOG_NAO_PODE_SER_ATUALIZADO = "O blog não pode ser atualizado";
 	static final String COMENTARIO_NAO_CRIADO = "O comentario não pode ser criado";
 	static final String COMENTARIO_NAO_PODE_SER_REMOVIDO = "O comentario não pode ser removido";
@@ -41,6 +41,7 @@ public interface Constantes {
 	static final String BLOG_INVALIDO = "Blog inválido";
 	static final String COMENTARIO_INEXISTENTE = "Comentario inexistente";
 	static final String EMAIL_INEXISTENTE = "Email inexistente";
+	static final String TITULO_INVALIDO = "Você deve especificar um título para o blog";
 	
 	
 	

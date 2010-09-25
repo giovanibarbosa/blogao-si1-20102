@@ -28,7 +28,7 @@ public class FacadeUserStore4 {
 	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
 	private PostsDAO postsDAO = PostsDAO.getInstance();
 	
-	//TODO APAGAR OS DADOS SALVOS
+	//APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
 		userDAO.limparUsuarios();
 		blogsDAO.limparBlogs();
@@ -51,7 +51,6 @@ public class FacadeUserStore4 {
 		}
 	}
 	
-	//FIXME
 	public String createBlog(String idSession, String titulo, String descricao) throws Exception{
 		try {
 			return gerenciaBlogs.createBlog(idSession, titulo, descricao);		
@@ -61,12 +60,11 @@ public class FacadeUserStore4 {
 		}
 	}
 	
-	//TODO RETORNA OS ATRIBUTOS DO BLOG.
+	//RETORNA OS ATRIBUTOS DO BLOG.
 	public String getBlogInformation(String idBlog, String atributo) throws ArgumentInvalidException, FileNotFoundException {
-		String retorno;
 		try {
 			Blog blog = blogsDAO.recuperaBlogPorId(idBlog);
-			return blog.getAtributo(atributo);
+			return gerenciaBlogs.getAtributo(blog, atributo);
 			
 		} catch (FileNotFoundException e) {
 			throw e;
