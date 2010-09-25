@@ -103,6 +103,19 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	public Blog getBlog(String idBlog) throws FileNotFoundException, PersistenceException{
 		return blogsDAO.recupera(idBlog);
 	}
+	
+	public int totalDeBlogsPorLogin(String login) throws ArgumentInvalidException, FileNotFoundException, PersistenceException{
+		try {
+			Usuario user = userDAO.recupera(login);
+			return user.getListaBlogs().size();
+			
+		} catch (FileNotFoundException e) {
+			throw e;
+		} catch (PersistenceException e) {
+			throw e;
+		}
+		
+	}
 
 
 	@Override
@@ -116,4 +129,10 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		// TODO Auto-generated method stub
 		
 	}
+
+//	@Override
+//	public void cleanPersistence() {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }

@@ -140,14 +140,14 @@ public class UsuariosDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public Usuario recupera(String usuario) throws PersistenceException,
+	public Usuario recupera(String login) throws PersistenceException,
 			FileNotFoundException {
-		if (usuario == null
-				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
+		if (login == null
+				|| !(new File(CAMINHO + login + TIPO_DE_ARQUIVO).exists()))
 
 			throw new PersistenceException(Constantes.USUARIO_INEXISTENTE);
 
-		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
+		File file = new File(CAMINHO + login + TIPO_DE_ARQUIVO);
 		return (Usuario) xstream.fromXML(new FileInputStream(file));
 	}
 
