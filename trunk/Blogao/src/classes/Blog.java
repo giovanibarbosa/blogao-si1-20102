@@ -6,6 +6,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.func.usuario.Usuario;
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
@@ -16,6 +18,7 @@ public class Blog {
 	private String titulo;
 	private String id;
 	private String descricao;
+	private Usuario dono;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
