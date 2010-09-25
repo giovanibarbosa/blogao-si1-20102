@@ -1,6 +1,7 @@
 package classes.gerenciadores;
 
 import interfaces.Constantes;
+import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import persistencia.daos.UsuariosDAO;
  * @author Rodolfo Marinho
  * 
  */
-public class GerenciadorDeSessoes {
+public class GerenciadorDeSessoes implements Gerenciador{
 	private Map<String, String> logados;
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 
@@ -122,5 +123,23 @@ public class GerenciadorDeSessoes {
 	
 	public Map<String, String> getLogados() {
 		return logados;
+	}
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadData() {
+		// TODO Auto-generated method stub
+		
 	}
 }
