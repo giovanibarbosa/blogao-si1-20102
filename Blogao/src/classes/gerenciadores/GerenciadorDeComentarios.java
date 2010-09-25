@@ -14,7 +14,12 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	List<Comentario> listaComentarios;
 	ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
+	GerenciadorDeSessoes gerenteSessoes;
 
+	public GerenciadorDeComentarios(GerenciadorDeSessoes gerSessoes){
+		this.gerenteSessoes = gerSessoes;
+	}
+	
 	@Override
 	public void cleanPersistence() {
 		comentariosDAO.limparComentarios();
