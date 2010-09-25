@@ -87,7 +87,8 @@
 
 
  	<!--
-
+	O comando testa devera chamar o testa.bat ou o testa.sh
+	
  =================== comando testa =================== 
 -->
 
@@ -128,7 +129,7 @@
  =================== comando dist =================== 
 -->
 
-        <target name="dist" depends="compila, geradoc" description="Criará um arquivo JAR para distribuição">
+        <target name="dist" depends="compila" description="Criará um arquivo JAR para distribuição">
                 <mkdir dir="${dist}" />
                 <echo message="Criando JAR da aplicação..." />
 
