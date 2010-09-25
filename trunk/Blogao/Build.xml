@@ -1,5 +1,7 @@
 <!-- build.xml do projeto -->
 
+<!-- Limpa, Compila, compila testes e dist, estão pegando .. falta o geraDoc -->
+
 <project name="Blogao" default="compila" basedir=".">
 
 	<description>
@@ -13,11 +15,13 @@
 
 
 	<property name="src" value="src" />
-	<property name="srcTests" value="facadesTests" />
+	<property name="facadesTests" value="facadesTests" />
 	<property name="build" value="${basedir}/build" />
 	<property name="dist" value="dist" />
 	<property name="docdir" value="javaDoc" />
 	<property name="test" value="test" />
+	<property name="package" value="src" />
+
 	<property name="testSuite" value="${package}.facadesTests" />
 
 
@@ -65,8 +69,8 @@
         <target name="compilaTestes" depends="compila">
                 <echo message="Compilando o código de testes..." />
 
-                <javac srcdir="${srcTests}" destdir="${build}">
-                        <classpath refid="test.classpath" />
+                <javac srcdir="${facadesTests}" destdir="${build}">
+                        <classpath refid="facadesTests.classpath" />
                 </javac>
         </target>
 
