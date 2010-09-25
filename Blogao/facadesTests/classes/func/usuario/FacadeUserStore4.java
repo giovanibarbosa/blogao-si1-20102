@@ -16,6 +16,7 @@ import classes.func.GerenciadorDeBlogs;
 /**
  * Facade de Blog. Essa classe chama os metodos necess�rios para o teste.
  * @author Tiago
+ * @author Rodolfo Marinho
  */
 public class FacadeUserStore4 {
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();

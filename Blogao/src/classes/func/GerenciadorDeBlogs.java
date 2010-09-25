@@ -30,10 +30,10 @@ public class GerenciadorDeBlogs {
 	 * @return
 	 * @throws Exception
 	 */
-	public String createBlog(String idSession, String titulo, String descricao) throws Exception{
+	public String createBlog(String idSessao, String titulo, String descricao) throws Exception{
 		try {
-			Blog blog = new Blog(titulo, descricao);
-			String login = gerenteDeSessao.getLogin(idSession);
+			String login = gerenteDeSessao.getLogin(idSessao);
+			Blog blog = new Blog(titulo, descricao, login);
 			
 			Usuario us = userDAO.recupera(login);
 			us.listaDeBlogs().add(blog);
