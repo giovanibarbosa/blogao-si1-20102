@@ -29,6 +29,9 @@ public class Post {
 	
 	private List<Comentario> comentarios;
 	
+	private static final int TEXTO = 110256354;
+	private static final int TITULO = -873444423;
+	
 
 
 
@@ -84,17 +87,19 @@ public class Post {
 		return comentarios.size();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void setAtributo(String atributo, String mudanca) throws ArgumentInvalidException {
+		int codigoAtributo = atributo.hashCode();
+		
+		switch(codigoAtributo) {
+			
+			case(TEXTO):
+				this.getTexto().setCorpo(mudanca);
+			case(TITULO):
+				this.getTexto().setTitulo(mudanca);
+			default:
+				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+		}
+	}
 	
 	
 	

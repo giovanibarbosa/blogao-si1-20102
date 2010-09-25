@@ -107,6 +107,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		}
 	}
+	
 
 	@Override
 	public void saveData() {

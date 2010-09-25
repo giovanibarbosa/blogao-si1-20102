@@ -12,6 +12,7 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Blog;
 import classes.Comentario;
+import classes.Post;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
@@ -171,7 +172,16 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	public void mudarInformacaoDoPost(String sessionID, String postID, String atributo, String novoTexto) throws
 					FileNotFoundException, ArgumentInvalidException, PersistenceException {
 		Usuario user = gerenteUsuarios.recuperaUsuarioPorIdSessao(sessionID);
-		gerenteDePosts.getAtributo(postsDAO.recupera(postID), atributo);
+		Post postRecuperado = postsDAO.recupera(postID);
+		
+		for (Blog blog : user.getListaBlogs()) {
+			for(Post post : blog.getListaDePostagens()) {
+				if (post.equals(postRecuperado)) {
+					post.setAtributo(atributo, novoTexto);					
+				}
+			}
+		}
+		//gerenteDePosts.setAtributo(postsDAO.recupera(postID), atributo, novoTexto);
 		
 	}
 	
