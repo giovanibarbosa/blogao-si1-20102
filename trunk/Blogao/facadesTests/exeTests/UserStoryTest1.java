@@ -33,16 +33,12 @@ public class UserStoryTest1 {
 		List<String> files8 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
-        files1.add("Tests" + SEPARADOR + "us1.txt");
-		
-        files2.add("Tests" + SEPARADOR + "us2.txt");
-        files3.add("Tests" + SEPARADOR + "us3.txt");
-        files4.add("Tests" + SEPARADOR + "us4.txt");
-        files5.add("Tests" + SEPARADOR + "us5.txt");
-        files6.add("Tests" + SEPARADOR + "us6.txt");
-        files8.add("Tests" + SEPARADOR + "us8.txt");
-//        files.add("Tests/us4.txt");
-       // files.add("Tests/us5.txt");
+        files1.add("Tests/us1.txt");		
+        files2.add("Tests/us2.txt");
+        files3.add("Tests/us3.txt");
+        files4.add("Tests/us4.txt");
+        files5.add("Tests/us5.txt");
+
         
         //Testes para a us1.txt
         FacadeUserStore1 perfFac1 = new FacadeUserStore1();        
@@ -59,11 +55,12 @@ public class UserStoryTest1 {
         EasyAcceptFacade eaFacade3 = new EasyAcceptFacade(perfFac3, files3);  
         eaFacade3.executeTests();
         
-        //Testes para a us3.txt        
+        //Testes para a us4.txt        
         FacadeUserStore4 perfFac4 = new FacadeUserStore4();
         EasyAcceptFacade eaFacade4 = new EasyAcceptFacade(perfFac4, files4);  
         eaFacade4.executeTests();
         
+        //Testes para a us5.txt  
         FacadeUserStore5 perfFac5 = new FacadeUserStore5();
         EasyAcceptFacade eaFacade5= new EasyAcceptFacade(perfFac5, files5);  
         eaFacade5.executeTests();
@@ -82,6 +79,7 @@ public class UserStoryTest1 {
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
         System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
+        //System.out.println(eaFacade5.getCompleteResults());
         System.out.println(eaFacade5.getCompleteResults());
         System.out.println(eaFacade6.getCompleteResults());
         System.out.println(eaFacade8.getCompleteResults());
