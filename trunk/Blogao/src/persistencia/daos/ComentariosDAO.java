@@ -144,7 +144,7 @@ public class ComentariosDAO {
 	/**
 	 * Limpa todos os arquivos contendo os comentarios {@link Comentario}
 	 */
-	public void limparUsuarios() {
+	public void limparComentarios() {
 		for (File arquivo : arrayDosArquivos()) {
 			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
 				arquivo.delete();

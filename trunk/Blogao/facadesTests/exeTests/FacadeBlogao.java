@@ -38,6 +38,7 @@ public class FacadeBlogao {
         files4.add("Tests/us4.txt");
         files5.add("Tests/us5.txt");
         files6.add("Tests/us6.txt");
+        files8.add("Tests/us8.txt");
 
         
         //Testes para a us1.txt
@@ -82,7 +83,7 @@ public class FacadeBlogao {
         System.out.println(eaFacade5.getCompleteResults());
         System.out.println(eaFacade6.getCompleteResults());
 //        System.out.println(eaFacade6.getCompleteResults());
-//        System.out.println(eaFacade8.getCompleteResults());
+        System.out.println(eaFacade8.getCompleteResults());
 	}
 
 }
