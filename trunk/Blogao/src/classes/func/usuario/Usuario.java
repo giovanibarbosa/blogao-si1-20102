@@ -11,6 +11,7 @@ import persistencia.daos.BlogsDAO;
 
 import interfaces.Logavel;
 import classes.Blog;
+import classes.Comentario;
 import classes.Login;
 import classes.Senha;
 
@@ -85,6 +86,24 @@ public class Usuario {
 	 */
 	public List<Blog> getListaBlogs() {
 		return listaBlogs;
+	}
+	
+	/**
+	 * Classe que adiciona um blog a lista.
+	 * @param coment
+	 */
+	public void addBlog2(Blog blg){
+		if(listaBlogs.contains(blg))
+			listaBlogs.add(blg);
+	}
+	
+	/**
+	 * Remove o blog da lista.
+	 * @param blg
+	 */
+	public void removeBlog2(Blog blg){
+		if(!listaBlogs.contains(blg))
+			listaBlogs.remove(blg);
 	}
 
 	@Override
