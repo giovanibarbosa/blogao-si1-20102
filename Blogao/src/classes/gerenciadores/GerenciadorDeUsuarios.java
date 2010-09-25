@@ -1,6 +1,12 @@
 package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
+
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import persistencia.daos.UsuariosDAO;
+import classes.func.usuario.Usuario;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +17,9 @@ import classes.func.usuario.Usuario;
 import interfaces.Gerenciador;
 
 public class GerenciadorDeUsuarios implements Gerenciador{
+	
+	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
+	private GerenciadorDeSessoes gerenteDeSessao = new GerenciadorDeSessoes();
 
 	private UsuariosDAO usuariosDAO = UsuariosDAO.getInstance();
 	private List<Usuario> listaUsuarios;
@@ -30,6 +39,12 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 			listaUsuarios = new ArrayList<Usuario>();
 		}
 
+	}
+	
+	public Usuario recuperaUsuarioPorIdSessao(String sessionID) throws ArgumentInvalidException,
+					FileNotFoundException, PersistenceException {
+		String log = gerenteDeSessao.getLogin(sessionID);
+		return userDAO.recupera(log);
 	}
 
 }
