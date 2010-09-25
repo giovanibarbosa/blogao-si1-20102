@@ -1,10 +1,7 @@
 package classes.func.usuario;
 
 import java.io.FileNotFoundException;
-
-import classes.func.multimidia.Video;
 import classes.gerenciadores.GerenciadorDeSessoes;
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 
@@ -103,11 +100,27 @@ public class FacadeUserStore7 {
 	}
 	
 	//TODO Fazer...
-	public Video getMovie(String postID, int index) {
-		return new Video(); //temporario
+	public int getMovie(String postID, int index) {
+		return 0; //id movie
 	}
 	
-	public void deleteMovie(String sessionID, Video vid) {}
+	public int getSound(String postID, int index) {
+		return 0;		 //id som
+	}
+	
+	public int getPicture(String postID, int index) {
+		return 0;		//id imagem
+	}
+	
+	public void deleteMovie(String sessionID, String idMovie) {}
+	
+	public void deletePicture(String sessionID, String idImagem) {}
+	
+	public void deleteSound(String sessionID, String idSom) {}
+	
+	public void logoff (String sessionID) {}
+	
+	public void saveData() {}
 	
 	
 	
