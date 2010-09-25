@@ -205,4 +205,50 @@ public class BlogsDAO {
 		}
 		return lista.isEmpty() ? "1" : (Integer.parseInt(lista.get(index).getId()) + 1)+ "";
 	}
+	
+	public Blog recuperaBlogPorId(String idBlog) throws FileNotFoundException {
+		for(Blog blog : recuperaBlogs()) {
+			if (blog.getId().equals(idBlog)) {
+				return blog;
+			}
+		}
+		return null;
+		
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }
