@@ -12,7 +12,7 @@ import persistencia.daos.UsuariosDAO;
 import classes.Blog;
 import classes.Comentario;
 import classes.Email;
-import classes.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.Login;
 import classes.Senha;
 

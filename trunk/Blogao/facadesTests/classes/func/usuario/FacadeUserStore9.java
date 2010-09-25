@@ -11,7 +11,7 @@ import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.Blog;
 import classes.Comentario;
-import classes.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeSessoes;
 
 public class FacadeUserStore9 {
 	private Perfil perfil1;

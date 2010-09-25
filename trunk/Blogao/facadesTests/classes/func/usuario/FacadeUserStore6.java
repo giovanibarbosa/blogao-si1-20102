@@ -12,15 +12,12 @@ import persistencia.daos.BlogsDAO;
 import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
-import classes.Blog;
 import classes.Email;
-import classes.GerenciadorDePosts;
-import classes.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDePosts;
+import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.Login;
-import classes.Post;
 import classes.Senha;
-import classes.Texto;
-import classes.func.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeBlogs;
 
 public class FacadeUserStore6 {
 	private Perfil perfil1;
@@ -28,9 +25,7 @@ public class FacadeUserStore6 {
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs(gerente);
 	private GerenciadorDePosts gerentePost = new GerenciadorDePosts(gerente, gerenteBlog);
-	private Blog blog;
-	private Post post;
-
+	
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
