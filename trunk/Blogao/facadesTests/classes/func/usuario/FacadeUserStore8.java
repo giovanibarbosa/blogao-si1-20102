@@ -12,6 +12,7 @@ import persistencia.daos.UsuariosDAO;
 import classes.Blog;
 import classes.Comentario;
 import classes.Email;
+import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.gerenciadores.GerenciadorDeComentarios;
 import classes.Login;
@@ -27,8 +28,9 @@ import classes.Senha;
 public class FacadeUserStore8 {
 	private Perfil perfil1;
 	private Usuario user1;
-	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
-	private GerenciadorDeComentarios gerenteComentarios = new GerenciadorDeComentarios();
+	private GerenciadorDeSessoes gerenteSessoes;
+	private GerenciadorDeComentarios gerenteComentarios;
+	private GerenciadorDePerfis gerentePerfis;
 	private Blog blog;
 
 	private UsuariosDAO userDAO;
@@ -37,13 +39,16 @@ public class FacadeUserStore8 {
 	private PostsDAO postsDAO;
 	private ComentariosDAO comentsDAO;
 
+	public FacadeUserStore8() {
+		gerenteSessoes = new GerenciadorDeSessoes();
+		gerenteSessoes.loadData();
+		gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
+		gerentePerfis = new GerenciadorDePerfis();
+	}
+
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() {
-		userDAO = UsuariosDAO.getInstance();
-		blogsDAO = BlogsDAO.getInstance();
-		emailsDAO = EmailsDAO.getInstance();
-		postsDAO = PostsDAO.getInstance();
-		comentsDAO = ComentariosDAO.getInstance();
+		gerenteComentarios.loadData();
 	}
 
 	// TODO Armazenar no BD.
@@ -52,26 +57,9 @@ public class FacadeUserStore8 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 
-		Login log = new Login(login);
-		Senha sen = new Senha(senha);
-		Email mail = new Email(email);
-
-		perfil1 = new Perfil();
-		perfil1.setNomeDeExibicao(nome_exibicao);
-		perfil1.setEmail(mail);
-		perfil1.setSexo(sexo);
-		perfil1.setDataDeNascimento(dataNasc);
-		perfil1.setEndereco(endereco);
-		perfil1.setInteresses(interesses);
-		perfil1.setQuemSouEu(quem_sou_eu);
-		perfil1.setFilmesFavoritos(filmes);
-		perfil1.setMusicasFavoritas(musicas);
-		perfil1.setLivrosFavoritos(livros);
-
-		user1 = new Usuario(log, sen, perfil1);
-
-		emailsDAO.criar(mail);
-		userDAO.criar(user1);
+		gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
+				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas,
+				livros);
 	}
 
 	// METODO QUE LOGA O USUARIO
