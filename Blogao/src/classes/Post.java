@@ -17,7 +17,7 @@ public class Post {
 	private Texto post;
 	private PostsDAO postDao;
 	private ComentariosDAO comentDao;
-	private int id;
+	private String id;
 
 
 	
@@ -116,7 +116,7 @@ public class Post {
 	/**
 	 * @return o id do Post.
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -124,7 +124,7 @@ public class Post {
 	 * Altera o id do Post.
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
