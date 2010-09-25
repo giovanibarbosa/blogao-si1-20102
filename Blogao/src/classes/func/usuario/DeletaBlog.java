@@ -54,8 +54,9 @@ public class DeletaBlog {
 	 * @return boolean caso tenha sido bem sucessida a operacao.
 	 * @throws ArgumentInvalidException 
 	 * @throws FileNotFoundException 
+	 * @throws PersistenceException 
 	 */
-	public boolean deletaBlog(Blog blog) throws ArgumentInvalidException, FileNotFoundException{
+	public boolean deletaBlog(Blog blog) throws ArgumentInvalidException, FileNotFoundException, PersistenceException{
 		if(usuario != null){
 			if(!usuario.listaDeBlogs().isEmpty()){
 				Iterator<Blog> itBlogs = (Iterator) usuario.listaDeBlogs().iterator();
