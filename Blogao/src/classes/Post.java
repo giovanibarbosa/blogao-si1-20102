@@ -150,16 +150,18 @@ public class Post {
 		this.id = id;
 	}
 	
+	public Texto getTexto() {
+		return this.post;
+	}
+	
 	/**
 	 * Metodo que valida as exigencias do post.
 	 * @param post
 	 * @return
 	 */
 	private boolean validaPost(Texto post) {
-		if(post == null || post.getCorpo().trim().equals(""))
-			return true;
-		else
-			return true;
+		return (post == null || post.getTextoCompleto().trim().equals(""))
+		? false : true;
 	}
 	
 	public Imagem getImagem() {
