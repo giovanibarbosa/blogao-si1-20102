@@ -170,13 +170,13 @@ public class PostsDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	private int geraId() throws FileNotFoundException {
+	private String geraId() throws FileNotFoundException {
 		List<Post> lista = recuperaPosts();
 		int index = 0;
 		for (int i = 1; i < lista.size(); i++) {
-			if (lista.get(i).getId() > lista.get(index).getId())
+			if (Integer.parseInt(lista.get(i).getId()) > Integer.parseInt(lista.get(index).getId()))
 				index = i;
 		}
-		return lista.isEmpty() ? 1 : lista.get(index).getId() + 1;
+		return lista.isEmpty() ? "1" : (Integer.parseInt(lista.get(index).getId()) + 1)+ "";
 	}
 }
