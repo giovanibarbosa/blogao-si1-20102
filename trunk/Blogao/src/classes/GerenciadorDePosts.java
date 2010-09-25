@@ -40,12 +40,11 @@ public class GerenciadorDePosts {
 		try {
 			gerenteDeSessao.getLogin(idSessao);
 			Blog blog = gerenteDeBlogs.getBlog(idBlog);
-			Blog blogOld = gerenteDeBlogs.getBlog(idBlog);
 			Texto txt = new Texto(titulo, texto);
 			post = new Post(txt, idBlog);
 			blog.listaDePosts().add(post);
 			postsDAO.criar(post);
-			blogsDAO.atualizar(blogOld, blog);
+			blogsDAO.atualizar(blog);
 			
 			
 		} catch (FileNotFoundException e) {
