@@ -1,7 +1,7 @@
 package classes.gerenciadores;
 
+import interfaces.Constantes;
 import interfaces.Gerenciador;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -21,6 +21,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeBlogs gerenteDeBlogs;
 	private GerenciadorDeSessoes gerenteDeSessao;
+	
+	private static final int TEXTO = 110256354;
+	private static final int TITULO = -873444423;
 	
 	public GerenciadorDePosts(GerenciadorDeSessoes gereteDeSessao, GerenciadorDeBlogs gerenteBlogs){
 		this.gerenteDeSessao = gereteDeSessao;
@@ -61,9 +64,23 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw e;
 		}
 			
-		return post.getId();
-		
+		return post.getId();		
 	}
+	
+	public String getAtributo(Post post, String atributo) throws ArgumentInvalidException {
+		int codigoAtributo = atributo.hashCode();
+		
+		switch(codigoAtributo) {
+			
+			case(TEXTO):
+				return post.getTexto().getCorpo().toString();
+			case(TITULO):
+				return post.getTexto().getTitulo().toString();
+			default:
+				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+		}
+	}
+	
 
 	@Override
 	public void cleanPersistence() {
