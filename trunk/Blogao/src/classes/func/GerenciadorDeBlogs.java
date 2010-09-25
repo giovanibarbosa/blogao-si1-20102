@@ -48,6 +48,10 @@ public class GerenciadorDeBlogs {
 		}
 	}
 	
+	public Blog getBlog(String idBlog) throws FileNotFoundException, PersistenceException{
+		return blogsDAO.recupera(idBlog);
+	}
+	
 		
 
 }
