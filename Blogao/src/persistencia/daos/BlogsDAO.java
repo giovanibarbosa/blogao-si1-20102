@@ -60,7 +60,6 @@ public class BlogsDAO {
 	public void criar(Blog blog) throws PersistenceException, IOException {
 		if (blog == null)
 			throw new PersistenceException(Constantes.BLOG_NAO_CRIADO);
-		blog.setId(geraId());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		xstream.toXML(blog, new FileOutputStream(file));
 	}
@@ -122,7 +121,7 @@ public class BlogsDAO {
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
-	
+
 	/**
 	 * Recupera um {@link Blog} de um arquivo xml
 	 * 
@@ -137,8 +136,7 @@ public class BlogsDAO {
 	 */
 	public Blog recupera(String id) throws PersistenceException,
 			FileNotFoundException {
-		if (id == null
-				|| !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
+		if (id == null || !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException("Blog inexistente");
 		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
@@ -163,7 +161,8 @@ public class BlogsDAO {
 			throws PersistenceException, IOException {
 		if (blog == null || blogAtualizado == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.BLOG_NAO_PODE_SER_ATUALIZADO);
+			throw new PersistenceException(
+					Constantes.BLOG_NAO_PODE_SER_ATUALIZADO);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.renameTo(new File(CAMINHO + blogAtualizado + TIPO_DE_ARQUIVO));
 		xstream.toXML(blogAtualizado, new FileOutputStream(file));
@@ -189,66 +188,14 @@ public class BlogsDAO {
 		return file.listFiles();
 	}
 
-	/**
-	 * Gera um id para um {@link Blog}
-	 * 
-	 * @return O id a ser incrementado para um {@link Blog}
-	 * @throws FileNotFoundException
-	 *             Caso haja algum problema com arquivos ({@link File})
-	 */
-	private String geraId() throws FileNotFoundException {
-		List<Blog> lista = recuperaBlogs();
-		int index = 0;
-		for (int i = 1; i < lista.size(); i++) {
-			if (Integer.parseInt(lista.get(i).getId()) > Integer.parseInt(lista.get(index).getId()))
-				index = i;
-		}
-		return lista.isEmpty() ? "1" : (Integer.parseInt(lista.get(index).getId()) + 1)+ "";
-	}
-	
 	public Blog recuperaBlogPorId(String idBlog) throws FileNotFoundException {
-		for(Blog blog : recuperaBlogs()) {
+		for (Blog blog : recuperaBlogs()) {
 			if (blog.getId().equals(idBlog)) {
 				return blog;
 			}
 		}
 		return null;
-		
+
 	}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 }

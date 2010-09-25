@@ -31,29 +31,18 @@ public class Blog {
 			this.descricao = descricao;
 			this.idsComentarios = new ArrayList<Integer>();
 			this.listaSubBlogs = new ArrayList<Blog>();
+			this.setId(gerarId());
 			
 		} else {
 			throw new ArgumentInvalidException(
-					codificaString(Constantes.ESPECIFICA_TITULO));
+					Constantes.ESPECIFICA_TITULO);
 		}
 
 	}
 
 
-	/**
-	 * Metodo que codifica a String para o padrao ISO.
-	 * 
-	 * @param string
-	 * @return
-	 */
-	private String codificaString(String string) {
-//		String retorno = "";
-//		try {
-//			retorno = new String(string.getBytes(), "ISO-8859-1");
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-		return string;
+	private String gerarId() {
+		return String.valueOf(this.hashCode());
 	}
 
 	public String getTitulo() {
@@ -179,6 +168,5 @@ public class Blog {
 		}
 				
 	}
-		
-
+	
 }
