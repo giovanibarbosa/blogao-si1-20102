@@ -13,13 +13,22 @@ import classes.Blog;
 import classes.Comentario;
 import classes.Email;
 import classes.gerenciadores.GerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeComentarios;
 import classes.Login;
 import classes.Senha;
+
+/**
+ * Classe para testes do us8
+ * 
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * 
+ */
 
 public class FacadeUserStore8 {
 	private Perfil perfil1;
 	private Usuario user1;
-	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
+	private GerenciadorDeComentarios gerenteComentarios = new GerenciadorDeComentarios();
 	private Blog blog;
 
 	private UsuariosDAO userDAO;
@@ -27,7 +36,7 @@ public class FacadeUserStore8 {
 	private EmailsDAO emailsDAO;
 	private PostsDAO postsDAO;
 	private ComentariosDAO comentsDAO;
-	
+
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() {
 		userDAO = UsuariosDAO.getInstance();
@@ -36,8 +45,8 @@ public class FacadeUserStore8 {
 		postsDAO = PostsDAO.getInstance();
 		comentsDAO = ComentariosDAO.getInstance();
 	}
-	
-	//TODO Armazenar no BD.
+
+	// TODO Armazenar no BD.
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
@@ -64,50 +73,51 @@ public class FacadeUserStore8 {
 		emailsDAO.criar(mail);
 		userDAO.criar(user1);
 	}
-	
+
 	// METODO QUE LOGA O USUARIO
-	public String logon(String login, String senha) throws FileNotFoundException,
-			ArgumentInvalidException, PersistenceException {
+	public String logon(String login, String senha)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
 		try {
-			return gerente.logon(login, senha);
+			return gerenteSessoes.logon(login, senha);
 		} catch (PersistenceException e) {
 			throw e;
 		}
 	}
-	
-	//TODO RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
-	public String getBlogByLogin(String login, int index){
+
+	// TODO RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
+	public String getBlogByLogin(String login, int index) {
 		return null;
-		
+
 	}
-	
-	//TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
-	public String getPost(String blogId, int index){
-		return null;
-	}
-	
-	//TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
-	public String addComment(String sessionId, String postId, String texto){
+
+	// TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
+	public String getPost(String blogId, int index) {
 		return null;
 	}
-	
-	//TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
-	public int getNumberOfComments(String postId){
+
+	// TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
+	public String addComment(String sessionId, String postId, String texto) {
+		return null;
+	}
+
+	// TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
+	public int getNumberOfComments(String postId) {
 		return 0;
 	}
-	
-	//TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
-	public Comentario getComment(String postId, int index){
+
+	// TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
+	public Comentario getComment(String postId, int index) {
 		return null;
 	}
-	
-	//TODO RETORNA O TEXTO DO COMETARIO.
-	public String getCommentText(String idComentario){
+
+	// TODO RETORNA O TEXTO DO COMETARIO.
+	public String getCommentText(String idComentario) {
 		return null;
 	}
-	
-	//TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
-	public String getCommentAuthor(String idComentario){
+
+	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
+	public String getCommentAuthor(String idComentario) {
 		return null;
 	}
 }
