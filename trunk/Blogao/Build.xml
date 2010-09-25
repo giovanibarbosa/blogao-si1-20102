@@ -1,6 +1,6 @@
 <!-- build.xml do projeto -->
 
-<!-- Limpa, Compila, compila testes e dist, estão pegando .. falta o geraDoc -->
+<!-- Falta inserir o testa.bat e o testa.sh -->
 
 <project name="Blogao" default="compila" basedir=".">
 
@@ -8,9 +8,9 @@
 	Projeto da disciplina de SI1.
 	Alunos: Ana Clara,
 	        Rodolfo Marinho, 
-		Tiago Leite, 
-		Tiago Brasileiro, 
-		Giovanni Barbosa
+			Tiago Leite, 
+			Tiago Brasileiro, 
+			Giovanni Barbosa
 	</description>
 
 
@@ -82,7 +82,7 @@
         <target name="geradoc" description="Gera toda a documentacao das classes do sistema.">
                 <echo message="Gerando a documentacao..." />
                 <mkdir dir="${docdir}" />
-                <javadoc sourcepath="${src}" destdir="${docdir}" packagenames="${package}.*" />
+                <javadoc sourcepath="${src}" destdir="${docdir}" />
         </target>
 
 
