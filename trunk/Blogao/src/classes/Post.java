@@ -8,6 +8,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.func.multimidia.Audio;
+import classes.func.multimidia.Imagem;
+import classes.func.multimidia.Video;
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.ComentariosDAO;
@@ -18,9 +22,14 @@ public class Post {
 	private PostsDAO postDao;
 	private ComentariosDAO comentDao;
 	private String id;
+	private Imagem imagem;
+	private Audio audio;
+	private Video video;
 
 
 	
+
+
 	/**
 	 * Construtor da classe Post, que recebe como parametro
 	 * o texto do post.
@@ -147,6 +156,30 @@ public class Post {
 			return true;
 		else
 			return true;
+	}
+	
+	public Imagem getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Imagem imagem) {
+		this.imagem = imagem;
+	}
+
+	public Audio getAudio() {
+		return audio;
+	}
+
+	public void setAudio(Audio audio) {
+		this.audio = audio;
+	}
+
+	public Video getVideo() {
+		return video;
+	}
+
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 	
 }
