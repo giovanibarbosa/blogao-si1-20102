@@ -17,6 +17,7 @@ public class Blog {
 	private String descricao;
 	private String idSessao;
 	private List<Blog> listaSubBlogs;
+	private List<Post> listaDePosts;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
 	
@@ -140,6 +141,10 @@ public class Blog {
 	@Override
 	public String toString() {
 		return getId();
+	}
+	
+	public List<Post> getListaDePostagens() {
+		return listaDePosts;
 	}
 	
 	

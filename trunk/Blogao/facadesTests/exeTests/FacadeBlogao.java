@@ -12,6 +12,7 @@ import classes.func.usuario.FacadeUserStore3;
 import classes.func.usuario.FacadeUserStore4;
 import classes.func.usuario.FacadeUserStore5;
 import classes.func.usuario.FacadeUserStore6;
+import classes.func.usuario.FacadeUserStore7;
 import classes.func.usuario.FacadeUserStore8;
 
 /**
@@ -29,6 +30,7 @@ public class FacadeBlogao {
 		List<String> files4 = new ArrayList<String>();
 		List<String> files5 = new ArrayList<String>();
 		List<String> files6 = new ArrayList<String>();
+		List<String> files7 = new ArrayList<String>();
 		List<String> files8 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
@@ -38,6 +40,7 @@ public class FacadeBlogao {
         files4.add("Tests/us4.txt");
         files5.add("Tests/us5.txt");
         files6.add("Tests/us6.txt");
+        files7.add("Tests/us7.txt");
         files8.add("Tests/us8.txt");
 
         
@@ -70,6 +73,10 @@ public class FacadeBlogao {
         EasyAcceptFacade eaFacade6= new EasyAcceptFacade(perfFac6, files6);  
         eaFacade6.executeTests();
         
+        FacadeUserStore7 perfFac7 = new FacadeUserStore7();
+        EasyAcceptFacade eaFacade7= new EasyAcceptFacade(perfFac7, files7);  
+        eaFacade7.executeTests();
+        
         FacadeUserStore8 perfFac8 = new FacadeUserStore8();
         EasyAcceptFacade eaFacade8= new EasyAcceptFacade(perfFac8, files8);  
         eaFacade8.executeTests();
@@ -82,8 +89,7 @@ public class FacadeBlogao {
         System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
         System.out.println(eaFacade5.getCompleteResults());
         System.out.println(eaFacade6.getCompleteResults());
-//        System.out.println(eaFacade6.getCompleteResults());
-        System.out.println(eaFacade8.getCompleteResults());
+        System.out.println(eaFacade7.getCompleteResults());
 	}
 
 }
