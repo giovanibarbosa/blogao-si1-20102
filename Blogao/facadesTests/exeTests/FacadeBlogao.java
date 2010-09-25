@@ -6,13 +6,13 @@ import java.util.List;
 
 
 import easyaccept.EasyAcceptFacade;
-import facadesUserStores.FacadeUserStore1;
-import facadesUserStores.FacadeUserStore2;
-import facadesUserStores.FacadeUserStore3;
-import facadesUserStores.FacadeUserStore4;
-import facadesUserStores.FacadeUserStore5;
-import facadesUserStores.FacadeUserStore6;
-import facadesUserStores.FacadeUserStore8;
+import classes.func.usuario.FacadeUserStore1;
+import classes.func.usuario.FacadeUserStore2;
+import classes.func.usuario.FacadeUserStore3;
+import classes.func.usuario.FacadeUserStore4;
+import classes.func.usuario.FacadeUserStore5;
+import classes.func.usuario.FacadeUserStore6;
+import classes.func.usuario.FacadeUserStore8;
 
 /**
  * Classe necessaria para rodar um teste.
