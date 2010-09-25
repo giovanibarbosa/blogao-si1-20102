@@ -1,6 +1,8 @@
 package classes.func.usuario;
 
 import java.io.FileNotFoundException;
+
+import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -26,6 +28,7 @@ import ourExceptions.PersistenceException;
 public class FacadeUserStore7 {
 	
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs(gerente);
 	
 	public void loadData() {
 		
@@ -42,26 +45,30 @@ public class FacadeUserStore7 {
 	 */
 	public String logon(String login, String senha) throws PersistenceException,
 			FileNotFoundException, ArgumentInvalidException{
-		try {
-			return gerente.logon(login, senha);
-		} catch (PersistenceException e){
-			throw e;
-		}
+		return gerente.logon(login, senha);
+//		try {
+//			return gerente.logon(login, senha);
+//		} catch (PersistenceException e){
+//			throw e;
+//		}
 	}
 	
-	//TODO Fazer...
-	public int getNumberOfBlogsByLogin(String login) {
-		return 0;
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getNumberOfBlogsByLogin(String login) throws FileNotFoundException,
+						ArgumentInvalidException, PersistenceException {
+		return gerenciaBlogs.totalDeBlogsPorLogin(login);		
 	}
 	
-	//TODO Fazer...
-	public int getNumberOfBlogsBySessionId(String sessionID) {
-		return 0;
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getNumberOfBlogsBySessionId(String sessionID) throws FileNotFoundException,
+						ArgumentInvalidException, PersistenceException {
+		return gerenciaBlogs.totalDeBlogsPorSessao(sessionID);
 	}
 	
-	//TODO Fazer...
-	public int getBlogBySessionId(String sessionID, int index) {
-		return 0; //retorna o blogID
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getBlogBySessionId(String sessionID, int index) throws 
+					FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		return gerenciaBlogs.recuperaIdBlogDesejado(sessionID, index);
 	}
 	
 	//TODO Fazer...
