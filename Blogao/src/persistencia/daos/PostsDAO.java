@@ -134,12 +134,12 @@ public class PostsDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public Post recupera(Post post) throws PersistenceException,
+	public Post recupera(String postId) throws PersistenceException,
 			FileNotFoundException {
-		if (post == null
-				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
+		if (postId == null
+				|| !(new File(CAMINHO + postId + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.POST_INEXISTENTE);
-		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
+		File file = new File(CAMINHO + postId + TIPO_DE_ARQUIVO);
 		return (Post) xstream.fromXML(new FileInputStream(file));
 	}
 

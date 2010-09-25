@@ -195,5 +195,9 @@ public class Post {
 	public void setBlogRaiz(String blogRaiz) {
 		this.blogRaiz = blogRaiz;
 	}
+
+	public int getNumberOfComments() {
+		return getComentarios().size();
+	}
 	
 }
