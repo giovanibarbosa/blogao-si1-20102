@@ -3,6 +3,7 @@ package classes.gerenciadores;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -10,6 +11,7 @@ import persistencia.daos.EmailsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
+import classes.Comentario;
 import classes.Login;
 import classes.Senha;
 import classes.Email;
@@ -80,8 +82,13 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	@Override
 	public void loadData() {
-		// TODO Auto-generated method stub
-		
+		//TODO Man-generated method stub
+//		try {
+//			listaPerfis = perfisDAO.recuperaPerfis();
+//		} catch (FileNotFoundException e) {
+//			listaPerfis = new ArrayList<Perfil>();
+//		}
+
 	}
 
 }

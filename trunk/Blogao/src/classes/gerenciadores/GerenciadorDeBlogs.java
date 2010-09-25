@@ -5,11 +5,13 @@ import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Blog;
+import classes.Comentario;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
@@ -135,9 +137,12 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		
 	}
 
-	@Override
 	public void loadData() {
-		// TODO Auto-generated method stub
-		
+		try {
+			listaDeBlogs = blogsDAO.recuperaBlogs();
+		} catch (FileNotFoundException e) {
+			listaDeBlogs = new ArrayList<Blog>();
+		}
+
 	}
 }

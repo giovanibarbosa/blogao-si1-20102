@@ -4,14 +4,18 @@ import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import classes.Comentario;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 
+import persistencia.daos.SessoesDAO;
 import persistencia.daos.UsuariosDAO;
 
 /**
@@ -23,6 +27,8 @@ import persistencia.daos.UsuariosDAO;
 public class GerenciadorDeSessoes implements Gerenciador{
 	private Map<String, String> logados;
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
+	private SessoesDAO sessoesDAO = SessoesDAO.getInstance();
+	private List<String> listaSessoes;
 
 	public GerenciadorDeSessoes() {
 		logados = new HashMap<String, String>();
@@ -133,7 +139,12 @@ public class GerenciadorDeSessoes implements Gerenciador{
 
 	@Override
 	public void loadData() {
-		// TODO Auto-generated method stub
-		
+		try {
+			listaSessoes = sessoesDAO.recuperaSessoes();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			listaSessoes = new ArrayList<String>();
+		}
+
 	}
 }
