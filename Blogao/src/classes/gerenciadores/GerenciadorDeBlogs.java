@@ -49,7 +49,8 @@ public class GerenciadorDeBlogs implements Gerenciador{
 			Blog blog = new Blog(titulo, descricao, idSessao);
 
 			Usuario us = userDAO.recupera(login);
-			us.listaDeBlogs().add(blog);
+			//us.listaDeBlogs().add(blog);
+			us.addBlog2(blog);
 			blogsDAO.criar(blog);
 			return blog.getId();
 
