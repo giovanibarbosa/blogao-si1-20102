@@ -62,7 +62,6 @@ public class ComentariosDAO {
 	public void criar(Comentario comentario) throws PersistenceException, IOException {
 		if (comentario == null)
 			throw new PersistenceException(Constantes.COMENTARIO_NAO_CRIADO);
-		comentario.setId(geraId());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		xstream.toXML(comentario, new FileOutputStream(file));
 	}
@@ -162,20 +161,4 @@ public class ComentariosDAO {
 		return file.listFiles();
 	}
 	
-	/**
-	 * Gera um id para um {@link Comentario}
-	 * 
-	 * @return O id a ser incrementado para um {@link Comentario}
-	 * @throws FileNotFoundException
-	 *             Caso haja algum problema com arquivos ({@link File})
-	 */
-	private int geraId() throws FileNotFoundException {
-		List<Comentario> lista = recuperaComentarios();
-		int index = 0;
-		for (int i = 1; i < lista.size(); i++) {
-			if (lista.get(i).getId() > lista.get(index).getId())
-				index = i;
-		}
-		return lista.isEmpty() ? 1 : lista.get(index).getId() + 1;
-	}
 }
