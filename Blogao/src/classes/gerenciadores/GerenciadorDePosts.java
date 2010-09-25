@@ -4,6 +4,8 @@ import interfaces.Constantes;
 import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -11,6 +13,7 @@ import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.Comentario;
 import classes.Post;
 import classes.Blog;
 import classes.Texto;
@@ -21,6 +24,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeBlogs gerenteDeBlogs;
 	private GerenciadorDeSessoes gerenteDeSessao;
+	private List<Post> listaPosts;
 	
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
@@ -89,8 +93,13 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	@Override
 	public void loadData() {
-		
-		
+		try {
+			listaPosts = postsDAO.recuperaPosts();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			listaPosts = new ArrayList<Post>();
+		}
+
 	}
 	
 	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException, PersistenceException, ArgumentInvalidException{

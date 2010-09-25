@@ -1,22 +1,18 @@
 package classes.func.usuario;
 
+import interfaces.Gerenciador;
+
 import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import persistencia.daos.BlogsDAO;
-import persistencia.daos.ComentariosDAO;
-import persistencia.daos.EmailsDAO;
-import persistencia.daos.PostsDAO;
-import persistencia.daos.UsuariosDAO;
 import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.gerenciadores.GerenciadorDeComentarios;
 import classes.Comentario;
-import classes.Login;
-import classes.Senha;
 
 /**
  * Classe para testes do us8
@@ -26,19 +22,13 @@ import classes.Senha;
  */
 
 public class FacadeUserStore8 {
-	private Perfil perfil1;
-	private Usuario user1;
 	private GerenciadorDeSessoes gerenteSessoes;
 	private GerenciadorDeComentarios gerenteComentarios;
 	private GerenciadorDePerfis gerentePerfis;
 	private GerenciadorDeBlogs gerenteBlogs;
 	private GerenciadorDePosts gerentePosts;
-
-	private UsuariosDAO userDAO;
-	private BlogsDAO blogsDAO;
-	private EmailsDAO emailsDAO;
-	private PostsDAO postsDAO;
-	private ComentariosDAO comentsDAO;
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
+	private Gerenciador[] gerenciadores= new Gerenciador[]{gerenteBlogs, gerenteComentarios, gerentePerfis, gerentePosts, gerenteSessoes};
 
 	public FacadeUserStore8() {
 		gerenteSessoes = new GerenciadorDeSessoes();
@@ -50,13 +40,11 @@ public class FacadeUserStore8 {
 
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() {
-		gerenteComentarios.loadData();
-		gerentePosts.loadData();
-		gerentePerfis.loadData();
+		gerenteDados.loadData(gerenciadores);
 		
 	}
 
-	// TODO Armazenar no BD.
+	//Armazenar no BD.
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
@@ -112,5 +100,13 @@ public class FacadeUserStore8 {
 	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
 	public String getCommentAuthor(String idComentario) {
 		return null;
+	}
+	
+	public void logoff(String idSessao) throws ArgumentInvalidException{
+		gerenteSessoes.logoff(idSessao);
+	}
+	
+	public void saveData(){
+		gerenteDados.saveData(gerenciadores);
 	}
 }

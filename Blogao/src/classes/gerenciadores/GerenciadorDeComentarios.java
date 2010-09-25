@@ -31,7 +31,6 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		try {
 			listaComentarios = comentariosDAO.recuperaComentarios();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			listaComentarios = new ArrayList<Comentario>();
 		}
 
