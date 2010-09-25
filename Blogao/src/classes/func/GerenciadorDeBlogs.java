@@ -30,7 +30,7 @@ public class GerenciadorDeBlogs {
 			Usuario us = userDAO.recupera(login);
 			us.listaDeBlogs().add(blog);
 			blogsDAO.criar(blog);
-			return String.valueOf(blog.getId());
+			return blog.getId();
 		
 		} catch (ArgumentInvalidException e) {
 			throw e;
