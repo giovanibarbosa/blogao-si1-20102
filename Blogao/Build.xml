@@ -1,0 +1,151 @@
+<!-- build.xml do projeto -->
+
+<project name="Blogao" default="compila" basedir=".">
+
+	<description>
+	Projeto da disciplina de SI1.
+	Alunos: Ana Clara,
+	        Rodolfo Marinho, 
+		Tiago Leite, 
+		Tiago Brasileiro, 
+		Giovanni Barbosa
+	</description>
+
+
+	<property name="src" value="src" />
+	<property name="srcTests" value="facadesTests" />
+	<property name="build" value="${basedir}/build" />
+	<property name="dist" value="dist" />
+	<property name="docdir" value="javaDoc" />
+	<property name="test" value="test" />
+	<property name="testSuite" value="${package}.facadesTests" />
+
+
+	<path id="classpath">
+
+		 <fileset dir="${basedir}/lib" includes="**.jar" />
+
+		<pathelement location="${build}" />
+        </path>
+
+	
+	<!-- classpath de testes -->
+
+        <path id="facadesTests.classpath">
+                <path refid="classpath" />
+        </path>
+
+        
+	<!--
+
+	 =================== comando limpa =================== 
+-->
+
+	<target name="limpa">
+                <echo message="Limpando informacoes antigas..." />
+                <delete dir="${build}" />
+                <delete dir="${dist}" />
+                <delete dir="${docdir}" />
+        </target>
+
+        <!--
+
+ =================== comando compila =================== 
+-->
+
+	 <target name="compila" depends="limpa">
+                <echo message="Compilando o código..." />
+                <mkdir dir="${build}" />
+
+                <javac srcdir="${src}" destdir="${build}">
+                        <classpath refid="classpath" />
+                </javac>
+        </target>
+
+        <target name="compilaTestes" depends="compila">
+                <echo message="Compilando o código de testes..." />
+
+                <javac srcdir="${srcTests}" destdir="${build}">
+                        <classpath refid="test.classpath" />
+                </javac>
+        </target>
+
+ 	<!--
+
+ =================== comando doc =================== 
+-->
+
+        <target name="geradoc" description="Gera toda a documentacao das classes do sistema.">
+                <echo message="Gerando a documentacao..." />
+                <mkdir dir="${docdir}" />
+                <javadoc sourcepath="${src}" destdir="${docdir}" packagenames="${package}.*" />
+        </target>
+
+
+ 	<!--
+
+ =================== comando testa =================== 
+-->
+
+        <target name="testa" depends="compilaTestes" description="Executará os testes de unidade">
+                <echo message="Executando os testes..." />
+
+                <!-- O Ant possui uma tag específica para o junit também.
+                        Essas são os principais atributos a serem definidos.
+                        printsummary - O usuário define se quer que seja mostrado um resumo da execução
+                        fork - No caso do JUnit deve ser escolhido "no" para que não crie outra JVM da que o Ant
+                               esteja utilizando, no comando roda tem uma descrição melhor desse atributo 
+                        haltonfailure - O usuário indica se deve ou não para a execução do Ant caso encontre
+                               algum erro nos testes -->
+
+                <junit printsummary="yes" fork="no" haltonfailure="no">
+                        <classpath refid="classpath" />
+
+                        <!-- Aqui será definido o tipo de report que o usuário quer
+                                que seja gerado ao executar os testes. Possíveis 
+                                opções: plain, xml e brief. Plain e Brief criam arquivos .txt, já
+                                o xml cria um XML =D -->
+
+                        
+
+                        <!-- Aqui será definido quais classes de testes unitários devem
+                                ser executadas, caso não queira colocar um por um, é só criar uma
+                                suite de testes e usar o mesmo comando chamando a classe que possui
+                                a suite de testes -->
+                        <test name="${testSuite}" outfile="result">
+                                <formatter type="plain" />
+                        </test>
+                </junit>
+        </target>
+
+
+	<!--
+
+ =================== comando dist =================== 
+-->
+
+        <target name="dist" depends="compila, geradoc" description="Criará um arquivo JAR para distribuição">
+                <mkdir dir="${dist}" />
+                <echo message="Criando JAR da aplicação..." />
+
+                <!--
+
+ Coloca tudo que foi compilado e que está em ${build} em um arquivo chamado OCR.jar 
+        jarfile  - Nome e caminho do arquivo jar a ser criado
+        basedir  - Local onde está o Java compilado (.class)
+        manifest - localização do arquivo MANIFEST.MF onde contém informações importantes
+                               para o funcionamento do JAR. Informações como: Qual classe contém o Main,
+                               ClassPath do sistema, etc.
+    
+-->
+                <jar jarfile="${dist}/projeto1.jar" basedir="${build}" />
+        </target>
+        
+
+
+
+
+
+
+
+
