@@ -20,6 +20,8 @@ import easyaccept.EasyAcceptFacade;
 public class UserStoryTest1 {
 	
 	public static void main(String[] args) {
+		final String SEPARADOR = System.getProperty("file.separator");
+		
 		List<String> files1 = new ArrayList<String>();
 		List<String> files2 = new ArrayList<String>();
 		List<String> files3 = new ArrayList<String>();
@@ -27,12 +29,12 @@ public class UserStoryTest1 {
 		List<String> files5 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
-        files1.add("Tests/us1.txt");
+        files1.add("Tests" + SEPARADOR + "us1.txt");
 		
-        files2.add("Tests/us2.txt");
-        files3.add("Tests/us3.txt");
-        files4.add("Tests/us4.txt");
-        files5.add("Tests/us5.txt");
+        files2.add("Tests" + SEPARADOR + "us2.txt");
+        files3.add("Tests" + SEPARADOR +"us3.txt");
+        files4.add("Tests" + SEPARADOR + "us4.txt");
+        files5.add("Tests" + SEPARADOR + "us5.txt");
 //        files.add("Tests/us4.txt");
        // files.add("Tests/us5.txt");
         
