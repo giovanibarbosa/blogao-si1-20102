@@ -77,9 +77,10 @@ public class FacadeUserStore7 {
 		return gerenciaBlogs.recuperaIdBlogPorLogin(login, index);
 	}
 	
-	//TODO Fazer...
-	public int getNumberOfPosts(String blogID) {
-		return 0; //numero de posts
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getNumberOfPosts(String blogID) throws 
+					FileNotFoundException, PersistenceException {
+		return gerenciaBlogs.totalDePosts(blogID);
 	}
 	
 	//TODO Fazer...
