@@ -12,6 +12,7 @@ import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
+import classes.func.usuario.Usuario;
 import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.Comentario;
 import classes.Post;
@@ -49,13 +50,37 @@ public class GerenciadorDePosts implements Gerenciador {
 	public String createPost(String idSessao, String idBlog, String titulo, String texto) throws IOException, ArgumentInvalidException, PersistenceException {
 		Post post;
 		try {
-			gerenteDeSessao.getLogin(idSessao);
+			Texto txt = new Texto(titulo, texto);
+			String log = gerenteDeSessao.getLogin(idSessao);
+			Usuario user = userDAO.recupera(log);
+			List<Blog> listaBlogs = user.listaDeBlogs();
+			Blog blog = null;
+			post = new Post(txt, idBlog);
+			
+			for(Blog blg : listaBlogs){
+				if(idBlog.equals(blg.getId())){
+						blog = blg;
+				}
+			}
+			
+			if(blog == null){
+				throw new ArgumentInvalidException("Blog inválido");
+			}else{
+				blog.addPost(post);	
+			}
+			
+			
+			
+			
+			
+			
+			/*gerenteDeSessao.getLogin(idSessao);
 			Blog blog = gerenteDeBlogs.getBlog(idBlog);
 			Texto txt = new Texto(titulo, texto);
 			post = new Post(txt, idBlog);
 			blog.listaDePosts().add(post);
 			postsDAO.criar(post);
-			blogsDAO.atualizar(blog);
+			blogsDAO.atualizar(blog);*/
 			
 			
 		} catch (FileNotFoundException e) {
@@ -63,8 +88,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		} catch (PersistenceException e) {
 			throw e;
 		} catch (ArgumentInvalidException e) {
-			throw e;
-		}catch (IOException e) {
 			throw e;
 		}
 			
