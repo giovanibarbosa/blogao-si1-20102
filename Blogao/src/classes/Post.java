@@ -26,8 +26,8 @@ public class Post {
 	private Audio audio;
 	private Video video;
 	private String blogRaiz;
-
-
+	
+	private List<Comentario> comentarios;
 	
 
 
@@ -44,6 +44,7 @@ public class Post {
 			this.post = post;
 			setId(gerarId());
 			setBlogRaiz(idBlog);
+			comentarios = new ArrayList<Comentario>();
 		}else{
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
@@ -66,7 +67,7 @@ public class Post {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public List<Comentario> getComentarios(){
+	public List<Comentario> getComentarios() {
 		List<Comentario>listaDeComentarios = new ArrayList<Comentario>();
 		try {
 			listaDeComentarios = comentDao.recuperaComentarios();
