@@ -129,10 +129,4 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		// TODO Auto-generated method stub
 		
 	}
-
-//	@Override
-//	public void cleanPersistence() {
-//		// TODO Auto-generated method stub
-//		
-//	}
 }
