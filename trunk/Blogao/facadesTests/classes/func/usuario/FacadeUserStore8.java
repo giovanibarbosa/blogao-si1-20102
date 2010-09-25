@@ -12,7 +12,9 @@ import persistencia.daos.UsuariosDAO;
 import classes.Blog;
 import classes.Comentario;
 import classes.Email;
+import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.gerenciadores.GerenciadorDePerfis;
+import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.gerenciadores.GerenciadorDeComentarios;
 import classes.Login;
@@ -31,6 +33,8 @@ public class FacadeUserStore8 {
 	private GerenciadorDeSessoes gerenteSessoes;
 	private GerenciadorDeComentarios gerenteComentarios;
 	private GerenciadorDePerfis gerentePerfis;
+	private GerenciadorDeBlogs gerenteBlogs;
+	private GerenciadorDePosts gerentePosts;
 	private Blog blog;
 
 	private UsuariosDAO userDAO;
@@ -44,11 +48,13 @@ public class FacadeUserStore8 {
 		gerenteSessoes.loadData();
 		gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
 		gerentePerfis = new GerenciadorDePerfis();
+		gerentePosts = new GerenciadorDePosts(gerenteSessoes, gerenteBlogs);
 	}
 
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() {
 		gerenteComentarios.loadData();
+		gerentePosts.loadData();
 	}
 
 	// TODO Armazenar no BD.
@@ -90,8 +96,8 @@ public class FacadeUserStore8 {
 	}
 
 	// TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
-	public int getNumberOfComments(String postId) {
-		return 0;
+	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
+		return gerentePosts.getNumberOfComments(postId);
 	}
 
 	// TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.

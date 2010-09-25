@@ -96,7 +96,11 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	@Override
 	public void loadData() {
-		// TODO Auto-generated method stub
 		
+		
+	}
+
+	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
+		return postsDAO.recupera(postId).getNumberOfComments();
 	}
 }
