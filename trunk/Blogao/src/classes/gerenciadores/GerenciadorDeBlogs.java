@@ -1,6 +1,7 @@
 package classes.gerenciadores;
 
 import interfaces.Constantes;
+import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.UsuariosDAO;
 
-public class GerenciadorDeBlogs {
+public class GerenciadorDeBlogs implements Gerenciador{
 
 	private static final int DESCRICAO = 1499866697;
 	private static final int TITULO = -873444423;
@@ -101,5 +102,23 @@ public class GerenciadorDeBlogs {
 
 	public Blog getBlog(String idBlog) throws FileNotFoundException, PersistenceException{
 		return blogsDAO.recupera(idBlog);
+	}
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadData() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,5 +1,7 @@
 package classes.gerenciadores;
 
+import interfaces.Gerenciador;
+
 import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
@@ -12,7 +14,7 @@ import classes.Login;
 import classes.Senha;
 import classes.Email;
 
-public class GerenciadorDePerfis {
+public class GerenciadorDePerfis implements Gerenciador {
 	
 	private Perfil perfil;
 	
@@ -67,6 +69,27 @@ public class GerenciadorDePerfis {
 			throw e;
 		}
 		return retorno;
+	}
+
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void saveData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void loadData() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

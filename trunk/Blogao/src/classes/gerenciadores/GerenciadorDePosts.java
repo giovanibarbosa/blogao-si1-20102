@@ -1,5 +1,7 @@
 package classes.gerenciadores;
 
+import interfaces.Gerenciador;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -13,7 +15,7 @@ import classes.Post;
 import classes.Blog;
 import classes.Texto;
 
-public class GerenciadorDePosts {
+public class GerenciadorDePosts implements Gerenciador {
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 	private PostsDAO postsDAO = PostsDAO.getInstance();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
@@ -60,6 +62,24 @@ public class GerenciadorDePosts {
 		}
 			
 		return post.getId();
+		
+	}
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadData() {
+		// TODO Auto-generated method stub
 		
 	}
 }
