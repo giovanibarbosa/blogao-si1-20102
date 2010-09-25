@@ -100,7 +100,7 @@ public class SessoesDAO {
 	 * 
 	 * @param sessao
 	 *            A sessao a ser recuperado do arquivo xml
-	 * @return O {@link Sessao} recuperado de um arquivo xml
+	 * @return A sessao recuperada de um arquivo xml
 	 * @throws PersistenceException
 	 *             Caso a sessao passado como parametro seja null ou não exista
 	 *             como dado persistente
