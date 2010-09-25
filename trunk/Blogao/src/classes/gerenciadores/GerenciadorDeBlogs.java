@@ -15,6 +15,7 @@ import classes.Comentario;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
+import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 
 public class GerenciadorDeBlogs implements Gerenciador{
@@ -24,9 +25,12 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	private static final int DONO = 3089292;
 
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
+	private PostsDAO postsDAO = PostsDAO.getInstance();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
+	
 	private GerenciadorDeSessoes gerenteDeSessao;
 	private GerenciadorDeUsuarios gerenteUsuarios = new GerenciadorDeUsuarios();
+	private GerenciadorDePosts gerenteDePosts = new GerenciadorDePosts(gerenteDeSessao, this);
 
 	private List<Blog> listaDeBlogs;
 	
@@ -156,6 +160,18 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
 				PersistenceException {
 		return getBlog(idBlog).getListaDePostagens().size();
+		
+	}
+	
+	public int recuperaIdDoPost(String idBlog, int index) throws NumberFormatException,
+						FileNotFoundException, PersistenceException {
+		return Integer.valueOf(getBlog(idBlog).getListaDePostagens().get(index).getId());
+	}
+	
+	public void mudarInformacaoDoPost(String sessionID, String postID, String atributo, String novoTexto) throws
+					FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Usuario user = gerenteUsuarios.recuperaUsuarioPorIdSessao(sessionID);
+		gerenteDePosts.getAtributo(postsDAO.recupera(postID), atributo);
 		
 	}
 	
