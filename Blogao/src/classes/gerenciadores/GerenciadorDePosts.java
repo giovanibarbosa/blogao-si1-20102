@@ -92,6 +92,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		
 		
 	}
+	
+	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException, PersistenceException, ArgumentInvalidException{
+		Blog blog = blogsDAO.recupera(idBlog);
+		if(!idSessao.equals(blog.getIdSessao())){
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		}
+		return blog;
+	}
 
 	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
 		return postsDAO.recupera(postId).getNumberOfComments();
