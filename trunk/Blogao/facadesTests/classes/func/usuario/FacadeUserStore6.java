@@ -110,4 +110,16 @@ public class FacadeUserStore6 {
 
 		return post.getId();
 	}
+	
+	//TODO METODO QUE DESLOGA O USUARIO.
+	public void logoff(String idSession) throws ArgumentInvalidException{
+		try {
+			gerente.logoff(idSession);
+		} catch (ArgumentInvalidException e){
+			throw e;
+		}
+	}
+	
+	//TODO SALVA TODOS OS DADOS NO BD
+	public void saveData() {}
 }
