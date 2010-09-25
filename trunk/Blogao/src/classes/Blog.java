@@ -18,7 +18,7 @@ public class Blog {
 	private String titulo;
 	private String id;
 	private String descricao;
-	private Usuario dono;
+	private String dono;
 	private List<Blog> listaSubBlogs;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
@@ -28,12 +28,13 @@ public class Blog {
 	private static final int TITULO = -873444423;
 	private static final int DONO = 3089292;
 
-	public Blog(String titulo, String descricao) throws ArgumentInvalidException {
+	public Blog(String titulo, String descricao, String dono) throws ArgumentInvalidException {
 		if (validaTitulo(titulo)) {
 			this.titulo = titulo;
 			this.descricao = descricao;
 			this.idsComentarios = new ArrayList<Integer>();
 			this.listaSubBlogs = new ArrayList<Blog>();
+			this.dono = dono;
 			this.setId(gerarId());
 			
 		} else {
@@ -152,7 +153,7 @@ public class Blog {
 	
 	public String getAtributo(String atributo) throws ArgumentInvalidException {
 		if (atributo == null || atributo.equals(""))
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		
 		int codigoAtributo = atributo.hashCode();
 		
@@ -164,10 +165,10 @@ public class Blog {
 			case(DESCRICAO):
 				return this.descricao.toString();
 			
-//			case(DONO):
-//				return this.
+			case(DONO):
+				return this.dono;
 			default:
-				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		}
 				
 	}
