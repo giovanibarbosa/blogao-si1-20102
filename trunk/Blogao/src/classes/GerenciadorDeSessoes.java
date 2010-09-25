@@ -119,4 +119,8 @@ public class GerenciadorDeSessoes {
 		}
 		return login;
 	}
+	
+	public Map<String, String> getLogados() {
+		return logados;
+	}
 }
