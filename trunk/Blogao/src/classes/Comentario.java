@@ -48,5 +48,18 @@ public class Comentario {
 	public String getId() {
 		return id;
 	}
+	
+	@Override
+	/**
+	 * Metodo que verifica a igualdade entre objetos.
+	 */
+	public boolean equals(Object objeto) {
+		if (!(objeto instanceof Comentario)) {
+			return false;
+		}
+		Comentario outra = (Comentario) objeto;
+		return getId().equals(outra.getId());
+
+	}
 		
 }
