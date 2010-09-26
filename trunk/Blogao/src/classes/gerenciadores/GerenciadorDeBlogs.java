@@ -34,6 +34,7 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	private List<Blog> listaDeBlogs;
 	
 	public GerenciadorDeBlogs(GerenciadorDeSessoes gerenteSessoes) {
+		listaDeBlogs = new ArrayList<Blog>();
 		this.gerenteDeSessao = gerenteSessoes;
 		//listaDeBlogs = new ArrayList<Blog>();
 	}
