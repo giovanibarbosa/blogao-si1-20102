@@ -115,39 +115,45 @@ public class FacadeUserStore6 {
 		return String.valueOf(gerentePost.getNumeroDeImagens(id));
 	}
 
-	public String getSound(String id, String index) {
-		return "";
+	public String getSound(String id, String index)
+			throws FileNotFoundException {
+		return gerentePost.getSom(id, index);
 	}
 
-	public String getSoundDescription(String audioId) {
-		return "";
+	public String getSoundDescription(String audioId)
+			throws FileNotFoundException {
+		return gerentePost.getDescricaoDoSom(audioId);
 	}
 
-	public String getSoundData(String audioId) {
-		return "";
+	public String getSoundData(String audioId) throws FileNotFoundException {
+		return gerentePost.getDadoDoSom(audioId);
 	}
 
-	public String getMovie(String id, String index) {
-		return "";
+	public String getMovie(String id, String index)
+			throws FileNotFoundException {
+		return gerentePost.getVideo(id, index);
 	}
 
-	public String getMovieDescription(String videoId) {
-		return "";
+	public String getMovieDescription(String videoId)
+			throws FileNotFoundException {
+		return gerentePost.getDescricaoDoVideo(videoId);
 	}
 
-	public String getMovieData(String videoId) {
-		return "";
+	public String getMovieData(String videoId) throws FileNotFoundException {
+		return gerentePost.getDadoDoVideo(videoId);
 	}
 
-	public String getPicture(String id, String index) {
-		return "";
+	public String getPicture(String id, String index)
+			throws FileNotFoundException {
+		return gerentePost.getImagem(id, index);
 	}
 
-	public String getPictureDescription(String imagemId) {
-		return "";
+	public String getPictureDescription(String imagemId)
+			throws FileNotFoundException {
+		return gerentePost.getDescricaoDaImagem(imagemId);
 	}
 
-	public String getPictureData(String imagemId) {
-		return "";
+	public String getPictureData(String imagemId) throws FileNotFoundException {
+		return gerentePost.getDadoDaImagem(imagemId);
 	}
 }

@@ -93,21 +93,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post.getId();
 	}
 
-	public String getAtributo(Post post, String atributo)
-			throws ArgumentInvalidException {
-		int codigoAtributo = atributo.hashCode();
-
-		switch (codigoAtributo) {
-
-		case (TEXTO):
-			return post.getTexto().getCorpo().toString();
-		case (TITULO):
-			return post.getTexto().getTitulo().toString();
-		default:
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
-		}
-	}
-
 	@Override
 	public void saveData() {
 		// TODO Auto-generated method stub
@@ -370,45 +355,120 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	public int getNumeroDeSons(String idDoPost) throws FileNotFoundException {
-		Post post = null;
-		List<Usuario> users = userDAO.recuperaUsuarios();
-		for (Usuario u : users) {
-			for (Blog b : u.getListaBlogs()) {
-				for (Post p : b.getListaDePostagens()) {
-					if (idDoPost.equals(p.getId()))
-						post = p;
-				}
-			}
-		}
+		Post post = getPostPorId(idDoPost);
 		return post == null ? 0 : post.getListaDeAudio().size();
 	}
 
 	public int getNumeroDeVideos(String idDoPost) throws FileNotFoundException {
-		Post post = null;
-		List<Usuario> users = userDAO.recuperaUsuarios();
-		for (Usuario u : users) {
-			for (Blog b : u.getListaBlogs()) {
-				for (Post p : b.getListaDePostagens()) {
-					if (idDoPost.equals(p.getId()))
-						post = p;
-				}
-			}
-		}
+		Post post = getPostPorId(idDoPost);
 		return post == null ? 0 : post.getListaDeVideo().size();
 	}
 
 	public int getNumeroDeImagens(String idDoPost) throws FileNotFoundException {
-		Post post = null;
+		Post post = getPostPorId(idDoPost);
+		return post == null ? 0 : post.getListaDeImagem().size();
+	}
+	
+	public String getSom(String idDoPost, String index) throws FileNotFoundException {
+		Post post = getPostPorId(idDoPost);
+		return post.getListaDeAudio().get(Integer.valueOf(index)).getId();
+	}
+
+	public String getDescricaoDoSom(String audioId) throws FileNotFoundException {
+		Audio audio = getAudio(audioId);
+		return audio.getDescricao();
+	}
+	
+	public String getDadoDoSom(String audioId) throws FileNotFoundException {
+		Audio audio = getAudio(audioId);		
+		return audio.getDado();
+	}
+	
+	private Audio getAudio(String audioId) throws FileNotFoundException {
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					for (Audio a : p.getListaDeAudio()) {
+						if (audioId.equals(a.getId()))
+							return a;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Post getPostPorId(String idDoPost) throws FileNotFoundException {
 		List<Usuario> users = userDAO.recuperaUsuarios();
 		for (Usuario u : users) {
 			for (Blog b : u.getListaBlogs()) {
 				for (Post p : b.getListaDePostagens()) {
 					if (idDoPost.equals(p.getId()))
-						post = p;
+						return p;
 				}
 			}
 		}
-		return post == null ? 0 : post.getListaDeImagem().size();
+		return null;
 	}
 
+	public String getVideo(String id, String index) throws FileNotFoundException {
+		Post post = getPostPorId(id);
+		return post.getListaDeVideo().get(Integer.valueOf(index)).getId();
+	}
+	
+	private Video getMovie(String videoId) throws FileNotFoundException {
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					for (Video v : p.getListaDeVideo()) {
+						if (videoId.equals(v.getId()))
+							return v;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Imagem getPicture(String imagemId) throws FileNotFoundException {
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					for (Imagem i : p.getListaDeImagem()) {
+						if (imagemId.equals(i.getId()))
+							return i;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public String getDescricaoDoVideo(String videoId) throws FileNotFoundException {
+		Video video = getMovie(videoId);
+		return video.getDescricao();
+	}
+	
+	public String getDadoDoVideo(String videoId) throws FileNotFoundException {
+		Video video = getMovie(videoId);
+		return video.getDado();
+	}
+	
+	public String getImagem(String id, String index) throws FileNotFoundException {
+		Post post = getPostPorId(id);
+		return post.getListaDeImagem().get(Integer.valueOf(index)).getId();
+	}
+	
+	public String getDescricaoDaImagem(String id) throws FileNotFoundException {
+		Imagem imagem = getPicture(id);
+		return imagem.getDescricao();
+	}
+	
+	public String getDadoDaImagem(String id) throws FileNotFoundException {
+		Imagem imagem = getPicture(id);
+		return imagem.getDado();
+	}
 }
