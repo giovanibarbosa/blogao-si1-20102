@@ -109,7 +109,7 @@ public class Data {
 		
 	}
 	
-	public static String todaysDate() {
+	public String todaysDate() {
 		Date data = new Date();  
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
 		return formatador.format(data);
