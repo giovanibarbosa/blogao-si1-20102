@@ -91,18 +91,20 @@ public class Usuario {
 	/**
 	 * Classe que adiciona um blog a lista.
 	 * @param coment
+	 * @throws ArgumentInvalidException 
 	 */
-	public void addBlog2(Blog blg){
-		if(listaBlogs.contains(blg))
+	public void addBlog2(Blog blg) {
+		if(!listaBlogs.contains(blg))
 			listaBlogs.add(blg);
 	}
 	
 	/**
 	 * Remove o blog da lista.
 	 * @param blg
+	 * @throws ArgumentInvalidException 
 	 */
-	public void removeBlog2(Blog blg){
-		if(!listaBlogs.contains(blg))
+	public void removeBlog2(Blog blg) {
+		if(listaBlogs.contains(blg))
 			listaBlogs.remove(blg);
 	}
 
@@ -110,7 +112,7 @@ public class Usuario {
 	public boolean equals(Object obj){
 		if (!(obj instanceof Usuario)) return false;
 		Usuario user = (Usuario) obj;
-		return user.getLogin().equals(this.getLogin());
+		return getLogin().equals(user.getLogin());
 	}
 
 }
