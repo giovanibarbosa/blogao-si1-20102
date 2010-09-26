@@ -14,9 +14,8 @@ import classes.gerenciadores.GerenciadorDeBlogs;
 
 public class FacadeUserStore6 {
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
-	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs(gerente);
-	private GerenciadorDePosts gerentePost = new GerenciadorDePosts(gerente,
-			gerenteBlog);
+	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs();
+	private GerenciadorDePosts gerentePost = new GerenciadorDePosts();
 	GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 	private GerenciadorDePerfis gerenteDoPerfil = new GerenciadorDePerfis();
 

@@ -1,8 +1,11 @@
 package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ourExceptions.PersistenceException;
 
 import classes.Blog;
 import classes.Post;
@@ -19,15 +22,25 @@ import persistencia.daos.*;
  *
  */
 public class GerenciadorDeDados {
-	private GerenciadorDeUsuarios gerenteUsuarios = new GerenciadorDeUsuarios();	
-	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
-	private GerenciadorDeBlogs gerenteBlogs = new GerenciadorDeBlogs(gerenteSessoes);
-	private GerenciadorDeComentarios gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
-	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
-	private GerenciadorDePosts gerentePosts = new GerenciadorDePosts(gerenteSessoes, gerenteBlogs);
+	private GerenciadorDeUsuarios gerenteUsuarios;	
+	
+
+	private GerenciadorDeSessoes gerenteSessoes;
+	private GerenciadorDeBlogs gerenteBlogs;
+	private GerenciadorDeComentarios gerenteComentarios;
+	private GerenciadorDePerfis gerentePerfis;
+	private GerenciadorDePosts gerentePosts;
 	
 	private static GerenciadorDeDados instancia;
 	
+	public GerenciadorDeDados(){
+//		gerenteUsuarios = new GerenciadorDeUsuarios();
+		gerentePerfis = new GerenciadorDePerfis();
+//		gerenteSessoes = new GerenciadorDeSessoes();
+//		gerenteBlogs = new GerenciadorDeBlogs();
+//		gerentePosts = new GerenciadorDePosts();
+//		gerenteComentarios = new GerenciadorDeComentarios();
+	}
 	
 	/**
 	 * Metodo que carrega todos* os dados do BD para a aplicação.
@@ -35,35 +48,29 @@ public class GerenciadorDeDados {
 	 */
 	//FIXME ajeitar o email e os comentarios.
 	public void loadData() throws FileNotFoundException {
-		gerenteUsuarios.setListaUsuarios(UsuariosDAO.getInstance().loadData());
-		System.out.println("total de users: " + gerenteUsuarios.getListaUsuarios().size());
-		povoaListaDeBlogs();	
-		povoaPosts();
-		//gerentePosts.setListaPosts(PostsDAO.getInstance().loadData());
-		//System.out.println(gerentePosts.getListaPosts().size());
-		gerenteSessoes.setListaSessoes(SessoesDAO.getInstance().loadData());
-		povoaGerenciadoDePerfis();
-		//Fazer o mesmo para email(acho que nao deveria ter um dao para email)
-		//Fazer o mesmo para comentarios
+//		gerenteUsuarios.loadData();
+		gerentePerfis.loadData();
+//		gerenteSessoes.loadData();
+//		gerenteBlogs.loadData();
+//		gerentePosts.loadData();
+//		gerenteComentarios.loadData();
 	}
 
-	public void loadData(Gerenciador[] gerenciadores){
-		for (Gerenciador gerenciador : gerenciadores) {
-			gerenciador.loadData();
-		}
-	}
-	public void saveData(Gerenciador[] gerenciadores){
-		for (Gerenciador gerenciador : gerenciadores) {
-			gerenciador.saveData();
-		}
+	public void saveData() throws PersistenceException, IOException{
+//		gerenteUsuarios.saveData();
+		gerentePerfis.saveData();
+//		gerenteSessoes.saveData();
+//		gerenteBlogs.saveData();
+//		gerentePosts.saveData();
+//		gerenteComentarios.saveData();
 	}
 	public void cleanPersistence(){
-		BlogsDAO.getInstance().limparBlogs();
-		ComentariosDAO.getInstance().limparComentarios();
-		EmailsDAO.getInstance().limparEmails();
-		PostsDAO.getInstance().limparPosts();
-		SessoesDAO.getInstance().limparSessoes();
-		UsuariosDAO.getInstance().limparUsuarios();
+//		gerenteUsuarios.cleanPersistence();
+		gerentePerfis.cleanPersistence();
+//		gerenteSessoes.cleanPersistence();
+//		gerenteBlogs.cleanPersistence();
+//		gerentePosts.cleanPersistence();
+//		gerenteComentarios.cleanPersistence();
 	}
 	
 	public void povoaPosts() {
@@ -79,14 +86,14 @@ public class GerenciadorDeDados {
 		gerentePosts.setListaPosts(listaDePosts);
 	}
 	
-	//Gabiarra usada para add os perfis
-	public void povoaGerenciadoDePerfis() {
-		List<Perfil> listaPerfis = new ArrayList<Perfil>();
-		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
-			listaPerfis.add(user.getPerfil());			
-		}
-		gerentePerfis.setListaPerfis(listaPerfis);
-	}
+//	//Gabiarra usada para add os perfis
+//	public void povoaGerenciadoDePerfis() {
+//		List<Perfil> listaPerfis = new ArrayList<Perfil>();
+//		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
+//			listaPerfis.add(user.getPerfil());			
+//		}
+//		gerentePerfis.setListaPerfis(listaPerfis);
+//	}
 	
 	public void povoaListaDeBlogs() {
 		List<Blog> listaBlogs = new ArrayList<Blog>();
@@ -112,5 +119,33 @@ public class GerenciadorDeDados {
 			instancia = new GerenciadorDeDados();
 		return instancia;
 
+	}
+	
+	public GerenciadorDeUsuarios getGerenteUsuarios() {
+		return gerenteUsuarios;
+	}
+
+	public GerenciadorDeSessoes getGerenteSessoes() {
+		return gerenteSessoes;
+	}
+
+	public GerenciadorDeBlogs getGerenteBlogs() {
+		return gerenteBlogs;
+	}
+
+	public GerenciadorDeComentarios getGerenteComentarios() {
+		return gerenteComentarios;
+	}
+
+	public GerenciadorDePerfis getGerentePerfis() {
+		return gerentePerfis;
+	}
+
+	public GerenciadorDePosts getGerentePosts() {
+		return gerentePosts;
+	}
+
+	public static GerenciadorDeDados getInstancia() {
+		return instancia;
 	}
 }

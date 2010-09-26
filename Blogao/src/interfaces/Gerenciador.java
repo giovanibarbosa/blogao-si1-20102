@@ -1,5 +1,9 @@
 package interfaces;
 
+import java.io.IOException;
+
+import ourExceptions.PersistenceException;
+
 /**
  * Interface com assinatura dos metódos que um gerenciador de dados deve ter
  * 
@@ -8,7 +12,9 @@ package interfaces;
  */
 public interface Gerenciador {
 
-	public void saveData();
+	public void saveData() throws PersistenceException, IOException;
 
 	public void loadData();
+
+	void cleanPersistence();
 }

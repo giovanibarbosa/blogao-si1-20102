@@ -163,4 +163,10 @@ public class GerenciadorDeSessoes implements Gerenciador{
 		}
 
 	}
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
+	}
 }

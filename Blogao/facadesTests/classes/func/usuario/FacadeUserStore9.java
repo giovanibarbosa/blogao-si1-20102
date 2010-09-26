@@ -3,6 +3,7 @@ package classes.func.usuario;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -21,18 +22,17 @@ public class FacadeUserStore9 {
 	private GerenciadorDeBlogs gerenteBlogs;
 	private GerenciadorDePosts gerentePosts;
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
-	private Gerenciador[] gerenciadores= new Gerenciador[]{gerenteBlogs, gerenteComentarios, gerentePerfis, gerentePosts, gerenteSessoes};
 
 	public FacadeUserStore9() {
 		gerenteSessoes = new GerenciadorDeSessoes();
-		gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
+		gerenteComentarios = new GerenciadorDeComentarios();
 		gerentePerfis = new GerenciadorDePerfis();
-		gerentePosts = new GerenciadorDePosts(gerenteSessoes, gerenteBlogs);
+		gerentePosts = new GerenciadorDePosts();
 	}
 
 	// CARREGA TODOS OS DADOS DO BD
-	public void loadData() {
-		gerenteDados.loadData(gerenciadores);
+	public void loadData() throws FileNotFoundException {
+		gerenteDados.loadData();
 		
 	}
 	
@@ -73,7 +73,7 @@ public class FacadeUserStore9 {
 	}
 	
 	//TODO METODO QUE DELETA UM POST.
-	public void deletePost(String sessionId, String postId){
+	public void deletePost(String sessionId, String postId) throws ArgumentInvalidException, PersistenceException, IOException{
 		gerentePosts.deletePost(sessionId, postId);
 	}
 	
@@ -87,7 +87,7 @@ public class FacadeUserStore9 {
 		gerenteSessoes.logoff(idSessao);
 	}
 	
-	public void saveData(){
-		gerenteDados.saveData(gerenciadores);
+	public void saveData() throws PersistenceException, IOException{
+		gerenteDados.saveData();
 	}
 }

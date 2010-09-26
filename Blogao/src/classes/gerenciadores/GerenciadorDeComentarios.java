@@ -16,8 +16,8 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
 	GerenciadorDeSessoes gerenteSessoes;
 
-	public GerenciadorDeComentarios(GerenciadorDeSessoes gerSessoes) {
-		this.gerenteSessoes = gerSessoes;
+	public GerenciadorDeComentarios() {
+		this.gerenteSessoes = gerenteSessoes;
 		listaComentarios = new ArrayList<Comentario>();
 	}
 
@@ -42,6 +42,12 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	public int addComentario(String sessionId, String postId, String texto) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

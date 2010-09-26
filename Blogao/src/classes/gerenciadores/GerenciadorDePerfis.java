@@ -31,9 +31,6 @@ public class GerenciadorDePerfis implements Gerenciador {
 		listaPerfis = new ArrayList<Perfil>();
 	}
 	
-	
-	
-	
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
@@ -99,12 +96,10 @@ public class GerenciadorDePerfis implements Gerenciador {
 		return listaPerfis;
 	}
 
-
-	/**
-	 * @param listaPerfis the listaPerfis to set
-	 */
-	public void setListaPerfis(List<Perfil> listaPerfis) {
-		this.listaPerfis = listaPerfis;
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -36,10 +36,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	private static final int TITULO = -873444423;
 	private static final int DATA_CRIACAO = 358082837;
 
-	public GerenciadorDePosts(GerenciadorDeSessoes gereteDeSessao,
-			GerenciadorDeBlogs gerenteBlogs) {
-		this.gerenteDeSessao = gereteDeSessao;
-		this.gerenteDeBlogs = gerenteBlogs;
+	public GerenciadorDePosts() {
+		this.gerenteDeSessao = gerenteDeSessao;
+		this.gerenteDeBlogs = gerenteDeBlogs;
 		listaPosts = new ArrayList<Post>();
 
 	}
@@ -512,5 +511,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		return imagem.getDado();
 	}
 	
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
