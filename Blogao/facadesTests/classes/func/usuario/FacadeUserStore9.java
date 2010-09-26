@@ -11,12 +11,14 @@ import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.Blog;
 import classes.Comentario;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDeSessoes;
 
 public class FacadeUserStore9 {
 	private Perfil perfil1;
 	private Usuario user1;
-	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
+	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 	private Blog blog;
 
 	private UsuariosDAO userDAO;
@@ -38,7 +40,7 @@ public class FacadeUserStore9 {
 	public String logon(String login, String senha) throws FileNotFoundException,
 			ArgumentInvalidException, PersistenceException {
 		try {
-			return gerente.logon(login, senha);
+			return gerenteSessoes.logon(login, senha);
 		} catch (PersistenceException e) {
 			throw e;
 		}
@@ -83,7 +85,7 @@ public class FacadeUserStore9 {
 	//TODO METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException{
 		try {
-			gerente.logoff(idSession);
+			gerenteSessoes.logoff(idSession);
 		} catch (ArgumentInvalidException e){
 			throw e;
 		}

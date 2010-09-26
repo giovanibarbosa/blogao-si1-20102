@@ -123,16 +123,8 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	
 	public int totalDeBlogsPorLogin(String login) throws ArgumentInvalidException,
 						FileNotFoundException, PersistenceException{
-//		try {
 		Usuario user = userDAO.recupera(login);
-		return user.getListaBlogs().size();
-			
-//		} catch (FileNotFoundException e) {
-//			throw e;
-//		} catch (PersistenceException e) {
-//			throw e;
-//		}
-		
+		return user.getListaBlogs().size();		
 	}
 	
 	public int totalDeBlogsPorSessao(String sessionID) throws ArgumentInvalidException,
