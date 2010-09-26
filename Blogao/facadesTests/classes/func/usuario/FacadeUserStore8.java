@@ -63,7 +63,7 @@ public class FacadeUserStore8 {
 
 	}
 
-	// TODO RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
+	//RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
 	public int getBlogByLogin(String login, int index) throws
 				FileNotFoundException, PersistenceException {
 		return gerenteBlogs.recuperaIdBlogPorLogin(login, index);
@@ -71,13 +71,15 @@ public class FacadeUserStore8 {
 	}
 
 	// TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
-	public String getPost(String blogId, int index) {
-		return null;
+	public int getPost(String blogId, int index) throws NumberFormatException,
+				FileNotFoundException, PersistenceException {
+		return gerenteBlogs.recuperaIdDoPost(blogId, index);
 	}
 
 	// TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
-	public String addComment(String sessionId, String postId, String texto) {
-		return null;
+	public int addComment(String sessionId, String postId, String texto) throws
+				FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		return gerenteComentarios.addComentario(sessionId,postId,texto);
 	}
 
 	// TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
