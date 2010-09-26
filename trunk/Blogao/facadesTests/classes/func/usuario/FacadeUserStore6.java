@@ -4,8 +4,6 @@ import interfaces.Constantes;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -109,7 +107,7 @@ public class FacadeUserStore6 {
 	public void saveData() {}
 	
 	
-	//TODO
+	//TODO daki pra baixo
 	public String attachSound(String sessionId, String postId, String descricao, String dado) throws ArgumentInvalidException {
 		if (dado == null || dado.trim().isEmpty())
 			throw new ArgumentInvalidException("Dado inválido");
@@ -125,6 +123,58 @@ public class FacadeUserStore6 {
 	public String attachPicture(String sessionId, String postId, String descricao, String dado) throws ArgumentInvalidException {
 		if (dado == null || dado.trim().isEmpty())
 			throw new ArgumentInvalidException("Dado inválido");
+		return "";
+	}
+	
+	public String getPostInformation(String id, String atributo) {
+		return "";
+	}
+	
+	public String getNumberOfSounds(String id) {
+		return "";
+	}
+	
+	public String getNumberOfMovies(String id) {
+		return "";
+	}
+	
+	public String getNumberOfPictures(String id) {
+		return "";
+	}
+	
+	public String getSound(String id, String index) {
+		return "";
+	}
+	
+	public String getSoundDescription(String audioId) {
+		return "";
+	}
+	
+	public String getSoundData(String audioId) {
+		return "";
+	}
+	
+	public String getMovie(String id, String index) {
+		return "";
+	}
+	
+	public String getMovieDescription(String videoId) {
+		return "";
+	}
+	
+	public String getMovieData(String videoId) {
+		return "";
+	}
+	
+	public String getPicture(String id, String index) {
+		return "";
+	}
+	   
+	public String getPictureDescription(String imagemId) {
+		return "";
+	}
+	   
+	public String getPictureData(String imagemId) {
 		return "";
 	}
 }
