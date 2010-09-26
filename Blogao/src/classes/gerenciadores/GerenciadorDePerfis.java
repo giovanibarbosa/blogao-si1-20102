@@ -62,23 +62,15 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 	
 	
-	public String getProfileInformation(String login, String atributo) throws ArgumentInvalidException {
+	public String getProfileInformation(String login, String atributo)
+			throws ArgumentInvalidException, FileNotFoundException, PersistenceException {
 		String retorno;
-		try {
 			Usuario us = userDAO.recupera(login);
 			Perfil perf = us.getPerfil();
 			retorno = perf.getAtributo(atributo);
 			
 			if(retorno == null)
 				return login;
-			
-		} catch (FileNotFoundException e) {
-			return e.getMessage();
-		} catch (PersistenceException e) {
-			return e.getMessage();
-		} catch (ArgumentInvalidException e) {
-			throw e;
-		}
 		return retorno;
 	}
 
