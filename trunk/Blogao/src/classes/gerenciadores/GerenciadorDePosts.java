@@ -90,6 +90,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		user.addBlog2(blog);
 		userDAO.atualizar(user);
+		blogsDAO.atualizar(blog);
 		return post.getId();
 	}
 
