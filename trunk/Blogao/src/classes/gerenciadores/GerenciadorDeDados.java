@@ -39,7 +39,7 @@ public class GerenciadorDeDados {
 //		gerenteUsuarios = new GerenciadorDeUsuarios();
 		//gerentePerfis = new GerenciadorDePerfis();
 		gerenteSessoes = new GerenciadorDeSessoes(this);
-//		gerenteBlogs = new GerenciadorDeBlogs();
+		gerenteBlogs = new GerenciadorDeBlogs(this);
 //		gerentePosts = new GerenciadorDePosts();
 //		gerenteComentarios = new GerenciadorDeComentarios();
 	}
