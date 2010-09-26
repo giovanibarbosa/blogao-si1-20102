@@ -6,7 +6,7 @@ import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 
-public class FacadeUserStorie10 {
+public class FacadeUserStore10 {
 
 	private UsuariosDAO userDAO;
 	private BlogsDAO blogsDAO;
