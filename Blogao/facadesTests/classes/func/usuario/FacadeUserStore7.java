@@ -3,6 +3,7 @@ package classes.func.usuario;
 import java.io.FileNotFoundException;
 
 import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import ourExceptions.ArgumentInvalidException;
@@ -27,18 +28,18 @@ import ourExceptions.PersistenceException;
  */
 
 public class FacadeUserStore7 {
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 	
-	private GerenciadorDeSessoes gerenteSessao = new GerenciadorDeSessoes();
-	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs();
-	private GerenciadorDePosts gerenteSessaoDePosts = new GerenciadorDePosts();
-	
-	public void loadData() {
-		
+	public void loadData() throws FileNotFoundException {
+		gerenteDados.loadData();
 	}
 	
-	public String logon(String login, String senha) throws PersistenceException,
-			FileNotFoundException, ArgumentInvalidException{
-		return gerenteSessao.logon(login, senha);
+	// METODO QUE LOGA O USUARIO
+	public String logon(String login, String senha)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
+		return gerenteDados.getGerenteSessoes().logon(login, senha);
+
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
