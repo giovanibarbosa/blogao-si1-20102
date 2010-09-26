@@ -29,85 +29,116 @@ public class GerenciadorDePosts implements Gerenciador {
 	private GerenciadorDeBlogs gerenteDeBlogs;
 	private GerenciadorDeSessoes gerenteDeSessao;
 	private List<Post> listaPosts;
-	
+
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
-	
-	public GerenciadorDePosts(GerenciadorDeSessoes gereteDeSessao, GerenciadorDeBlogs gerenteBlogs){
+
+	public GerenciadorDePosts(GerenciadorDeSessoes gereteDeSessao,
+			GerenciadorDeBlogs gerenteBlogs) {
 		this.gerenteDeSessao = gereteDeSessao;
 		this.gerenteDeBlogs = gerenteBlogs;
-		
+
 	}
-	
+
 	/**
 	 * Metodo que gerancia a criacao de um Post.
+	 * 
 	 * @param idBlog
 	 * @param titulo
 	 * @param texto
-	 * @param texto2 
+	 * @param texto2
 	 * @return
 	 * @throws IOException
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 */
-	public String createPost(String idSessao, String idBlog, String titulo, String texto) throws IOException, ArgumentInvalidException, PersistenceException {
+	public String createPost(String idSessao, String blogId, String titulo,
+			String texto) throws IOException, ArgumentInvalidException,
+			PersistenceException {
 		Post post;
-		try {
-			Texto txt = new Texto(titulo, texto);
-			String log = gerenteDeSessao.getLogin(idSessao);
-			Usuario user = userDAO.recupera(log);
-			List<Blog> listaBlogs = user.listaDeBlogs();
-			Blog blog = null;
-			post = new Post(txt, idBlog);
+		Texto txt = new Texto(titulo, texto);
+		String log = gerenteDeSessao.getLogin(idSessao);
+		Usuario user = userDAO.recupera(log);
+		List<Blog> listaBlogs = user.getListaBlogs();
+		Blog blog = null;
+		post = new Post(txt, blogId);
 			
-			for(Blog blg : listaBlogs){
-				if(idBlog.equals(blg.getId())){
-						blog = blg;
+		
+		List<Usuario> listaUser = userDAO.recuperaUsuarios();
+		
+		if(blogId != null || !blogId.trim().isEmpty()){
+			for(Usuario u : listaUser){
+				for(Blog b : u.getListaBlogs()){
+					if(b.getId().equals(blogId)){
+						if(!u.equals(user)){
+							throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+						}else{
+							blog = b;
+						}
+					}
 				}
 			}
 			
 			if(blog == null){
-				throw new ArgumentInvalidException("Blog inválido");
-			}else{
-				blog.addPost(post);	
+				throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 			}
-			
-			
-			
-			
-			
-			
-			/*gerenteDeSessao.getLogin(idSessao);
-			Blog blog = gerenteDeBlogs.getBlog(idBlog);
-			Texto txt = new Texto(titulo, texto);
-			post = new Post(txt, idBlog);
-			blog.listaDePosts().add(post);
-			postsDAO.criar(post);
-			blogsDAO.atualizar(blog);*/
-			
-			
-		} catch (FileNotFoundException e) {
-			throw e;
-		} catch (PersistenceException e) {
-			throw e;
-		} catch (ArgumentInvalidException e) {
-			throw e;
+		}else{
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		}
 			
-		return post.getId();		
-	}
-	
-	public String getAtributo(Post post, String atributo) throws ArgumentInvalidException {
-		int codigoAtributo = atributo.hashCode();
 		
-		switch(codigoAtributo) {
 			
-			case(TEXTO):
-				return post.getTexto().getCorpo().toString();
-			case(TITULO):
-				return post.getTexto().getTitulo().toString();
-			default:
-				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+		
+		
+		
+//		if(blogId == null || blogId.trim().isEmpty())
+//			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+//		
+//		for (Blog blg : listaBlogs) {
+//			if (blg.getId().equals(blogId)) {
+//				blog = blg;
+//			}
+//			
+//		}
+//
+//		if (blog != null) {
+//			blog.addPost(post);
+//		} else {
+//			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+//		}
+		
+		
+
+		/*
+		 * gerenteDeSessao.getLogin(idSessao); Blog blog =
+		 * gerenteDeBlogs.getBlog(idBlog); Texto txt = new Texto(titulo, texto);
+		 * post = new Post(txt, idBlog); blog.listaDePosts().add(post);
+		 * postsDAO.criar(post); blogsDAO.atualizar(blog);
+		 */
+
+		// } catch (FileNotFoundException e) {
+		// throw e;
+		// } catch (PersistenceException e) {
+		// throw e;
+		// } catch (ArgumentInvalidException e) {
+		// throw e;
+		// }
+
+		return post.getId();
+	}
+
+	public String getAtributo(Post post, String atributo)
+			throws ArgumentInvalidException {
+		int codigoAtributo = atributo.hashCode();
+
+		switch (codigoAtributo) {
+
+		case (TEXTO):
+			return post.getTexto().getCorpo().toString();
+		case (TITULO):
+			return post.getTexto().getTitulo().toString();
+		default:
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		}
 	}
 	
@@ -115,7 +146,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	@Override
 	public void saveData() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -128,16 +159,19 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 
 	}
-	
-	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException, PersistenceException, ArgumentInvalidException{
+
+	public Blog getBlog(String idBlog, String idSessao)
+			throws FileNotFoundException, PersistenceException,
+			ArgumentInvalidException {
 		Blog blog = blogsDAO.recupera(idBlog);
-		if(!idSessao.equals(blog.getIdSessao())){
+		if (!idSessao.equals(blog.getIdSessao())) {
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 		}
 		return blog;
 	}
 
-	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
+	public int getNumberOfComments(String postId) throws FileNotFoundException,
+			PersistenceException {
 		return postsDAO.recupera(postId).getNumberOfComments();
 	}
 	
