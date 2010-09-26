@@ -134,7 +134,9 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	
 	public String recuperaIdBlogDesejado(String sessionID, int index) throws 
 					FileNotFoundException, ArgumentInvalidException, PersistenceException {
-		Usuario user = gerenteUsuarios.recuperaUsuarioPorIdSessao(sessionID);
+		String log = gerenteDeSessao.getLogin(sessionID);
+		Usuario user = userDAO.recupera(log);
+		//Usuario user = gerenteUsuarios.recuperaUsuarioPorIdSessao(sessionID);
 		return user.getListaBlogs().get(index).getId();
 		
 	}
