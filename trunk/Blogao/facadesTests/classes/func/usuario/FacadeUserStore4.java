@@ -1,9 +1,11 @@
 package classes.func.usuario;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import classes.Blog;
 import classes.gerenciadores.GerenciadorDeDados;
 
@@ -33,7 +35,8 @@ public class FacadeUserStore4 {
 	}
 
 	public String createBlog(String idSessao, String titulo, String descricao)
-			throws Exception {
+			throws ArgumentInvalidException, PersistenceException, IOException, UserInvalidException
+			 {
 		return gerenteDados.getGerenteBlogs().createBlog(idSessao, titulo, descricao);
 
 	}

@@ -19,27 +19,26 @@ import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 
-public class GerenciadorDeBlogs implements Gerenciador{
-
-	private static final int DESCRICAO = 1499866697;
-	private static final int TITULO = -873444423;
-	private static final int DONO = 3089292;
+public class GerenciadorDeBlogs implements Gerenciador {
 
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 
 	private GerenciadorDeDados gerenteDados;
 
 	private List<Blog> listaDeBlogs;
-	
+
+	private static final int DESCRICAO = 1499866697;
+	private static final int TITULO = -873444423;
+	private static final int DONO = 3089292;
+
 	public GerenciadorDeBlogs(GerenciadorDeDados gerenteDados) {
 		listaDeBlogs = new ArrayList<Blog>();
 		this.gerenteDados = gerenteDados;
 	}
 
-	
-	
 	public String createBlog(String idSessao, String titulo, String descricao)
-			throws ArgumentInvalidException, PersistenceException, IOException, UserInvalidException {
+			throws ArgumentInvalidException, PersistenceException, IOException,
+			UserInvalidException {
 
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
 				idSessao);
@@ -55,124 +54,174 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		return blog.getId();
 
 	}
-	
-	public String getAtributo(Blog b, String atributo) throws ArgumentInvalidException {
-		if (atributo == null || atributo.equals(""))
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
-		
-		int codigoAtributo = atributo.hashCode();
-		
-		switch(codigoAtributo) {
-			
-			case(TITULO):
-				return b.getTitulo().toString();
-		
-			case(DESCRICAO):
-				return b.getDescricao().toString();
-			
-			case(DONO):
-				String idSessao = b.getIdSessao();
-				return gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
-			default:
-				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
-		}
-				
-	}
 
-	public void changeBlogInformation(Blog blog, String atributo,
-			String novoValor) throws ArgumentInvalidException, PersistenceException, IOException {
-		
-		if (atributo == null) throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
-		
-		int codigoAtributo = atributo.hashCode();
-		switch(codigoAtributo) {
-			
-			case(TITULO):
-				blog.setTitulo(novoValor);
-				break;
-
-			case(DESCRICAO):
-				blog.setDescricao(novoValor);
-				break;
-			
-			case(DONO):
-			default:
-				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
-		}
-		blogsDAO.atualizar(blog);
-		
-	}
-
-	public Blog getBlog(String idBlog) throws ArgumentInvalidException{
+	public Blog getBlog(String idBlog) throws ArgumentInvalidException {
 		for (Blog blog : listaDeBlogs) {
-			if (blog.getId().equals(idBlog)) return blog;
+			if (blog.getId().equals(idBlog))
+				return blog;
 		}
 		throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 	}
-	
-	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException,
-						PersistenceException, ArgumentInvalidException{
+
+	public Blog getBlog(String idBlog, String idSessao)
+			throws FileNotFoundException, PersistenceException,
+			ArgumentInvalidException {
 		Blog blog = blogsDAO.recupera(idBlog);
-		if(!idSessao.equals(blog.getIdSessao())){
+		if (!idSessao.equals(blog.getIdSessao())) {
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 		}
 		return blog;
 	}
-	
-	public int totalDeBlogsPorLogin(String login) throws ArgumentInvalidException,
-						FileNotFoundException, PersistenceException, UserInvalidException{
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		return user.getListaBlogs().size();		
-	}
-	
-	public int totalDeBlogsPorSessao(String sessionID) throws ArgumentInvalidException,
-						FileNotFoundException, PersistenceException, UserInvalidException {
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionID);
+
+	public int totalDeBlogsPorLogin(String login)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException, UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs().size();
-		
 	}
-	
-	public String recuperaIdBlogDesejado(String sessionID, int index) throws 
-					FileNotFoundException, ArgumentInvalidException, PersistenceException, UserInvalidException {
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionID);
+
+	public int totalDeBlogsPorSessao(String sessionID)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException, UserInvalidException {
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				sessionID);
+		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		return user.getListaBlogs().size();
+
+	}
+
+	public String recuperaIdBlogDesejado(String sessionID, int index)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException, UserInvalidException {
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				sessionID);
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs().get(index).getId();
-		
+
 	}
-	
-	public String recuperaIdBlogPorLogin(String login, int index) throws FileNotFoundException,
-						PersistenceException, UserInvalidException {
+
+	public String recuperaIdBlogPorLogin(String login, int index)
+			throws FileNotFoundException, PersistenceException,
+			UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs().get(index).getId();
 	}
-	
+
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
-				PersistenceException, ArgumentInvalidException {
+			PersistenceException, ArgumentInvalidException {
 		return getBlog(idBlog).getListaDePostagens().size();
-		
+
 	}
-	
-	public String recuperaIdDoPost(String idBlog, int index) throws NumberFormatException,
-				FileNotFoundException, PersistenceException, ArgumentInvalidException {
+
+	public String recuperaIdDoPost(String idBlog, int index)
+			throws NumberFormatException, FileNotFoundException,
+			PersistenceException, ArgumentInvalidException {
 		return getBlog(idBlog).getListaDePostagens().get(index).getId();
 	}
-//	
-//	public void mudarInformacaoDoPost(String sessionID, String postID,
-//			String atributo, String novoTexto) throws FileNotFoundException,
-//			ArgumentInvalidException, PersistenceException {
-//		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionID);
-//		Post postRecuperado = postsDAO.recupera(postID);
-//
-//		for (Blog blog : user.getListaBlogs()) {
-//			for (Post post : blog.getListaDePostagens()) {
-//				if (post.equals(postRecuperado)) {
-//					post.setAtributo(atributo, novoTexto);
-//				}
-//			}
-//		}
-//	}
-//	
+
+	//
+	// public void mudarInformacaoDoPost(String sessionID, String postID,
+	// String atributo, String novoTexto) throws FileNotFoundException,
+	// ArgumentInvalidException, PersistenceException {
+	// Usuario user =
+	// gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionID);
+	// Post postRecuperado = postsDAO.recupera(postID);
+	//
+	// for (Blog blog : user.getListaBlogs()) {
+	// for (Post post : blog.getListaDePostagens()) {
+	// if (post.equals(postRecuperado)) {
+	// post.setAtributo(atributo, novoTexto);
+	// }
+	// }
+	// }
+	// }
+	//
+
+	public String getAtributo(Blog b, String atributo)
+			throws ArgumentInvalidException {
+		if (atributo == null || atributo.equals(""))
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+
+		int codigoAtributo = atributo.hashCode();
+
+		switch (codigoAtributo) {
+
+		case (TITULO):
+			return b.getTitulo().toString();
+
+		case (DESCRICAO):
+			return b.getDescricao().toString();
+
+		case (DONO):
+			String idSessao = b.getIdSessao();
+			return gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
+		default:
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+		}
+
+	}
+
+	public Blog changeBlogInformation(Blog blog, String atributo,
+			String novoValor) throws ArgumentInvalidException,
+			PersistenceException, IOException {
+
+		if (atributo == null)
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+
+		int codigoAtributo = atributo.hashCode();
+		switch (codigoAtributo) {
+
+		case (TITULO):
+			blog.setTitulo(novoValor);
+			return blog;
+
+		case (DESCRICAO):
+			blog.setDescricao(novoValor);
+			return blog;
+
+		case (DONO):
+		default:
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+		}
+
+	}
+
+	public void changeBlogInformation(String idSessao, String idBlog,
+			String atributo, String novoValor) throws ArgumentInvalidException,
+			PersistenceException, UserInvalidException, IOException {
+
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				idSessao);
+
+		if (!gerenteDados.getGerenteSessoes().isUserLogged(login)) {
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		}
+
+		Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
+		if (verificaExistenciaDeBlog(idBlog)) {
+			Blog blog = getBlog(idBlog);
+			validaDonoBlog(blog, idSessao);
+			us.removeBlog2(blog);
+			us.addBlog2(changeBlogInformation(blog, atributo, novoValor));
+		}
+
+	}
+
+	private void validaDonoBlog(Blog blog, String idSessao) throws ArgumentInvalidException {
+		if (!blog.getIdSessao().equals(idSessao)) {
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		}
+		
+	}
+
+	public String getBlogInformation(String idBlog, String atributo)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
+
+		Blog blog = gerenteDados.getGerenteBlogs().getBlog(idBlog);
+		return gerenteDados.getGerenteBlogs().getAtributo(blog, atributo);
+
+	}
 
 	/**
 	 * @return the listaDeBlogs
@@ -182,15 +231,26 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	}
 
 	/**
-	 * @param listaDeBlogs the listaDeBlogs to set
+	 * @param listaDeBlogs
+	 *            the listaDeBlogs to set
 	 */
 	public void setListaDeBlogs(List<Blog> listaDeBlogs) {
 		this.listaDeBlogs = listaDeBlogs;
 	}
 
+	public boolean verificaExistenciaDeBlog(String idBlog)
+			throws ArgumentInvalidException {
+		for (Blog blog : listaDeBlogs) {
+			if (blog.getId().equals(idBlog)) {
+				return true;
+			}
+		}
+		throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+	}
+
 	@Override
 	public void saveData() {
-		
+
 	}
 
 	public void loadData() {
@@ -202,12 +262,10 @@ public class GerenciadorDeBlogs implements Gerenciador{
 
 	}
 
-
-
 	@Override
 	public void cleanPersistence() {
 		blogsDAO.limparBlogs();
-		
+
 	}
 
 }
