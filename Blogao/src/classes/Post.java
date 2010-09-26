@@ -266,7 +266,7 @@ public class Post {
 	 */
 	public void saveData() throws PersistenceException, IOException {
 		postDao.getInstance();
-		postDao.atualizar(this, this);
+		postDao.atualizar(this);
 	}
 
 	/**
