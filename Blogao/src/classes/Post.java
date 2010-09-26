@@ -28,6 +28,9 @@ public class Post {
 	private String blogRaiz;
 	
 	private List<Comentario> comentarios;
+	private List<Audio> listaDeAudio;
+	private List<Video> listaDeVideo;
+	private List<Imagem> listaDeImagem;
 	
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
@@ -253,5 +256,19 @@ public class Post {
 	public int getNumberOfComments() {
 		return getComentarios().size();
 	}
+
+	public List<Audio> getListaDeAudio() {
+		return listaDeAudio;
+	}
+
+	public List<Video> getListaDeVideo() {
+		return listaDeVideo;
+	}
+
+	public List<Imagem> getListaDeImagem() {
+		return listaDeImagem;
+	}
+	
+	
 	
 }

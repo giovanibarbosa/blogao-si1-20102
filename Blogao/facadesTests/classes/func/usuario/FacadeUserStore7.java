@@ -3,6 +3,7 @@ package classes.func.usuario;
 import java.io.FileNotFoundException;
 
 import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -29,6 +30,7 @@ public class FacadeUserStore7 {
 	
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs(gerente);
+	private GerenciadorDePosts gerenteDePosts = new GerenciadorDePosts(gerente, gerenciaBlogs);
 	
 	public void loadData() {
 		
@@ -83,43 +85,48 @@ public class FacadeUserStore7 {
 		return gerenciaBlogs.totalDePosts(blogID);
 	}
 	
-	//TODO Fazer...
-	public int getPost(String blogID, int index) {
-		return 0; //id do post
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getPost(String blogID, int index) throws NumberFormatException,
+				FileNotFoundException, PersistenceException {
+		return gerenciaBlogs.recuperaIdDoPost(blogID, index);
 	}
 	
-	//TODO Fazer...
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	//#o metodo changePostInformation sera responsavel por alterar apenas a
 	//parte textual de um post.
-	public void changePostInformation(String sessionID, String postID, String atributo, String novoTexto) {}
+	public void changePostInformation(String sessionID, String postID, String atributo, String novoTexto)
+					throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		gerenciaBlogs.mudarInformacaoDoPost(sessionID, postID, atributo, novoTexto);
+	}
 	
-	//TODO Fazer...
-	public int getNumberOfSounds(String postID) {
-		return 0;		
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getNumberOfSounds(String postID) throws FileNotFoundException,
+					PersistenceException {
+		return gerenteDePosts.recuperaTotalDeMusicasDoPost(postID);		
+	}
+	
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getNumberOfMovies(String postID) throws FileNotFoundException, PersistenceException {
+		return gerenteDePosts.recuperaTotalDeFilmesDoPost(postID);
+	}
+	
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getNumberOfPictures(String postID) throws FileNotFoundException, PersistenceException {
+		return gerenteDePosts.recuperaTotalDeImagensDoPost(postID);		
+	}
+	
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getMovie(String postID, int index) throws FileNotFoundException, PersistenceException {
+		return gerenteDePosts.recuperaIDvideo(postID, index); //id movie
+	}
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public int getSound(String postID, int index) throws FileNotFoundException, PersistenceException {
+		return gerenteDePosts.recuperaIDaudio(postID, index);		 //id som
 	}
 	
 	//TODO Fazer...
-	public int getNumberOfMovies(String postID) {
-		return 0;
-	}
-	
-	//TODO Fazer...
-	public int getNumberOfPictures(String postID) {
-		return 0;		
-	}
-	
-	//TODO Fazer...
-	public int getMovie(String postID, int index) {
-		return 0; //id movie
-	}
-	//TODO Fazer...
-	public int getSound(String postID, int index) {
-		return 0;		 //id som
-	}
-	
-	//TODO Fazer...
-	public int getPicture(String postID, int index) {
-		return 0;		//id imagem
+	public int getPicture(String postID, int index) throws FileNotFoundException, PersistenceException {
+		return gerenteDePosts.recuperaIDimagem(postID, index);	//id imagem
 	}
 	
 	//TODO Fazer...
