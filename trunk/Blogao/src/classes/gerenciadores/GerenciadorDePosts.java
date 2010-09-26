@@ -12,6 +12,7 @@ import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
+import classes.func.multimidia.Audio;
 import classes.func.usuario.Usuario;
 import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.Comentario;
@@ -137,4 +138,53 @@ public class GerenciadorDePosts implements Gerenciador {
 	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
 		return postsDAO.recupera(postId).getNumberOfComments();
 	}
+	
+	public int recuperaTotalDeMusicasDoPost(String postID) throws FileNotFoundException, PersistenceException {
+		Post postRecuperado = postsDAO.recupera(postID);
+		int totalDeAudio = 0;
+		for (Audio audio : postRecuperado.getListaDeAudio()) {
+			totalDeAudio++;
+		}
+		return totalDeAudio;
+	}
+	
+	public int recuperaTotalDeFilmesDoPost(String postID) throws FileNotFoundException, PersistenceException {
+		Post postRecuperado = postsDAO.recupera(postID);
+		int totalDeFilme = 0;
+		for (Audio audio : postRecuperado.getListaDeAudio()) {
+			totalDeFilme++;
+		}
+		return totalDeFilme;
+	}
+	
+	public int recuperaTotalDeImagensDoPost(String postID) throws FileNotFoundException, PersistenceException {
+		Post postRecuperado = postsDAO.recupera(postID);
+		int totalDeImagens = 0;
+		for (Audio audio : postRecuperado.getListaDeAudio()) {
+			totalDeImagens++;
+		}
+		return totalDeImagens;
+	}
+	
+	public int recuperaIDaudio(String postID, int index) throws FileNotFoundException, PersistenceException {
+		Post postRecuperado = postsDAO.recupera(postID);
+		return Integer.valueOf(postRecuperado.getListaDeAudio().get(index).getId());
+		
+	}
+	
+	public int recuperaIDvideo(String postID, int index) throws FileNotFoundException, PersistenceException {
+		Post postRecuperado = postsDAO.recupera(postID);
+		return Integer.valueOf(postRecuperado.getListaDeVideo().get(index).getId());
+		
+	}
+	
+	public int recuperaIDimagem(String postID, int index) throws FileNotFoundException, PersistenceException {
+		Post postRecuperado = postsDAO.recupera(postID);
+		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index).getId());
+		
+	}
+	
+	
+	
+	
 }
