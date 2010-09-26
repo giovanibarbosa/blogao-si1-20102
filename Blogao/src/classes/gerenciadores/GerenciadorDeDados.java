@@ -2,10 +2,18 @@ package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
 
+import classes.Blog;
 import classes.func.usuario.Usuario;
 
 import interfaces.Gerenciador;
 import persistencia.daos.*;
+
+/**
+ * Classe que gerencia a base de dados.
+ * @author Rodolfo
+ * @colaborator Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ *
+ */
 public class GerenciadorDeDados {
 	
 	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
@@ -21,8 +29,11 @@ public class GerenciadorDeDados {
 	 */
 	//FIXME ajeitar o email e os comentarios.
 	public void loadData() throws FileNotFoundException {
-		gerenteBlogs.setListaDeBlogs(BlogsDAO.getInstance().loadData());
 		gerenteUsuarios.setListaUsuarios(UsuariosDAO.getInstance().loadData());	
+		povoaListaDeBlogs();
+		
+		gerenteBlogs.setListaDeBlogs(BlogsDAO.getInstance().loadData());
+		
 		gerentePosts.setListaPosts(PostsDAO.getInstance().loadData());
 		gerenteSessoes.setListaSessoes(SessoesDAO.getInstance().loadData());
 		povoaGerenciadoDePerfis();
@@ -52,8 +63,15 @@ public class GerenciadorDeDados {
 	//Gabiarra usada para add os perfis
 	public void povoaGerenciadoDePerfis() {
 		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
-			gerentePerfis.getListaPerfis().add(user.getPerfil());
-			
+			gerentePerfis.getListaPerfis().add(user.getPerfil());			
 		}
+	}
+	
+	public void povoaListaDeBlogs() {
+		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
+			for(Blog blog : user.getListaBlogs()) {
+				gerenteBlogs.getListaDeBlogs().add(blog);
+			}
+		}		
 	}
 }

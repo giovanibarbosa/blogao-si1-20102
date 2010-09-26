@@ -59,16 +59,14 @@ public class FacadeUserStore8 {
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		try {
-			return gerenteSessoes.logon(login, senha);
-		} catch (PersistenceException e) {
-			throw e;
-		}
+		return gerenteSessoes.logon(login, senha);
+
 	}
 
 	// TODO RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
-	public String getBlogByLogin(String login, int index) {
-		return null;
+	public int getBlogByLogin(String login, int index) throws
+				FileNotFoundException, PersistenceException {
+		return gerenteBlogs.recuperaIdBlogPorLogin(login, index);
 
 	}
 
