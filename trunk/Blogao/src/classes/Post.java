@@ -74,7 +74,47 @@ public class Post {
 		if (comentarios.contains(coment))
 			comentarios.remove(coment);
 	}
+	
+	/**
+	 * Classe que adiciona um audio a lista.
+	 * 
+	 * @param audio
+	 */
+	public void addAudio(Audio audio) {
+		if (!listaDeAudio.contains(audio))
+			listaDeAudio.add(audio);
+	}
 
+	/**
+	 * Remove o audio da lista.
+	 * 
+	 * @param coment
+	 */
+	public void removeAudio(Audio audio) {
+		if (listaDeAudio.contains(audio))
+			listaDeAudio.remove(audio);
+	}
+
+	public void addImagem(Imagem imagem) {
+		if (!listaDeImagem.contains(imagem))
+			listaDeImagem.add(imagem);
+	}
+	
+	public void removeImagem(Imagem imagem) {
+		if (listaDeImagem.contains(imagem))
+			listaDeImagem.remove(imagem);
+	}
+	
+	public void addVideo(Video video) {
+		if (!listaDeVideo.contains(video))
+			listaDeVideo.add(video);
+	}
+	
+	public void removeVideo(Video video) {
+		if (listaDeVideo.contains(video))
+			listaDeVideo.remove(video);
+	}
+	
 	/**
 	 * Retorna a lista de comentarios.
 	 * 
@@ -229,31 +269,7 @@ public class Post {
 		return (post == null || post.getTextoCompleto().trim().equals("")) ? false
 				: true;
 	}
-
-	public Imagem getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(Imagem imagem) {
-		this.imagem = imagem;
-	}
-
-	public Audio getAudio() {
-		return audio;
-	}
-
-	public void setAudio(Audio audio) {
-		this.audio = audio;
-	}
-
-	public Video getVideo() {
-		return video;
-	}
-
-	public void setVideo(Video video) {
-		this.video = video;
-	}
-
+	
 	public String getBlogRaiz() {
 		return blogRaiz;
 	}
