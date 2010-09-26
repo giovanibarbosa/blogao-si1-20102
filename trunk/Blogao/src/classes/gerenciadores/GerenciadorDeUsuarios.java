@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 public class GerenciadorDeUsuarios implements Gerenciador{
@@ -18,7 +19,6 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private GerenciadorDeSessoes gerenteDeSessao = new GerenciadorDeSessoes();
 
-	private UsuariosDAO usuariosDAO = UsuariosDAO.getInstance();
 	private List<Usuario> listaUsuarios;
 	
 	public GerenciadorDeUsuarios() {
@@ -26,17 +26,19 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 	}
 
 	@Override
-	public void saveData() {
-		// TODO Auto-generated method stub
+	public void saveData() throws PersistenceException, IOException {
+		userDAO.limparUsuarios();
+		for (Usuario user : listaUsuarios) {
+			userDAO.criar(user);
+		}
 		
 	}
 
 	@Override
 	public void loadData() {
 		try {
-			listaUsuarios = usuariosDAO.recuperaUsuarios();
+			listaUsuarios = userDAO.recuperaUsuarios();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			listaUsuarios = new ArrayList<Usuario>();
 		}
 
@@ -45,7 +47,12 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 	public Usuario recuperaUsuarioPorIdSessao(String sessionID) throws ArgumentInvalidException,
 					FileNotFoundException, PersistenceException {
 		String log = gerenteDeSessao.getLogin(sessionID);
-		return userDAO.recupera(log);
+		for (Usuario user : listaUsuarios) {
+			if(log.equals(user.getLogin().getLogin())){
+				return user;
+			}
+		}
+		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 	}
 
 	/**
@@ -60,6 +67,11 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 	 */
 	public void setListaUsuarios(List<Usuario> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
+	}
+
+	@Override
+	public void cleanPersistence() {
+		userDAO.limparUsuarios();		
 	}
 	
 	

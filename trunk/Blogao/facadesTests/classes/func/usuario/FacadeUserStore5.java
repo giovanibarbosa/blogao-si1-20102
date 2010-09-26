@@ -24,7 +24,7 @@ import classes.gerenciadores.GerenciadorDeBlogs;
 public class FacadeUserStore5 {
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
-	private GerenciadorDeBlogs gerenteBlogs = new GerenciadorDeBlogs(gerente);
+	private GerenciadorDeBlogs gerenteBlogs = new GerenciadorDeBlogs();
 	private Blog blog;
 
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();

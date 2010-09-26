@@ -1,5 +1,8 @@
 package classes.func.usuario;
 
+import java.io.IOException;
+
+import ourExceptions.PersistenceException;
 import interfaces.Gerenciador;
 import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
@@ -15,8 +18,7 @@ import classes.gerenciadores.GerenciadorDePerfis;
  */
 public class FacadeUserStore1 {
 
-	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
-	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
+	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
 
 	//APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
@@ -24,13 +26,13 @@ public class FacadeUserStore1 {
 	}
 
 	//SALVA TODOS OS DADOS NO BD
-	public void saveData() {
-		gerenteDados.saveData(new Gerenciador[]{gerentePerfis});
+	public void saveData() throws PersistenceException, IOException {
+		gerenteDados.saveData();
 	}
 
 	//FAZER ESTE METODO
 	public String getProfileInformation(String login, String atributo) throws Exception {
-		return gerentePerfis.getProfileInformation(login, atributo);	
+		return gerenteDados.getGerentePerfis().getProfileInformation(login, atributo);	
 	}
 
 	//Armazenar no BD.
@@ -39,7 +41,7 @@ public class FacadeUserStore1 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 		
-		gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
+		gerenteDados.getGerentePerfis().createProfile(login, senha, nome_exibicao, email, sexo,
 					dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
 	}
 

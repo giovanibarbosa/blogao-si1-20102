@@ -32,9 +32,9 @@ public class GerenciadorDeBlogs implements Gerenciador{
 
 	private List<Blog> listaDeBlogs;
 	
-	public GerenciadorDeBlogs(GerenciadorDeSessoes gerenteSessoes) {
+	public GerenciadorDeBlogs() {
 		listaDeBlogs = new ArrayList<Blog>();
-		this.gerenteDeSessao = gerenteSessoes;
+		this.gerenteDeSessao = gerenteDeSessao;
 		//listaDeBlogs = new ArrayList<Blog>();
 	}
 
@@ -200,5 +200,11 @@ public class GerenciadorDeBlogs implements Gerenciador{
 			listaDeBlogs = new ArrayList<Blog>();
 		}
 
+	}
+
+	@Override
+	public void cleanPersistence() {
+		// TODO Auto-generated method stub
+		
 	}
 }

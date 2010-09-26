@@ -29,8 +29,8 @@ import ourExceptions.PersistenceException;
 public class FacadeUserStore7 {
 	
 	private GerenciadorDeSessoes gerenteSessao = new GerenciadorDeSessoes();
-	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs(gerenteSessao);
-	private GerenciadorDePosts gerenteSessaoDePosts = new GerenciadorDePosts(gerenteSessao, gerenciaBlogs);
+	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs();
+	private GerenciadorDePosts gerenteSessaoDePosts = new GerenciadorDePosts();
 	
 	public void loadData() {
 		
