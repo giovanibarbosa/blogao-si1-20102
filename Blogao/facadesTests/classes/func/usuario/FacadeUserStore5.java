@@ -70,23 +70,10 @@ public class FacadeUserStore5 {
 	public void changeBlogInformation(String idSessao, String idBlog,
 			String atributo, String novoValor) throws PersistenceException,
 			ArgumentInvalidException, IOException, UserInvalidException {
+		
 		gerenteDados.getGerenteBlogs().changeBlogInformation(idSessao, idBlog,
 									atributo, novoValor);
 	}
-//		
-//		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
-//		if (!gerenteDados.getGerenteSessoes().isUserLogged(login)) {
-//			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-//		}
-//		
-		
-		
-//		blog = blogsDAO.recupera(id);
-//		gerenteBlogs.changeBlogInformation(blog, atributo, novoValor);
-//		if (!blog.getIdSessao().equals(idSessao))
-//			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-
-	//}
 
 	// METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
