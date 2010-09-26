@@ -56,12 +56,12 @@ public class FacadeBlogao {
         FacadeUserStore2 perfFac2 = new FacadeUserStore2();
         EasyAcceptFacade eaFacade2 = new EasyAcceptFacade(perfFac2, files2);  
         eaFacade2.executeTests();
-//        
-//        //Testes para a us3.txt        
-//        FacadeUserStore3 perfFac3 = new FacadeUserStore3();
-//        EasyAcceptFacade eaFacade3 = new EasyAcceptFacade(perfFac3, files3);  
-//        eaFacade3.executeTests();
-//        
+        
+        //Testes para a us3.txt        
+        FacadeUserStore3 perfFac3 = new FacadeUserStore3();
+        EasyAcceptFacade eaFacade3 = new EasyAcceptFacade(perfFac3, files3);  
+        eaFacade3.executeTests();
+        
 //        //Testes para a us4.txt        
 //        FacadeUserStore4 perfFac4 = new FacadeUserStore4();
 //        EasyAcceptFacade eaFacade4 = new EasyAcceptFacade(perfFac4, files4);  
@@ -88,7 +88,7 @@ public class FacadeBlogao {
         
         System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
-//        System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
+        System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
 //        System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
 //        System.out.println(eaFacade5.getCompleteResults());
 //        System.out.println(eaFacade6.getCompleteResults());

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import classes.Comentario;
 import classes.Sessao;
 import classes.func.usuario.Perfil;
@@ -28,12 +29,12 @@ import persistencia.daos.UsuariosDAO;
  */
 public class GerenciadorDeSessoes implements Gerenciador {
 	private List<Sessao> listaSessoes;
-	
+
 	private SessoesDAO sessoesDAO = SessoesDAO.getInstance();
 	private GerenciadorDeDados gerenteDados;
 
 	public GerenciadorDeSessoes(GerenciadorDeDados gerenciadorDeDados) {
-		listaSessoes = new ArrayList<Sessao>();		
+		listaSessoes = new ArrayList<Sessao>();
 		this.gerenteDados = gerenciadorDeDados;
 	}
 
@@ -43,13 +44,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			FileNotFoundException {
 		try {
 			String idSessao = String.valueOf(login.hashCode());
-			if (isUserLogged(login)) { 
-				throw new ArgumentInvalidException(
-						Constantes.USUARIO_LOGADO);
+			if (isUserLogged(login)) {
+				throw new ArgumentInvalidException(Constantes.USUARIO_LOGADO);
 			}
 			Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 			Sessao sessaoNova = new Sessao(idSessao, login);
-			
+
 			if (user.getSenha().equals(senha)) {
 				listaSessoes.add(sessaoNova);
 				return idSessao;
@@ -61,16 +61,20 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			throw new PersistenceException(Constantes.LOGIN_OU_SENHA_INVALIDO);
 		} catch (ArgumentInvalidException e) {
 			throw e;
+		} catch (UserInvalidException e) {
+			throw new ArgumentInvalidException(
+					Constantes.LOGIN_OU_SENHA_INVALIDO);
 		}
 
 	}
 
 	// METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
 	public boolean isUserLogged(String login) throws PersistenceException,
-			FileNotFoundException, ArgumentInvalidException {
+			FileNotFoundException, ArgumentInvalidException,
+			UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		for (Sessao ses : listaSessoes) {
-			if (ses.getLogin().equals(login)){
+			if (ses.getLogin().equals(login)) {
 				return true;
 			}
 		}
@@ -84,11 +88,13 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @param log
 	 * @return
 	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException 
+	 * @throws PersistenceException
+	 * @throws UserInvalidException
 	 */
 
-	public String getProfileInformationBySessionId(String idsessao, String atributo)
-			throws ArgumentInvalidException, PersistenceException {
+	public String getProfileInformationBySessionId(String idsessao,
+			String atributo) throws ArgumentInvalidException,
+			PersistenceException, UserInvalidException {
 		if (!sessaoExistente(idsessao))
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 		String retorno;
@@ -102,6 +108,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 
 		return retorno;
 	}
+
 	/**
 	 * Metodo que retorna o login referente a sessao passada como parametro.
 	 * 
@@ -111,11 +118,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 *             caso a sessao nao exista
 	 */
-	public String getLoginPorSessao(String idSessao) throws ArgumentInvalidException {
+	public String getLoginPorSessao(String idSessao)
+			throws ArgumentInvalidException {
 		Sessao ses = getSessao(idSessao);
 		return ses.getLogin();
 	}
-	
+
 	public Sessao getSessao(String idSessao) throws ArgumentInvalidException {
 		for (Sessao ses : listaSessoes) {
 			if (ses.getIdSessao().equals(idSessao)) {
@@ -130,7 +138,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			if (ses.getIdSessao().equals(idsessao)) {
 				return true;
 			}
-		}		
+		}
 		return false;
 	}
 
@@ -148,7 +156,6 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 
 	}
-
 
 	@Override
 	public void loadData() {

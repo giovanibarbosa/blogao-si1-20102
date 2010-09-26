@@ -4,6 +4,7 @@ import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.apache.bcel.generic.NEW;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import persistencia.daos.EmailsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.func.usuario.Perfil;
@@ -70,7 +72,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 	
 	
 	public String getProfileInformation(String login, String atributo)
-			throws ArgumentInvalidException, FileNotFoundException, PersistenceException {
+			throws ArgumentInvalidException, FileNotFoundException, PersistenceException, UserInvalidException {
 			String retorno;
 			Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 			
@@ -116,6 +118,35 @@ public class GerenciadorDePerfis implements Gerenciador {
 			if (perf.getEmail().equals(mail))
 				throw new ArgumentInvalidException(Constantes.EMAIL_EXISTENTE);
 		}
+	}
+
+	public void changeProfileInformation(String idSessao, String atributo,
+			String novoValor) throws ArgumentInvalidException, UserInvalidException,
+					PersistenceException, IOException {
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
+		
+		try {
+			Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
+			
+			if ("senha".equals(atributo)) {
+				us.setSenha(new Senha(novoValor));
+			} else if ("login".equals(atributo)) {
+				gerenteDados.getGerenciadorDeUsuarios().validaLogin(new Login(novoValor));
+				gerenteDados.getGerenciadorDeUsuarios().remover(us);
+				us.setLogin(new Login(novoValor));
+				gerenteDados.getGerenciadorDeUsuarios().adicionar(us);
+			}
+
+			else {
+				Perfil perfil = us.getPerfil();
+				perfil.setAtributo(atributo, novoValor);
+				us.setPerfil(perfil);
+			}
+		} catch (UserInvalidException e) {
+			throw new ArgumentInvalidException(Constantes.LOGIN_INVALIDO);
+		} 
+		
+		
 	}
 	
 	
