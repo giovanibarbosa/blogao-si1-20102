@@ -5,6 +5,8 @@ import interfaces.Constantes;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.w3c.dom.UserDataHandler;
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Blog;
@@ -94,10 +96,10 @@ public class FacadeUserStore6 {
 		return gerentePost.attachPicture(sessionId, postId, descricao, dado);
 	}
 
-	public String getPostInformation(String id, String atributo) {
-		
-		
-		return "";
+	public String getPostInformation(String id, String atributo)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
+		return gerentePost.informacaoDoPost(id, atributo);
 	}
 
 	public String getNumberOfSounds(String id) {

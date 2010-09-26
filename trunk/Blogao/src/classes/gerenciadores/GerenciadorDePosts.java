@@ -5,6 +5,7 @@ import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
@@ -33,6 +34,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
+	private static final int DATA_CRIACAO = 358082837;
 
 	public GerenciadorDePosts(GerenciadorDeSessoes gereteDeSessao,
 			GerenciadorDeBlogs gerenteBlogs) {
@@ -65,8 +67,8 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (blogId == null || blogId.trim().isEmpty())
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-
-		post = new Post(txt, blogId);
+		post = new Post(titulo, texto);
+		post.setDataCriacao(new Date());
 
 		List<Usuario> listaUser = userDAO.recuperaUsuarios();
 		for (Usuario u : listaUser) {
@@ -81,11 +83,11 @@ public class GerenciadorDePosts implements Gerenciador {
 			}
 		}
 
-		if (blog == null) {
+		if (blog == null) 
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-		} else {
-			blog.addPost(post);
-		}
+			
+		blog.addPost(post);
+		user.removeBlog2(blog);
 		user.addBlog2(blog);
 		userDAO.atualizar(user);
 		return post.getId();
@@ -258,24 +260,24 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		Audio audio = new Audio(descricao, dado);
 		String login = gerenteDeSessao.getLogin(sessionId);
-		Usuario us = userDAO.recupera(login);		
+		Usuario us = userDAO.recupera(login);
 		Post post = null;
-		Blog blog = null;		
+		Blog blog = null;
 		for (Blog b : us.getListaBlogs()) {
 			for (Post p : b.getListaDePostagens()) {
 				if (p.getId().equals(postId)) {
 					post = p;
 					blog = b;
-				}	
+				}
 			}
-		}		
+		}
 		if (post != null && blog != null) {
 			post.addAudio(audio);
 			blog.addPost(post);
 			us.removeBlog2(blog);
 			us.addBlog2(blog);
 			userDAO.atualizar(us);
-		}		
+		}
 		return audio.getId();
 	}
 
@@ -284,51 +286,87 @@ public class GerenciadorDePosts implements Gerenciador {
 			PersistenceException, IOException {
 		Video video = new Video(descricao, dado);
 		String login = gerenteDeSessao.getLogin(sessionId);
-		Usuario us = userDAO.recupera(login);		
+		Usuario us = userDAO.recupera(login);
 		Post post = null;
-		Blog blog = null;		
+		Blog blog = null;
 		for (Blog b : us.getListaBlogs()) {
 			for (Post p : b.getListaDePostagens()) {
 				if (p.getId().equals(postId)) {
 					post = p;
 					blog = b;
-				}	
+				}
 			}
-		}		
+		}
 		if (post != null && blog != null) {
 			post.addVideo(video);
 			blog.addPost(post);
 			us.removeBlog2(blog);
 			us.addBlog2(blog);
 			userDAO.atualizar(us);
-		}		
+		}
 		return video.getId();
 	}
-	
+
 	public String attachPicture(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException {
 		Imagem imagem = new Imagem(descricao, dado);
 		String login = gerenteDeSessao.getLogin(sessionId);
-		Usuario us = userDAO.recupera(login);		
+		Usuario us = userDAO.recupera(login);
 		Post post = null;
-		Blog blog = null;		
+		Blog blog = null;
 		for (Blog b : us.getListaBlogs()) {
 			for (Post p : b.getListaDePostagens()) {
 				if (p.getId().equals(postId)) {
 					post = p;
 					blog = b;
-				}	
+				}
 			}
-		}		
+		}
 		if (post != null && blog != null) {
 			post.addImagem(imagem);
 			blog.addPost(post);
 			us.removeBlog2(blog);
 			us.addBlog2(blog);
 			userDAO.atualizar(us);
-		}		
+		}
 		return imagem.getId();
+	}
+
+	public String informacaoDoPost(String idDoPost, String atributo)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
+
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		Post post = null;
+
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					if (idDoPost.equals(p.getId()))
+						post = p;
+				}
+			}
+		}
+		int codigoAtributo = atributo.hashCode();
+		String retorno = "";
+		if (post != null) {
+			switch (codigoAtributo) {
+			case TITULO:
+				retorno = post.getTitulo();
+				break;
+			case TEXTO:
+				retorno = post.getText();
+				break;
+			case DATA_CRIACAO:
+				retorno = post.getDataCriacao();
+				break;
+			default:
+				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+
+			}
+		}
+		return retorno;
 	}
 
 }

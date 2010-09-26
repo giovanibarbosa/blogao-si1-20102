@@ -5,7 +5,9 @@ import interfaces.Constantes;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import classes.func.multimidia.Audio;
@@ -22,10 +24,8 @@ public class Post {
 	private PostsDAO postDao;
 	private ComentariosDAO comentDao;
 	private String id;
-	private Imagem imagem;
-	private Audio audio;
-	private Video video;
 	private String blogRaiz;
+	private String dataCriacao;
 
 	private List<Comentario> comentarios;
 	private List<Audio> listaDeAudio;
@@ -35,6 +35,10 @@ public class Post {
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
 
+	private String titulo;
+	private String texto;
+	
+	
 	/**
 	 * Construtor da classe Post, que recebe como parametro o texto do post.
 	 * 
@@ -42,7 +46,7 @@ public class Post {
 	 * @throws ArgumentInvalidException
 	 */
 	public Post(Texto post, String idBlog) throws ArgumentInvalidException {
-		if (idBlog != null || !idBlog.trim().isEmpty() || validaPost(post)) {
+		if ((idBlog != null && !idBlog.trim().isEmpty()) || validaPost(post)) {
 			this.post = post;
 			setId(gerarId());
 			setBlogRaiz(idBlog);
@@ -53,6 +57,41 @@ public class Post {
 		} else {
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
+	}
+	
+	public Post(String titulo, String texto) {
+		setTitulo(titulo);
+		setTexto(texto);
+		setId(gerarId());
+		comentarios = new ArrayList<Comentario>();
+		listaDeAudio = new ArrayList<Audio>();
+		listaDeVideo = new ArrayList<Video>();
+		listaDeImagem = new ArrayList<Imagem>();
+	}
+	
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	public String getText() {
+		return texto;
+	}
+	
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+	
+	public void setDataCriacao(Date data) {
+		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+		this.dataCriacao = formater.format(data);
 	}
 
 	/**
