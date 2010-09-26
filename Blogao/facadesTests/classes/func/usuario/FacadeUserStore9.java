@@ -1,38 +1,60 @@
 package classes.func.usuario;
 
+import interfaces.Gerenciador;
+
 import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Comentario;
+import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeComentarios;
 import classes.gerenciadores.GerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDePerfis;
+import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 
 public class FacadeUserStore9 {
-	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
+	private GerenciadorDeSessoes gerenteSessoes;
+	private GerenciadorDeComentarios gerenteComentarios;
+	private GerenciadorDePerfis gerentePerfis;
+	private GerenciadorDeBlogs gerenteBlogs;
+	private GerenciadorDePosts gerentePosts;
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
+	private Gerenciador[] gerenciadores= new Gerenciador[]{gerenteBlogs, gerenteComentarios, gerentePerfis, gerentePosts, gerenteSessoes};
 
-	
+	public FacadeUserStore9() {
+		gerenteSessoes = new GerenciadorDeSessoes();
+		gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
+		gerentePerfis = new GerenciadorDePerfis();
+		gerentePosts = new GerenciadorDePosts(gerenteSessoes, gerenteBlogs);
+	}
+
 	// CARREGA TODOS OS DADOS DO BD
-	public void loadData() throws FileNotFoundException {
-		gerenteDados.loadData();
-	}
-	
-	// METODO QUE LOGA O USUARIO
-	public String logon(String login, String senha) throws FileNotFoundException,
-			ArgumentInvalidException, PersistenceException {
-		return gerenteSessoes.logon(login, senha);
-	}
-	
-	//TODO RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
-	public String getBlogByLogin(String login, int index){
-		return null;
+	public void loadData() {
+		gerenteDados.loadData(gerenciadores);
 		
 	}
 	
-	//TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
-	public String getPost(String blogId, int index){
-		return null;
+	// METODO QUE LOGA O USUARIO
+	public String logon(String login, String senha)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
+		return gerenteSessoes.logon(login, senha);
+
+	}
+	
+	//RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
+	public int getBlogByLogin(String login, int index) throws
+				FileNotFoundException, PersistenceException {
+		return gerenteBlogs.recuperaIdBlogPorLogin(login, index);
+
+	}
+	
+	// TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
+	public int getPost(String blogId, int index) throws NumberFormatException,
+				FileNotFoundException, PersistenceException {
+		return gerenteBlogs.recuperaIdDoPost(blogId, index);
 	}
 	
 	//TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
@@ -60,11 +82,12 @@ public class FacadeUserStore9 {
 		
 	}
 	
-	//TODO METODO QUE DESLOGA O USUARIO.
-	public void logoff(String idSession) throws ArgumentInvalidException{
-		gerenteSessoes.logoff(idSession);
+
+	public void logoff(String idSessao) throws ArgumentInvalidException{
+		gerenteSessoes.logoff(idSessao);
 	}
 	
-	//TODO SALVA TODOS OS DADOS NO BD
-	public void saveData() {}
+	public void saveData(){
+		gerenteDados.saveData(gerenciadores);
+	}
 }
