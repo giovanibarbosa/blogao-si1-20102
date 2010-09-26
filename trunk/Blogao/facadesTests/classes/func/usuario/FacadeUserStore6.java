@@ -76,6 +76,10 @@ public class FacadeUserStore6 {
 
 	}
 	
+	public String todaysDate() {
+		return new Data().todaysDate();
+	}
+	
 	//TODO CRIA O BLOG
 	public String createBlog(String idSession, String titulo, String descricao) throws Exception{	
 
