@@ -67,23 +67,22 @@ public class FacadeUserStore8 {
 	public String getPost(String blogId, int index) throws ArgumentInvalidException {
 		return gerenteDados.getGerentePosts().getPostPorBlog(blogId, index).getId();
 	}
-//
-//	// TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
-//	public int addComment(String sessionId, String postId, String texto) throws
-//				FileNotFoundException, ArgumentInvalidException, PersistenceException {
-//		return gerenteComentarios.addComentario(sessionId,postId,texto);
-//	}
-//
-//	// TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
-//	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
-//		return gerentePosts.getNumberOfComments(postId);
-//	}
-//
-//	// TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
-//	public Comentario getComment(String postId, int index) {
-//		return null;
-//	}
-//
+
+	//ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
+	public String addComment(String sessionId, String postId, String texto) throws ArgumentInvalidException, UserInvalidException {
+		return gerenteDados.getGerenteComentarios().addComentario(sessionId, postId, texto);
+	}
+
+	//RETORNA O NUMERO DE COMETRAIOS DO POST.
+	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
+		return gerenteDados.getGerentePosts().getNumberOfComments(postId);
+	}
+
+	// RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
+	public String getComment(String postId, int index) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteComentarios().GetComentario(postId, index).getId();
+	}
+
 //	// TODO RETORNA O TEXTO DO COMETARIO.
 //	public String getCommentText(String idComentario) {
 //		return null;
