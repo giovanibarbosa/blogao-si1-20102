@@ -93,6 +93,7 @@ public class FacadeBlogao {
         System.out.println(eaFacade5.getCompleteResults());
         System.out.println(eaFacade6.getCompleteResults());
         System.out.println(eaFacade7.getCompleteResults());
+        System.out.println(eaFacade8.getCompleteResults());
 	}
 
 }

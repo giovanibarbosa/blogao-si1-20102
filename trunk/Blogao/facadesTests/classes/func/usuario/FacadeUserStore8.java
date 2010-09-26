@@ -32,7 +32,6 @@ public class FacadeUserStore8 {
 
 	public FacadeUserStore8() {
 		gerenteSessoes = new GerenciadorDeSessoes();
-		gerenteSessoes.loadData();
 		gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
 		gerentePerfis = new GerenciadorDePerfis();
 		gerentePosts = new GerenciadorDePosts(gerenteSessoes, gerenteBlogs);
