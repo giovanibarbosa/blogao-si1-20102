@@ -61,27 +61,25 @@ public class GerenciadorDePosts implements Gerenciador {
 		Texto txt = new Texto(titulo, texto);
 		String log = gerenteDeSessao.getLogin(idSessao);
 		Usuario user = userDAO.recupera(log);
-//		List<Blog> listaBlogs = user.getListaBlogs();
 		Blog blog = null;
-		
+
 		if (blogId == null || blogId.trim().isEmpty())
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-		
+
 		post = new Post(txt, blogId);
 
 		List<Usuario> listaUser = userDAO.recuperaUsuarios();
-			for (Usuario u : listaUser) {
-				for (Blog b : u.getListaBlogs()) {
-					if (b.getId().equals(blogId)) {
-						if (!u.equals(user)) {
-							throw new ArgumentInvalidException(
-									Constantes.SESSAO_INVALIDA);
-						} else {
-							blog = b;
-						}
-					}
+		for (Usuario u : listaUser) {
+			for (Blog b : u.getListaBlogs()) {
+				if (b.getId().equals(blogId)) {
+					if (!u.equals(user))
+						throw new ArgumentInvalidException(
+								Constantes.SESSAO_INVALIDA);
+					else
+						blog = b;
 				}
 			}
+		}
 
 		if (blog == null) {
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
@@ -92,8 +90,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		userDAO.atualizar(user);
 		return post.getId();
 	}
-	
-	
 
 	public String getAtributo(Post post, String atributo)
 			throws ArgumentInvalidException {
@@ -254,6 +250,41 @@ public class GerenciadorDePosts implements Gerenciador {
 	 */
 	public void setListaPosts(List<Post> listaPosts) {
 		this.listaPosts = listaPosts;
+	}
+
+	public String attachSound(String sessionId, String postId,
+			String descricao, String dado) throws ArgumentInvalidException,
+			PersistenceException, IOException {
+
+		Audio audio = new Audio(descricao, dado);
+		String login = gerenteDeSessao.getLogin(sessionId);
+		Usuario us = userDAO.recupera(login);
+		
+		Post post = null;
+		Blog blog = null;
+		
+		for (Blog b : us.getListaBlogs()) {
+			for (Post p : b.getListaDePostagens()) {
+				if (p.getId().equals(postId)) {
+					post = p;
+					blog = b;
+				}	
+			}
+		}		
+		if (post != null)
+			post.addAudio(audio);
+				
+		//TODO
+		//userDAO.atualizar(us);
+		return audio.getId();
+	}
+
+	public String attachMovie(String sessionId, String postId,
+			String descricao, String dado) throws ArgumentInvalidException,
+			PersistenceException, IOException {
+		if (dado == null || dado.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
+		return "";
 	}
 
 }
