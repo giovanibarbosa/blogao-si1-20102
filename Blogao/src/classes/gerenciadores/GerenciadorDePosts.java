@@ -67,7 +67,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		
 		List<Usuario> listaUser = userDAO.recuperaUsuarios();
 		
-		if(blogId != null || !blogId.trim().isEmpty()){
+		if(blogId != null && !blogId.trim().isEmpty()){
 			for(Usuario u : listaUser){
 				for(Blog b : u.getListaBlogs()){
 					if(b.getId().equals(blogId)){
