@@ -20,7 +20,7 @@ import classes.Senha;
  * 
  */
 public class FacadeUserStore3 {
-	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() throws FileNotFoundException {
