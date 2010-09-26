@@ -12,6 +12,7 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 
 import com.thoughtworks.xstream.XStream;

@@ -12,6 +12,8 @@ import java.util.List;
 
 import ourExceptions.PersistenceException;
 
+import classes.Sessao;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -52,7 +54,7 @@ public class SessoesDAO {
 	 * @throws IOException
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
-	public void criar(String sessao) throws PersistenceException, IOException {
+	public void criar(Sessao sessao) throws PersistenceException, IOException {
 		if (new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists())
 			throw new PersistenceException(Constantes.EMAIL_EXISTENTE);
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
@@ -68,7 +70,7 @@ public class SessoesDAO {
 	 *             Caso a sessao passado como parametro seja null ou não exista
 	 *             como dado persistente
 	 */
-	public void deletar(String sessao) throws PersistenceException {
+	public void deletar(Sessao sessao) throws PersistenceException {
 		if (sessao == null
 				|| !(new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.EMAIL_NAO_VALIDO);
@@ -83,11 +85,11 @@ public class SessoesDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public List<String> recuperaSessoes() throws FileNotFoundException {
-		List<String> sessoes = new ArrayList<String>();
+	public List<Sessao> recuperaSessoes() throws FileNotFoundException {
+		List<Sessao> sessoes = new ArrayList<Sessao>();
 		for (File arquivo : arrayDosArquivos()) {
 			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
-				String sessao = (String) xstream.fromXML(new FileInputStream(
+				Sessao sessao = (Sessao) xstream.fromXML(new FileInputStream(
 						arquivo));
 				sessoes.add(sessao);
 			}
@@ -107,13 +109,13 @@ public class SessoesDAO {
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public String recupera(String sessao) throws PersistenceException,
+	public Sessao recupera(Sessao sessao) throws PersistenceException,
 			FileNotFoundException {
 		if (sessao == null
 				|| !(new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.EMAIL_INEXISTENTE);
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
-		return (String) xstream.fromXML(new FileInputStream(file));
+		return (Sessao) xstream.fromXML(new FileInputStream(file));
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class SessoesDAO {
 		return file.listFiles();
 	}
 	
-	public List<String> loadData() throws FileNotFoundException {
+	public List<Sessao> loadData() throws FileNotFoundException {
 		return recuperaSessoes();
 	}
 

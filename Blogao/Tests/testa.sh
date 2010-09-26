@@ -1,4 +1,4 @@
-@echo off
+echo off
 set JAVA=java -cp lib\easyaccept.jar easyaccept.EasyAccept FacadeBlogao
 
 %JAVA% tests/us1.txt 

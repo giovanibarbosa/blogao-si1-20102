@@ -6,6 +6,8 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.UsuariosDAO;
+import classes.Login;
+import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,14 @@ import interfaces.Gerenciador;
 public class GerenciadorDeUsuarios implements Gerenciador{
 	
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
-	private GerenciadorDeSessoes gerenteDeSessao = new GerenciadorDeSessoes();
+	private GerenciadorDeSessoes gerenteDeSessao;
 
 	private List<Usuario> listaUsuarios;
+	private GerenciadorDeDados gerenteDados;
 	
-	public GerenciadorDeUsuarios() {
+	public GerenciadorDeUsuarios(GerenciadorDeDados gerenciadorDeDados) {
 		listaUsuarios = new ArrayList<Usuario>();
+		this.gerenteDados = gerenciadorDeDados;
 	}
 
 	@Override
@@ -46,7 +50,7 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 	
 	public Usuario recuperaUsuarioPorIdSessao(String sessionID) throws ArgumentInvalidException,
 					FileNotFoundException, PersistenceException {
-		String log = gerenteDeSessao.getLogin(sessionID);
+		String log = gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionID);
 		for (Usuario user : listaUsuarios) {
 			if(log.equals(user.getLogin().getLogin())){
 				return user;
@@ -73,6 +77,36 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 	public void cleanPersistence() {
 		userDAO.limparUsuarios();		
 	}
+	
+	public List<Perfil> getListaPerfis() {
+		List<Perfil> listaPerfis = new ArrayList<Perfil>();
+		for (Usuario user : listaUsuarios) {
+			listaPerfis.add(user.getPerfil());
+		}
+		return listaPerfis;
+	}
+
+	public void criarUsuario(Usuario user1) {
+		listaUsuarios.add(user1);		
+	}
+	
+	public void validaLogin(Login log) throws ArgumentInvalidException {
+		for (Usuario user : listaUsuarios) {
+			if (user.getLogin().equals(log))
+				throw new ArgumentInvalidException(Constantes.LOGIN_EXISTENTE);
+		}
+	}
+
+	public Usuario getUsuario(String login) throws PersistenceException {
+		for (Usuario user : listaUsuarios) {
+			if (user.getLogin().getLogin().equals(login)) {
+				return user;
+			}
+		}
+		throw new PersistenceException(Constantes.USUARIO_INEXISTENTE);
+	}
+	
+	
 	
 	
 
