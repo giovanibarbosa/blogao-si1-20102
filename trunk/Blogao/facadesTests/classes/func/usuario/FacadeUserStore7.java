@@ -48,23 +48,18 @@ public class FacadeUserStore7 {
 	public String logon(String login, String senha) throws PersistenceException,
 			FileNotFoundException, ArgumentInvalidException{
 		return gerente.logon(login, senha);
-//		try {
-//			return gerente.logon(login, senha);
-//		} catch (PersistenceException e){
-//			throw e;
-//		}
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	public int getNumberOfBlogsByLogin(String login) throws FileNotFoundException,
-						ArgumentInvalidException, PersistenceException {
-		return gerenciaBlogs.totalDeBlogsPorLogin(login);		
+	public int getNumberOfBlogsByLogin(String login) throws PersistenceException, ArgumentInvalidException, FileNotFoundException  {
+		return gerenciaBlogs.totalDeBlogsPorLogin(login);
+			
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getNumberOfBlogsBySessionId(String sessionID) throws FileNotFoundException,
-						ArgumentInvalidException, PersistenceException {
-		return gerenciaBlogs.totalDeBlogsPorSessao(sessionID);
+			ArgumentInvalidException, PersistenceException {
+		return gerenciaBlogs.totalDeBlogsPorSessao(sessionID);	
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
@@ -124,22 +119,35 @@ public class FacadeUserStore7 {
 		return gerenteDePosts.recuperaIDaudio(postID, index);		 //id som
 	}
 	
-	//TODO Fazer...
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getPicture(String postID, int index) throws FileNotFoundException, PersistenceException {
 		return gerenteDePosts.recuperaIDimagem(postID, index);	//id imagem
 	}
 	
-	//TODO Fazer...
-	public void deleteMovie(String sessionID, String idMovie) {}
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public void deleteMovie(String sessionID, String idMovie) throws FileNotFoundException,
+					PersistenceException, ArgumentInvalidException {
+		gerenteDePosts.deletaVideo(sessionID, idMovie);
+
+	}
 	
-	//TODO Fazer...
-	public void deletePicture(String sessionID, String idImagem) {}
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public void deletePicture(String sessionID, String idImagem) throws 
+				PersistenceException, ArgumentInvalidException, FileNotFoundException {
+		gerenteDePosts.deletaImagem(sessionID, idImagem);
+
+	}
 	
-	//TODO Fazer...
-	public void deleteSound(String sessionID, String idSom) {}
+	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public void deleteSound(String sessionID, String idSom) throws FileNotFoundException
+					, ArgumentInvalidException, PersistenceException {
+		gerenteDePosts.deletaMusica(sessionID, idSom);
+
+	}
 	
-	//TODO Fazer...
-	public void logoff (String sessionID) {}
+	public void logoff(String idSession) throws ArgumentInvalidException{
+		gerente.logoff(idSession);
+	}
 	
 	//TODO Fazer...
 	public void saveData() {}
