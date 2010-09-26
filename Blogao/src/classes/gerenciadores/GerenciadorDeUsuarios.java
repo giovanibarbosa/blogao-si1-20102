@@ -1,6 +1,7 @@
 package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -26,6 +27,18 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 
 	@Override
 	public void saveData() {
+		userDAO.limparUsuarios();
+		for(Usuario user : getListaUsuarios()) {
+			try {
+				userDAO.criar(user);
+			} catch (PersistenceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		// TODO Auto-generated method stub
 		
 	}

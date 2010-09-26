@@ -11,7 +11,6 @@ import java.util.List;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Blog;
-import classes.Comentario;
 import classes.Post;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
@@ -190,7 +189,6 @@ public class GerenciadorDeBlogs implements Gerenciador{
 
 	@Override
 	public void saveData() {
-		// TODO Auto-generated method stub
 		
 	}
 
