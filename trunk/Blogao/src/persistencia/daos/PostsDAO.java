@@ -112,14 +112,14 @@ public class PostsDAO {
 	 * @throws IOException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
-	public void atualizar(Post post, Post postAtualizado)
+	public void atualizar(Post post)
 			throws PersistenceException, IOException {
-		if (post == null || postAtualizado == null
+		if (post == null
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_ATUALIZADO);
+			throw new PersistenceException(
+					Constantes.POST_NAO_PODE_SER_ATUALIZADO);
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
-		file.renameTo(new File(CAMINHO + postAtualizado + TIPO_DE_ARQUIVO));
-		xstream.toXML(postAtualizado, new FileOutputStream(file));
+		xstream.toXML(post, new FileOutputStream(file));
 	}
 
 	/**
