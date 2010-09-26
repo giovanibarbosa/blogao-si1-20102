@@ -54,7 +54,7 @@ public class FacadeUserStore7 {
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	public int getBlogBySessionId(String sessionID, int index) throws 
+	public String getBlogBySessionId(String sessionID, int index) throws 
 					FileNotFoundException, ArgumentInvalidException, PersistenceException {
 		return gerenciaBlogs.recuperaIdBlogDesejado(sessionID, index);
 	}
