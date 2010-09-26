@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 
 import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDeSessoes;
@@ -25,14 +26,14 @@ public class FacadeUserStore2 {
 	
 	//METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha) throws PersistenceException,
-				FileNotFoundException, ArgumentInvalidException {
+				FileNotFoundException, ArgumentInvalidException, UserInvalidException {
 		return gerenteDados.getGerenteSessoes().logon(login, senha);
 
 	}
 	
 	//METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
 	public boolean isUserLogged(String login) throws PersistenceException,
-				FileNotFoundException, ArgumentInvalidException {
+				FileNotFoundException, ArgumentInvalidException, UserInvalidException {
 		return gerenteDados.getGerenteSessoes().isUserLogged(login);				
 	}
 	
@@ -42,10 +43,11 @@ public class FacadeUserStore2 {
 	 * @return
 	 * @throws ArgumentInvalidException 
 	 * @throws PersistenceException 
+	 * @throws UserInvalidException 
 	 */
 
 	//VERIFICAR SE ESSE 'ID' VAI SER UM DOUBLE MESMO
-	public String getProfileInformationBySessionId(String id, String atributo) throws ArgumentInvalidException, PersistenceException{
+	public String getProfileInformationBySessionId(String id, String atributo) throws ArgumentInvalidException, PersistenceException, UserInvalidException{
 		return gerenteDados.getGerenteSessoes().getProfileInformationBySessionId(id, atributo);
 
 	}

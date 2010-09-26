@@ -1,10 +1,13 @@
 package classes.func.usuario;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import persistencia.daos.UsuariosDAO;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.Login;
@@ -17,26 +20,24 @@ import classes.Senha;
  * 
  */
 public class FacadeUserStore3 {
-	private UsuariosDAO userDAO;
-	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
-	private GerenciadorDePerfis gerenteDoPerfil = new GerenciadorDePerfis();
+	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
 
 	// CARREGA TODOS OS DADOS DO BD
-	public void loadData() {
-		userDAO = UsuariosDAO.getInstance();
+	public void loadData() throws FileNotFoundException {
+		gerenteDados.loadData();
 	}
 
 	// METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		return gerente.logon(login, senha);
+		return gerenteDados.getGerenteSessoes().logon(login, senha);
 
 	}
 
 	public String getProfileInformationBySessionId(String id, String atributo)
-			throws ArgumentInvalidException {
-		return gerente.getProfileInformationBySessionId(id, atributo);
+			throws ArgumentInvalidException, PersistenceException, UserInvalidException {
+		return gerenteDados.getGerenteSessoes().getProfileInformationBySessionId(id, atributo);
 
 	}
 
@@ -44,23 +45,8 @@ public class FacadeUserStore3 {
 	public void changeProfileInformation(String idSessao, String atributo,
 			String novoValor) throws Exception {
 
-		String login = gerente.getLogin(idSessao);
-		Usuario us = userDAO.recupera(login);
-		if ("senha".equals(atributo)) {
-			us.setSenha(new Senha(novoValor));
-		} else if ("login".equals(atributo)) {
-			Usuario usTemp = userDAO.recupera(login);
-			us.setLogin(new Login(novoValor));
-			userDAO.criar(us);
-			userDAO.deletar(usTemp);
-
-		}
-
-		else {
-			Perfil perfil = us.getPerfil();
-			perfil.setAtributo(atributo, novoValor);
-		}
-		userDAO.atualizar(us);
+		gerenteDados.getGerentePerfis().changeProfileInformation(idSessao, atributo, novoValor);
+		
 
 	}
 
@@ -70,18 +56,19 @@ public class FacadeUserStore3 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {		
 	
-		gerenteDoPerfil.createProfile(login, senha, nome_exibicao, email, sexo,
+		gerenteDados.getGerentePerfis().createProfile(login, senha, nome_exibicao, email, sexo,
 				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
 
 	}
 
-	// TODO METODO QUE DESLOGA O USUARIO.
+	//METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
-		gerente.logoff(idSession);
+		gerenteDados.getGerenteSessoes().logoff(idSession);
 	}
 
-	// TODO SALVA TODOS OS DADOS NO BD
-	public void saveData() {
+	//SALVA TODOS OS DADOS NO BD
+	public void saveData() throws PersistenceException, IOException {
+		gerenteDados.saveData();
 	}
 
 }
