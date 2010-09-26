@@ -4,46 +4,24 @@ import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import persistencia.daos.BlogsDAO;
-import persistencia.daos.ComentariosDAO;
-import persistencia.daos.EmailsDAO;
-import persistencia.daos.PostsDAO;
-import persistencia.daos.UsuariosDAO;
-import classes.Blog;
 import classes.Comentario;
 import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDeSessoes;
 
 public class FacadeUserStore9 {
-	private Perfil perfil1;
-	private Usuario user1;
 	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
-	private Blog blog;
 
-	private UsuariosDAO userDAO;
-	private BlogsDAO blogsDAO;
-	private EmailsDAO emailsDAO;
-	private PostsDAO postsDAO;
-	private ComentariosDAO comentsDAO;
 	
 	// CARREGA TODOS OS DADOS DO BD
-	public void loadData() {
-		userDAO = UsuariosDAO.getInstance();
-		blogsDAO = BlogsDAO.getInstance();
-		emailsDAO = EmailsDAO.getInstance();
-		postsDAO = PostsDAO.getInstance();
-		comentsDAO = ComentariosDAO.getInstance();
+	public void loadData() throws FileNotFoundException {
+		gerenteDados.loadData();
 	}
 	
 	// METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha) throws FileNotFoundException,
 			ArgumentInvalidException, PersistenceException {
-		try {
-			return gerenteSessoes.logon(login, senha);
-		} catch (PersistenceException e) {
-			throw e;
-		}
+		return gerenteSessoes.logon(login, senha);
 	}
 	
 	//TODO RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
@@ -84,11 +62,7 @@ public class FacadeUserStore9 {
 	
 	//TODO METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException{
-		try {
-			gerenteSessoes.logoff(idSession);
-		} catch (ArgumentInvalidException e){
-			throw e;
-		}
+		gerenteSessoes.logoff(idSession);
 	}
 	
 	//TODO SALVA TODOS OS DADOS NO BD

@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.ListableBeanFactory;
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Blog;
@@ -192,7 +194,10 @@ public class BlogsDAO {
 			}
 		}
 		return null;
-
+	}
+	
+	public List<Blog> loadData() throws FileNotFoundException {
+		return recuperaBlogs();	
 	}
 
 }

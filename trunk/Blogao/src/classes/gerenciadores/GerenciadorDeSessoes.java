@@ -136,6 +136,21 @@ public class GerenciadorDeSessoes implements Gerenciador{
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	/**
+	 * @return the listaSessoes
+	 */
+	public List<String> getListaSessoes() {
+		return listaSessoes;
+	}
+
+	/**
+	 * @param listaSessoes the listaSessoes to set
+	 */
+	public void setListaSessoes(List<String> listaSessoes) {
+		this.listaSessoes = listaSessoes;
+	}
 
 	@Override
 	public void loadData() {

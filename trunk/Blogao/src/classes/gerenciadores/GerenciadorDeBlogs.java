@@ -35,7 +35,7 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	
 	public GerenciadorDeBlogs(GerenciadorDeSessoes gerenteSessoes) {
 		this.gerenteDeSessao = gerenteSessoes;
-		listaDeBlogs = new ArrayList<Blog>();
+		//listaDeBlogs = new ArrayList<Blog>();
 	}
 
 	/**
@@ -173,6 +173,19 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	}
 	
 
+	/**
+	 * @return the listaDeBlogs
+	 */
+	public List<Blog> getListaDeBlogs() {
+		return listaDeBlogs;
+	}
+
+	/**
+	 * @param listaDeBlogs the listaDeBlogs to set
+	 */
+	public void setListaDeBlogs(List<Blog> listaDeBlogs) {
+		this.listaDeBlogs = listaDeBlogs;
+	}
 
 	@Override
 	public void saveData() {

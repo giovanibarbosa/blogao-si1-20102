@@ -170,4 +170,8 @@ public class UsuariosDAO {
 		File file = new File(CAMINHO);
 		return file.listFiles();
 	}
+	
+	public List<Usuario> loadData() throws FileNotFoundException {
+		return recuperaUsuarios();
+	}
 }

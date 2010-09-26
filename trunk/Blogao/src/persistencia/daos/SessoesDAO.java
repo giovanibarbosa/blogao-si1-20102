@@ -135,5 +135,9 @@ public class SessoesDAO {
 		File file = new File(CAMINHO);
 		return file.listFiles();
 	}
+	
+	public List<String> loadData() throws FileNotFoundException {
+		return recuperaSessoes();
+	}
 
 }
