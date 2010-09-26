@@ -5,6 +5,7 @@ import interfaces.Constantes;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.velocity.runtime.parser.node.GetExecutor;
 import org.w3c.dom.UserDataHandler;
 
 import ourExceptions.ArgumentInvalidException;
@@ -102,16 +103,16 @@ public class FacadeUserStore6 {
 		return gerentePost.informacaoDoPost(id, atributo);
 	}
 
-	public String getNumberOfSounds(String id) {
-		return "";
+	public String getNumberOfSounds(String id) throws FileNotFoundException {
+		return String.valueOf(gerentePost.getNumeroDeSons(id));
 	}
 
-	public String getNumberOfMovies(String id) {
-		return "";
+	public String getNumberOfMovies(String id) throws FileNotFoundException {
+		return String.valueOf(gerentePost.getNumeroDeVideos(id));
 	}
 
-	public String getNumberOfPictures(String id) {
-		return "";
+	public String getNumberOfPictures(String id) throws FileNotFoundException {
+		return String.valueOf(gerentePost.getNumeroDeImagens(id));
 	}
 
 	public String getSound(String id, String index) {

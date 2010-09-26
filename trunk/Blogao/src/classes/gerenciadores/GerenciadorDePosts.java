@@ -83,9 +83,9 @@ public class GerenciadorDePosts implements Gerenciador {
 			}
 		}
 
-		if (blog == null) 
+		if (blog == null)
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-			
+
 		blog.addPost(post);
 		user.removeBlog2(blog);
 		user.addBlog2(blog);
@@ -367,6 +367,48 @@ public class GerenciadorDePosts implements Gerenciador {
 			}
 		}
 		return retorno;
+	}
+
+	public int getNumeroDeSons(String idDoPost) throws FileNotFoundException {
+		Post post = null;
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					if (idDoPost.equals(p.getId()))
+						post = p;
+				}
+			}
+		}
+		return post == null ? 0 : post.getListaDeAudio().size();
+	}
+
+	public int getNumeroDeVideos(String idDoPost) throws FileNotFoundException {
+		Post post = null;
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					if (idDoPost.equals(p.getId()))
+						post = p;
+				}
+			}
+		}
+		return post == null ? 0 : post.getListaDeVideo().size();
+	}
+
+	public int getNumeroDeImagens(String idDoPost) throws FileNotFoundException {
+		Post post = null;
+		List<Usuario> users = userDAO.recuperaUsuarios();
+		for (Usuario u : users) {
+			for (Blog b : u.getListaBlogs()) {
+				for (Post p : b.getListaDePostagens()) {
+					if (idDoPost.equals(p.getId()))
+						post = p;
+				}
+			}
+		}
+		return post == null ? 0 : post.getListaDeImagem().size();
 	}
 
 }
