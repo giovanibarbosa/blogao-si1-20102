@@ -21,8 +21,11 @@ import classes.func.usuario.FacadeUserStore8;
  *
  */
 public class FacadeBlogao {
-	
+	private final static String SEPARADOR = System
+		.getProperty("file.separator");
 	public static void main(String[] args) {
+		
+		
 		
 		List<String> files1 = new ArrayList<String>();
 		List<String> files2 = new ArrayList<String>();
