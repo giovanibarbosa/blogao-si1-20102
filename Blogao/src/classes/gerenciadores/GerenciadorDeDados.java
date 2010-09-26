@@ -52,7 +52,7 @@ public class GerenciadorDeDados {
 	public void loadData() throws FileNotFoundException {
 		gerenteUsuarios.loadData();
 		gerentePerfis.loadData();
-//		gerenteSessoes.loadData();
+		gerenteSessoes.loadData();
 //		gerenteBlogs.loadData();
 //		gerentePosts.loadData();
 //		gerenteComentarios.loadData();
@@ -70,7 +70,7 @@ public class GerenciadorDeDados {
 		gerenteUsuarios.cleanPersistence();
 		//gerentePerfis.cleanPersistence();
 		gerenteSessoes.cleanPersistence();
-//		gerenteBlogs.cleanPersistence();
+		gerenteBlogs.cleanPersistence();
 //		gerentePosts.cleanPersistence();
 //		gerenteComentarios.cleanPersistence();
 	}
