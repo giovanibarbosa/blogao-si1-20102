@@ -93,6 +93,45 @@ public class GerenciadorDePosts implements Gerenciador {
 		blogsDAO.atualizar(blog);
 		return post.getId();
 	}
+	
+	
+
+	public void deletePost(String sessionId, String postId) throws ArgumentInvalidException, PersistenceException, IOException {
+		String log = gerenteDeSessao.getLogin(sessionId);
+		Usuario user = userDAO.recupera(log);
+		Post post = null;
+		Blog blog = null;
+		List<Usuario> listaUser = userDAO.recuperaUsuarios();
+		
+		if (postId == null || postId.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+		
+		
+		for(Usuario u : listaUser){
+			for(Blog blg : user.getListaBlogs()){
+				for(Post pt : blg.getListaDePostagens()){
+					if(pt.getId().equals(postId))
+						if (!u.equals(user)){
+							throw new ArgumentInvalidException(
+									Constantes.SESSAO_INVALIDA);
+						}else{
+							post = pt;
+							blog = blg;
+						}
+				}
+			}
+		}
+		
+		if(post == null)
+			throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+			
+		blog.removePost(post);
+		userDAO.atualizar(user);
+		postsDAO.deletar(post);
+		postsDAO.atualizar(post);
+		
+	}
+	
 
 	@Override
 	public void saveData() {
@@ -472,4 +511,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		Imagem imagem = getPicture(id);
 		return imagem.getDado();
 	}
+	
 }
+
