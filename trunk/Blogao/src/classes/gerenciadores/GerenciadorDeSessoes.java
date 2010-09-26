@@ -32,6 +32,7 @@ public class GerenciadorDeSessoes implements Gerenciador{
 
 	public GerenciadorDeSessoes() {
 		logados = new HashMap<String, String>();
+		listaSessoes = new ArrayList<String>();
 	}
 
 	// METODO QUE LOGA O USUARIO

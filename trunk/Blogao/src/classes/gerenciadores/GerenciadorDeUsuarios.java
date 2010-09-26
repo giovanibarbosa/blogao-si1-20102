@@ -23,6 +23,10 @@ public class GerenciadorDeUsuarios implements Gerenciador{
 
 	private UsuariosDAO usuariosDAO = UsuariosDAO.getInstance();
 	private List<Usuario> listaUsuarios;
+	
+	public GerenciadorDeUsuarios() {
+		listaUsuarios = new ArrayList<Usuario>();
+	}
 
 	@Override
 	public void saveData() {
