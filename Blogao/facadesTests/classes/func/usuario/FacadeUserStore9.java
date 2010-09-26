@@ -74,7 +74,7 @@ public class FacadeUserStore9 {
 	
 	//TODO METODO QUE DELETA UM POST.
 	public void deletePost(String sessionId, String postId){
-		
+		gerentePosts.deletePost(sessionId, postId);
 	}
 	
 	//TODO RETORNA AS INFORMACOES DO POST.
