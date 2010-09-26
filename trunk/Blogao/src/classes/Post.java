@@ -51,6 +51,9 @@ public class Post {
 			setId(gerarId());
 			setBlogRaiz(idBlog);
 			comentarios = new ArrayList<Comentario>();
+			listaDeAudio = new ArrayList<Audio>();
+			listaDeVideo = new ArrayList<Video>();
+		    listaDeImagem = new ArrayList<Imagem>();
 		}else{
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
@@ -268,6 +271,8 @@ public class Post {
 	public List<Imagem> getListaDeImagem() {
 		return listaDeImagem;
 	}
+	
+	
 	
 	
 	
