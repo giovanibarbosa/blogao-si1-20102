@@ -143,4 +143,8 @@ public class EmailsDAO {
 		File file = new File(CAMINHO);
 		return file.listFiles();
 	}
+	
+	public List<Email> loadData() throws FileNotFoundException {
+		return recuperaEmails();
+	}
 }

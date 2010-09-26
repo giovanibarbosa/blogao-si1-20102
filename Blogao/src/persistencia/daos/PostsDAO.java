@@ -179,4 +179,8 @@ public class PostsDAO {
 		}
 		return lista.isEmpty() ? "1" : (Integer.parseInt(lista.get(index).getId()) + 1)+ "";
 	}
+	
+	public List<Post> loadData() throws FileNotFoundException {
+		return recuperaPosts();
+	}
 }

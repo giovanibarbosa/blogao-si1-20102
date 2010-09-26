@@ -263,6 +263,22 @@ public class GerenciadorDePosts implements Gerenciador {
 					}
 		}		
 	}
+
+	/**
+	 * @return the listaPosts
+	 */
+	public List<Post> getListaPosts() {
+		return listaPosts;
+	}
+
+	/**
+	 * @param listaPosts the listaPosts to set
+	 */
+	public void setListaPosts(List<Post> listaPosts) {
+		this.listaPosts = listaPosts;
+	}
+	
+	
 	
 	
 	

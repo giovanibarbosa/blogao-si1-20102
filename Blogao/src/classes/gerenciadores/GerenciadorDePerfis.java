@@ -4,6 +4,9 @@ import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.bcel.generic.NEW;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -19,9 +22,11 @@ import classes.Email;
 public class GerenciadorDePerfis implements Gerenciador {
 	
 	private Perfil perfil;
+	private List<Perfil> listaPerfis;
 	
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
+	
 	
 	
 	
@@ -90,5 +95,22 @@ public class GerenciadorDePerfis implements Gerenciador {
 //		}
 
 	}
+
+	/**
+	 * @return the listaPerfis
+	 */
+	public List<Perfil> getListaPerfis() {
+		return listaPerfis;
+	}
+
+
+	/**
+	 * @param listaPerfis the listaPerfis to set
+	 */
+	public void setListaPerfis(List<Perfil> listaPerfis) {
+		this.listaPerfis = listaPerfis;
+	}
+	
+	
 
 }
