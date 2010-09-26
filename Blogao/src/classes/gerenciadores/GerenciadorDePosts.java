@@ -63,52 +63,45 @@ public class GerenciadorDePosts implements Gerenciador {
 		List<Blog> listaBlogs = user.getListaBlogs();
 		Blog blog = null;
 		post = new Post(txt, blogId);
-			
-		
+
 		List<Usuario> listaUser = userDAO.recuperaUsuarios();
-		
-		if(blogId != null && !blogId.trim().isEmpty()){
-			for(Usuario u : listaUser){
-				for(Blog b : u.getListaBlogs()){
-					if(b.getId().equals(blogId)){
-						if(!u.equals(user)){
-							throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-						}else{
+
+		if (blogId != null && !blogId.trim().isEmpty()) {
+			for (Usuario u : listaUser) {
+				for (Blog b : u.getListaBlogs()) {
+					if (b.getId().equals(blogId)) {
+						if (!u.equals(user)) {
+							throw new ArgumentInvalidException(
+									Constantes.SESSAO_INVALIDA);
+						} else {
 							blog = b;
 						}
 					}
 				}
 			}
-			
-			if(blog == null){
-				throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-			}
-		}else{
-			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		}
-			
-		
-			
-		
-		
-		
-//		if(blogId == null || blogId.trim().isEmpty())
-//			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-//		
-//		for (Blog blg : listaBlogs) {
-//			if (blg.getId().equals(blogId)) {
-//				blog = blg;
-//			}
-//			
-//		}
-//
-//		if (blog != null) {
-//			blog.addPost(post);
-//		} else {
-//			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-//		}
-		
-		
+
+		if (blog == null) {
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+		} else {
+			blog.addPost(post);
+		}
+
+		// if(blogId == null || blogId.trim().isEmpty())
+		// throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+		//		
+		// for (Blog blg : listaBlogs) {
+		// if (blg.getId().equals(blogId)) {
+		// blog = blg;
+		// }
+		//			
+		// }
+		//
+		// if (blog != null) {
+		// blog.addPost(post);
+		// } else {
+		// throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		// }
 
 		/*
 		 * gerenteDeSessao.getLogin(idSessao); Blog blog =
@@ -124,7 +117,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		// } catch (ArgumentInvalidException e) {
 		// throw e;
 		// }
-
+		
 		return post.getId();
 	}
 
@@ -142,7 +135,6 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		}
 	}
-	
 
 	@Override
 	public void saveData() {
@@ -175,8 +167,9 @@ public class GerenciadorDePosts implements Gerenciador {
 			PersistenceException {
 		return postsDAO.recupera(postId).getNumberOfComments();
 	}
-	
-	public int recuperaTotalDeMusicasDoPost(String postID) throws FileNotFoundException, PersistenceException {
+
+	public int recuperaTotalDeMusicasDoPost(String postID)
+			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
 		int totalDeAudio = 0;
 		for (Audio audio : postRecuperado.getListaDeAudio()) {
@@ -184,8 +177,9 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return totalDeAudio;
 	}
-	
-	public int recuperaTotalDeFilmesDoPost(String postID) throws FileNotFoundException, PersistenceException {
+
+	public int recuperaTotalDeFilmesDoPost(String postID)
+			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
 		int totalDeFilme = 0;
 		for (Audio audio : postRecuperado.getListaDeAudio()) {
@@ -193,8 +187,9 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return totalDeFilme;
 	}
-	
-	public int recuperaTotalDeImagensDoPost(String postID) throws FileNotFoundException, PersistenceException {
+
+	public int recuperaTotalDeImagensDoPost(String postID)
+			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
 		int totalDeImagens = 0;
 		for (Audio audio : postRecuperado.getListaDeAudio()) {
@@ -202,67 +197,74 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return totalDeImagens;
 	}
-	
-	public int recuperaIDaudio(String postID, int index) throws FileNotFoundException, PersistenceException {
+
+	public int recuperaIDaudio(String postID, int index)
+			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
-		return Integer.valueOf(postRecuperado.getListaDeAudio().get(index).getId());
-		
+		return Integer.valueOf(postRecuperado.getListaDeAudio().get(index)
+				.getId());
+
 	}
-	
-	public int recuperaIDvideo(String postID, int index) throws FileNotFoundException, PersistenceException {
+
+	public int recuperaIDvideo(String postID, int index)
+			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
-		return Integer.valueOf(postRecuperado.getListaDeVideo().get(index).getId());
-		
+		return Integer.valueOf(postRecuperado.getListaDeVideo().get(index)
+				.getId());
+
 	}
-	
-	public int recuperaIDimagem(String postID, int index) throws FileNotFoundException, PersistenceException {
+
+	public int recuperaIDimagem(String postID, int index)
+			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
-		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index).getId());		
+		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index)
+				.getId());
 	}
-	
-	
-	//FIXME .ARRUMAR OUTRO JEITO DE FAZER.
-	public void deletaVideo(String sessionID, String idMovie) throws ArgumentInvalidException,
-				FileNotFoundException, PersistenceException {
+
+	// FIXME .ARRUMAR OUTRO JEITO DE FAZER.
+	public void deletaVideo(String sessionID, String idMovie)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
 		String log = gerenteDeSessao.getLogin(sessionID);
 		Usuario user = userDAO.recupera(log);
 		for (Blog blog : user.getListaBlogs()) {
 			for (Post post : blog.getListaDePostagens())
 				for (Video vid : post.getListaDeVideo())
-					if(vid.getId().equals(idMovie)) {
+					if (vid.getId().equals(idMovie)) {
 						post.getListaDeVideo().remove(vid);
 					}
-		}		
+		}
 	}
-	
-	
-	//FIXME .ARRUMAR OUTRO JEITO DE FAZER.
-	public void deletaImagem(String sessionID, String idImagem) throws ArgumentInvalidException,
-				FileNotFoundException, PersistenceException {
+
+	// FIXME .ARRUMAR OUTRO JEITO DE FAZER.
+	public void deletaImagem(String sessionID, String idImagem)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
 		String log = gerenteDeSessao.getLogin(sessionID);
 		Usuario user = userDAO.recupera(log);
 		for (Blog blog : user.getListaBlogs()) {
 			for (Post post : blog.getListaDePostagens())
 				for (Imagem imag : post.getListaDeImagem())
-					if(imag.getId().equals(idImagem)) {
+					if (imag.getId().equals(idImagem)) {
 						post.getListaDeImagem().remove(imag);
 					}
-		}		
+		}
 	}
-	
-	//FIXME .ARRUMAR OUTRO JEITO DE FAZER.
-	public void deletaMusica(String sessionID, String idmusica) throws ArgumentInvalidException,
-				FileNotFoundException, PersistenceException {
-		
+
+	// FIXME .ARRUMAR OUTRO JEITO DE FAZER.
+	public void deletaMusica(String sessionID, String idmusica)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
+
 		String log = gerenteDeSessao.getLogin(sessionID);
 		Usuario user = userDAO.recupera(log);
 		for (Blog blog : user.getListaBlogs()) {
 			for (Post post : blog.getListaDePostagens())
 				for (Audio mus : post.getListaDeAudio())
-					if(mus.getId().equals(idmusica)) {
+					if (mus.getId().equals(idmusica)) {
 						post.getListaDeAudio().remove(mus);
 					}
-		}		
+		}
 	}
 
 	/**
@@ -273,15 +275,11 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	/**
-	 * @param listaPosts the listaPosts to set
+	 * @param listaPosts
+	 *            the listaPosts to set
 	 */
 	public void setListaPosts(List<Post> listaPosts) {
 		this.listaPosts = listaPosts;
 	}
-	
-	
-	
-	
-	
-	
+
 }
