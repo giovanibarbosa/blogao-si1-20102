@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
@@ -23,19 +24,14 @@ import classes.Comentario;
  */
 
 public class FacadeUserStore8 {
-	private GerenciadorDeSessoes gerenteSessoes;
-	private GerenciadorDeComentarios gerenteComentarios;
-	private GerenciadorDePerfis gerentePerfis;
-	private GerenciadorDeBlogs gerenteBlogs;
-	private GerenciadorDePosts gerentePosts;
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
-	public FacadeUserStore8() {
-		gerenteSessoes = new GerenciadorDeSessoes();
-		gerenteComentarios = new GerenciadorDeComentarios();
-		gerentePerfis = new GerenciadorDePerfis();
-		gerentePosts = new GerenciadorDePosts();
-	}
+//	public FacadeUserStore8() {
+//		gerenteSessoes = new GerenciadorDeSessoes();
+//		gerenteComentarios = new GerenciadorDeComentarios();
+//		gerentePerfis = new GerenciadorDePerfis();
+//		gerentePosts = new GerenciadorDePosts();
+//	}
 
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() throws FileNotFoundException {
@@ -49,63 +45,61 @@ public class FacadeUserStore8 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 
-		gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
-				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas,
-				livros);
+		gerenteDados.getGerentePerfis().createProfile(login, senha, nome_exibicao, email, sexo,
+				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
 	}
 
 	// METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		return gerenteSessoes.logon(login, senha);
+		return gerenteDados.getGerenteSessoes().logon(login, senha);
 
 	}
 
 	//RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
-	public int getBlogByLogin(String login, int index) throws
-				FileNotFoundException, PersistenceException {
-		return gerenteBlogs.recuperaIdBlogPorLogin(login, index);
+	public String getBlogByLogin(String login, int index) throws UserInvalidException{
+		return gerenteDados.getGerenteBlogs().getBlogPorLogin(login, index).getId();
 
 	}
 
 	// TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
 	public int getPost(String blogId, int index) throws NumberFormatException,
 				FileNotFoundException, PersistenceException {
-		return gerenteBlogs.recuperaIdDoPost(blogId, index);
+		return gerenteDados.getGerentePosts();
 	}
-
-	// TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
-	public int addComment(String sessionId, String postId, String texto) throws
-				FileNotFoundException, ArgumentInvalidException, PersistenceException {
-		return gerenteComentarios.addComentario(sessionId,postId,texto);
-	}
-
-	// TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
-	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
-		return gerentePosts.getNumberOfComments(postId);
-	}
-
-	// TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
-	public Comentario getComment(String postId, int index) {
-		return null;
-	}
-
-	// TODO RETORNA O TEXTO DO COMETARIO.
-	public String getCommentText(String idComentario) {
-		return null;
-	}
-
-	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
-	public String getCommentAuthor(String idComentario) {
-		return null;
-	}
-	
-	public void logoff(String idSessao) throws ArgumentInvalidException{
-		gerenteSessoes.logoff(idSessao);
-	}
-	
-	public void saveData() throws PersistenceException, IOException{
-		gerenteDados.saveData();
-	}
+//
+//	// TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
+//	public int addComment(String sessionId, String postId, String texto) throws
+//				FileNotFoundException, ArgumentInvalidException, PersistenceException {
+//		return gerenteComentarios.addComentario(sessionId,postId,texto);
+//	}
+//
+//	// TODO RETORNA O NUMERO DE COMETRAIOS DO POST.
+//	public int getNumberOfComments(String postId) throws FileNotFoundException, PersistenceException {
+//		return gerentePosts.getNumberOfComments(postId);
+//	}
+//
+//	// TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
+//	public Comentario getComment(String postId, int index) {
+//		return null;
+//	}
+//
+//	// TODO RETORNA O TEXTO DO COMETARIO.
+//	public String getCommentText(String idComentario) {
+//		return null;
+//	}
+//
+//	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
+//	public String getCommentAuthor(String idComentario) {
+//		return null;
+//	}
+//	
+//	public void logoff(String idSessao) throws ArgumentInvalidException{
+//		gerenteSessoes.logoff(idSessao);
+//	}
+//	
+//	public void saveData() throws PersistenceException, IOException{
+//		gerenteDados.saveData();
+//	}
 }
