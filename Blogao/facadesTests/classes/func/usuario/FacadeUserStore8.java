@@ -85,9 +85,9 @@ public class FacadeUserStore8 {
 
 //	// TODO RETORNA O TEXTO DO COMETARIO.
 //	public String getCommentText(String idComentario) {
-//		return null;
+//		return gerenteDados.getGerenteComentarios()
 //	}
-//
+
 //	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
 //	public String getCommentAuthor(String idComentario) {
 //		return null;
