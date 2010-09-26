@@ -61,7 +61,7 @@ public class Post {
 	 * @param coment
 	 */
 	public void addComentario2(Comentario coment) {
-		if (comentarios.contains(coment))
+		if (!comentarios.contains(coment))
 			comentarios.add(coment);
 	}
 
@@ -71,7 +71,7 @@ public class Post {
 	 * @param coment
 	 */
 	public void removeComentario2(Comentario coment) {
-		if (!comentarios.contains(coment))
+		if (comentarios.contains(coment))
 			comentarios.remove(coment);
 	}
 
