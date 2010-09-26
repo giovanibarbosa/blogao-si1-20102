@@ -6,14 +6,10 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import persistencia.daos.UsuariosDAO;
 import classes.func.usuario.Usuario;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistencia.daos.UsuariosDAO;
 
-import classes.Comentario;
-import classes.func.usuario.Usuario;
 import interfaces.Gerenciador;
 
 public class GerenciadorDeUsuarios implements Gerenciador{
