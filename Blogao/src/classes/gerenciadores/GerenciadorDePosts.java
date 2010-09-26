@@ -13,6 +13,8 @@ import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.func.multimidia.Audio;
+import classes.func.multimidia.Imagem;
+import classes.func.multimidia.Video;
 import classes.func.usuario.Usuario;
 import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.Comentario;
@@ -180,8 +182,52 @@ public class GerenciadorDePosts implements Gerenciador {
 	
 	public int recuperaIDimagem(String postID, int index) throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = postsDAO.recupera(postID);
-		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index).getId());
+		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index).getId());		
+	}
+	
+	
+	//FIXME .ARRUMAR OUTRO JEITO DE FAZER.
+	public void deletaVideo(String sessionID, String idMovie) throws ArgumentInvalidException,
+				FileNotFoundException, PersistenceException {
+		String log = gerenteDeSessao.getLogin(sessionID);
+		Usuario user = userDAO.recupera(log);
+		for (Blog blog : user.getListaBlogs()) {
+			for (Post post : blog.getListaDePostagens())
+				for (Video vid : post.getListaDeVideo())
+					if(vid.getId().equals(idMovie)) {
+						post.getListaDeVideo().remove(vid);
+					}
+		}		
+	}
+	
+	
+	//FIXME .ARRUMAR OUTRO JEITO DE FAZER.
+	public void deletaImagem(String sessionID, String idImagem) throws ArgumentInvalidException,
+				FileNotFoundException, PersistenceException {
+		String log = gerenteDeSessao.getLogin(sessionID);
+		Usuario user = userDAO.recupera(log);
+		for (Blog blog : user.getListaBlogs()) {
+			for (Post post : blog.getListaDePostagens())
+				for (Imagem imag : post.getListaDeImagem())
+					if(imag.getId().equals(idImagem)) {
+						post.getListaDeImagem().remove(imag);
+					}
+		}		
+	}
+	
+	//FIXME .ARRUMAR OUTRO JEITO DE FAZER.
+	public void deletaMusica(String sessionID, String idmusica) throws ArgumentInvalidException,
+				FileNotFoundException, PersistenceException {
 		
+		String log = gerenteDeSessao.getLogin(sessionID);
+		Usuario user = userDAO.recupera(log);
+		for (Blog blog : user.getListaBlogs()) {
+			for (Post post : blog.getListaDePostagens())
+				for (Audio mus : post.getListaDeAudio())
+					if(mus.getId().equals(idmusica)) {
+						post.getListaDeAudio().remove(mus);
+					}
+		}		
 	}
 	
 	

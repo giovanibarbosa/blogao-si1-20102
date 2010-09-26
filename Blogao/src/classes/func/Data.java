@@ -5,6 +5,7 @@ import interfaces.Constantes;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import ourExceptions.ArgumentInvalidException;
 
@@ -102,6 +103,12 @@ public class Data {
 			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
 		}
 		
+	}
+	
+	public static String todaysDate() {
+		Date data = new Date();  
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		return formatador.format(data);
 	}
 	
 	
