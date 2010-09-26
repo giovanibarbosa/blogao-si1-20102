@@ -103,8 +103,11 @@ public class GerenciadorDeBlogs implements Gerenciador{
 		
 	}
 
-	public Blog getBlog(String idBlog) throws FileNotFoundException, PersistenceException{
-		return blogsDAO.recupera(idBlog);
+	public Blog getBlog(String idBlog) throws ArgumentInvalidException{
+		for (Blog blog : listaDeBlogs) {
+			if (blog.getId().equals(idBlog)) return blog;
+		}
+		throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 	}
 	
 	public Blog getBlog(String idBlog, String idSessao) throws FileNotFoundException,
@@ -145,13 +148,13 @@ public class GerenciadorDeBlogs implements Gerenciador{
 	}
 	
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
-				PersistenceException {
+				PersistenceException, ArgumentInvalidException {
 		return getBlog(idBlog).getListaDePostagens().size();
 		
 	}
 	
 	public String recuperaIdDoPost(String idBlog, int index) throws NumberFormatException,
-				FileNotFoundException, PersistenceException {
+				FileNotFoundException, PersistenceException, ArgumentInvalidException {
 		return getBlog(idBlog).getListaDePostagens().get(index).getId();
 	}
 //	
