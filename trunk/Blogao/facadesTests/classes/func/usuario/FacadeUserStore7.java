@@ -28,26 +28,17 @@ import ourExceptions.PersistenceException;
 
 public class FacadeUserStore7 {
 	
-	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
-	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs(gerente);
-	private GerenciadorDePosts gerenteDePosts = new GerenciadorDePosts(gerente, gerenciaBlogs);
+	private GerenciadorDeSessoes gerenteSessao = new GerenciadorDeSessoes();
+	private GerenciadorDeBlogs gerenciaBlogs = new GerenciadorDeBlogs(gerenteSessao);
+	private GerenciadorDePosts gerenteSessaoDePosts = new GerenciadorDePosts(gerenteSessao, gerenciaBlogs);
 	
 	public void loadData() {
 		
 	}
 	
-	/**
-	 * Loga
-	 * @param login
-	 * @param senha
-	 * @return String 
-	 * @throws PersistenceException
-	 * @throws FileNotFoundException
-	 * @throws ArgumentInvalidException
-	 */
 	public String logon(String login, String senha) throws PersistenceException,
 			FileNotFoundException, ArgumentInvalidException{
-		return gerente.logon(login, senha);
+		return gerenteSessao.logon(login, senha);
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
@@ -97,56 +88,56 @@ public class FacadeUserStore7 {
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getNumberOfSounds(String postID) throws FileNotFoundException,
 					PersistenceException {
-		return gerenteDePosts.recuperaTotalDeMusicasDoPost(postID);		
+		return gerenteSessaoDePosts.recuperaTotalDeMusicasDoPost(postID);		
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getNumberOfMovies(String postID) throws FileNotFoundException, PersistenceException {
-		return gerenteDePosts.recuperaTotalDeFilmesDoPost(postID);
+		return gerenteSessaoDePosts.recuperaTotalDeFilmesDoPost(postID);
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getNumberOfPictures(String postID) throws FileNotFoundException, PersistenceException {
-		return gerenteDePosts.recuperaTotalDeImagensDoPost(postID);		
+		return gerenteSessaoDePosts.recuperaTotalDeImagensDoPost(postID);		
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getMovie(String postID, int index) throws FileNotFoundException, PersistenceException {
-		return gerenteDePosts.recuperaIDvideo(postID, index); //id movie
+		return gerenteSessaoDePosts.recuperaIDvideo(postID, index); //id movie
 	}
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getSound(String postID, int index) throws FileNotFoundException, PersistenceException {
-		return gerenteDePosts.recuperaIDaudio(postID, index);		 //id som
+		return gerenteSessaoDePosts.recuperaIDaudio(postID, index);		 //id som
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getPicture(String postID, int index) throws FileNotFoundException, PersistenceException {
-		return gerenteDePosts.recuperaIDimagem(postID, index);	//id imagem
+		return gerenteSessaoDePosts.recuperaIDimagem(postID, index);	//id imagem
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public void deleteMovie(String sessionID, String idMovie) throws FileNotFoundException,
 					PersistenceException, ArgumentInvalidException {
-		gerenteDePosts.deletaVideo(sessionID, idMovie);
+		gerenteSessaoDePosts.deletaVideo(sessionID, idMovie);
 
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public void deletePicture(String sessionID, String idImagem) throws 
 				PersistenceException, ArgumentInvalidException, FileNotFoundException {
-		gerenteDePosts.deletaImagem(sessionID, idImagem);
+		gerenteSessaoDePosts.deletaImagem(sessionID, idImagem);
 
 	}
 	
 	//FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public void deleteSound(String sessionID, String idSom) throws FileNotFoundException
 					, ArgumentInvalidException, PersistenceException {
-		gerenteDePosts.deletaMusica(sessionID, idSom);
+		gerenteSessaoDePosts.deletaMusica(sessionID, idSom);
 
 	}
 	
 	public void logoff(String idSession) throws ArgumentInvalidException{
-		gerente.logoff(idSession);
+		gerenteSessao.logoff(idSession);
 	}
 	
 	//TODO Fazer...
