@@ -16,11 +16,11 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
 	GerenciadorDeSessoes gerenteSessoes;
 
-	public GerenciadorDeComentarios(GerenciadorDeSessoes gerSessoes){
+	public GerenciadorDeComentarios(GerenciadorDeSessoes gerSessoes) {
 		this.gerenteSessoes = gerSessoes;
 		listaComentarios = new ArrayList<Comentario>();
 	}
-	
+
 	@Override
 	public void saveData() {
 		// TODO Auto-generated method stub
@@ -29,12 +29,19 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	@Override
 	public void loadData() {
-		try {
-			listaComentarios = comentariosDAO.recuperaComentarios();
-		} catch (FileNotFoundException e) {
-			listaComentarios = new ArrayList<Comentario>();
+		if (listaComentarios == null) {
+			try {
+				listaComentarios = comentariosDAO.recuperaComentarios();
+			} catch (FileNotFoundException e) {
+				listaComentarios = new ArrayList<Comentario>();
+			}
 		}
 
+	}
+
+	public int addComentario(String sessionId, String postId, String texto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
