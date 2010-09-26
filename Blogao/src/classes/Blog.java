@@ -20,7 +20,7 @@ public class Blog {
 	private List<Post> listaDePosts;
 	private BlogsDAO blogDao = BlogsDAO.getInstance();
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
-	
+
 	private List<Post> posts;
 
 	public Blog(String titulo, String descricao, String idSessao)
@@ -28,7 +28,7 @@ public class Blog {
 		if (validaTitulo(titulo)) {
 			this.titulo = titulo;
 			this.descricao = descricao;
-//			this.idsComentarios = new ArrayList<Integer>();
+			// this.idsComentarios = new ArrayList<Integer>();
 			this.listaSubBlogs = new ArrayList<Blog>();
 			this.idSessao = idSessao;
 			this.setId(gerarId());
@@ -142,25 +142,19 @@ public class Blog {
 	public String toString() {
 		return getId();
 	}
-	
+
 	public List<Post> getListaDePostagens() {
 		return listaDePosts;
 	}
-	
-	
-	
-	public boolean addPost(Post post) {
-		if (posts.contains(post))
-			return false;
-		posts.add(post);
-		return true;
-	}
-	
-	public boolean removePost(Post post) {
+
+	public void addPost(Post post) {
 		if (!posts.contains(post))
-			return false;
-		posts.remove(post);
-		return true;
+			posts.add(post);
+	}
+
+	public void removePost(Post post) {
+		if (posts.contains(post))
+			posts.remove(post);
 	}
 
 }
