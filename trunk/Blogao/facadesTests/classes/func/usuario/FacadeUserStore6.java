@@ -14,6 +14,7 @@ import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.Email;
 import classes.func.Data;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.Login;
@@ -26,6 +27,7 @@ public class FacadeUserStore6 {
 	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
 	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs(gerente);
 	private GerenciadorDePosts gerentePost = new GerenciadorDePosts(gerente, gerenteBlog);
+	GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 	
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
@@ -35,10 +37,7 @@ public class FacadeUserStore6 {
 	
 	//TODO APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
-		userDAO.limparUsuarios();
-		blogsDAO.limparBlogs();
-		emailsDAO.limparEmails();
-		postsDAO.limparPosts();
+		gerenteDados.cleanPersistence();
 	}
 	
 	//Armazenar no BD.
