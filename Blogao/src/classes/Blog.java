@@ -124,8 +124,7 @@ public class Blog {
 			return false;
 		}
 		Blog outra = (Blog) objeto;
-		return getTitulo() == outra.getTitulo()
-				&& getDescricao() == outra.getDescricao();
+		return getId().equals(outra.getId());
 
 	}
 
