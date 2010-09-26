@@ -10,6 +10,7 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
@@ -28,6 +29,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 	private PostsDAO postsDAO = PostsDAO.getInstance();
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
+	private GerenciadorDeDados gerenteDados;
 	private GerenciadorDeBlogs gerenteDeBlogs;
 	private GerenciadorDeSessoes gerenteDeSessao;
 	private List<Post> listaPosts;
@@ -148,7 +150,59 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 
 	}
+	
+	public Post getPost(String idPost, String idSessao) throws ArgumentInvalidException, UserInvalidException{
+		if(idSessao == null || idSessao.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		
+		if(idPost == null || idPost.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+		
+		
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				idSessao);
 
+		
+		List<Blog> listaBlog = gerenteDados.getGerenteBlogs().getBlogPorLogin(login);
+		
+		Post post = null;
+		
+		for(Blog blg : listaBlog){
+			for(Post pt : blg.getListaDePostagens()){
+				if(pt.getId().equals(idPost))
+					post = pt;
+			}
+		}
+		
+		if(post == null)
+			throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+		
+		return post;
+	}
+	
+	
+	public Post getPost(String idPost) throws ArgumentInvalidException{		
+		if(idPost == null || idPost.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+		
+		List<Usuario> listaUsuarios = gerenteDados.getGerenciadorDeUsuarios().getListaUsuarios();
+		
+		Post post = null;
+		for(Usuario user : listaUsuarios){
+			for(Blog blg : user.getListaBlogs()){
+				for(Post pt : blg.getListaDePostagens()){
+					if(pt.getId().equals(idPost))
+						post = pt;
+				}
+			}
+		}
+		if(post == null)
+			throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+		
+		return post;
+	}
+	
+	
 	public Blog getBlog(String idBlog, String idSessao)
 			throws FileNotFoundException, PersistenceException,
 			ArgumentInvalidException {
