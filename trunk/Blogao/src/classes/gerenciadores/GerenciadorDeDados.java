@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.Blog;
+import classes.Post;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 
@@ -18,13 +19,14 @@ import persistencia.daos.*;
  *
  */
 public class GerenciadorDeDados {
-	private GerenciadorDeUsuarios gerenteUsuarios = new GerenciadorDeUsuarios();
-	
+	private GerenciadorDeUsuarios gerenteUsuarios = new GerenciadorDeUsuarios();	
 	private GerenciadorDeSessoes gerenteSessoes = new GerenciadorDeSessoes();
 	private GerenciadorDeBlogs gerenteBlogs = new GerenciadorDeBlogs(gerenteSessoes);
 	private GerenciadorDeComentarios gerenteComentarios = new GerenciadorDeComentarios(gerenteSessoes);
 	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
 	private GerenciadorDePosts gerentePosts = new GerenciadorDePosts(gerenteSessoes, gerenteBlogs);
+	
+	private static GerenciadorDeDados instancia;
 	
 	
 	/**
@@ -34,8 +36,11 @@ public class GerenciadorDeDados {
 	//FIXME ajeitar o email e os comentarios.
 	public void loadData() throws FileNotFoundException {
 		gerenteUsuarios.setListaUsuarios(UsuariosDAO.getInstance().loadData());
-		povoaListaDeBlogs();		
-		gerentePosts.setListaPosts(PostsDAO.getInstance().loadData());
+		System.out.println("total de users: " + gerenteUsuarios.getListaUsuarios().size());
+		povoaListaDeBlogs();	
+		povoaPosts();
+		//gerentePosts.setListaPosts(PostsDAO.getInstance().loadData());
+		//System.out.println(gerentePosts.getListaPosts().size());
 		gerenteSessoes.setListaSessoes(SessoesDAO.getInstance().loadData());
 		povoaGerenciadoDePerfis();
 		//Fazer o mesmo para email(acho que nao deveria ter um dao para email)
@@ -59,6 +64,19 @@ public class GerenciadorDeDados {
 		PostsDAO.getInstance().limparPosts();
 		SessoesDAO.getInstance().limparSessoes();
 		UsuariosDAO.getInstance().limparUsuarios();
+	}
+	
+	public void povoaPosts() {
+		List<Post> listaDePosts = new ArrayList<Post>();
+		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
+			for(Blog blog : user.getListaBlogs()) {
+				for(Post post : blog.getListaDePostagens()) {
+					listaDePosts.add(post);
+				}
+			}
+			
+		}
+		gerentePosts.setListaPosts(listaDePosts);
 	}
 	
 	//Gabiarra usada para add os perfis
@@ -87,5 +105,12 @@ public class GerenciadorDeDados {
 	
 	public GerenciadorDeUsuarios getGerenciadorDeUsuarios() {
 		return gerenteUsuarios;
+	}
+	
+	public static synchronized GerenciadorDeDados getInstance() {
+		if (instancia == null)
+			instancia = new GerenciadorDeDados();
+		return instancia;
+
 	}
 }
