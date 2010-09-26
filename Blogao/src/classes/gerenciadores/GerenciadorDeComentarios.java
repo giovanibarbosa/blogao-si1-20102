@@ -18,6 +18,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	public GerenciadorDeComentarios(GerenciadorDeSessoes gerSessoes){
 		this.gerenteSessoes = gerSessoes;
+		listaComentarios = new ArrayList<Comentario>();
 	}
 	
 	@Override

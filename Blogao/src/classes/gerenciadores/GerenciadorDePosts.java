@@ -37,6 +37,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			GerenciadorDeBlogs gerenteBlogs) {
 		this.gerenteDeSessao = gereteDeSessao;
 		this.gerenteDeBlogs = gerenteBlogs;
+		listaPosts = new ArrayList<Post>();
 
 	}
 

@@ -27,6 +27,10 @@ public class GerenciadorDePerfis implements Gerenciador {
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
 	
+	public GerenciadorDePerfis() {
+		listaPerfis = new ArrayList<Perfil>();
+	}
+	
 	
 	
 	
