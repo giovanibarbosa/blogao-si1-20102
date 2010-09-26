@@ -516,5 +516,9 @@ public class GerenciadorDePosts implements Gerenciador {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Post getPostPorBlog(String blogId, int index) throws ArgumentInvalidException {
+		return gerenteDeBlogs.getBlog(blogId).getListaDePostagens().get(index);
+	}
 }
 
