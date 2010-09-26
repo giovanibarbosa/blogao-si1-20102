@@ -76,13 +76,13 @@ public class FacadeBlogao {
 //        EasyAcceptFacade eaFacade6= new EasyAcceptFacade(perfFac6, files6);  
 //        eaFacade6.executeTests();
 //        
-        FacadeUserStore7 perfFac7 = new FacadeUserStore7();
-        EasyAcceptFacade eaFacade7= new EasyAcceptFacade(perfFac7, files7);  
-        eaFacade7.executeTests();
+//        FacadeUserStore7 perfFac7 = new FacadeUserStore7();
+//        EasyAcceptFacade eaFacade7= new EasyAcceptFacade(perfFac7, files7);  
+//        eaFacade7.executeTests();
 //        
-//        FacadeUserStore8 perfFac8 = new FacadeUserStore8();
-//        EasyAcceptFacade eaFacade8= new EasyAcceptFacade(perfFac8, files8);  
-//        eaFacade8.executeTests();
+        FacadeUserStore8 perfFac8 = new FacadeUserStore8();
+        EasyAcceptFacade eaFacade8= new EasyAcceptFacade(perfFac8, files8);  
+        eaFacade8.executeTests();
         
         
         
@@ -93,7 +93,7 @@ public class FacadeBlogao {
         System.out.println(eaFacade5.getCompleteResults());
 //        System.out.println(eaFacade6.getCompleteResults());
 //        System.out.println(eaFacade7.getCompleteResults());
-//        System.out.println(eaFacade8.getCompleteResults());
+        System.out.println(eaFacade8.getCompleteResults());
 	}
 
 }
