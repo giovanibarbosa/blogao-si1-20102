@@ -8,16 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.bcel.generic.NEW;
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import persistencia.daos.EmailsDAO;
-import persistencia.daos.UsuariosDAO;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
-import classes.Comentario;
 import classes.Login;
 import classes.Senha;
 import classes.Email;
@@ -45,10 +40,6 @@ public class GerenciadorDePerfis implements Gerenciador {
 		Senha sen = new Senha(senha);
 		Email mail = new Email(email);
 		
-		
-			
-		
-
 		perfil = new Perfil();
 		perfil.setNomeDeExibicao(nome_exibicao);
 		perfil.setEmail(mail);
@@ -63,7 +54,6 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 		Usuario user1 = new Usuario(log, sen, perfil);
 
-		//emailsDAO.criar(mail);
 		validaEmail(mail);
 		gerenteDados.getGerenteUsuarios().validaLogin(log);
 		gerenteDados.getGerenciadorDeUsuarios().criarUsuario(user1);

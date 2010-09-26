@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import persistencia.daos.EmailsDAO;
 import classes.Email;
 import classes.func.Data;
 import enuns.Sexo;
@@ -23,7 +22,6 @@ public class Perfil {
 	private String filmesFavoritos;
 	private String musicasFavoritas;
 	private String livrosFavoritos;
-	private EmailsDAO mailDAO = EmailsDAO.getInstance();
 
 	private static final int EMAIL = 96619420;
 	private static final int NOME = 513276986;
