@@ -1,18 +1,11 @@
 package classes.func.usuario;
 
-import interfaces.Constantes;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.velocity.runtime.parser.node.GetExecutor;
-import org.w3c.dom.UserDataHandler;
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import classes.Blog;
 import classes.func.Data;
-import classes.func.multimidia.Audio;
 import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDePosts;
