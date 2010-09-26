@@ -42,63 +42,34 @@ public class FacadeUserStore4 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 		
-		try {
-			gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
+		gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
 					dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
-			
-		} catch (Exception e) {
-			throw e;
-		}
+
 	}
 	
-	public String createBlog(String idSession, String titulo, String descricao) throws Exception{
-		try {
-			return gerenciaBlogs.createBlog(idSession, titulo, descricao);		
+	public String createBlog(String idSession, String titulo, String descricao) throws Exception {
+		return gerenciaBlogs.createBlog(idSession, titulo, descricao);		
 			
-		} catch (Exception e) {
-			throw e;
-		}
+
 	}
 	
 	//RETORNA OS ATRIBUTOS DO BLOG.
 	public String getBlogInformation(String idBlog, String atributo) throws ArgumentInvalidException, FileNotFoundException {
-		try {
-			Blog blog = blogsDAO.recuperaBlogPorId(idBlog);
-			return gerenciaBlogs.getAtributo(blog, atributo);
-			
-		} catch (FileNotFoundException e) {
-			throw e;
-		} catch (ArgumentInvalidException e) {
-			throw e;
-		}
-		
+		Blog blog = blogsDAO.recuperaBlogPorId(idBlog);
+		return gerenciaBlogs.getAtributo(blog, atributo);	
 	}
 	
-	/**
-	 * 
-	 * @param login
-	 * @param senha
-	 * @return
-	 * @throws PersistenceException
-	 * @throws FileNotFoundException
-	 * @throws ArgumentInvalidException
-	 */
+
 	public String logon(String login, String senha)throws PersistenceException, FileNotFoundException, ArgumentInvalidException {
-		try {
-			return gerente.logon(login, senha);
-		} catch (PersistenceException e){
-			throw e;
-		}
+		return gerente.logon(login, senha);
+
 	}
 	
 	public void saveData() {}
 	
 	public void logoff(String idSession) throws Exception {
-		try {
-			gerente.logoff(idSession);			
-		} catch (Exception e) {
-			throw e;
-		}
+		gerente.logoff(idSession);			
+
 	}
 	
 	

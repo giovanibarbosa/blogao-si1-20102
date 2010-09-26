@@ -24,21 +24,15 @@ public class FacadeUserStore2 {
 	
 	//METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha) throws PersistenceException, FileNotFoundException, ArgumentInvalidException{
-		try {
-			return gerente.logon(login, senha);
-		} catch (PersistenceException e){
-			throw e;
-		}
+		return gerente.logon(login, senha);
+
 
 	}
 	
 	//METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
 	public boolean isUserLogged(String login) throws PersistenceException, FileNotFoundException {
-		try{
-			return gerente.isUserLogged(login);
-		} catch (PersistenceException e){
-			throw e;
-		}
+		return gerente.isUserLogged(login);
+
 				
 	}
 	
@@ -51,20 +45,13 @@ public class FacadeUserStore2 {
 
 	//VERIFICAR SE ESSE 'ID' VAI SER UM DOUBLE MESMO
 	public String getProfileInformationBySessionId(String id, String atributo) throws ArgumentInvalidException{
-		try{
-			return gerente.getProfileInformationBySessionId(id, atributo);
-		} catch (ArgumentInvalidException e){
-			throw e;
-		}
+		return gerente.getProfileInformationBySessionId(id, atributo);
+
 	}
 	
 	//METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException{
-		try {
-			gerente.logoff(idSession);
-		} catch (ArgumentInvalidException e){
-			throw e;
-		}
+		gerente.logoff(idSession);
 	}
 	
 	

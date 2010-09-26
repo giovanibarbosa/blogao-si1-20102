@@ -46,25 +46,18 @@ public class FacadeUserStore5 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 
-		try {
-			gerentePerfis.createProfile(login, senha, nome_exibicao, email,
+		gerentePerfis.createProfile(login, senha, nome_exibicao, email,
 					sexo, dataNasc, endereco, interesses, quem_sou_eu, filmes,
 					musicas, livros);
 
-		} catch (Exception e) {
-			throw e;
-		}
 	}
 
 	// METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		try {
-			return gerente.logon(login, senha);
-		} catch (PersistenceException e) {
-			throw e;
-		}
+		return gerente.logon(login, senha);
+
 	}
 
 	// CRIA O BLOG
@@ -85,26 +78,22 @@ public class FacadeUserStore5 {
 
 	//REALIZA AS MUDANCAS NO BLOG.
 	public void changeBlogInformation(String idSessao, String id,
-			String atributo, String novoValor) throws PersistenceException, ArgumentInvalidException, IOException {
-		try{
-			if (!gerente.getLogados().containsKey(idSessao)) throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-			
-			blog = blogsDAO.recupera(id);
-			gerenteBlogs.changeBlogInformation(blog, atributo, novoValor);
-			if (!blog.getIdSessao().equals(idSessao)) throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-			
-		} catch (ArgumentInvalidException e){
-			throw e;
-		}
+			String atributo, String novoValor) throws PersistenceException,
+			ArgumentInvalidException, IOException {
+		if (!gerente.getLogados().containsKey(idSessao))
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+
+		blog = blogsDAO.recupera(id);
+		gerenteBlogs.changeBlogInformation(blog, atributo, novoValor);
+		if (!blog.getIdSessao().equals(idSessao))
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+
 	}
 
 	// METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
-		try {
-			gerente.logoff(idSession);
-		} catch (ArgumentInvalidException e) {
-			throw e;
-		}
+		gerente.logoff(idSession);
+
 	}
 
 	// TODO SALVA TODOS OS DADOS NO BD

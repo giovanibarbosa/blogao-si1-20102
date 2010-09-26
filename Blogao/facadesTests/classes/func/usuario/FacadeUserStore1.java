@@ -30,13 +30,7 @@ public class FacadeUserStore1 {
 
 	//FAZER ESTE METODO
 	public String getProfileInformation(String login, String atributo) throws Exception {
-		try {
-			return gerentePerfis.getProfileInformation(login, atributo);			
-		
-		} catch (Exception e) {
-			throw e;
-		}	
-
+		return gerentePerfis.getProfileInformation(login, atributo);	
 	}
 
 	//Armazenar no BD.
@@ -45,13 +39,8 @@ public class FacadeUserStore1 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 		
-		try {
-			gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
+		gerentePerfis.createProfile(login, senha, nome_exibicao, email, sexo,
 					dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
-			
-		} catch (Exception e) {
-			throw e;
-		}
 	}
 
 }

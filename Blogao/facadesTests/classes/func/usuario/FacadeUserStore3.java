@@ -30,52 +30,37 @@ public class FacadeUserStore3 {
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		try {
-			return gerente.logon(login, senha);
-		} catch (PersistenceException e) {
-			throw e;
-		}
+		return gerente.logon(login, senha);
+
 	}
 
 	public String getProfileInformationBySessionId(String id, String atributo)
 			throws ArgumentInvalidException {
-		try {
-			return gerente.getProfileInformationBySessionId(id, atributo);
-		} catch (ArgumentInvalidException e) {
-			throw e;
-		}
+		return gerente.getProfileInformationBySessionId(id, atributo);
+
 	}
 
 	// SETA TODAS AS VARIAVEIS DO PERFIL E TESTA-AS.
 	public void changeProfileInformation(String idSessao, String atributo,
 			String novoValor) throws Exception {
 
-		try {
-			String login = gerente.getLogin(idSessao);
-			Usuario us = userDAO.recupera(login);
-			if ("senha".equals(atributo)) {
-				us.setSenha(new Senha(novoValor));
-			} else if ("login".equals(atributo)) {
-				Usuario usTemp = userDAO.recupera(login);
-				us.setLogin(new Login(novoValor));
-				userDAO.criar(us);
-				userDAO.deletar(usTemp);
+		String login = gerente.getLogin(idSessao);
+		Usuario us = userDAO.recupera(login);
+		if ("senha".equals(atributo)) {
+			us.setSenha(new Senha(novoValor));
+		} else if ("login".equals(atributo)) {
+			Usuario usTemp = userDAO.recupera(login);
+			us.setLogin(new Login(novoValor));
+			userDAO.criar(us);
+			userDAO.deletar(usTemp);
 
-			}
-
-			else {
-				Perfil perfil = us.getPerfil();
-				perfil.setAtributo(atributo, novoValor);
-			}
-			userDAO.atualizar(us);
-
-		} catch (FileNotFoundException e) {
-			throw e;
-		} catch (PersistenceException e) {
-			throw e;
-		} catch (ArgumentInvalidException e) {
-			throw e;
 		}
+
+		else {
+			Perfil perfil = us.getPerfil();
+			perfil.setAtributo(atributo, novoValor);
+		}
+		userDAO.atualizar(us);
 
 	}
 
@@ -83,15 +68,11 @@ public class FacadeUserStore3 {
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
-			String musicas, String livros) throws Exception {
-		
-		try {
-			gerenteDoPerfil.createProfile(login, senha, nome_exibicao, email, sexo,
-					dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
-			
-		} catch (Exception e) {
-			throw e;
-		}
+			String musicas, String livros) throws Exception {		
+	
+		gerenteDoPerfil.createProfile(login, senha, nome_exibicao, email, sexo,
+				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
+
 	}
 
 	// TODO METODO QUE DESLOGA O USUARIO.
