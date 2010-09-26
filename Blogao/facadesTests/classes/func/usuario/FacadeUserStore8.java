@@ -63,10 +63,9 @@ public class FacadeUserStore8 {
 
 	}
 
-	// TODO RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
-	public int getPost(String blogId, int index) throws NumberFormatException,
-				FileNotFoundException, PersistenceException {
-		return gerenteDados.getGerentePosts();
+	//RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
+	public String getPost(String blogId, int index) throws ArgumentInvalidException {
+		return gerenteDados.getGerentePosts().getPostPorBlog(blogId, index).getId();
 	}
 //
 //	// TODO ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
