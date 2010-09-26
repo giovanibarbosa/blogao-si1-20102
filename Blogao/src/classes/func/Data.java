@@ -28,6 +28,10 @@ public class Data {
 		setData(data);
 	}
 	
+	public Data() {
+		
+	}
+	
 	
 	/**
      * Verifica a validade de configuracao de uma data.

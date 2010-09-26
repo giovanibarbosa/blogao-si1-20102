@@ -12,6 +12,7 @@ import ourExceptions.PersistenceException;
 import persistencia.daos.BlogsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
+import classes.func.Data;
 import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Video;
@@ -120,6 +121,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		
 		return post.getId();
 	}
+	
+	
 
 	public String getAtributo(Post post, String atributo)
 			throws ArgumentInvalidException {
