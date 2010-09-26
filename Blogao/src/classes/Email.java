@@ -52,4 +52,11 @@ public class Email {
 		return email;
 	}
 	
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Email))
+			return false;
+		Email email = (Email) obj;
+		return toString().equals(email.toString());
+	}
+	
 }
