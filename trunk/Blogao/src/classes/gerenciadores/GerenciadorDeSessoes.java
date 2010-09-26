@@ -4,6 +4,7 @@ import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Comentario;
+import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 
@@ -24,15 +26,15 @@ import persistencia.daos.UsuariosDAO;
  * @author Rodolfo Marinho
  * 
  */
-public class GerenciadorDeSessoes implements Gerenciador{
-	private Map<String, String> logados;
-	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
+public class GerenciadorDeSessoes implements Gerenciador {
+	private List<Sessao> listaSessoes;
+	
 	private SessoesDAO sessoesDAO = SessoesDAO.getInstance();
-	private List<String> listaSessoes;
+	private GerenciadorDeDados gerenteDados;
 
-	public GerenciadorDeSessoes() {
-		logados = new HashMap<String, String>();
-		listaSessoes = new ArrayList<String>();
+	public GerenciadorDeSessoes(GerenciadorDeDados gerenciadorDeDados) {
+		listaSessoes = new ArrayList<Sessao>();		
+		this.gerenteDados = gerenciadorDeDados;
 	}
 
 	// METODO QUE LOGA O USUARIO
@@ -41,31 +43,38 @@ public class GerenciadorDeSessoes implements Gerenciador{
 			FileNotFoundException {
 		try {
 			String idSessao = String.valueOf(login.hashCode());
-			Usuario us = userDAO.recupera(login);
-			if (us.getSenha().equals(senha)) {
-				if (logados.containsValue(login)) {
-					throw new ArgumentInvalidException(Constantes.USUARIO_LOGADO);
-				}
-				logados.put(idSessao, login);
+			if (isUserLogged(login)) { 
+				throw new ArgumentInvalidException(
+						Constantes.USUARIO_LOGADO);
+			}
+			Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+			Sessao sessaoNova = new Sessao(idSessao, login);
+			
+			if (user.getSenha().equals(senha)) {
+				listaSessoes.add(sessaoNova);
 				return idSessao;
 			} else {
-				throw new PersistenceException(Constantes.LOGIN_OU_SENHA_INVALIDO);
+				throw new PersistenceException(
+						Constantes.LOGIN_OU_SENHA_INVALIDO);
 			}
 		} catch (PersistenceException e) {
 			throw new PersistenceException(Constantes.LOGIN_OU_SENHA_INVALIDO);
+		} catch (ArgumentInvalidException e) {
+			throw e;
 		}
 
 	}
 
 	// METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
 	public boolean isUserLogged(String login) throws PersistenceException,
-			FileNotFoundException {
-		try {
-			userDAO.recupera(login);
-			return logados.containsValue(login);
-		} catch (PersistenceException e) {
-			throw e;
+			FileNotFoundException, ArgumentInvalidException {
+		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		for (Sessao ses : listaSessoes) {
+			if (ses.getLogin().equals(login)){
+				return true;
+			}
 		}
+		return false;
 
 	}
 
@@ -75,98 +84,84 @@ public class GerenciadorDeSessoes implements Gerenciador{
 	 * @param log
 	 * @return
 	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException 
 	 */
 
-	public String getProfileInformationBySessionId(String id, String atributo)
-			throws ArgumentInvalidException {
-		if (!(logados.containsKey(id)))
+	public String getProfileInformationBySessionId(String idsessao, String atributo)
+			throws ArgumentInvalidException, PersistenceException {
+		if (!sessaoExistente(idsessao))
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 		String retorno;
-		String login = logados.get(id);
-		if (atributo.equals("login"))
+		String login = getLoginPorSessao(idsessao);
+		if ("login".equals(atributo)) {
 			return login;
-		try {
-			Usuario us = userDAO.recupera(login);
-			Perfil perf = us.getPerfil();
-			retorno = perf.getAtributo(atributo);
-
-			if (retorno == null)
-				return null;
-
-		} catch (FileNotFoundException e) {
-			return e.getMessage();
-		} catch (PersistenceException e) {
-			return e.getMessage();
-		} catch (ArgumentInvalidException e) {
-			throw e;
 		}
+		Usuario us = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		Perfil perf = us.getPerfil();
+		retorno = perf.getAtributo(atributo);
+
 		return retorno;
 	}
-
-	// METODO QUE DESLOGA O USUARIO.
-	public void logoff(String idSession) throws ArgumentInvalidException {
-		if (logados.remove(idSession) == null)
-			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-
-	}
-
 	/**
 	 * Metodo que retorna o login referente a sessao passada como parametro.
 	 * 
 	 * @param idSessao
-	 * 					a sessao da qual se procura o login
-	 * @return login
-	 * 					o login da sessao procurada
+	 *            a sessao da qual se procura o login
+	 * @return login o login da sessao procurada
 	 * @throws ArgumentInvalidException
-	 * 					caso a sessao nao exista
+	 *             caso a sessao nao exista
 	 */
-	public String getLogin(String idSessao) throws ArgumentInvalidException {
-		String login = logados.get(idSessao);
-		if (login == null) {
-			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-		}
-		return login;
+	public String getLoginPorSessao(String idSessao) throws ArgumentInvalidException {
+		Sessao ses = getSessao(idSessao);
+		return ses.getLogin();
 	}
 	
-	public Map<String, String> getLogados() {
-		return logados;
+	public Sessao getSessao(String idSessao) throws ArgumentInvalidException {
+		for (Sessao ses : listaSessoes) {
+			if (ses.getIdSessao().equals(idSessao)) {
+				return ses;
+			}
+		}
+		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+	}
+
+	private boolean sessaoExistente(String idsessao) {
+		for (Sessao ses : listaSessoes) {
+			if (ses.getIdSessao().equals(idsessao)) {
+				return true;
+			}
+		}		
+		return false;
+	}
+
+	// METODO QUE DESLOGA O USUARIO.
+	public void logoff(String idSession) throws ArgumentInvalidException {
+		Sessao ses = getSessao(idSession);
+		listaSessoes.remove(ses);
 	}
 
 	@Override
-	public void saveData() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	public void saveData() throws PersistenceException, IOException {
+		sessoesDAO.limparSessoes();
+		for (Sessao ses : listaSessoes) {
+			sessoesDAO.criar(ses);
+		}
 
-	/**
-	 * @return the listaSessoes
-	 */
-	public List<String> getListaSessoes() {
-		return listaSessoes;
 	}
 
-	/**
-	 * @param listaSessoes the listaSessoes to set
-	 */
-	public void setListaSessoes(List<String> listaSessoes) {
-		this.listaSessoes = listaSessoes;
-	}
 
 	@Override
 	public void loadData() {
 		try {
 			listaSessoes = sessoesDAO.recuperaSessoes();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			listaSessoes = new ArrayList<String>();
+			listaSessoes = new ArrayList<Sessao>();
 		}
 
 	}
 
 	@Override
 	public void cleanPersistence() {
-		// TODO Auto-generated method stub
-		
+		sessoesDAO.limparSessoes();
 	}
 }

@@ -34,9 +34,11 @@ public class GerenciadorDeDados {
 	private static GerenciadorDeDados instancia;
 	
 	public GerenciadorDeDados(){
+		gerentePerfis = new GerenciadorDePerfis(this);
+		gerenteUsuarios = new GerenciadorDeUsuarios(this);
 //		gerenteUsuarios = new GerenciadorDeUsuarios();
-		gerentePerfis = new GerenciadorDePerfis();
-//		gerenteSessoes = new GerenciadorDeSessoes();
+		//gerentePerfis = new GerenciadorDePerfis();
+		gerenteSessoes = new GerenciadorDeSessoes(this);
 //		gerenteBlogs = new GerenciadorDeBlogs();
 //		gerentePosts = new GerenciadorDePosts();
 //		gerenteComentarios = new GerenciadorDeComentarios();
@@ -48,7 +50,7 @@ public class GerenciadorDeDados {
 	 */
 	//FIXME ajeitar o email e os comentarios.
 	public void loadData() throws FileNotFoundException {
-//		gerenteUsuarios.loadData();
+		gerenteUsuarios.loadData();
 		gerentePerfis.loadData();
 //		gerenteSessoes.loadData();
 //		gerenteBlogs.loadData();
@@ -57,17 +59,17 @@ public class GerenciadorDeDados {
 	}
 
 	public void saveData() throws PersistenceException, IOException{
-//		gerenteUsuarios.saveData();
-		gerentePerfis.saveData();
-//		gerenteSessoes.saveData();
+		gerenteUsuarios.saveData();
+		//gerentePerfis.saveData();
+		gerenteSessoes.saveData();
 //		gerenteBlogs.saveData();
 //		gerentePosts.saveData();
 //		gerenteComentarios.saveData();
 	}
 	public void cleanPersistence(){
-//		gerenteUsuarios.cleanPersistence();
-		gerentePerfis.cleanPersistence();
-//		gerenteSessoes.cleanPersistence();
+		gerenteUsuarios.cleanPersistence();
+		//gerentePerfis.cleanPersistence();
+		gerenteSessoes.cleanPersistence();
 //		gerenteBlogs.cleanPersistence();
 //		gerentePosts.cleanPersistence();
 //		gerenteComentarios.cleanPersistence();

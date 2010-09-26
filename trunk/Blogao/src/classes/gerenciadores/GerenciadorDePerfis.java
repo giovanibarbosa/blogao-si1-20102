@@ -1,5 +1,6 @@
 package classes.gerenciadores;
 
+import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
@@ -24,11 +25,13 @@ public class GerenciadorDePerfis implements Gerenciador {
 	private Perfil perfil;
 	private List<Perfil> listaPerfis;
 	
-	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
-	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
+	//private EmailsDAO emailsDAO = EmailsDAO.getInstance();
+	private GerenciadorDeDados gerenteDados ;
 	
-	public GerenciadorDePerfis() {
+	
+	public GerenciadorDePerfis(GerenciadorDeDados gerenteDados) {
 		listaPerfis = new ArrayList<Perfil>();
+		this.gerenteDados = gerenteDados;
 	}
 	
 	public void createProfile(String login, String senha, String nome_exibicao,
@@ -39,6 +42,10 @@ public class GerenciadorDePerfis implements Gerenciador {
 		Login log = new Login(login);
 		Senha sen = new Senha(senha);
 		Email mail = new Email(email);
+		
+		
+			
+		
 
 		perfil = new Perfil();
 		perfil.setNomeDeExibicao(nome_exibicao);
@@ -54,16 +61,20 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 		Usuario user1 = new Usuario(log, sen, perfil);
 
-		emailsDAO.criar(mail);
-		userDAO.criar(user1);
+		//emailsDAO.criar(mail);
+		validaEmail(mail);
+		gerenteDados.getGerenteUsuarios().validaLogin(log);
+		gerenteDados.getGerenciadorDeUsuarios().criarUsuario(user1);
+		listaPerfis.add(perfil);
 	}
 	
 	
 	public String getProfileInformation(String login, String atributo)
 			throws ArgumentInvalidException, FileNotFoundException, PersistenceException {
-		String retorno;
-			Usuario us = userDAO.recupera(login);
-			Perfil perf = us.getPerfil();
+			String retorno;
+			Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+			
+			Perfil perf = user.getPerfil();
 			retorno = perf.getAtributo(atributo);
 			
 			if(retorno == null)
@@ -80,13 +91,11 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	@Override
 	public void loadData() {
-		//TODO Man-generated method stub
-//		try {
-//			listaPerfis = perfisDAO.recuperaPerfis();
-//		} catch (FileNotFoundException e) {
-//			listaPerfis = new ArrayList<Perfil>();
-//		}
-
+		try {
+			listaPerfis = gerenteDados.getGerenteUsuarios().getListaPerfis();
+		} catch (Exception e) {
+			listaPerfis = new ArrayList<Perfil>();
+		}
 	}
 
 	/**
@@ -101,6 +110,14 @@ public class GerenciadorDePerfis implements Gerenciador {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private void validaEmail(Email mail) throws ArgumentInvalidException {
+		for (Perfil perf : listaPerfis) {
+			if (perf.getEmail().equals(mail))
+				throw new ArgumentInvalidException(Constantes.EMAIL_EXISTENTE);
+		}
+	}
+	
 	
 	
 
