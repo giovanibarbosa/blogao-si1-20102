@@ -46,7 +46,7 @@ public class Post {
 	 * @throws ArgumentInvalidException
 	 */
 	public Post(Texto post, String idBlog) throws ArgumentInvalidException{
-		if(validaPost(post)){
+		if(idBlog != null|| !idBlog.trim().isEmpty()  || validaPost(post)){
 			this.post = post;
 			setId(gerarId());
 			setBlogRaiz(idBlog);
