@@ -47,7 +47,7 @@ public class Perfil {
 	public void setEmail(Email email) {
 		this.email = email;
 	}
-
+	
 	public String getNomeDeExibicao() {
 		return nomeDeExibicao;
 	}
@@ -173,7 +173,6 @@ public class Perfil {
 
 		switch (codigoAtributo) {
 		case (EMAIL):
-			mailDAO.criar(new Email(novoValor));
 			this.setEmail(new Email(novoValor));
 			break;
 		case (NOME):

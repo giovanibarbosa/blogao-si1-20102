@@ -130,7 +130,11 @@ public class GerenciadorDePerfis implements Gerenciador {
 			
 			if ("senha".equals(atributo)) {
 				us.setSenha(new Senha(novoValor));
-			} else if ("login".equals(atributo)) {
+			} else if ("email".equals(atributo)){
+				validaEmail(new Email(novoValor));
+			}
+			
+			else if ("login".equals(atributo)) {
 				gerenteDados.getGerenciadorDeUsuarios().validaLogin(new Login(novoValor));
 				gerenteDados.getGerenciadorDeUsuarios().remover(us);
 				us.setLogin(new Login(novoValor));
