@@ -2,8 +2,11 @@ package classes;
 
 import interfaces.Constantes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.tools.ant.Main;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -21,6 +24,8 @@ public class Blog {
 	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
 
 	private List<Post> posts;
+
+
 
 	public Blog(String titulo, String descricao, String idSessao)
 			throws ArgumentInvalidException {
@@ -72,6 +77,8 @@ public class Blog {
 		return null;
 
 	}
+
+	
 
 	/**
 	 * Metodo responsavel pela exclusao do blog;
@@ -153,6 +160,10 @@ public class Blog {
 	public void removePost(Post post) {
 		if (posts.contains(post))
 			posts.remove(post);
+	}
+
+	public static void main(String[] args) {
+		System.out.println("descricao".hashCode());
 	}
 
 }

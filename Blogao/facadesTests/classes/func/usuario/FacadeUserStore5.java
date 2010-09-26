@@ -5,12 +5,13 @@ import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import persistencia.daos.BlogsDAO;
-import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import interfaces.Constantes;
 import classes.Blog;
+import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.gerenciadores.GerenciadorDeBlogs;
@@ -22,22 +23,11 @@ import classes.gerenciadores.GerenciadorDeBlogs;
  * @author Rodolfo
  */
 public class FacadeUserStore5 {
-	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
-	private GerenciadorDePerfis gerentePerfis = new GerenciadorDePerfis();
-	private GerenciadorDeBlogs gerenteBlogs = new GerenciadorDeBlogs();
-	private Blog blog;
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
-	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
-	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
-	private EmailsDAO emailsDAO = EmailsDAO.getInstance();
-	private PostsDAO postsDAO = PostsDAO.getInstance();
-
-	//APAGAR OS DADOS SALVOS
+	// APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
-		userDAO.limparUsuarios();
-		blogsDAO.limparBlogs();
-		emailsDAO.limparEmails();
-		postsDAO.limparPosts();
+		gerenteDados.cleanPersistence();
 	}
 
 	// Armazenar no BD.
@@ -46,9 +36,9 @@ public class FacadeUserStore5 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 
-		gerentePerfis.createProfile(login, senha, nome_exibicao, email,
-					sexo, dataNasc, endereco, interesses, quem_sou_eu, filmes,
-					musicas, livros);
+		gerenteDados.getGerentePerfis().createProfile(login, senha,
+				nome_exibicao, email, sexo, dataNasc, endereco, interesses,
+				quem_sou_eu, filmes, musicas, livros);
 
 	}
 
@@ -56,48 +46,67 @@ public class FacadeUserStore5 {
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		return gerente.logon(login, senha);
+		return gerenteDados.getGerenteSessoes().logon(login, senha);
 
 	}
 
 	// CRIA O BLOG
 	public String createBlog(String idSessao, String titulo, String descricao)
-			throws ArgumentInvalidException, PersistenceException, IOException {
-		blog = new Blog(titulo, descricao, idSessao);
-		blogsDAO.criar(blog);
-		return blog.getId();
+			throws ArgumentInvalidException, PersistenceException, IOException,
+			UserInvalidException {
+
+		return gerenteDados.getGerenteBlogs().createBlog(idSessao, titulo,
+				descricao);
 	}
 
 	// RETORNA OS ATRIBUTOS DO BLOG.
-	public String getBlogInformation(String id, String atributo)
-			throws FileNotFoundException, PersistenceException,
-			ArgumentInvalidException {
-		blog = blogsDAO.recupera(id);
-		return gerenteBlogs.getAtributo(blog, atributo);
+	public String getBlogInformation(String idBlog, String atributo)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
+		return gerenteDados.getGerenteBlogs().getBlogInformation(idBlog, atributo);
 	}
 
-	//REALIZA AS MUDANCAS NO BLOG.
-	public void changeBlogInformation(String idSessao, String id,
+	// REALIZA AS MUDANCAS NO BLOG.
+	public void changeBlogInformation(String idSessao, String idBlog,
 			String atributo, String novoValor) throws PersistenceException,
-			ArgumentInvalidException, IOException {
-		if (!gerente.getLogados().containsKey(idSessao))
-			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-
-		blog = blogsDAO.recupera(id);
-		gerenteBlogs.changeBlogInformation(blog, atributo, novoValor);
-		if (!blog.getIdSessao().equals(idSessao))
-			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-
+			ArgumentInvalidException, IOException, UserInvalidException {
+		gerenteDados.getGerenteBlogs().changeBlogInformation(idSessao, idBlog,
+									atributo, novoValor);
 	}
+//		
+//		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
+//		if (!gerenteDados.getGerenteSessoes().isUserLogged(login)) {
+//			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+//		}
+//		
+		
+		
+//		blog = blogsDAO.recupera(id);
+//		gerenteBlogs.changeBlogInformation(blog, atributo, novoValor);
+//		if (!blog.getIdSessao().equals(idSessao))
+//			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+
+	//}
 
 	// METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
-		gerente.logoff(idSession);
-
+		gerenteDados.getGerenteSessoes().logoff(idSession);
 	}
 
 	// TODO SALVA TODOS OS DADOS NO BD
 	public void saveData() {
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
