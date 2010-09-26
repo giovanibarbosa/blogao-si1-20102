@@ -76,7 +76,6 @@ public class FacadeUserStore6 {
 	public void saveData() {
 	}
 
-	// TODO daki pra baixo
 	public String attachSound(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException {
@@ -90,13 +89,14 @@ public class FacadeUserStore6 {
 	}
 
 	public String attachPicture(String sessionId, String postId,
-			String descricao, String dado) throws ArgumentInvalidException {
-		if (dado == null || dado.trim().isEmpty())
-			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
-		return "";
+			String descricao, String dado) throws ArgumentInvalidException,
+			PersistenceException, IOException {
+		return gerentePost.attachPicture(sessionId, postId, descricao, dado);
 	}
 
 	public String getPostInformation(String id, String atributo) {
+		
+		
 		return "";
 	}
 

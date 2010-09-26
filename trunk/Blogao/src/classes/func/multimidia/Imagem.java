@@ -1,5 +1,7 @@
 package classes.func.multimidia;
 
+import interfaces.Constantes;
+
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,9 +19,35 @@ import ourExceptions.ArgumentInvalidException;
 
 public class Imagem {  
 	private String id;
-	
-	public Imagem(){
+	private String descricao;
+	private String dado;
+
+	public Imagem(String desc, String dado) throws ArgumentInvalidException {
 		setId(gerarId());
+		setDescricao(desc);
+		setDado(dado);
+	}
+
+	public Imagem() {
+		setId(gerarId());
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String desc) {
+		descricao = desc;
+	}
+
+	public String getDado() {
+		return dado;
+	}
+
+	public void setDado(String dado) throws ArgumentInvalidException {
+		if (dado == null || dado.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
+		this.dado = dado;
 	}
 	
 	

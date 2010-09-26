@@ -258,11 +258,9 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		Audio audio = new Audio(descricao, dado);
 		String login = gerenteDeSessao.getLogin(sessionId);
-		Usuario us = userDAO.recupera(login);
-		
+		Usuario us = userDAO.recupera(login);		
 		Post post = null;
-		Blog blog = null;
-		
+		Blog blog = null;		
 		for (Blog b : us.getListaBlogs()) {
 			for (Post p : b.getListaDePostagens()) {
 				if (p.getId().equals(postId)) {
@@ -271,20 +269,66 @@ public class GerenciadorDePosts implements Gerenciador {
 				}	
 			}
 		}		
-		if (post != null)
+		if (post != null && blog != null) {
 			post.addAudio(audio);
-				
-		//TODO
-		//userDAO.atualizar(us);
+			blog.addPost(post);
+			us.removeBlog2(blog);
+			us.addBlog2(blog);
+			userDAO.atualizar(us);
+		}		
 		return audio.getId();
 	}
 
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException {
-		if (dado == null || dado.trim().isEmpty())
-			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
-		return "";
+		Video video = new Video(descricao, dado);
+		String login = gerenteDeSessao.getLogin(sessionId);
+		Usuario us = userDAO.recupera(login);		
+		Post post = null;
+		Blog blog = null;		
+		for (Blog b : us.getListaBlogs()) {
+			for (Post p : b.getListaDePostagens()) {
+				if (p.getId().equals(postId)) {
+					post = p;
+					blog = b;
+				}	
+			}
+		}		
+		if (post != null && blog != null) {
+			post.addVideo(video);
+			blog.addPost(post);
+			us.removeBlog2(blog);
+			us.addBlog2(blog);
+			userDAO.atualizar(us);
+		}		
+		return video.getId();
+	}
+	
+	public String attachPicture(String sessionId, String postId,
+			String descricao, String dado) throws ArgumentInvalidException,
+			PersistenceException, IOException {
+		Imagem imagem = new Imagem(descricao, dado);
+		String login = gerenteDeSessao.getLogin(sessionId);
+		Usuario us = userDAO.recupera(login);		
+		Post post = null;
+		Blog blog = null;		
+		for (Blog b : us.getListaBlogs()) {
+			for (Post p : b.getListaDePostagens()) {
+				if (p.getId().equals(postId)) {
+					post = p;
+					blog = b;
+				}	
+			}
+		}		
+		if (post != null && blog != null) {
+			post.addImagem(imagem);
+			blog.addPost(post);
+			us.removeBlog2(blog);
+			us.addBlog2(blog);
+			userDAO.atualizar(us);
+		}		
+		return imagem.getId();
 	}
 
 }
