@@ -61,13 +61,15 @@ public class GerenciadorDePosts implements Gerenciador {
 		Texto txt = new Texto(titulo, texto);
 		String log = gerenteDeSessao.getLogin(idSessao);
 		Usuario user = userDAO.recupera(log);
-		List<Blog> listaBlogs = user.getListaBlogs();
+//		List<Blog> listaBlogs = user.getListaBlogs();
 		Blog blog = null;
+		
+		if (blogId == null || blogId.trim().isEmpty())
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+		
 		post = new Post(txt, blogId);
 
 		List<Usuario> listaUser = userDAO.recuperaUsuarios();
-
-		if (blogId != null && !blogId.trim().isEmpty()) {
 			for (Usuario u : listaUser) {
 				for (Blog b : u.getListaBlogs()) {
 					if (b.getId().equals(blogId)) {
@@ -80,45 +82,14 @@ public class GerenciadorDePosts implements Gerenciador {
 					}
 				}
 			}
-		}
 
 		if (blog == null) {
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		} else {
 			blog.addPost(post);
 		}
-
-		// if(blogId == null || blogId.trim().isEmpty())
-		// throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-		//		
-		// for (Blog blg : listaBlogs) {
-		// if (blg.getId().equals(blogId)) {
-		// blog = blg;
-		// }
-		//			
-		// }
-		//
-		// if (blog != null) {
-		// blog.addPost(post);
-		// } else {
-		// throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-		// }
-
-		/*
-		 * gerenteDeSessao.getLogin(idSessao); Blog blog =
-		 * gerenteDeBlogs.getBlog(idBlog); Texto txt = new Texto(titulo, texto);
-		 * post = new Post(txt, idBlog); blog.listaDePosts().add(post);
-		 * postsDAO.criar(post); blogsDAO.atualizar(blog);
-		 */
-
-		// } catch (FileNotFoundException e) {
-		// throw e;
-		// } catch (PersistenceException e) {
-		// throw e;
-		// } catch (ArgumentInvalidException e) {
-		// throw e;
-		// }
-		
+		user.addBlog2(blog);
+		userDAO.atualizar(user);
 		return post.getId();
 	}
 	

@@ -1,5 +1,7 @@
 package classes.func.usuario;
 
+import interfaces.Constantes;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -105,4 +107,24 @@ public class FacadeUserStore6 {
 	
 	//TODO SALVA TODOS OS DADOS NO BD
 	public void saveData() {}
+	
+	
+	//TODO
+	public String attachSound(String sessionId, String postId, String descricao, String dado) throws ArgumentInvalidException {
+		if (dado == null || dado.trim().isEmpty())
+			throw new ArgumentInvalidException("Dado inválido");
+		return "";
+	}
+	
+	public String attachMovie(String sessionId, String postId, String descricao, String dado) throws ArgumentInvalidException {
+		if (dado == null || dado.trim().isEmpty())
+			throw new ArgumentInvalidException("Dado inválido");
+		return "";
+	}
+	
+	public String attachPicture(String sessionId, String postId, String descricao, String dado) throws ArgumentInvalidException {
+		if (dado == null || dado.trim().isEmpty())
+			throw new ArgumentInvalidException("Dado inválido");
+		return "";
+	}
 }
