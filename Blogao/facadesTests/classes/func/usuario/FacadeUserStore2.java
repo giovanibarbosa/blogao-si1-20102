@@ -16,8 +16,8 @@ import classes.gerenciadores.GerenciadorDeSessoes;
  * @author Rodolfo Marinho
  */
 public class FacadeUserStore2 {
-	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
-
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
+	
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() throws FileNotFoundException{
 		gerenteDados.loadData();		

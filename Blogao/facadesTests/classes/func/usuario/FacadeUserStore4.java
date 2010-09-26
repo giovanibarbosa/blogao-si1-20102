@@ -14,7 +14,7 @@ import classes.gerenciadores.GerenciadorDeDados;
  * @author Rodolfo Marinho
  */
 public class FacadeUserStore4 {
-	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
 	// APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {

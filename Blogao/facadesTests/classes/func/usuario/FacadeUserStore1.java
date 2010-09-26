@@ -18,8 +18,8 @@ import classes.gerenciadores.GerenciadorDePerfis;
  */
 public class FacadeUserStore1 {
 
-	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
-
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
+	
 	//APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
 		gerenteDados.cleanPersistence();
