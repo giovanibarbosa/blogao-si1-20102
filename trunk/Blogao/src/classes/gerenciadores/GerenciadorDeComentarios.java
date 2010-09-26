@@ -4,17 +4,23 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.UserInvalidException;
+
 import persistencia.daos.ComentariosDAO;
 
+import classes.Blog;
 import classes.Comentario;
+import classes.func.usuario.Usuario;
 
 import interfaces.Gerenciador;
 
 public class GerenciadorDeComentarios implements Gerenciador {
-
-	List<Comentario> listaComentarios;
-	ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
-	GerenciadorDeSessoes gerenteSessoes;
+	
+	private GerenciadorDeDados gerenteDados;
+	private List<Comentario> listaComentarios;
+	private ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
+	private GerenciadorDeSessoes gerenteSessoes;
 
 	public GerenciadorDeComentarios() {
 		this.gerenteSessoes = gerenteSessoes;
@@ -38,10 +44,16 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		}
 
 	}
-
-	public int addComentario(String sessionId, String postId, String texto) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public Comentario GetComentario(String postId, int index) throws ArgumentInvalidException{
+		return gerenteDados.getGerentePosts().getPost(postId).getListaComentarios().get(index);
+	}
+	
+	public String addComentario(String sessionId, String postId, String texto) throws ArgumentInvalidException, UserInvalidException {
+		Comentario coment = new Comentario(texto);
+		gerenteDados.getGerentePosts().getPost(postId, sessionId).addComentario2(coment);
+		return coment.getId();
+		
 	}
 
 	@Override

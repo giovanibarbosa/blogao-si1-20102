@@ -77,6 +77,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs().get(index);
 	}
+	
+	public List<Blog> getBlogPorLogin(String login) throws UserInvalidException{
+		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		return user.getListaBlogs();
+	}
 
 	public int totalDeBlogsPorLogin(String login)
 			throws ArgumentInvalidException, FileNotFoundException,
