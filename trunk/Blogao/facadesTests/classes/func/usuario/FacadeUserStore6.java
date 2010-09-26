@@ -13,6 +13,7 @@ import persistencia.daos.EmailsDAO;
 import persistencia.daos.PostsDAO;
 import persistencia.daos.UsuariosDAO;
 import classes.Email;
+import classes.func.Data;
 import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.Login;
@@ -38,14 +39,6 @@ public class FacadeUserStore6 {
 		blogsDAO.limparBlogs();
 		emailsDAO.limparEmails();
 		postsDAO.limparPosts();
-	}
-	
-	//TODO RETORNA A DATA DE ATUAL.
-	public String todaysDate(){
-		Date data = new Date();  
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
-		return formatador.format(data);
-		
 	}
 	
 	//Armazenar no BD.
