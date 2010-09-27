@@ -71,15 +71,15 @@ public class FacadeBlogao {
         FacadeUserStore5 perfFac5 = new FacadeUserStore5();
         EasyAcceptFacade eaFacade5= new EasyAcceptFacade(perfFac5, files5);  
         eaFacade5.executeTests();
-//        
-//        FacadeUserStore6 perfFac6 = new FacadeUserStore6();
-//        EasyAcceptFacade eaFacade6= new EasyAcceptFacade(perfFac6, files6);  
-//        eaFacade6.executeTests();
-//        
-//        FacadeUserStore7 perfFac7 = new FacadeUserStore7();
-//        EasyAcceptFacade eaFacade7= new EasyAcceptFacade(perfFac7, files7);  
-//        eaFacade7.executeTests();
-//        
+        
+        FacadeUserStore6 perfFac6 = new FacadeUserStore6();
+        EasyAcceptFacade eaFacade6= new EasyAcceptFacade(perfFac6, files6);  
+        eaFacade6.executeTests();
+        
+        FacadeUserStore7 perfFac7 = new FacadeUserStore7();
+        EasyAcceptFacade eaFacade7= new EasyAcceptFacade(perfFac7, files7);  
+        eaFacade7.executeTests();
+        
         FacadeUserStore8 perfFac8 = new FacadeUserStore8();
         EasyAcceptFacade eaFacade8= new EasyAcceptFacade(perfFac8, files8);  
         eaFacade8.executeTests();
@@ -91,8 +91,8 @@ public class FacadeBlogao {
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
         System.out.println(eaFacade4.getCompleteResults()); //Resultados para a us4.txt
         System.out.println(eaFacade5.getCompleteResults());
-//        System.out.println(eaFacade6.getCompleteResults());
-//        System.out.println(eaFacade7.getCompleteResults());
+        System.out.println(eaFacade6.getCompleteResults());
+        System.out.println(eaFacade7.getCompleteResults());
         System.out.println(eaFacade8.getCompleteResults());
 	}
 
