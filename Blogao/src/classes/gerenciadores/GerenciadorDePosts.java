@@ -118,6 +118,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		return imagem.getId();
 	}
 
+	//TODO AQUI
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
@@ -277,7 +278,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post.getListaDeVideo().get(Integer.valueOf(index)).getId();
 	}
 
-	// TODO AQUI!
 
 	@Override
 	public void saveData() throws PersistenceException, IOException {
@@ -371,5 +371,31 @@ public class GerenciadorDePosts implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		postsDAO.limparPosts();
+	}
+
+	//TODO AQUI
+	public void mudarInformacaoDoPost(String sessionID, String postID,
+			String atributo, String novoTexto) throws ArgumentInvalidException
+					, PersistenceException, UserInvalidException {
+		System.out.println(listaPosts.size());
+		Post post = getPostPorId(postID);
+		
+		Blog blog = gerenteDados.getGerenteBlogs().getBlog(post.getIdBlogDono());
+		
+		
+		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionID);
+		
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				sessionID);
+		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		
+		user.removeBlog2(blog);
+		blog.removePost(post);
+		
+		post.setAtributo(atributo, novoTexto);
+		
+		blog.addPost(post);
+		user.addBlog2(blog);
+		
 	}
 }
