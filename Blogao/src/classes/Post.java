@@ -2,13 +2,11 @@ package classes;
 
 import interfaces.Constantes;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import classes.func.Data;
 import classes.func.multimidia.Audio;
@@ -17,7 +15,6 @@ import classes.func.multimidia.Video;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import persistencia.daos.ComentariosDAO;
 import persistencia.daos.PostsDAO;
 
 public class Post {
@@ -27,9 +24,10 @@ public class Post {
 	private String idBlogDono;
 
 	private List<Comentario> comentarios;
-	private List<Audio> listaDeAudio;
-	private List<Video> listaDeVideo;
-	private List<Imagem> listaDeImagem;
+	
+	private Map<String, Video> mapaVideos;
+	private Map<String, Audio> mapaAudio;
+	private Map<String, Imagem> mapaImagens;
 
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
@@ -56,9 +54,9 @@ public class Post {
 		setDataCriacao(new Data().todaysDate());
 		this.idBlogDono = idBlogDono;
 		comentarios = new ArrayList<Comentario>();
-		listaDeAudio = new ArrayList<Audio>();
-		listaDeVideo = new ArrayList<Video>();
-		listaDeImagem = new ArrayList<Imagem>();
+		mapaVideos = new HashMap<String, Video>();
+		mapaAudio = new HashMap<String, Audio>();
+		mapaImagens = new HashMap<String, Imagem>();
 	}
 	
 	private void setCorpo(String texto2) {
@@ -106,43 +104,43 @@ public class Post {
 	}
 	
 	/**
-	 * Classe que adiciona um audio a lista.
+	 * Classe que adiciona um audio ao mapa.
 	 * 
 	 * @param audio
 	 */
 	public void addAudio(Audio audio) {
-		if (!listaDeAudio.contains(audio))
-			listaDeAudio.add(audio);
+		if (!mapaAudio.containsValue(audio))
+			mapaAudio.put(audio.getId(),audio);
 	}
 
 	/**
-	 * Remove o audio da lista.
+	 * Remove o audio do mapa.
 	 * 
 	 * @param coment
 	 */
 	public void removeAudio(Audio audio) {
-		if (listaDeAudio.contains(audio))
-			listaDeAudio.remove(audio);
+		if (mapaAudio.containsValue(audio))
+			mapaAudio.remove(audio.getId());
 	}
 
 	public void addImagem(Imagem imagem) {
-		if (!listaDeImagem.contains(imagem))
-			listaDeImagem.add(imagem);
+		if (!mapaImagens.containsValue(imagem))
+			mapaImagens.put(imagem.getId(),imagem);
 	}
 	
 	public void removeImagem(Imagem imagem) {
-		if (listaDeImagem.contains(imagem))
-			listaDeImagem.remove(imagem);
+		if (mapaImagens.containsValue(imagem))
+			mapaImagens.remove(imagem.getId());
 	}
 	
 	public void addVideo(Video video) {
-		if (!listaDeVideo.contains(video))
-			listaDeVideo.add(video);
+		if (!mapaVideos.containsValue(video))
+			mapaVideos.put(video.getId(), video);
 	}
 	
 	public void removeVideo(Video video) {
-		if (listaDeVideo.contains(video))
-			listaDeVideo.remove(video);
+		if (mapaVideos.containsValue(video))
+			mapaVideos.remove(video);
 	}
 	
 	
@@ -308,7 +306,7 @@ public class Post {
 //	}
 
 	public List<Audio> getListaDeAudio() {
-		return listaDeAudio;
+		return (List<Audio>) mapaAudio.values();
 	}
 
 	public List<Video> getListaDeVideo() {
