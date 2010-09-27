@@ -12,6 +12,7 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.Blog;
+import classes.Post;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
 
@@ -294,10 +295,20 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	}
 
 	public void deleteBlog(String sessionId, String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
-		Blog blog = blogsDAO.recupera(blogId);
-		boolean apagou = listaDeBlogs.remove(blog);
-		if (!apagou)
-			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+		Blog blog = getBlog(blogId);
+		this.removeBlog(blog);
+		
+	}
+
+	private void removeBlog(Blog blog) {
+		for(String postId : blog.getListaDePostagens()){
+			gerenteDados.getGerentePosts().removePost(postId);
+		}
+		blog.setlistaDePosts(new ArrayList<String>());
+		for (Blog subBlog : blog.getListaSubBlogs()) {
+			removeBlog(subBlog);			
+		}
+		listaDeBlogs.remove(blog);
 	}
 
 }

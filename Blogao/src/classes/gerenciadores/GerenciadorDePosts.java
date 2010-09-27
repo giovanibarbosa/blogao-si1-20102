@@ -417,4 +417,13 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post.getListaComentarios().size();
 	}
 
+	public void removePost(String postId) {
+		for (Post post : listaPosts) {
+			if(post.getId().equals(postId)){
+				listaPosts.remove(post);
+				return;
+			}
+		}
+		
+	}
 }
