@@ -300,22 +300,20 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	public int recuperaTotalDeFilmesDoPost(String postID)
 			throws FileNotFoundException, PersistenceException {
-		Post postRecuperado = postsDAO.recupera(postID);
-		int totalDeFilme = 0;
-		for (Audio audio : postRecuperado.getListaDeAudio()) {
-			totalDeFilme++;
-		}
-		return totalDeFilme;
+		Post post = getPostPorId(postID);
+		return post.getListaDeVideo().size();
 	}
 
 	public int recuperaTotalDeImagensDoPost(String postID)
 			throws FileNotFoundException, PersistenceException {
-		Post postRecuperado = postsDAO.recupera(postID);
-		int totalDeImagens = 0;
-		for (Audio audio : postRecuperado.getListaDeAudio()) {
-			totalDeImagens++;
-		}
-		return totalDeImagens;
+		Post post = getPostPorId(postID);
+		return post.getListaDeImagem().size();
+	}
+
+	public int recuperaTotalDeAudiosDoPost(String postID)
+			throws FileNotFoundException, PersistenceException {
+		Post post = getPostPorId(postID);
+		return post.getListaDeAudio().size();
 	}
 
 	public int recuperaIDaudio(String postID, int index)
@@ -373,17 +371,15 @@ public class GerenciadorDePosts implements Gerenciador {
 		postsDAO.limparPosts();
 	}
 
-	
 	public void mudarInformacaoDoPost(String sessionID, String postID,
 			String atributo, String novoTexto) throws ArgumentInvalidException,
 			PersistenceException, UserInvalidException {
-		
 
 		Post post = getPostPorId(postID);
-		
+
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
-		
+
 		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionID);
 
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
@@ -392,12 +388,20 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		user.removeBlog2(blog);
 		blog.removePost(post);
-		
 
 		post.setAtributo(atributo, novoTexto);
 
 		blog.addPost(post);
 		user.addBlog2(blog);
+
+	}
+
+	public void deletaVideo(String sessionId, String idMovie) {
+		for (Post post : listaPosts) {
+			for (Video vid : post.getListaDeVideo())
+				if (vid.getId().equals(idMovie))
+					post.removeVideo(vid);
+		}
 
 	}
 }

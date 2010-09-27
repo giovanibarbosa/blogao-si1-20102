@@ -171,6 +171,9 @@ public class Post {
 
 	public void setAtributo(String atributo, String mudanca)
 			throws ArgumentInvalidException {
+		if (atributo == null) {
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+		}
 		int codigoAtributo = atributo.hashCode();
 		
 		switch (codigoAtributo) {
