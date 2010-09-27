@@ -69,7 +69,7 @@ public class FacadeUserStore8 {
 
 	// ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO
 	public String addComment(String sessionId, String postId, String texto)
-			throws ArgumentInvalidException, UserInvalidException {
+			throws ArgumentInvalidException, UserInvalidException, PersistenceException {
 		return gerenteDados.getGerenteComentarios().addComentario(sessionId,
 				postId, texto);
 	}
