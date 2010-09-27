@@ -142,5 +142,9 @@ public class Blog {
 	public static void main(String[] args) {
 		System.out.println("descricao".hashCode());
 	}
+	
+	public int getNumeroDePosts(){
+		return posts.size();
+	}
 
 }
