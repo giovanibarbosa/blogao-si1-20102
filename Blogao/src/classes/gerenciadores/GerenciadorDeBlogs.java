@@ -12,12 +12,8 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.Blog;
-import classes.Post;
-import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
-import persistencia.daos.PostsDAO;
-import persistencia.daos.UsuariosDAO;
 
 public class GerenciadorDeBlogs implements Gerenciador {
 
@@ -72,13 +68,14 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		}
 		return blog;
 	}
-	
-	public Blog getBlogPorLogin(String login, int index) throws UserInvalidException{
+
+	public Blog getBlogPorLogin(String login, int index)
+			throws UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs().get(index);
 	}
-	
-	public List<Blog> getBlogPorLogin(String login) throws UserInvalidException{
+
+	public List<Blog> getBlogPorLogin(String login) throws UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs();
 	}
@@ -105,7 +102,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public String recuperaIdBlogDesejado(String sessionID, int index)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException, UserInvalidException {
-		
+
 		int indexAtual = 0;
 		for (Blog blog : listaDeBlogs) {
 			if (blog.getIdSessao().equals(sessionID)) {
@@ -114,16 +111,15 @@ public class GerenciadorDeBlogs implements Gerenciador {
 				} else {
 					indexAtual++;
 				}
-				
+
 			}
 		}
 		throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
-		
-		
-//		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-//				sessionID);
-//		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-//		return user.getListaBlogs().get(index).getId();
+
+		// String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+		// sessionID);
+		// Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		// return user.getListaBlogs().get(index).getId();
 
 	}
 
@@ -132,10 +128,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			UserInvalidException, ArgumentInvalidException {
 		String idSession = String.valueOf(login.hashCode());
 		return recuperaIdBlogDesejado(idSession, index);
-		
-//		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-//		
-//		return user.getListaBlogs().get(index).getId();
+
+		// Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		//		
+		// return user.getListaBlogs().get(index).getId();
 	}
 
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
@@ -220,11 +216,12 @@ public class GerenciadorDeBlogs implements Gerenciador {
 
 	}
 
-	public void validaDonoBlog(Blog blog, String idSessao) throws ArgumentInvalidException {
+	public void validaDonoBlog(Blog blog, String idSessao)
+			throws ArgumentInvalidException {
 		if (!blog.getIdSessao().equals(idSessao)) {
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 		}
-		
+
 	}
 
 	public String getBlogInformation(String idBlog, String atributo)
@@ -284,15 +281,24 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		blogsDAO.limparBlogs();
 
 	}
-	
+
 	public List<String> getBlogPorNome(String match) {
 		List<String> listaBlog = new ArrayList<String>();
-		List<Blog> listAllBlogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
-		for(Blog blg : listAllBlogs){
-			if(blg.getTitulo().equals(match))
+		List<Blog> listAllBlogs = gerenteDados.getGerenteBlogs()
+				.getListaDeBlogs();
+		for (Blog blg : listAllBlogs) {
+			if (blg.getTitulo().equals(match))
 				listaBlog.add(blg.getId());
 		}
 		return listaBlog;
+	}
+
+	public void deleteBlog(String sessionId, String blogId) {
+		for (Blog blog : listaDeBlogs) {
+			if (blog.getIdSessao().equals(sessionId) && blog.getId().equals(blogId)) {
+				
+			}
+		}
 	}
 
 }
