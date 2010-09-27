@@ -73,7 +73,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
 
-		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
+		Post post = getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
 		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
@@ -98,7 +98,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
 
-		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
+		Post post =getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
 		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
@@ -123,7 +123,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
 
-		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
+		Post post = getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
 		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
@@ -361,7 +361,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	//
-	private Post getPostPorId(String idDoPost) throws PersistenceException {
+	public Post getPostPorId(String idDoPost) throws PersistenceException {
 		for (Post post : listaPosts) {
 			if (post.getId().equals(idDoPost)) {
 				return post;
@@ -468,4 +468,5 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 
 	}
+	
 }

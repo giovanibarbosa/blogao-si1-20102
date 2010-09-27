@@ -13,6 +13,8 @@ import persistencia.daos.ComentariosDAO;
 
 import classes.Blog;
 import classes.Comentario;
+import classes.Post;
+import classes.Sessao;
 import classes.func.usuario.Usuario;
 
 import interfaces.Gerenciador;
@@ -47,27 +49,39 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	}
 
-	//FIXME
-//	public Comentario GetComentario(String postId, int index)
-//			throws ArgumentInvalidException {
-//		return gerenteDados.getGerentePosts().getPost(postId)
-//				.getListaComentarios().get(index);
-//	}
+	// FIXME
+	// public Comentario GetComentario(String postId, int index)
+	// throws ArgumentInvalidException {
+	// return gerenteDados.getGerentePosts().getPost(postId)
+	// .getListaComentarios().get(index);
+	// }
 
-	//FIXME
-//	public String addComentario(String sessionId, String postId, String texto)
-//			throws ArgumentInvalidException, UserInvalidException {
-//		Comentario coment = new Comentario(texto);
-//		gerenteDados.getGerentePosts().getPost(postId, sessionId)
-//				.addComentario2(coment);
-//		return coment.getId();
-//
-//	}
+	// FIXME
+	// public String addComentario(String sessionId, String postId, String
+	// texto)
+	// throws ArgumentInvalidException, UserInvalidException {
+	// Comentario coment = new Comentario(texto);
+	// gerenteDados.getGerentePosts().getPost(postId, sessionId)
+	// .addComentario2(coment);
+	// return coment.getId();
+	//
+	// }
 
 	@Override
 	public void cleanPersistence() {
 		comentariosDAO.limparComentarios();
 
+	}
+
+	public String addComentario(String sessionId, String postId, String texto)
+			throws ArgumentInvalidException, PersistenceException {
+		gerenteDados.getGerenteSessoes().getSessao(sessionId);
+		
+		Comentario coment = new Comentario(sessionId, texto);
+		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
+		
+		post.addComentario2(coment);
+		return coment.getId();
 	}
 
 }

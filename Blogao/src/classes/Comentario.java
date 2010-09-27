@@ -14,7 +14,8 @@ import ourExceptions.ArgumentInvalidException;
 public class Comentario {
 
 	private String id;
-	private Texto corpoComentario;
+	private String idSessaoDono;
+	private String corpoComentario;
 
 	/**
 	 * Contrutor da classe Comentario. Recebe uma string como texto do
@@ -24,10 +25,15 @@ public class Comentario {
 	 *            corpo do Comentario
 	 * @throws ArgumentInvalidException 
 	 */
-	public Comentario(String corpo) throws ArgumentInvalidException {
-		corpoComentario = new Texto(corpo);
+	public Comentario(String idSessao, String corpo) throws ArgumentInvalidException {
+		corpoComentario = corpo;
+		idSessaoDono = idSessao;
 		setId(gerarId());
 
+	}
+
+	public String getIdSessaoDono() {
+		return idSessaoDono;
 	}
 
 	/**
@@ -42,7 +48,7 @@ public class Comentario {
 	/**
 	 * @return o texto relativo ao comentario.
 	 */
-	public Texto getCorpoComentario() {
+	public String getCorpoComentario() {
 		return corpoComentario;
 	}
 
