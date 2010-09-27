@@ -37,12 +37,12 @@ public class FacadeUserStore11 {
 	
 	//TODO METODO QUE DETELA O PROFILE DO USUARIO
 	public void deleteProfile(String sesionId){
-	
+		
 	}
 	
-	//TODO METODO QUE RETORNA O NUMERO DE POSTS DO BLOG.
-	public int getNumberOfPosts(String blogId){
-		return 0;
+	//METODO QUE RETORNA O NUMERO DE POSTS DO BLOG.
+	public int getNumberOfPosts(String blogId) throws ArgumentInvalidException{
+		return gerenteDados.getGerenteBlogs().getBlog(blogId).getNumeroDePosts();
 		
 	}
 	
