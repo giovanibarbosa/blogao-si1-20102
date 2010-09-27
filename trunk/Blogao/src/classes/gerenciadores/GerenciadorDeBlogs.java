@@ -93,28 +93,49 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public int totalDeBlogsPorSessao(String sessionID)
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionID);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		return user.getListaBlogs().size();
-
+		int cont = 0;
+		for (Blog blog : listaDeBlogs) {
+			if (blog.getIdSessao().equals(sessionID)) {
+				cont++;
+			}
+		}
+		return cont;
 	}
 
 	public String recuperaIdBlogDesejado(String sessionID, int index)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException, UserInvalidException {
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionID);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		return user.getListaBlogs().get(index).getId();
+		
+		int indexAtual = 0;
+		for (Blog blog : listaDeBlogs) {
+			if (blog.getIdSessao().equals(sessionID)) {
+				if (indexAtual == index) {
+					return blog.getId();
+				} else {
+					indexAtual++;
+				}
+				
+			}
+		}
+		throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+		
+		
+//		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+//				sessionID);
+//		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+//		return user.getListaBlogs().get(index).getId();
 
 	}
 
 	public String recuperaIdBlogPorLogin(String login, int index)
 			throws FileNotFoundException, PersistenceException,
-			UserInvalidException {
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		return user.getListaBlogs().get(index).getId();
+			UserInvalidException, ArgumentInvalidException {
+		String idSession = String.valueOf(login.hashCode());
+		return recuperaIdBlogDesejado(idSession, index);
+		
+//		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+//		
+//		return user.getListaBlogs().get(index).getId();
 	}
 
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
