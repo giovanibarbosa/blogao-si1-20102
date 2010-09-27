@@ -2,7 +2,6 @@ package classes;
 
 import interfaces.Constantes;
 
-import java.io.UnsupportedEncodingException;
 
 import ourExceptions.ArgumentInvalidException;
 
@@ -29,7 +28,7 @@ public class Email {
 	}
 
 	/**
-	 * Metodo que seta um email de um determinado usuario.
+	 * Metodo que seta um email de um determinado {@link Usuario}.
 	 * 
 	 * @param String
 	 *            email desejado
@@ -52,6 +51,11 @@ public class Email {
 		return email;
 	}
 	
+	/**
+	 * Metodo que verifica a igualdade entre objetos Blog.
+	 * @return True caso os objetos sejam iguais 
+	 */
+	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Email))
 			return false;
