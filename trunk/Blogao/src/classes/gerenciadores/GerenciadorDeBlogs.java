@@ -147,7 +147,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public String recuperaIdDoPost(String idBlog, int index)
 			throws NumberFormatException, FileNotFoundException,
 			PersistenceException, ArgumentInvalidException {
-		
 		return getBlog(idBlog).getListaDePostagens().get(index);
 	}
 
