@@ -324,5 +324,10 @@ public class Post {
 		Post post = (Post) obj;
 		return getId().equals(post.getId());
 	}
+	
+	@Override
+	public String toString(){
+		return this.id;
+	}
 
 }
