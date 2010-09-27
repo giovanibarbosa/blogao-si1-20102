@@ -147,4 +147,9 @@ public class Blog {
 		return posts.size();
 	}
 
+	public void setlistaDePosts(ArrayList<String> arrayList) {
+		this.posts = arrayList;
+		
+	}
+
 }
