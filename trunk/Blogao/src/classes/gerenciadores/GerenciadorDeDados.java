@@ -66,7 +66,7 @@ public class GerenciadorDeDados {
 	}
 	public void cleanPersistence(){
 		gerenteUsuarios.cleanPersistence();
-		//gerentePerfis.cleanPersistence();
+		gerentePerfis.cleanPersistence();
 		gerenteSessoes.cleanPersistence();
 		gerenteBlogs.cleanPersistence();
 		gerentePosts.cleanPersistence();
