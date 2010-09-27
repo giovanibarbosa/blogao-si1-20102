@@ -70,12 +70,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return blog;
 	}
 
-	public Blog getBlogPorLogin(String login, int index)
-			throws UserInvalidException {
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		return user.getListaBlogs().get(index);
-	}
-
 	public List<Blog> getBlogPorLogin(String login) throws UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		return user.getListaBlogs();
