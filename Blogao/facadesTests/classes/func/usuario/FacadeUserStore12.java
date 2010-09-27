@@ -8,7 +8,9 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.gerenciadores.GerenciadorDeDados;
-
+/**
+ * @author Tiago
+ */
 public class FacadeUserStore12 {
 	
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
@@ -38,21 +40,20 @@ public class FacadeUserStore12 {
 
 	}
 	
-	//TODO METODO QUE BUSCA O PERFIL PELO NOME(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
+	//METODO QUE BUSCA O PERFIL PELO NOME(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
 	public List<String> findProfileByName(String match){
-		return null;
+		return gerenteDados.getGerentePerfis().getPerfilPorNome(match);
 	}
 	
 	
-	//TODO METODO QUE BUSCA O PERFIL PELO INTERESSE(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
+	//METODO QUE BUSCA O PERFIL PELO INTERESSE(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
 	public List<String> findProfileByInterests(String match){
-		return null;
+		return gerenteDados.getGerentePerfis().getPerfilPorInteresse(match);
 	}
 	
-	//TODO METODO QUE BUSCA O PERFIL PELO SEXO(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
-	//caso o sexo seja 'nao informado' retorna todos os usuarios.
+	//METODO QUE BUSCA O PERFIL PELO SEXO(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
 	public List<String> findProfileByGender(String match){
-		return null;	
+		return gerenteDados.getGerentePerfis().getPerfilPorSexo(match);
 	}
 	
 	// CRIA O BLOG
@@ -64,9 +65,9 @@ public class FacadeUserStore12 {
 				descricao);
 	}
 	
-	//TODO METODO QUE BUSCA BLOGS PELO NOME(MATCH) E RETORNA A LISTA DE NOMES DOS BLOGS
+	//METODO QUE BUSCA BLOGS PELO NOME(MATCH) E RETORNA A LISTA DE NOMES DOS BLOGS
 	public List<String> findBlogByName(String match){
-		return null;
+		return gerenteDados.getGerenteBlogs().getBlogPorNome(match);
 	}
 	
 	//CRIA O POST

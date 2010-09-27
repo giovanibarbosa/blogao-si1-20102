@@ -9,6 +9,9 @@ import ourExceptions.UserInvalidException;
 
 import classes.gerenciadores.GerenciadorDeDados;
 
+/**
+ * @author Tiago
+ */
 public class FacadeUserStore11 {
 	
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
