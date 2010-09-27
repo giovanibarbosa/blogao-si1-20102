@@ -26,13 +26,6 @@ import classes.Comentario;
 public class FacadeUserStore8 {
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
-//	public FacadeUserStore8() {
-//		gerenteSessoes = new GerenciadorDeSessoes();
-//		gerenteComentarios = new GerenciadorDeComentarios();
-//		gerentePerfis = new GerenciadorDePerfis();
-//		gerentePosts = new GerenciadorDePosts();
-//	}
-
 	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() throws FileNotFoundException {
 		gerenteDados.loadData();
@@ -64,8 +57,8 @@ public class FacadeUserStore8 {
 	}
 
 	//RETORNA O ID DO POST DADO O ID DO BLOG E O INDICE.
-	public String getPost(String blogId, int index) throws ArgumentInvalidException {
-		return gerenteDados.getGerentePosts().getPostPorBlog(blogId, index).getId();
+	public String getPost(String blogId, int index) throws ArgumentInvalidException, NumberFormatException, FileNotFoundException, PersistenceException {
+		return gerenteDados.getGerenteBlogs().recuperaIdDoPost(blogId, index);
 	}
 
 	//ADICIONA UM COMENTARIO. o RETORNO DO METODO E O ID DO COMENTARIO

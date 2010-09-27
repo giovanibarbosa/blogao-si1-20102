@@ -15,6 +15,7 @@ import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Video;
 import classes.func.usuario.Usuario;
+import classes.Comentario;
 import classes.Post;
 import classes.Blog;
 
@@ -396,12 +397,24 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	}
 
-	public void deletaVideo(String sessionId, String idMovie) {
+	public void deletaVideo(String sessionId, String idMovie) throws ArgumentInvalidException, UserInvalidException {
 		for (Post post : listaPosts) {
 			for (Video vid : post.getListaDeVideo())
 				if (vid.getId().equals(idMovie))
 					post.removeVideo(vid);
 		}
+		
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				sessionId);
+		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		
+		
 
 	}
+
+	public int getNumberOfComments(String postId) throws PersistenceException {
+		Post post = getPostPorId(postId);
+		return post.getListaComentarios().size();
+	}
+
 }
