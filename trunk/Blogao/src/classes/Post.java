@@ -28,6 +28,11 @@ public class Post {
 	private Map<String, Video> mapaVideos;
 	private Map<String, Audio> mapaAudio;
 	private Map<String, Imagem> mapaImagens;
+	
+	private List<String> listaIDsVideos;
+	private List<String> listaIDsAudios;
+	private List<String> listaIDsImagens;
+	
 
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
@@ -57,6 +62,9 @@ public class Post {
 		mapaVideos = new HashMap<String, Video>();
 		mapaAudio = new HashMap<String, Audio>();
 		mapaImagens = new HashMap<String, Imagem>();
+		listaIDsVideos = new ArrayList<String>();
+		listaIDsAudios = new ArrayList<String>();
+		listaIDsImagens = new ArrayList<String>();
 	}
 	
 	private void setCorpo(String texto2) {
@@ -109,8 +117,10 @@ public class Post {
 	 * @param audio
 	 */
 	public void addAudio(Audio audio) {
-		if (!mapaAudio.containsValue(audio))
+		if (!mapaAudio.containsValue(audio)){
 			mapaAudio.put(audio.getId(),audio);
+			listaIDsAudios.add(audio.getId());
+		}
 	}
 
 	/**
@@ -119,28 +129,38 @@ public class Post {
 	 * @param coment
 	 */
 	public void removeAudio(Audio audio) {
-		if (mapaAudio.containsValue(audio))
+		if (mapaAudio.containsValue(audio)){
 			mapaAudio.remove(audio.getId());
+			listaIDsAudios.remove(audio.getId());
+		}
 	}
 
 	public void addImagem(Imagem imagem) {
-		if (!mapaImagens.containsValue(imagem))
+		if (!mapaImagens.containsValue(imagem)){
 			mapaImagens.put(imagem.getId(),imagem);
+			listaIDsImagens.add(imagem.getId());
+		}
 	}
 	
 	public void removeImagem(Imagem imagem) {
-		if (mapaImagens.containsValue(imagem))
+		if (mapaImagens.containsValue(imagem)){
 			mapaImagens.remove(imagem.getId());
+			listaIDsImagens.remove(imagem.getId());
+		}
 	}
 	
 	public void addVideo(Video video) {
-		if (!mapaVideos.containsValue(video))
+		if (!mapaVideos.containsValue(video)){
 			mapaVideos.put(video.getId(), video);
+			listaIDsVideos.add(video.getId());
+		}
 	}
 	
 	public void removeVideo(Video video) {
-		if (mapaVideos.containsValue(video))
+		if (mapaVideos.containsValue(video)){
 			mapaVideos.remove(video);
+			listaIDsVideos.add(video.getId());
+		}
 	}
 	
 	
@@ -306,14 +326,26 @@ public class Post {
 //	}
 
 	public List<Audio> getListaDeAudio() {
-		return (List<Audio>) mapaAudio.values();
+		List<Audio> listaDeAudio = new ArrayList<Audio>();
+		for (String audioID : listaIDsAudios) {
+			listaDeAudio.add(mapaAudio.get(audioID));
+		}
+		return listaDeAudio;
 	}
 
 	public List<Video> getListaDeVideo() {
+		List<Video> listaDeVideo = new ArrayList<Video>();
+		for (String videoID : listaIDsVideos) {
+			listaDeVideo.add(mapaVideos.get(videoID));
+		}
 		return listaDeVideo;
 	}
 
 	public List<Imagem> getListaDeImagem() {
+		List<Imagem> listaDeImagem = new ArrayList<Imagem>();
+		for (String imagemID : listaIDsImagens) {
+			listaDeImagem.add(mapaImagens.get(imagemID));
+		}
 		return listaDeImagem;
 	}
 

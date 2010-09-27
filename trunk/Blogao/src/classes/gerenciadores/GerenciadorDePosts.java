@@ -119,7 +119,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		return imagem.getId();
 	}
 
-	// TODO AQUI
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
@@ -319,7 +318,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	public int recuperaIDaudio(String postID, int index)
 			throws FileNotFoundException, PersistenceException {
-		Post postRecuperado = postsDAO.recupera(postID);
+		Post postRecuperado = getPostPorId(postID);
 		return Integer.valueOf(postRecuperado.getListaDeAudio().get(index)
 				.getId());
 
@@ -327,7 +326,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	public int recuperaIDvideo(String postID, int index)
 			throws FileNotFoundException, PersistenceException {
-		Post postRecuperado = postsDAO.recupera(postID);
+		Post postRecuperado = getPostPorId(postID);
 		return Integer.valueOf(postRecuperado.getListaDeVideo().get(index)
 				.getId());
 
@@ -335,7 +334,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	public int recuperaIDimagem(String postID, int index)
 			throws FileNotFoundException, PersistenceException {
-		Post postRecuperado = postsDAO.recupera(postID);
+		Post postRecuperado = getPostPorId(postID);
 		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index)
 				.getId());
 	}
