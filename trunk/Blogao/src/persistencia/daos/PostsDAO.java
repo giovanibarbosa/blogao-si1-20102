@@ -55,7 +55,6 @@ public class PostsDAO {
 	public void criar(Post post) throws PersistenceException, IOException {
 		if (post == null)
 			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_CRIADO);
-		post.setId(geraId());
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		xstream.toXML(post, new FileOutputStream(file));
 	}
