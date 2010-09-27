@@ -1,53 +1,90 @@
 package classes.func.usuario;
 
+import java.io.IOException;
+
+import ourExceptions.PersistenceException;
+import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeComentarios;
+import classes.gerenciadores.GerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDePerfis;
+import classes.gerenciadores.GerenciadorDePosts;
+import classes.gerenciadores.GerenciadorDeSessoes;
+
 public class FacadeUserStore13 {
-	#Limpa quaisquer dados pre-existentes
-	cleanPersistence
+	private GerenciadorDeSessoes gerenteSessoes;
+	private GerenciadorDeComentarios gerenteComentarios;
+	private GerenciadorDePerfis gerentePerfis;
+	private GerenciadorDeBlogs gerenteBlogs;
+	private GerenciadorDePosts gerentePosts;
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
-	#Cria tres usuário
-	createProfile login=sicrano senha=senhona nome_exibicao= email=sicrano@gmail.com sexo=Masculino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="ping pong, paraquedismo" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
-	createProfile login=mariasilva senha=qwe2 nome_exibicao="Maria Silva" email=maria@gmail.com sexo=Feminino dataNasc=01/01/1980 endereco="Rua das cocadas" interesses="assasinatos em série" quem_sou_eu="E... boa pergunta!" filmes="e o vento levou" musicas=MPB livros="poeira em alto mar"
-	createProfile login=zefina senha=123456 nome_exibicao= email=zef@gmail.com sexo="Não informado" dataNasc=01/01/1980 endereco= interesses="seriados" quem_sou_eu= filmes= musicas= livros=
+	public FacadeUserStore13() {
+		gerenteSessoes = new GerenciadorDeSessoes();
+		gerenteComentarios = new GerenciadorDeComentarios();
+		gerentePerfis = new GerenciadorDePerfis();
+		gerentePosts = new GerenciadorDePosts();
+	}
+	
+	//Limpa quaisquer dados pre-existentes
+	public void cleanPersistence() {
+		gerenteDados.cleanPersistence();
+	}
 
-	sessionId1=logon login=sicrano senha=senhona
-	sessionId2=logon login=mariasilva senha=qwe2
-	sessionId3=logon login=zefina senha=123456
+	//Cria tres usuários
+	public void createProfile(String login, String senha, String nome_exibicao, String email, String sexo, String dataNasc, String endereco, String interesses, String quem_sou_eu, String filmes, String musicas) {
+		gerenteDados.getGerentePerfis().createProfile(login, senha,
+				nome_exibicao, email, sexo, dataNasc, endereco, interesses,
+				quem_sou_eu, filmes, musicas, livros);
+	}
+	
+	public String logon(String login, String senha) {
+		gerenteSessoes.logon(login, senha);
+	}
+	
+	public String getNumberOfAnnouncements(String sessionId) {
+		
+	}
 
-	expect 0 getNumberOfAnnouncements sessionId=${sessionId2}
+	public String createBlog(String sessionId, String titulo, String descricao) {
+		gerenteBlogs.createBlog(idSessao, titulo, descricao);
+	}
+	
+	public String createPost(String sessionId, String blogId, String titulo, String texto) {
+		gerentePosts.createPost(idSessao, blogId, titulo, texto);
+	}
 
-	blogId1=createBlog sessionId=${sessionId1} titulo="Meu primeiro blog" descricao="Quidquid latine dictum sit, altum viditur"
-
-	postId1=createPost sessionId=${sessionId1} blogId=${blogId1} titulo="Meu primeiro post" texto=
-
-	expect 0 getNumberOfAnnouncements sessionId=${sessionId2}
-
-	#Adiciona um notificador para novos posts
-	addPostAnnouncements sessionId=${sessionId2} blogId=${blogId1}
-
-	postId2=createPost sessionId=${sessionId1} blogId=${blogId1} titulo="Meu segundo post" texto=
-
-	expect 1 getNumberOfAnnouncements sessionId=${sessionId2}
-
-	announcementId1=getAnnouncement sessionId=${sessionId2} index=0
-	expect ${postId2} getPostJustCreated announcementId=${announcementId1}
-
-	expectError "Sessão inválida" getAnnouncement sessionId= index=0
-	expectError "Sessão inválida" getAnnouncement sessionId="" index=0
-	expectError "Índice inválido" getAnnouncement sessionId=${sessionId2} index=-1
-
-
-	deleteAnnouncement sessionId=${sessionId2} announcementId=${announcementId1}
-
-
-	expect 0 getNumberOfAnnouncements sessionId=${sessionId2}
+	//Adiciona um notificador para novos posts
+	public void addPostAnnouncements(String sessionId, String blogId) {
+		
+	}
 
 
-	#Desloga usuarios
-	logoff sessionId=${sessionId1}
-	logoff sessionId=${sessionId2}
-	logoff sessionId=${sessionId3}
+	public String getAnnouncement(String sessionId, String index) {
+		
+	}
+	
+	public String getPostJustCreated(String announcementId) {
+		
+	}
 
-	#Salva os dados de forma permanente
-	saveData
+	public void deleteAnnouncement(String sessionId, String announcementId) {
+		
+	}
+
+
+	public String getNumberOfAnnouncements(String sessionId) {
+		
+	}
+
+
+	//Desloga usuarios
+	public void logoff(String sessionId) {
+		gerenteSessoes.logoff(sessionId);
+	}
+
+	//Salva os dados de forma permanente
+	public void saveData() throws PersistenceException, IOException {
+		gerenteDados.saveData();
+	}
 
 }
