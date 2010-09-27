@@ -16,6 +16,7 @@ import classes.func.usuario.Usuario;
 import classes.Login;
 import classes.Senha;
 import classes.Email;
+import enuns.Sexo;
 
 public class GerenciadorDePerfis implements Gerenciador {
 	
@@ -141,6 +142,42 @@ public class GerenciadorDePerfis implements Gerenciador {
 		} 
 		
 		
+	}
+	
+	public List<String> getPerfilPorNome(String nome){
+		List<String> listaPerfil = new ArrayList();
+		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
+		for(Perfil pf : listAllProfiles){
+			if(pf.getNomeDeExibicao().equals(nome))
+				listaPerfil.add(pf.getNomeDeExibicao());
+		}
+		return listaPerfil;
+	}
+
+	public List<String> getPerfilPorInteresse(String interesse) {
+		List<String> listaPerfil = new ArrayList();
+		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
+		for(Perfil pf : listAllProfiles){
+			if(pf.getInteresses().equals(interesse))
+				listaPerfil.add(pf.getNomeDeExibicao());
+		}
+		return listaPerfil;
+	}
+
+	public List<String> getPerfilPorSexo(String sexo) {
+		List<String> listaPerfil = new ArrayList();
+		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
+		if(sexo.equals(Sexo.Nao_Inf)){
+			for(Perfil pf : listAllProfiles){
+				listaPerfil.add(pf.getNomeDeExibicao());
+			}
+		}else{
+			for(Perfil pf : listAllProfiles){
+				if(pf.getSexo().equals(sexo))
+					listaPerfil.add(pf.getNomeDeExibicao());
+			}
+		}
+		return listaPerfil;
 	}
 	
 	
