@@ -186,4 +186,9 @@ public class Blog {
 		return getId().equals(outra.getId());
 	}
 
+	public void setlistaDePosts(ArrayList<String> listaDePosts) {
+		posts = listaDePosts;
+		
+	}
+
 }
