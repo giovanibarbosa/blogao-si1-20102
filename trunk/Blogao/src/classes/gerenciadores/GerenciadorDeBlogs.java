@@ -284,6 +284,15 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		blogsDAO.limparBlogs();
 
 	}
-
+	
+	public List<String> getBlogPorNome(String match) {
+		List<String> listaBlog = new ArrayList<String>();
+		List<Blog> listAllBlogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
+		for(Blog blg : listAllBlogs){
+			if(blg.getTitulo().equals(match))
+				listaBlog.add(blg.getId());
+		}
+		return listaBlog;
+	}
 
 }
