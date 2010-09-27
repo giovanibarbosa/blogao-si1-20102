@@ -294,8 +294,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	}
 
 	public void deleteBlog(String sessionId, String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
-		Blog blog = getBlog(blogId, sessionId);
-		listaDeBlogs.remove(blog);
+		Blog blog = blogsDAO.recupera(blogId);
+		boolean apagou = listaDeBlogs.remove(blog);
+		if (!apagou)
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 	}
 
 }
