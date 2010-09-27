@@ -21,7 +21,6 @@ import persistencia.daos.ComentariosDAO;
 import persistencia.daos.PostsDAO;
 
 public class Post {
-	private Texto post;
 	private String id;
 	private String blogRaiz;
 	private String dataCriacao;
@@ -36,9 +35,13 @@ public class Post {
 	private static final int TITULO = -873444423;
 
 	private String titulo;
-	private String texto;
+	private String corpo;
 	
 	
+	public String getCorpo() {
+		return corpo;
+	}
+
 	/**
 	 * Construtor da classe Post, que recebe como parametro o texto do post.
 	 * 
@@ -46,9 +49,9 @@ public class Post {
 	 * @throws ArgumentInvalidException
 	 */
 	
-	public Post(String titulo, String texto, String idBlogDono) throws ArgumentInvalidException {
+	public Post(String titulo, String corpo, String idBlogDono) throws ArgumentInvalidException {
 		setTitulo(titulo);
-		setTexto(texto);
+		setCorpo(corpo);
 		this.id = gerarId();
 		setDataCriacao(new Data().todaysDate());
 		this.idBlogDono = idBlogDono;
@@ -58,6 +61,11 @@ public class Post {
 		listaDeImagem = new ArrayList<Imagem>();
 	}
 	
+	private void setCorpo(String texto2) {
+		this.corpo = texto2;
+		
+	}
+
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
 		if (titulo == null || titulo.trim().equals("")) {
 			throw new ArgumentInvalidException(Constantes.TITULO_OBRIGATORIO);
@@ -65,16 +73,8 @@ public class Post {
 		this.titulo = titulo;
 	}
 	
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-	
 	public String getTitulo() {
 		return titulo;
-	}
-	
-	public String getText() {
-		return texto;
 	}
 	
 	public String getDataCriacao() {
@@ -172,13 +172,15 @@ public class Post {
 	public void setAtributo(String atributo, String mudanca)
 			throws ArgumentInvalidException {
 		int codigoAtributo = atributo.hashCode();
-
+		
 		switch (codigoAtributo) {
 
 		case (TEXTO):
-			this.getTexto().setCorpo(mudanca);
+			this.setCorpo(mudanca);
+			break;
 		case (TITULO):
-			this.getTexto().setTitulo(mudanca);
+			this.setTitulo(mudanca);
+			break;
 		default:
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		}
@@ -277,10 +279,6 @@ public class Post {
 	 */
 	public String getId() {
 		return id;
-	}
-
-	public Texto getTexto() {
-		return this.post;
 	}
 
 	/**

@@ -118,7 +118,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		return imagem.getId();
 	}
 
-	//TODO AQUI
+	// TODO AQUI
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
@@ -160,7 +160,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				retorno = post.getTitulo();
 				break;
 			case TEXTO:
-				retorno = post.getText();
+				retorno = post.getCorpo();
 				break;
 			case DATA_CRIACAO:
 				retorno = post.getDataCriacao();
@@ -244,7 +244,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
 
-	public String getImagem(String id, String index) throws PersistenceException {
+	public String getImagem(String id, String index)
+			throws PersistenceException {
 		Post post = getPostPorId(id);
 		return post.getListaDeImagem().get(Integer.valueOf(index)).getId();
 	}
@@ -277,7 +278,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(id);
 		return post.getListaDeVideo().get(Integer.valueOf(index)).getId();
 	}
-
 
 	@Override
 	public void saveData() throws PersistenceException, IOException {
@@ -373,31 +373,31 @@ public class GerenciadorDePosts implements Gerenciador {
 		postsDAO.limparPosts();
 	}
 
-	//TODO AQUI
+	
 	public void mudarInformacaoDoPost(String sessionID, String postID,
-			String atributo, String novoTexto) throws ArgumentInvalidException
-					, PersistenceException, UserInvalidException {
-		for(Post post : listaPosts){
-			System.out.println(post.getId());
-		}
+			String atributo, String novoTexto) throws ArgumentInvalidException,
+			PersistenceException, UserInvalidException {
+		
+
 		Post post = getPostPorId(postID);
 		
-		Blog blog = gerenteDados.getGerenteBlogs().getBlog(post.getIdBlogDono());
-		
+		Blog blog = gerenteDados.getGerenteBlogs()
+				.getBlog(post.getIdBlogDono());
 		
 		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionID);
-		
+
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
 				sessionID);
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		
+
 		user.removeBlog2(blog);
 		blog.removePost(post);
 		
+
 		post.setAtributo(atributo, novoTexto);
-		
+
 		blog.addPost(post);
 		user.addBlog2(blog);
-		
+
 	}
 }
