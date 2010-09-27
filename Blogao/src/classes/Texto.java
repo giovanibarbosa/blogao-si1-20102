@@ -1,6 +1,5 @@
 package classes;
 
-import java.io.UnsupportedEncodingException;
 
 import ourExceptions.ArgumentInvalidException;
 
