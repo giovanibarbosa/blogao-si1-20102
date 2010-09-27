@@ -13,6 +13,11 @@ import classes.gerenciadores.GerenciadorDePerfis;
 import classes.gerenciadores.GerenciadorDePosts;
 import classes.gerenciadores.GerenciadorDeSessoes;
 
+/**
+ * 
+ * @author Giovani Barbosa
+ *
+ */
 public class FacadeUserStore10 {
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 	
