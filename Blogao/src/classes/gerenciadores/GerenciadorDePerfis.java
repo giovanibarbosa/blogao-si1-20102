@@ -76,10 +76,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 
 	@Override
-	public void saveData() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void saveData() {}
 
 
 	@Override

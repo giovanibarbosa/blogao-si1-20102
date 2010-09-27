@@ -6,20 +6,16 @@ import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.Comentario;
 import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 
 import persistencia.daos.SessoesDAO;
-import persistencia.daos.UsuariosDAO;
 
 /**
  * Classe para gerenciamento de sessoes no blogao
@@ -69,6 +65,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	}
 
 	// METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
+	@SuppressWarnings("unused")
 	public boolean isUserLogged(String login) throws PersistenceException,
 			FileNotFoundException, ArgumentInvalidException,
 			UserInvalidException {

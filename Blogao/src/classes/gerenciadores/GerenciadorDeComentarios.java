@@ -47,20 +47,22 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	}
 
-	public Comentario GetComentario(String postId, int index)
-			throws ArgumentInvalidException {
-		return gerenteDados.getGerentePosts().getPost(postId)
-				.getListaComentarios().get(index);
-	}
+	//FIXME
+//	public Comentario GetComentario(String postId, int index)
+//			throws ArgumentInvalidException {
+//		return gerenteDados.getGerentePosts().getPost(postId)
+//				.getListaComentarios().get(index);
+//	}
 
-	public String addComentario(String sessionId, String postId, String texto)
-			throws ArgumentInvalidException, UserInvalidException {
-		Comentario coment = new Comentario(texto);
-		gerenteDados.getGerentePosts().getPost(postId, sessionId)
-				.addComentario2(coment);
-		return coment.getId();
-
-	}
+	//FIXME
+//	public String addComentario(String sessionId, String postId, String texto)
+//			throws ArgumentInvalidException, UserInvalidException {
+//		Comentario coment = new Comentario(texto);
+//		gerenteDados.getGerentePosts().getPost(postId, sessionId)
+//				.addComentario2(coment);
+//		return coment.getId();
+//
+//	}
 
 	@Override
 	public void cleanPersistence() {
