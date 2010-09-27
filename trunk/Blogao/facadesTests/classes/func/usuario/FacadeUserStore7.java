@@ -87,9 +87,6 @@ public class FacadeUserStore7 {
 		return gerenteDados.getGerenteBlogs().recuperaIdDoPost(blogID, index);
 	}
 
-	// FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	// #o metodo changePostInformation sera responsavel por alterar apenas a
-	// parte textual de um post.
 	public void changePostInformation(String sessionID, String postID,
 			String atributo, String novoTexto) throws FileNotFoundException,
 			ArgumentInvalidException, PersistenceException, UserInvalidException {
@@ -97,6 +94,15 @@ public class FacadeUserStore7 {
 		gerenteDados.getGerentePosts().mudarInformacaoDoPost(sessionID, postID,
 				atributo, novoTexto);
 	}
+	
+	// FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+	public void deleteMovie(String sessionID, String idMovie)
+			throws FileNotFoundException, PersistenceException,
+			ArgumentInvalidException {
+		
+		gerenteDados.getGerentePosts().deletaVideo(sessionID, idMovie);
+
+ }
 
 	// // FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	// public int getPost(String blogID, int index) throws
