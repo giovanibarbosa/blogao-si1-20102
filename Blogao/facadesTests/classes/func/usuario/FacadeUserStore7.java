@@ -98,7 +98,7 @@ public class FacadeUserStore7 {
 	// FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public void deleteMovie(String sessionID, String idMovie)
 			throws FileNotFoundException, PersistenceException,
-			ArgumentInvalidException {
+			ArgumentInvalidException, UserInvalidException {
 		
 		gerenteDados.getGerentePosts().deletaVideo(sessionID, idMovie);
 
