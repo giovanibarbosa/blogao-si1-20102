@@ -77,20 +77,20 @@ public class FacadeUserStore8 {
 	}
 
 //	// TODO RETORNA O TEXTO DO COMETARIO.
-//	public String getCommentText(String idComentario) {
-//		return gerenteDados.getGerenteComentarios()
-//	}
+	public String getCommentText(String idComentario) {
+		return gerenteDados.getGerenteComentarios()
+	}
 
-//	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
-//	public String getCommentAuthor(String idComentario) {
-//		return null;
-//	}
-//	
-//	public void logoff(String idSessao) throws ArgumentInvalidException{
-//		gerenteSessoes.logoff(idSessao);
-//	}
-//	
-//	public void saveData() throws PersistenceException, IOException{
-//		gerenteDados.saveData();
-//	}
+	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
+	public String getCommentAuthor(String idComentario) {
+		return null;
+	}
+	
+	public void logoff(String idSessao) throws ArgumentInvalidException{
+		gerenteDados.getGerenteSessoes().logoff(idSessao);
+	}
+	
+	public void saveData() throws PersistenceException, IOException{
+		gerenteDados.saveData();
+	}
 }
