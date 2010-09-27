@@ -48,7 +48,7 @@ public class FacadeUserStore9 {
 	
 	//TODO RETORNA O TEXTO DO COMETARIO.
 	public String getCommentText(String idComentario){
-		return null;
+		gerenteDados.getGerenteComentarios().
 	}
 	
 	//TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
