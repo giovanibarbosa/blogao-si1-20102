@@ -100,7 +100,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	@Override
 	public void cleanPersistence() {
-		// TODO Auto-generated method stub
+		listaPerfis = new ArrayList<Perfil>();
 		
 	}
 	
