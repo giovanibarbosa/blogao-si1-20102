@@ -20,10 +20,8 @@ public class Blog {
 	private String descricao;
 	private String idSessao;
 	private List<Blog> listaSubBlogs;
-	private BlogsDAO blogDao = BlogsDAO.getInstance();
-	private ComentariosDAO cmtDAO = ComentariosDAO.getInstance();
 
-	private List<Post> posts;
+	private List<String> posts;
 
 
 
@@ -36,7 +34,7 @@ public class Blog {
 			this.listaSubBlogs = new ArrayList<Blog>();
 			this.idSessao = idSessao;
 			this.setId(gerarId());
-			posts = new ArrayList<Post>();
+			posts = new ArrayList<String>();
 
 		} else {
 			throw new ArgumentInvalidException(Constantes.ESPECIFICA_TITULO);
@@ -75,22 +73,6 @@ public class Blog {
 
 	public List<Post> listaDePosts() {
 		return null;
-
-	}
-
-	
-
-	/**
-	 * Metodo responsavel pela exclusao do blog;
-	 * 
-	 * @throws PersistenceException
-	 */
-	public void deleta() throws PersistenceException {
-		try {
-			blogDao.deletar(this);
-		} catch (PersistenceException e) {
-			throw e;
-		}
 
 	}
 
@@ -138,23 +120,18 @@ public class Blog {
 		listaSubBlogs.add(subblog);
 	}
 
-	public void removeSubBlog(Blog subblog) throws PersistenceException {
-		blogDao.deletar(subblog);
-		listaSubBlogs.remove(subblog);
-	}
-
 	@Override
 	public String toString() {
 		return getId();
 	}
 
-	public List<Post> getListaDePostagens() {
+	public List<String> getListaDePostagens() {
 		return posts;
 	}
 
 	public void addPost(Post post) {
-		if (!posts.contains(post))
-			posts.add(post);
+		if (!posts.contains(post.getId()))
+			posts.add(post.getId());
 	}
 
 	public void removePost(Post post) {
