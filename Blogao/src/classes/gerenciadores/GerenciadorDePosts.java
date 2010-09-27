@@ -377,7 +377,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	public void mudarInformacaoDoPost(String sessionID, String postID,
 			String atributo, String novoTexto) throws ArgumentInvalidException
 					, PersistenceException, UserInvalidException {
-		System.out.println(listaPosts.size());
+		for(Post post : listaPosts){
+			System.out.println(post.getId());
+		}
 		Post post = getPostPorId(postID);
 		
 		Blog blog = gerenteDados.getGerenteBlogs().getBlog(post.getIdBlogDono());

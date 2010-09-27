@@ -89,8 +89,8 @@ public class FacadeBlogao {
         
         //Testes para a us10.txt  
         FacadeUserStore10 perfFac10 = new FacadeUserStore10();
-        EasyAcceptFacade eaFacade10= new EasyAcceptFacade(perfFac5, files5);  
-        eaFacade5.executeTests();
+        EasyAcceptFacade eaFacade10= new EasyAcceptFacade(perfFac10, files10);  
+        eaFacade10.executeTests();
         
         System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
