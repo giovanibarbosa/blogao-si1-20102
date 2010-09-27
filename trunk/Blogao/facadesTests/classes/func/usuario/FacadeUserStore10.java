@@ -43,7 +43,7 @@ public class FacadeUserStore10 {
 		return gerenteDados.getGerentePosts().createPost(sessionId, blogId, titulo, texto);
 	}
 
-	public void deleteBlog(String sessionId, String blogId) {
+	public void deleteBlog(String sessionId, String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
 		gerenteDados.getGerenteBlogs().deleteBlog(sessionId, blogId);
 	}
 
