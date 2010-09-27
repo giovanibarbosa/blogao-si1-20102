@@ -34,7 +34,7 @@ public class FacadeUserStore10 {
 
 	//RETORNA O ID DO BLOG DADO O LOGIN DO USUARIO E O INDICE.
 	public String getBlogByLogin(String login, int index) throws
-				FileNotFoundException, PersistenceException, UserInvalidException {
+				FileNotFoundException, PersistenceException, UserInvalidException, ArgumentInvalidException {
 		return gerenteDados.getGerenteBlogs().recuperaIdBlogPorLogin(login, index);
 
 	}
