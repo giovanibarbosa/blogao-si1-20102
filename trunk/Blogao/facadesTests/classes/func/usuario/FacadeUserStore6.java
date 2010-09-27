@@ -110,8 +110,8 @@ public class FacadeUserStore6 {
 		return String.valueOf(gerenteDados.getGerentePosts().getNumeroDeImagens(id));
 	}
 
-	public String getSound(String id, String index)
-			throws FileNotFoundException, PersistenceException {
+	public String getSound(String id, int index)
+			throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
 		return gerenteDados.getGerentePosts().getSom(id, index);
 	}
 
@@ -124,7 +124,7 @@ public class FacadeUserStore6 {
 		return gerenteDados.getGerentePosts().getDadoDoSom(audioId);
 	}
 
-	public String getMovie(String id, String index)
+	public String getMovie(String id, int index)
 			throws FileNotFoundException, PersistenceException {
 		return gerenteDados.getGerentePosts().getVideo(id, index);
 	}
@@ -138,8 +138,8 @@ public class FacadeUserStore6 {
 		return gerenteDados.getGerentePosts().getDadoDoVideo(videoId);
 	}
 
-	public String getPicture(String id, String index)
-			throws FileNotFoundException, PersistenceException {
+	public String getPicture(String id, int index)
+			throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
 		return gerenteDados.getGerentePosts().getImagem(id, index);
 	}
 

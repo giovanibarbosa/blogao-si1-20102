@@ -89,37 +89,28 @@ public class FacadeUserStore7 {
 
 	public void changePostInformation(String sessionID, String postID,
 			String atributo, String novoTexto) throws FileNotFoundException,
-			ArgumentInvalidException, PersistenceException, UserInvalidException {
-		
+			ArgumentInvalidException, PersistenceException,
+			UserInvalidException {
+
 		gerenteDados.getGerentePosts().mudarInformacaoDoPost(sessionID, postID,
 				atributo, novoTexto);
 	}
-	
-	// FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
+
 	public void deleteMovie(String sessionID, String idMovie)
 			throws FileNotFoundException, PersistenceException,
 			ArgumentInvalidException, UserInvalidException {
-		
+
 		gerenteDados.getGerentePosts().deletaVideo(sessionID, idMovie);
 
- }
-
+	}
+	
 	// // FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	// public int getPost(String blogID, int index) throws
-	// NumberFormatException,
-	// FileNotFoundException, PersistenceException {
-	// return gerenteDados.getGerenteBlogs().recuperaIdDoPost(blogID, index);
-	// }
+	public void deletePicture(String sessionID, String idImagem)
+			throws PersistenceException, ArgumentInvalidException,
+			FileNotFoundException, UserInvalidException {
+		gerenteDados.getGerentePosts().deletaImagem(sessionID, idImagem);
 
-	// FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	// #o metodo changePostInformation sera responsavel por alterar apenas a
-	// parte textual de um post.
-	// public void changePostInformation(String sessionID, String postID,
-	// String atributo, String novoTexto) throws FileNotFoundException,
-	// ArgumentInvalidException, PersistenceException {
-	// gerenteDados.getGerenteBlogs().mudarInformacaoDoPost(sessionID, postID,
-	// atributo, novoTexto);
-	// }
+	}
 
 	public String getNumberOfSounds(String id) throws FileNotFoundException,
 			PersistenceException {
@@ -139,44 +130,30 @@ public class FacadeUserStore7 {
 				.getNumeroDeImagens(id));
 	}
 
-	public String getMovie(String id, String index)
-			throws FileNotFoundException, PersistenceException {
+	public String getMovie(String id, int index) throws FileNotFoundException,
+			PersistenceException {
 		return gerenteDados.getGerentePosts().getVideo(id, index);
 	}
 
-	public String getSound(String id, String index)
-			throws FileNotFoundException, PersistenceException {
+	public String getSound(String id, int index) throws FileNotFoundException,
+			PersistenceException, ArgumentInvalidException {
 		return gerenteDados.getGerentePosts().getSom(id, index);
 	}
 
-	public String getPicture(String id, String index)
-			throws FileNotFoundException, PersistenceException {
+	public String getPicture(String id, int index)
+			throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
 		return gerenteDados.getGerentePosts().getImagem(id, index);
 	}
 
-	// FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	// public void deleteMovie(String sessionID, String idMovie)
-	// throws FileNotFoundException, PersistenceException,
-	// ArgumentInvalidException {
-	// gerenteDados.getGerentePosts().deletaVideo(sessionID, idMovie);
-	//
-	// }
-	//
-	// // FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	// public void deletePicture(String sessionID, String idImagem)
-	// throws PersistenceException, ArgumentInvalidException,
-	// FileNotFoundException {
-	// gerenteDados.getGerentePosts().deletaImagem(sessionID, idImagem);
-	//
-	// }
-	//
-	// // FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
-	// public void deleteSound(String sessionID, String idSom)
-	// throws FileNotFoundException, ArgumentInvalidException,
-	// PersistenceException {
-	// gerenteDados.getGerentePosts().deletaMusica(sessionID, idSom);
-	//
-	// }
+	
+	
+	public void deleteSound(String sessionID, String idSom)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException, UserInvalidException {
+
+		gerenteDados.getGerentePosts().deletaAudio(sessionID, idSom);
+
+	}
 
 	public void logoff(String idSession) throws ArgumentInvalidException {
 		gerenteDados.getGerenteSessoes().logoff(idSession);

@@ -26,6 +26,7 @@ public class Post {
 	private List<Comentario> comentarios;
 	
 	private Map<String, Video> mapaVideos;
+
 	private Map<String, Audio> mapaAudio;
 	private Map<String, Imagem> mapaImagens;
 	
@@ -159,7 +160,7 @@ public class Post {
 	public void removeVideo(Video video) {
 		if (mapaVideos.containsValue(video)){
 			mapaVideos.remove(video);
-			listaIDsVideos.add(video.getId());
+			listaIDsVideos.remove(video.getId());
 		}
 	}
 	
@@ -361,4 +362,15 @@ public class Post {
 		return this.id;
 	}
 
+	public Map<String, Video> getMapaVideos() {
+		return mapaVideos;
+	}
+
+	public Map<String, Audio> getMapaAudio() {
+		return mapaAudio;
+	}
+
+	public Map<String, Imagem> getMapaImagens() {
+		return mapaImagens;
+	}
 }

@@ -191,9 +191,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post == null ? 0 : post.getListaDeImagem().size();
 	}
 
-	public String getSom(String idDoPost, String index)
-			throws FileNotFoundException, PersistenceException {
+	public String getSom(String idDoPost, int index)
+			throws FileNotFoundException, PersistenceException,
+			ArgumentInvalidException {
 		Post post = getPostPorId(idDoPost);
+		if (index >= post.getListaDeAudio().size())
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getListaDeAudio().get(Integer.valueOf(index)).getId();
 	}
 
@@ -244,10 +247,11 @@ public class GerenciadorDePosts implements Gerenciador {
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
 
-	public String getImagem(String id, String index)
-			throws PersistenceException {
+	public String getImagem(String id, int index)
+			throws PersistenceException, ArgumentInvalidException {
 		Post post = getPostPorId(id);
-		return post.getListaDeImagem().get(Integer.valueOf(index)).getId();
+		if(index >= post.getListaDeImagem().size()) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		return post.getListaDeImagem().get(index).getId();
 	}
 
 	public String getDescricaoDoVideo(String videoId)
@@ -274,9 +278,11 @@ public class GerenciadorDePosts implements Gerenciador {
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
 
-	public String getVideo(String id, String index) throws PersistenceException {
+	public String getVideo(String id, int index) throws PersistenceException {
 		Post post = getPostPorId(id);
-		return post.getListaDeVideo().get(Integer.valueOf(index)).getId();
+		if (index >= post.getListaDeVideo().size())
+			throw new PersistenceException(Constantes.INDICE_INVALIDO);
+		return post.getListaDeVideo().get(index).getId();
 	}
 
 	@Override
@@ -364,8 +370,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		throw new PersistenceException(Constantes.POST_INVALIDO);
 	}
 
-	// // }
-
 	@Override
 	public void cleanPersistence() {
 		postsDAO.limparPosts();
@@ -396,19 +400,58 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	}
 
-	public void deletaVideo(String sessionId, String idMovie) throws ArgumentInvalidException, UserInvalidException {
-		for (Post post : listaPosts) {
-			for (Video vid : post.getListaDeVideo())
-				if (vid.getId().equals(idMovie))
-					post.removeVideo(vid);
-		}
-		
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionId);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		
-		
+	public void deletaVideo(String sessionId, String idMovie)
+			throws ArgumentInvalidException, UserInvalidException {
+		Post post = getPostByVideoID(idMovie);
 
+		if (post == null)
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		post.removeVideo(post.getMapaVideos().get(idMovie));
+	}
+
+	private Post getPostByVideoID(String movieID) {
+		for (Post post : listaPosts) {
+			if (post.getMapaVideos().containsKey(movieID)) {
+				return post;
+			}
+		}
+		return null;
+	}
+
+	public void deletaAudio(String sessionId, String idAudio)
+			throws ArgumentInvalidException, UserInvalidException {
+		Post post = getPostByAudioID(idAudio);
+
+		if (post == null)
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		post.removeAudio(post.getMapaAudio().get(idAudio));
+	}
+
+	private Post getPostByAudioID(String audioID) {
+		for (Post post : listaPosts) {
+			if (post.getMapaAudio().containsKey(audioID)) {
+				return post;
+			}
+		}
+		return null;
+	}
+
+	public void deletaImagem(String sessionId, String idImagem)
+			throws ArgumentInvalidException, UserInvalidException {
+		Post post = getPostByImagemID(idImagem);
+
+		if (post == null)
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		post.removeImagem(post.getMapaImagens().get(idImagem));
+	}
+
+	private Post getPostByImagemID(String imagemID) {
+		for (Post post : listaPosts) {
+			if (post.getMapaImagens().containsKey(imagemID)) {
+				return post;
+			}
+		}
+		return null;
 	}
 
 	public int getNumberOfComments(String postId) throws PersistenceException {
@@ -418,11 +461,11 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	public void removePost(String postId) {
 		for (Post post : listaPosts) {
-			if(post.getId().equals(postId)){
+			if (post.getId().equals(postId)) {
 				listaPosts.remove(post);
 				return;
 			}
 		}
-		
+
 	}
 }
