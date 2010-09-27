@@ -49,7 +49,7 @@ public class Post {
 	public Post(String titulo, String texto, String idBlogDono) throws ArgumentInvalidException {
 		setTitulo(titulo);
 		setTexto(texto);
-		setId(gerarId());
+		this.id = gerarId();
 		setDataCriacao(new Data().todaysDate());
 		this.idBlogDono = idBlogDono;
 		comentarios = new ArrayList<Comentario>();
@@ -277,15 +277,6 @@ public class Post {
 	 */
 	public String getId() {
 		return id;
-	}
-
-	/**
-	 * Altera o id do Post.
-	 * 
-	 * @param id
-	 */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public Texto getTexto() {
