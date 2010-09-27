@@ -1,0 +1,30 @@
+<classes.func.usuario.Usuario>
+  <logavel class="classes.func.usuario.LogavelImpl">
+    <login>
+      <login>mariasilva</login>
+    </login>
+    <senha>
+      <senha>qwe2</senha>
+    </senha>
+  </logavel>
+  <perfil>
+    <email>
+      <email>maria@gmail.com</email>
+    </email>
+    <nomeDeExibicao>Maria Silva</nomeDeExibicao>
+    <endereco>Rua das cocadas</endereco>
+    <interesses>ping pong</interesses>
+    <dataDeNascimento>
+      <data>
+        <time>315543600000</time>
+        <timezone>America/Recife</timezone>
+      </data>
+    </dataDeNascimento>
+    <sexo>Fem</sexo>
+    <quemSouEu>E... boa pergunta!</quemSouEu>
+    <filmesFavoritos>e o vento levou</filmesFavoritos>
+    <musicasFavoritas>MPB</musicasFavoritas>
+    <livrosFavoritos>poeira em alto mar</livrosFavoritos>
+  </perfil>
+  <listaBlogs/>
+</classes.func.usuario.Usuario>
