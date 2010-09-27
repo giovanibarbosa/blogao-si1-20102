@@ -43,6 +43,7 @@ public interface Constantes {
 	static final String EMAIL_INEXISTENTE = "Email inexistente";
 	static final String TITULO_INVALIDO = "Você deve especificar um título para o blog";
 	static final String DADO_INVALIDO = "Dado inválido";
+	static final String TITULO_OBRIGATORIO = "Título obrigatório";
 	
 	
 	

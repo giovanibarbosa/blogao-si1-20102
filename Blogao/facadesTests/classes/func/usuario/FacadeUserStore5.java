@@ -81,7 +81,8 @@ public class FacadeUserStore5 {
 	}
 
 	// TODO SALVA TODOS OS DADOS NO BD
-	public void saveData() {
+	public void saveData() throws PersistenceException, IOException {
+		gerenteDados.saveData();
 	}
 	
 	

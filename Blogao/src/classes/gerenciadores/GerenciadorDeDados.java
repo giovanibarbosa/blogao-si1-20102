@@ -36,11 +36,9 @@ public class GerenciadorDeDados {
 	public GerenciadorDeDados(){
 		gerentePerfis = new GerenciadorDePerfis(this);
 		gerenteUsuarios = new GerenciadorDeUsuarios(this);
-//		gerenteUsuarios = new GerenciadorDeUsuarios();
-		//gerentePerfis = new GerenciadorDePerfis();
 		gerenteSessoes = new GerenciadorDeSessoes(this);
 		gerenteBlogs = new GerenciadorDeBlogs(this);
-//		gerentePosts = new GerenciadorDePosts();
+		gerentePosts = new GerenciadorDePosts(this);
 //		gerenteComentarios = new GerenciadorDeComentarios();
 	}
 	
@@ -53,8 +51,8 @@ public class GerenciadorDeDados {
 		gerenteUsuarios.loadData();
 		gerentePerfis.loadData();
 		gerenteSessoes.loadData();
-//		gerenteBlogs.loadData();
-//		gerentePosts.loadData();
+		gerenteBlogs.loadData();
+		gerentePosts.loadData();
 //		gerenteComentarios.loadData();
 	}
 
@@ -62,8 +60,8 @@ public class GerenciadorDeDados {
 		gerenteUsuarios.saveData();
 		//gerentePerfis.saveData();
 		gerenteSessoes.saveData();
-//		gerenteBlogs.saveData();
-//		gerentePosts.saveData();
+		gerenteBlogs.saveData();
+		gerentePosts.saveData();
 //		gerenteComentarios.saveData();
 	}
 	public void cleanPersistence(){
@@ -71,45 +69,8 @@ public class GerenciadorDeDados {
 		//gerentePerfis.cleanPersistence();
 		gerenteSessoes.cleanPersistence();
 		gerenteBlogs.cleanPersistence();
-//		gerentePosts.cleanPersistence();
+		gerentePosts.cleanPersistence();
 //		gerenteComentarios.cleanPersistence();
-	}
-	
-	public void povoaPosts() {
-		List<Post> listaDePosts = new ArrayList<Post>();
-		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
-			for(Blog blog : user.getListaBlogs()) {
-				for(Post post : blog.getListaDePostagens()) {
-					listaDePosts.add(post);
-				}
-			}
-			
-		}
-		gerentePosts.setListaPosts(listaDePosts);
-	}
-	
-//	//Gabiarra usada para add os perfis
-//	public void povoaGerenciadoDePerfis() {
-//		List<Perfil> listaPerfis = new ArrayList<Perfil>();
-//		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
-//			listaPerfis.add(user.getPerfil());			
-//		}
-//		gerentePerfis.setListaPerfis(listaPerfis);
-//	}
-	
-	public void povoaListaDeBlogs() {
-		List<Blog> listaBlogs = new ArrayList<Blog>();
-		for(Usuario user : gerenteUsuarios.getListaUsuarios()) {
-			for(Blog blog : user.getListaBlogs()) {
-				listaBlogs.add(blog);
-				gerenteBlogs.getListaDeBlogs().add(blog);
-			}
-		}	
-		gerenteBlogs.setListaDeBlogs(listaBlogs);
-	}
-	
-	public void setTeste(GerenciadorDeUsuarios us) {
-		this.gerenteUsuarios = us;
 	}
 	
 	public GerenciadorDeUsuarios getGerenciadorDeUsuarios() {

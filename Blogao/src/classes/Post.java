@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import classes.func.Data;
 import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Video;
@@ -21,11 +22,10 @@ import persistencia.daos.PostsDAO;
 
 public class Post {
 	private Texto post;
-	private PostsDAO postDao;
-	private ComentariosDAO comentDao;
 	private String id;
 	private String blogRaiz;
 	private String dataCriacao;
+	private String idBlogDono;
 
 	private List<Comentario> comentarios;
 	private List<Audio> listaDeAudio;
@@ -45,31 +45,23 @@ public class Post {
 	 * @param post
 	 * @throws ArgumentInvalidException
 	 */
-	public Post(Texto post, String idBlog) throws ArgumentInvalidException {
-		if ((idBlog != null && !idBlog.trim().isEmpty()) || validaPost(post)) {
-			this.post = post;
-			setId(gerarId());
-			setBlogRaiz(idBlog);
-			comentarios = new ArrayList<Comentario>();
-			listaDeAudio = new ArrayList<Audio>();
-			listaDeVideo = new ArrayList<Video>();
-			listaDeImagem = new ArrayList<Imagem>();
-		} else {
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
-		}
-	}
 	
-	public Post(String titulo, String texto) {
+	public Post(String titulo, String texto, String idBlogDono) throws ArgumentInvalidException {
 		setTitulo(titulo);
 		setTexto(texto);
 		setId(gerarId());
+		setDataCriacao(new Data().todaysDate());
+		this.idBlogDono = idBlogDono;
 		comentarios = new ArrayList<Comentario>();
 		listaDeAudio = new ArrayList<Audio>();
 		listaDeVideo = new ArrayList<Video>();
 		listaDeImagem = new ArrayList<Imagem>();
 	}
 	
-	public void setTitulo(String titulo) {
+	public void setTitulo(String titulo) throws ArgumentInvalidException {
+		if (titulo == null || titulo.trim().equals("")) {
+			throw new ArgumentInvalidException(Constantes.TITULO_OBRIGATORIO);
+		}
 		this.titulo = titulo;
 	}
 	
@@ -89,9 +81,8 @@ public class Post {
 		return dataCriacao;
 	}
 	
-	public void setDataCriacao(Date data) {
-		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
-		this.dataCriacao = formater.format(data);
+	public void setDataCriacao(String data) {
+		this.dataCriacao = data;
 	}
 
 	/**
@@ -154,6 +145,12 @@ public class Post {
 			listaDeVideo.remove(video);
 	}
 	
+	
+	
+	public String getIdBlogDono() {
+		return idBlogDono;
+	}
+
 	/**
 	 * Retorna a lista de comentarios.
 	 * 
@@ -194,7 +191,6 @@ public class Post {
 	 * @throws PersistenceException
 	 */
 	public void deleta() throws PersistenceException {
-		postDao.deletar(this);
 
 	}
 
@@ -204,15 +200,15 @@ public class Post {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public List<Comentario> getComentarios() {
-		List<Comentario> listaDeComentarios = new ArrayList<Comentario>();
-		try {
-			listaDeComentarios = comentDao.recuperaComentarios();
-		} catch (Exception e) {
-			System.out.println(Constantes.ERRO_LISTA_COMENTARIOS);
-		}
-		return listaDeComentarios;
-	}
+//	public List<Comentario> getComentarios() {
+//		List<Comentario> listaDeComentarios = new ArrayList<Comentario>();
+//		try {
+//			listaDeComentarios = comentDao.recuperaComentarios();
+//		} catch (Exception e) {
+//			System.out.println(Constantes.ERRO_LISTA_COMENTARIOS);
+//		}
+//		return listaDeComentarios;
+//	}
 
 	/**
 	 * Adiciona um comentario ao um post.
@@ -221,22 +217,22 @@ public class Post {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public boolean addComentario(Comentario comentario) {
-		if (getComentarios().contains(comentario)) {
-			return false;
-		} else {
-			try {
-				comentDao.criar(comentario);
-			} catch (PersistenceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return true;
-		}
-	}
+//	public boolean addComentario(Comentario comentario) {
+//		if (getComentarios().contains(comentario)) {
+//			return false;
+//		} else {
+//			try {
+//				comentDao.criar(comentario);
+//			} catch (PersistenceException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return true;
+//		}
+//	}
 
 	/**
 	 * remove um comentario do post.
@@ -244,19 +240,19 @@ public class Post {
 	 * @param comentario
 	 * @return
 	 */
-	public boolean removeComentario(Comentario comentario) {
-		if (getComentarios().contains(comentario)) {
-			try {
-				comentDao.deletar(comentario);
-			} catch (PersistenceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	public boolean removeComentario(Comentario comentario) {
+//		if (getComentarios().contains(comentario)) {
+//			try {
+//				comentDao.deletar(comentario);
+//			} catch (PersistenceException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	/**
 	 * Salva as alteracoes do post.
@@ -265,8 +261,6 @@ public class Post {
 	 * @throws IOException
 	 */
 	public void saveData() throws PersistenceException, IOException {
-		postDao.getInstance();
-		postDao.atualizar(this);
 	}
 
 	/**
@@ -317,9 +311,9 @@ public class Post {
 		this.blogRaiz = blogRaiz;
 	}
 
-	public int getNumberOfComments() {
-		return getComentarios().size();
-	}
+//	public int getNumberOfComments() {
+//		return getComentarios().size();
+//	}
 
 	public List<Audio> getListaDeAudio() {
 		return listaDeAudio;

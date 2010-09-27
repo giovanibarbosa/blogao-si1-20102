@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import classes.func.Data;
 import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDePerfis;
@@ -13,11 +14,7 @@ import classes.gerenciadores.GerenciadorDeSessoes;
 import classes.gerenciadores.GerenciadorDeBlogs;
 
 public class FacadeUserStore6 {
-	private GerenciadorDeSessoes gerente = new GerenciadorDeSessoes();
-	private GerenciadorDeBlogs gerenteBlog = new GerenciadorDeBlogs();
-	private GerenciadorDePosts gerentePost = new GerenciadorDePosts();
-	GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
-	private GerenciadorDePerfis gerenteDoPerfil = new GerenciadorDePerfis();
+	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
 	// TODO APAGAR OS DADOS SALVOS
 	public void cleanPersistence() {
@@ -30,16 +27,17 @@ public class FacadeUserStore6 {
 			String interesses, String quem_sou_eu, String filmes,
 			String musicas, String livros) throws Exception {
 
-		gerenteDoPerfil.createProfile(login, senha, nome_exibicao, email, sexo,
-				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas,
-				livros);
+		gerenteDados.getGerentePerfis().createProfile(login, senha,
+				nome_exibicao, email, sexo, dataNasc, endereco, interesses,
+				quem_sou_eu, filmes, musicas, livros);
+
 	}
 
-	// TODO METODO QUE LOGA O USUARIO
+	// METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha)
-			throws PersistenceException, FileNotFoundException,
-			ArgumentInvalidException {
-		return gerente.logon(login, senha);
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
+		return gerenteDados.getGerenteSessoes().logon(login, senha);
 
 	}
 
@@ -47,105 +45,110 @@ public class FacadeUserStore6 {
 		return new Data().todaysDate();
 	}
 
-	// TODO CRIA O BLOG
-	public String createBlog(String idSession, String titulo, String descricao)
-			throws Exception {
-		return gerenteBlog.createBlog(idSession, titulo, descricao);
+	// CRIA O BLOG
+	public String createBlog(String idSessao, String titulo, String descricao)
+			throws ArgumentInvalidException, PersistenceException, IOException,
+			UserInvalidException {
 
+		return gerenteDados.getGerenteBlogs().createBlog(idSessao, titulo,
+				descricao);
 	}
 
-	// TODO CRIA O POST
+	//CRIA O POST
 	public String createPost(String idSession, String idBlog, String titulo,
 			String texto) throws ArgumentInvalidException,
-			PersistenceException, IOException {
-		return gerentePost.createPost(idSession, idBlog, titulo, texto);
+			PersistenceException, IOException, UserInvalidException {
+		
+		return gerenteDados.getGerentePosts().createPost(idSession, idBlog, titulo, texto);
 
 	}
 
-	// TODO METODO QUE DESLOGA O USUARIO.
+	//METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
-		gerente.logoff(idSession);
+		gerenteDados.getGerenteSessoes().logoff(idSession);
 	}
 
-	// TODO SALVA TODOS OS DADOS NO BD
-	public void saveData() {
+	// SALVA TODOS OS DADOS NO BD
+	public void saveData() throws PersistenceException, IOException {
+		gerenteDados.saveData();
 	}
 
 	public String attachSound(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
-			PersistenceException, IOException {
-		return gerentePost.attachSound(sessionId, postId, descricao, dado);
+			PersistenceException, IOException, UserInvalidException {
+		
+		return gerenteDados.getGerentePosts().attachSound(sessionId, postId, descricao, dado);
 	}
 
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
-			PersistenceException, IOException {
-		return gerentePost.attachMovie(sessionId, postId, descricao, dado);
+			PersistenceException, IOException, UserInvalidException {
+		return gerenteDados.getGerentePosts().attachMovie(sessionId, postId, descricao, dado);
 	}
 
 	public String attachPicture(String sessionId, String postId,
 			String descricao, String dado) throws ArgumentInvalidException,
-			PersistenceException, IOException {
-		return gerentePost.attachPicture(sessionId, postId, descricao, dado);
+			PersistenceException, IOException, UserInvalidException {
+		return gerenteDados.getGerentePosts().attachPicture(sessionId, postId, descricao, dado);
 	}
 
 	public String getPostInformation(String id, String atributo)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
-		return gerentePost.informacaoDoPost(id, atributo);
+		return gerenteDados.getGerentePosts().informacaoDoPost(id, atributo);
 	}
 
-	public String getNumberOfSounds(String id) throws FileNotFoundException {
-		return String.valueOf(gerentePost.getNumeroDeSons(id));
+	public String getNumberOfSounds(String id) throws FileNotFoundException, PersistenceException {
+		return String.valueOf(gerenteDados.getGerentePosts().getNumeroDeSons(id));
 	}
 
-	public String getNumberOfMovies(String id) throws FileNotFoundException {
-		return String.valueOf(gerentePost.getNumeroDeVideos(id));
+	public String getNumberOfMovies(String id) throws FileNotFoundException, PersistenceException {
+		return String.valueOf(gerenteDados.getGerentePosts().getNumeroDeVideos(id));
 	}
 
-	public String getNumberOfPictures(String id) throws FileNotFoundException {
-		return String.valueOf(gerentePost.getNumeroDeImagens(id));
+	public String getNumberOfPictures(String id) throws FileNotFoundException, PersistenceException {
+		return String.valueOf(gerenteDados.getGerentePosts().getNumeroDeImagens(id));
 	}
 
 	public String getSound(String id, String index)
-			throws FileNotFoundException {
-		return gerentePost.getSom(id, index);
+			throws FileNotFoundException, PersistenceException {
+		return gerenteDados.getGerentePosts().getSom(id, index);
 	}
 
 	public String getSoundDescription(String audioId)
 			throws FileNotFoundException {
-		return gerentePost.getDescricaoDoSom(audioId);
+		return gerenteDados.getGerentePosts().getDescricaoDoSom(audioId);
 	}
 
 	public String getSoundData(String audioId) throws FileNotFoundException {
-		return gerentePost.getDadoDoSom(audioId);
+		return gerenteDados.getGerentePosts().getDadoDoSom(audioId);
 	}
 
 	public String getMovie(String id, String index)
-			throws FileNotFoundException {
-		return gerentePost.getVideo(id, index);
+			throws FileNotFoundException, PersistenceException {
+		return gerenteDados.getGerentePosts().getVideo(id, index);
 	}
 
 	public String getMovieDescription(String videoId)
 			throws FileNotFoundException {
-		return gerentePost.getDescricaoDoVideo(videoId);
+		return gerenteDados.getGerentePosts().getDescricaoDoVideo(videoId);
 	}
 
 	public String getMovieData(String videoId) throws FileNotFoundException {
-		return gerentePost.getDadoDoVideo(videoId);
+		return gerenteDados.getGerentePosts().getDadoDoVideo(videoId);
 	}
 
 	public String getPicture(String id, String index)
-			throws FileNotFoundException {
-		return gerentePost.getImagem(id, index);
+			throws FileNotFoundException, PersistenceException {
+		return gerenteDados.getGerentePosts().getImagem(id, index);
 	}
 
 	public String getPictureDescription(String imagemId)
 			throws FileNotFoundException {
-		return gerentePost.getDescricaoDaImagem(imagemId);
+		return gerenteDados.getGerentePosts().getDescricaoDaImagem(imagemId);
 	}
 
 	public String getPictureData(String imagemId) throws FileNotFoundException {
-		return gerentePost.getDadoDaImagem(imagemId);
+		return gerenteDados.getGerentePosts().getDadoDaImagem(imagemId);
 	}
 }
