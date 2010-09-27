@@ -1,11 +1,12 @@
 package classes.func.usuario;
 
-import classes.gerenciadores.GerenciadorDeBlogs;
-import classes.gerenciadores.GerenciadorDeComentarios;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
-import classes.gerenciadores.GerenciadorDePosts;
-import classes.gerenciadores.GerenciadorDeSessoes;
 
 /**
  * 
@@ -24,19 +25,19 @@ public class FacadeUserStore14 {
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
-			String musicas, String livros) {
+			String musicas, String livros) throws Exception {
 		
 		gerenteDados.getGerentePerfis().createProfile(login, senha,
 				nome_exibicao, email, sexo, dataNasc, endereco, interesses,
 				quem_sou_eu, filmes, musicas, livros);
 	}
 
-	public String logon(String login, String senha) {
-		gerenteDados.getGerenteSessoes().logon(login, senha);
+	public String logon(String login, String senha) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		return gerenteDados.getGerenteSessoes().logon(login, senha);
 	}
 	
 	
-	public String createBlog(String sessionId, String titulo, String descricao) {
+	public String createBlog(String sessionId, String titulo, String descricao) throws ArgumentInvalidException, PersistenceException, IOException, UserInvalidException {
 		return gerenteDados.getGerenteBlogs().createBlog(sessionId, titulo, descricao);
 	}
 	
@@ -66,14 +67,14 @@ public class FacadeUserStore14 {
 	}
 
 
-	public String createPost(String sessionId, String blogId, String titulo, String texto) {
+	public String createPost(String sessionId, String blogId, String titulo, String texto) throws IOException, ArgumentInvalidException, PersistenceException, UserInvalidException {
 		return gerenteDados.getGerentePosts().createPost(sessionId, blogId, titulo, texto);
 	}
 
 
 	//Retorna o numero de posts apenas do blog pai. 
-	public String getNumberOfPosts(String blogId) {
-		return gerenteDados.getGerenteBlogs().totalDePosts(blogId);
+	public String getNumberOfPosts(String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
+		return String.valueOf(gerenteDados.getGerenteBlogs().totalDePosts(blogId));
 	}
 
 	//Retorna o numero total de posts de um blog, Considerando todos os niveis
@@ -82,8 +83,8 @@ public class FacadeUserStore14 {
 		
 	}
 
-	public String addComment(String sessionId, String postId, String texto) {
-		gerenteDados.getGerenteComentarios().addComentario(sessionId, postId, texto);
+	public String addComment(String sessionId, String postId, String texto) throws ArgumentInvalidException, UserInvalidException {
+		return gerenteDados.getGerenteComentarios().addComentario(sessionId, postId, texto);
 	}
 	
 	public String addSubComment(String sessionId, String idComentario, String texto) {
