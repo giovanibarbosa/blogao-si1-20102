@@ -1,26 +1,31 @@
 package classes.func.usuario;
 
-import persistencia.daos.BlogsDAO;
-import persistencia.daos.ComentariosDAO;
-import persistencia.daos.EmailsDAO;
-import persistencia.daos.PostsDAO;
-import persistencia.daos.UsuariosDAO;
-
 public class FacadeUserStore10 {
-
-	private UsuariosDAO userDAO;
-	private BlogsDAO blogsDAO;
-	private EmailsDAO emailsDAO;
-	private PostsDAO postsDAO;
-	private ComentariosDAO comentsDAO;
 	
-	// CARREGA TODOS OS DADOS DO BD
 	public void loadData() {
-		userDAO = UsuariosDAO.getInstance();
-		blogsDAO = BlogsDAO.getInstance();
-		emailsDAO = EmailsDAO.getInstance();
-		postsDAO = PostsDAO.getInstance();
-		comentsDAO = ComentariosDAO.getInstance();
+		
 	}
-	
+
+
+	//Efetua login dos usuários
+	public String logon(String login, String senha) {
+		
+	}
+
+	public String getBlogByLogin login=sicrano index=0
+
+	postId1=createPost sessionId=${sessionId1} blogId=${blogId1} titulo="Meu primeiro post" texto="Sobre esse primeiro post, iremos falar sobre..."
+	postId2=createPost sessionId=${sessionId1} blogId=${blogId1} titulo="Meu segundo post" texto=
+
+	deleteBlog sessionId=${sessionId1} blodId=${blogId1}
+	expectError "Blog inválido" deleteBlog sessionId=${sessionId1} blodId=${blogId1}
+
+	#Validação: os posts devem ser deletados
+	expectError "Post inválido" getPostInformation id=${postId1} atributo=titulo
+
+	#Desloga usuarios
+	logoff sessionId=${sessionId1}
+
+	#Salva os dados de forma permanente
+	saveData	
 }
