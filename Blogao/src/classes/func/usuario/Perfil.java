@@ -19,15 +19,16 @@ import enuns.Sexo;
 public class Perfil {
 
 	private Email email;
-	private String nomeDeExibicao;
-	private String endereco;
-	private String interesses;
+	private String nomeDeExibicao = "";
+	private String endereco = "";
+	private String interesses = "";
 	private Data dataDeNascimento;
 	private Sexo sexo;
-	private String quemSouEu;
-	private String filmesFavoritos;
-	private String musicasFavoritas;
-	private String livrosFavoritos;
+	private String quemSouEu = "";
+	private String filmesFavoritos = "";
+	private String musicasFavoritas = "";
+	private String livrosFavoritos = "";
+	private String loginUsuarioDono;
 
 	private static final int EMAIL = 96619420;
 	private static final int NOME = 513276986;
@@ -39,7 +40,7 @@ public class Perfil {
 	private static final int FILMES = -1274498766;
 	private static final int MUSICAS = 1412695319;
 	private static final int LIVROS = -1102420835;
-
+	
 	/**
 	 * Metodo acessador de {@link Email}
 	 * 
@@ -47,6 +48,14 @@ public class Perfil {
 	 */
 	public Email getEmail() {
 		return email;
+	}
+	
+	public String getLoginUsuarioDono() {
+		return loginUsuarioDono;
+	}
+	
+	public void setLoginUsuario(String loginUsuarioDono) {
+		this.loginUsuarioDono = loginUsuarioDono;
 	}
 
 	/**
@@ -73,7 +82,8 @@ public class Perfil {
 	 * @param {@link String}
 	 */
 	public void setNomeDeExibicao(String nomeDeExibicao) {
-		this.nomeDeExibicao = nomeDeExibicao;
+		if (nomeDeExibicao != null)
+			this.nomeDeExibicao = nomeDeExibicao;
 	}
 
 	/**
@@ -91,7 +101,8 @@ public class Perfil {
 	 * @param {@link String} endereco
 	 */
 	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		if (endereco != null)
+			this.endereco = endereco;
 	}
 
 	/**
@@ -109,7 +120,8 @@ public class Perfil {
 	 * @param {@link String} interesses
 	 */
 	public void setInteresses(String interesses) {
-		this.interesses = interesses;
+		if (interesses != null)
+			this.interesses = interesses;
 	}
 
 	/**
@@ -152,7 +164,8 @@ public class Perfil {
 	 * @param {@link String} quemSouEu
 	 */
 	public void setQuemSouEu(String quemSouEu) {
-		this.quemSouEu = quemSouEu;
+		if (quemSouEu != null)
+			this.quemSouEu = quemSouEu;
 	}
 
 	/**
@@ -170,7 +183,8 @@ public class Perfil {
 	 * @param {@link String} filmesFavoritos
 	 */
 	public void setFilmesFavoritos(String filmesFavoritos) {
-		this.filmesFavoritos = filmesFavoritos;
+		if (filmesFavoritos != null)
+			this.filmesFavoritos = filmesFavoritos;
 	}
 
 	/**
@@ -188,7 +202,8 @@ public class Perfil {
 	 * @param {@link String} musicasFavoritas
 	 */
 	public void setMusicasFavoritas(String musicasFavoritas) {
-		this.musicasFavoritas = musicasFavoritas;
+		if (musicasFavoritas != null)
+			this.musicasFavoritas = musicasFavoritas;
 	}
 
 	/**
@@ -206,7 +221,8 @@ public class Perfil {
 	 * @param {@link String} livrosFavoritos
 	 */
 	public void setLivrosFavoritos(String livrosFavoritos) {
-		this.livrosFavoritos = livrosFavoritos;
+		if (livrosFavoritos != null)
+			this.livrosFavoritos = livrosFavoritos;
 	}
 
 	/**
@@ -225,7 +241,8 @@ public class Perfil {
 
 	/**
 	 * Metodo acessador de {@link Sexo}
-	 * @return {@link Sexo} 
+	 * 
+	 * @return {@link Sexo}
 	 */
 	public Sexo getSexo() {
 		return sexo;
@@ -233,9 +250,11 @@ public class Perfil {
 
 	/**
 	 * Metodo acessador de atributo
+	 * 
 	 * @param {@link String} atributo desejado
 	 * @return {@link String} o atributo do Perfil
-	 * @throws ArgumentInvalidException caso o atributo passado seja invalido
+	 * @throws ArgumentInvalidException
+	 *             caso o atributo passado seja invalido
 	 */
 	public String getAtributo(String atributo) throws ArgumentInvalidException {
 		if (atributo == null)
@@ -271,10 +290,12 @@ public class Perfil {
 
 	/**
 	 * Metodo modificador de atributo
+	 * 
 	 * @param {@link String} atributo desejado
 	 * @param {@link String} novoValor
-	 * @throws ArgumentInvalidException caso o atributo passado seja invalido
-	 * @throws PersistenceException 
+	 * @throws ArgumentInvalidException
+	 *             caso o atributo passado seja invalido
+	 * @throws PersistenceException
 	 * @throws IOException
 	 */
 	public void setAtributo(String atributo, String novoValor)
@@ -319,7 +340,7 @@ public class Perfil {
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return nomeDeExibicao;
