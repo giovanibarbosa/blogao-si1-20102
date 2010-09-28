@@ -12,14 +12,19 @@ public enum Sexo {
 	
 	private final String tipo;
 	
+	/**
+	 * Construtor do Enum de sexo
+	 * @param {@link String} tipo
+	 */
 	Sexo(String tipo) {
 		this.tipo = tipo;		
 	}
 	
-	public String getSexo() {
-		return tipo;
-	}
-	
+	/**
+	 * Verificador de Sexo
+	 * @param {@link String} do sexo
+	 * @return True se o sexo passado foi validado
+	 */
 	public static boolean verificaSexo(String sex) {
 		if (sex == null || sex.trim().isEmpty()
 				|| (!sex.equalsIgnoreCase("Masculino") &&
@@ -30,6 +35,11 @@ public enum Sexo {
 		return true;
 	}
 	
+	/**
+	 * Metodo acessador de sexo que retorna o Enum sexo
+	 * @param {@link String} do sexo desejado
+	 * @return {@link Sexo}
+	 */
 	public static Sexo setadorSexo(String sex) {
 		if (sex.equalsIgnoreCase(Sexo.Fem.getSexo())) {
 			return Sexo.Fem;
@@ -38,6 +48,14 @@ public enum Sexo {
 			return Sexo.Mas;
 		}
 		return Sexo.Nao_Inf;		
+	}
+	
+	/**
+	 * Metodo acessador do Sexo
+	 * @return {@link Sexo}
+	 */
+	public String getSexo() {
+		return tipo;
 	}
 
 
