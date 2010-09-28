@@ -10,6 +10,12 @@ import classes.Email;
 import classes.func.Data;
 import enuns.Sexo;
 
+/**
+ * Classe que inicializa uma perfil
+ * 
+ * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ * 
+ */
 public class Perfil {
 
 	private Email email;
@@ -34,46 +40,94 @@ public class Perfil {
 	private static final int MUSICAS = 1412695319;
 	private static final int LIVROS = -1102420835;
 
-	// public Perfil(Logavel userLog, Email email) {
-	// setEmail(email);
-	// }
-
+	/**
+	 * Metodo acessador de {@link Email}
+	 * 
+	 * @return {@link Email}
+	 */
 	public Email getEmail() {
 		return email;
 	}
 
+	/**
+	 * Metodo modificador de {@link Email}
+	 * 
+	 * @param {@link Email}
+	 */
 	public void setEmail(Email email) {
 		this.email = email;
 	}
-	
+
+	/**
+	 * Metodo acessador de nome de exibicao
+	 * 
+	 * @return {@link String}
+	 */
 	public String getNomeDeExibicao() {
 		return nomeDeExibicao;
 	}
 
+	/**
+	 * Metodo modificador de nome de exibicao
+	 * 
+	 * @param {@link String}
+	 */
 	public void setNomeDeExibicao(String nomeDeExibicao) {
 		this.nomeDeExibicao = nomeDeExibicao;
 	}
 
+	/**
+	 * Metodo acessador de Endereco
+	 * 
+	 * @return {@link String}
+	 */
 	public String getEndereco() {
 		return endereco;
 	}
 
+	/**
+	 * Metodo modificador de endereco
+	 * 
+	 * @param {@link String} endereco
+	 */
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
+	/**
+	 * Metodo acessador de interesses
+	 * 
+	 * @return {@link String} interesses
+	 */
 	public String getInteresses() {
 		return interesses;
 	}
 
+	/**
+	 * Metodo modificador de interesses
+	 * 
+	 * @param {@link String} interesses
+	 */
 	public void setInteresses(String interesses) {
 		this.interesses = interesses;
 	}
 
+	/**
+	 * Metodo acessador de {@link Data}
+	 * 
+	 * @return {@link Data}
+	 */
 	public Data getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
+	/**
+	 * Metodo modificador de data de nascimento
+	 * 
+	 * @param {@link String} dataDeNascimento
+	 * @throws ArgumentInvalidException
+	 *             caso a data seja invalida
+	 */
 	public void setDataDeNascimento(String dataDeNasc)
 			throws ArgumentInvalidException {
 		try {
@@ -81,41 +135,87 @@ public class Perfil {
 		} catch (Exception e) {
 			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
 		}
-
 	}
 
+	/**
+	 * Metodo acessador de Quem eu sou
+	 * 
+	 * @return {@link String} quem eu sou
+	 */
 	public String getQuemSouEu() {
 		return quemSouEu;
 	}
 
+	/**
+	 * Metodo moficador de quem eu sou
+	 * 
+	 * @param {@link String} quemSouEu
+	 */
 	public void setQuemSouEu(String quemSouEu) {
 		this.quemSouEu = quemSouEu;
 	}
 
+	/**
+	 * Metodo acessador de Filmes favoritos
+	 * 
+	 * @return {@link String} filmes favoritos
+	 */
 	public String getFilmesFavoritos() {
 		return filmesFavoritos;
 	}
 
+	/**
+	 * Metodo modificador de filmes favoritos
+	 * 
+	 * @param {@link String} filmesFavoritos
+	 */
 	public void setFilmesFavoritos(String filmesFavoritos) {
 		this.filmesFavoritos = filmesFavoritos;
 	}
 
+	/**
+	 * Metodo acessador de musicas favoritas
+	 * 
+	 * @return {@link String} Musicas favoritas
+	 */
 	public String getMusicasFavoritas() {
 		return musicasFavoritas;
 	}
 
+	/**
+	 * Metodo modificador de musicas favoritas
+	 * 
+	 * @param {@link String} musicasFavoritas
+	 */
 	public void setMusicasFavoritas(String musicasFavoritas) {
 		this.musicasFavoritas = musicasFavoritas;
 	}
 
+	/**
+	 * Metodo acessador de livros favoritos
+	 * 
+	 * @return {@link String} Livros favoritdos
+	 */
 	public String getLivrosFavoritos() {
 		return livrosFavoritos;
 	}
 
+	/**
+	 * Metodo modificador de livros favoritos
+	 * 
+	 * @param {@link String} livrosFavoritos
+	 */
 	public void setLivrosFavoritos(String livrosFavoritos) {
 		this.livrosFavoritos = livrosFavoritos;
 	}
 
+	/**
+	 * Metodo modificador de {@link Sexo}
+	 * 
+	 * @param {@link Sexo}
+	 * @throws ArgumentInvalidException
+	 *             caso o sexo seja invalido
+	 */
 	public void setSexo(String sex) throws ArgumentInvalidException {
 		if (!Sexo.verificaSexo(sex)) {
 			throw new ArgumentInvalidException(Constantes.SEXO_INVALIDO);
@@ -123,14 +223,20 @@ public class Perfil {
 		this.sexo = Sexo.setadorSexo(sex);
 	}
 
+	/**
+	 * Metodo acessador de {@link Sexo}
+	 * @return {@link Sexo} 
+	 */
 	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public String toString() {
-		return nomeDeExibicao;
-	}
-
+	/**
+	 * Metodo acessador de atributo
+	 * @param {@link String} atributo desejado
+	 * @return {@link String} o atributo do Perfil
+	 * @throws ArgumentInvalidException caso o atributo passado seja invalido
+	 */
 	public String getAtributo(String atributo) throws ArgumentInvalidException {
 		if (atributo == null)
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
@@ -163,6 +269,14 @@ public class Perfil {
 		}
 	}
 
+	/**
+	 * Metodo modificador de atributo
+	 * @param {@link String} atributo desejado
+	 * @param {@link String} novoValor
+	 * @throws ArgumentInvalidException caso o atributo passado seja invalido
+	 * @throws PersistenceException 
+	 * @throws IOException
+	 */
 	public void setAtributo(String atributo, String novoValor)
 			throws ArgumentInvalidException, PersistenceException, IOException {
 		if (atributo == null)
@@ -204,6 +318,11 @@ public class Perfil {
 		default:
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return nomeDeExibicao;
 	}
 
 }
