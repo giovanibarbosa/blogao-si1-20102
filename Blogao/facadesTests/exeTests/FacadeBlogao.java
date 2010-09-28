@@ -11,6 +11,7 @@ import classes.func.usuario.FacadeUserStore10;
 import classes.func.usuario.FacadeUserStore11;
 import classes.func.usuario.FacadeUserStore12;
 import classes.func.usuario.FacadeUserStore13;
+import classes.func.usuario.FacadeUserStore14;
 import classes.func.usuario.FacadeUserStore2;
 import classes.func.usuario.FacadeUserStore3;
 import classes.func.usuario.FacadeUserStore4;
@@ -45,6 +46,7 @@ public class FacadeBlogao {
 		List<String> files11 = new ArrayList<String>();
 		List<String> files12 = new ArrayList<String>();
 		List<String> files13 = new ArrayList<String>();
+		List<String> files14 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
         files1.add("Tests/us1.txt");		
@@ -60,6 +62,7 @@ public class FacadeBlogao {
         files11.add("Tests/us11.txt");
         files12.add("Tests/us12.txt");
         files13.add("Tests/us13.txt");
+        files14.add("Tests/us14.txt");
 
         
         //Testes para a us1.txt
@@ -120,6 +123,10 @@ public class FacadeBlogao {
         EasyAcceptFacade eaFacade13= new EasyAcceptFacade(perfFac13, files13);  
         eaFacade13.executeTests();
         
+        FacadeUserStore14 perfFac14 = new FacadeUserStore14();
+        EasyAcceptFacade eaFacade14= new EasyAcceptFacade(perfFac14, files14);  
+        eaFacade14.executeTests();
+        
         System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
@@ -133,6 +140,7 @@ public class FacadeBlogao {
         System.out.println(eaFacade11.getCompleteResults()); //Resultados para a us11.txt
         System.out.println(eaFacade12.getCompleteResults()); //Resultados para a us12.txt
         System.out.println(eaFacade13.getCompleteResults()); //Resultados para a us13.txt
+        System.out.println(eaFacade14.getCompleteResults()); //Resultados para a us14.txt
 	}
 
 }

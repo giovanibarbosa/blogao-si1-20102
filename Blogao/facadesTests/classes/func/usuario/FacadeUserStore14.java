@@ -42,27 +42,36 @@ public class FacadeUserStore14 {
 	}
 	
 	//TODO
-	public String createSubBlog(String sessionId, String blogPai, String titulo, String descricao) {
+	public String createSubBlog(String sessionId, String blogPai, String titulo, String descricao) throws ArgumentInvalidException, PersistenceException, IOException, UserInvalidException {
+		return gerenteDados.getGerenteBlogs().createSubBlog(sessionId, blogPai, titulo, descricao);
 		
 	}
 
 	// sub blogs não entram na contabilização de blogs de usuários, ou seja, um subblog é encarado como uma seção de um blog
-	public String getNumberOfBlogsByLogin(String login) {
+	public String getNumberOfBlogsByLogin(String login) throws UserInvalidException {
+		return String.valueOf(gerenteDados.getGerenteBlogs().getBlogPorLogin(login).size());
 		
+	}
+	
+	public String getNumberOfBlogsBySessionId(String idSession){
+		return String.valueOf(gerenteDados.getGerenteBlogs().getListaDeBlogsPorIdSessao(idSession).size());
 	}
 
 	//Considera apenas um nivel de subblogs.A flag passada indica se deve ser feita uma busca em subniveis
 	public String getNumberOfSubBlogs(String blogId) {
+		return null;
 		
 	}
 
 	public String getNumberOfAllSubBlogs(String blogId) {
+		return null;
 		
 	} 
 
 
 	// Considera-se apenas um nível
 	public String getSubBlog(String blogId, String index) {
+		return null;
 		
 	}
 
@@ -80,28 +89,33 @@ public class FacadeUserStore14 {
 	//Retorna o numero total de posts de um blog, Considerando todos os niveis
 
 	public String getNumberOfAllPosts(String blogId) {
+		return null;
 		
 	}
 
-	public String addComment(String sessionId, String postId, String texto) throws ArgumentInvalidException, UserInvalidException {
+	public String addComment(String sessionId, String postId, String texto) throws ArgumentInvalidException, UserInvalidException, PersistenceException {
 		return gerenteDados.getGerenteComentarios().addComentario(sessionId, postId, texto);
 	}
 	
 	public String addSubComment(String sessionId, String idComentario, String texto) {
+		return null;
 		
 	}
 
 	public String getSubComment(String idComentario, String index) {
+		return null;
 		
 	}
 
 	//Considera apenas um nivel de Comentario.A flag passada indica se deve ser feita uma busca em subniveis
 	public String getNumberOfSubComments(String idComentario) {
+		return null;
 		
 	}
 	
 	//Retorna o numero total de subcomentários de um comentário, Considerando todos os niveis
 	public String getNumberOfAllSubComments(String idComentario) {
+		return null;
 		
 	}
 }
