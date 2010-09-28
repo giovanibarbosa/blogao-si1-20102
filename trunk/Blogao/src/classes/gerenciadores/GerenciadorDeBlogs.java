@@ -128,7 +128,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		//		
 		// return user.getListaBlogs().get(index).getId();
 	}
-	
 
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
 			PersistenceException, ArgumentInvalidException {
@@ -280,14 +279,14 @@ public class GerenciadorDeBlogs implements Gerenciador {
 
 	public List<String> getBlogPorNome(String match) {
 		List<String> listaBlog = new ArrayList<String>();
-		List<Blog> listAllBlogs = gerenteDados.getGerenteBlogs()
-				.getListaDeBlogs();
-		for (Blog blg : listAllBlogs) {
-			if (blg.getTitulo().equals(match))
+		for (Blog blg : listaDeBlogs) {
+			if (blg.getTitulo().toLowerCase().contains(match.toLowerCase()))
 				listaBlog.add(blg.getId());
 		}
 		return listaBlog;
 	}
+	
+
 
 
 	public List<Blog> getListaDeBlogsPorIdSessao(String idSessao) {
