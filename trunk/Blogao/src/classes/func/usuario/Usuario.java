@@ -1,96 +1,118 @@
 package classes.func.usuario;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
-import ourExceptions.PersistenceException;
-
-import persistencia.daos.BlogsDAO;
 
 import interfaces.Logavel;
 import classes.Blog;
 import classes.Login;
 import classes.Senha;
 
+/**
+ * Classe que inicializa um Usuario
+ * @author  Rodolfo Marinho -  rodolfoams@lcc.ufcg.edu.br
+ * @colaborator Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ */
 public class Usuario {
 
 	private Logavel logavel;
 	private Perfil perfil;
 	private List<Blog> listaBlogs;
 	
+	/**
+	 * Construtor do objeto Usuario
+	 * @param {@link Login}
+	 * @param {@link Senha}
+	 * @throws Exception caso algum dos parametros passados seja invalido
+	 */
 	public Usuario(Login log, Senha sen) throws Exception {
 		logavel = new LogavelImpl(log, sen); 
 		listaBlogs = new ArrayList<Blog>();
 	}
 	
+	/**
+	 * Construtor do objeto Usuario
+	 * @param {@link Login}
+	 * @param {@link Senha}
+	 * @param {@link Perfil}
+	 */
 	public Usuario(Login log, Senha sen, Perfil per) {
 		this.logavel = new LogavelImpl(log, sen);
 		setPerfil(per);
 		listaBlogs = new ArrayList<Blog>();
 	}
 
+	/**
+	 * Metodo acessador de login
+	 * @return {@link Login}
+	 */
 	public Login getLogin() {
 		return logavel.getLogin();
 	}
 	
+	/**
+	 * Metodo modificador de {@link Login}
+	 * @param {@link Login} novo login
+	 * @throws ArgumentInvalidException caso o login passado seja invalido
+	 */
 	public void setLogin(Login log) throws ArgumentInvalidException {
 		logavel.setLogin(log);
 	}
 	
+	/**
+	 * Metodo acessador de {@link Senha}
+	 * @return {@link Senha}
+	 */
 	public Senha getSenha() {
 		return logavel.getSenha();
 	}
 	
+	/**
+	 * Metodo modificador de {@link Senha}
+	 * @param {@link Senha} nova senha
+	 */
 	public void setSenha(Senha sen) {
 		logavel.setSenha(sen);
 	}
+	
 	/**
-	 * @return the perfil
+	 * Metodo acessador de {@link Perfil}
+	 * @return {@link Perfil}
 	 */
 	public Perfil getPerfil() {
 		return perfil;
 	}
 
 	/**
-	 * @param perfil the perfil to set
+	 * Metodo modificador de {@link Perfil}
+	 * @param {@link Perfil} novo perfil
 	 */
 	public void setPerfil(Perfil perfil) {
 		if (perfil != null )
 			this.perfil = perfil;
 	}
 	
+	/**
+	 * Metodo modificar de {@link Login}
+	 * @param {@link Login} novo login
+	 */
 	public void setLogavel(Logavel log) {
 		this.logavel = log;
 	}
-
-
-	public List<Blog> listaDeBlogs() throws FileNotFoundException{
-		BlogsDAO blogsDao = BlogsDAO.getInstance();
-		return blogsDao.recuperaBlogs();
-	}
-	
-	public Blog getBlog(Blog blog) throws FileNotFoundException, PersistenceException{
-		BlogsDAO blogsDao = BlogsDAO.getInstance();
-		return blogsDao.recupera(blog);
-	}
-	
-	public String toString(){
-		return logavel.toString();
-	}
 	
 	/**
-	 * @return the listaBlogs
+	 * Metodo acessador de lista de blogs
+	 * @return List<{@link Blog}> lista de blogs do usuario
 	 */
 	public List<Blog> getListaBlogs() {
 		return listaBlogs;
 	}
 	
 	/**
-	 * Classe que adiciona um blog a lista.
-	 * @param coment
-	 * @throws ArgumentInvalidException 
+	 * Metodo que adiciona um {@link Blog} lista de blogs do usuario.
+	 * @param {@link Blog}
 	 */
 	public void addBlog2(Blog blg) {
 		if(!listaBlogs.contains(blg))
@@ -98,9 +120,8 @@ public class Usuario {
 	}
 	
 	/**
-	 * Remove o blog da lista.
-	 * @param blg
-	 * @throws ArgumentInvalidException 
+	 * Metodo que remove um {@link Blog} da lista de blogs do usuario.
+	 * @param {@link Blog}
 	 */
 	public void removeBlog2(Blog blg) {
 		if(listaBlogs.contains(blg))
@@ -112,6 +133,11 @@ public class Usuario {
 		if (!(obj instanceof Usuario)) return false;
 		Usuario user = (Usuario) obj;
 		return getLogin().equals(user.getLogin());
+	}
+	
+	@Override
+	public String toString(){
+		return logavel.toString();
 	}
 
 }
