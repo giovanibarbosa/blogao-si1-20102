@@ -38,9 +38,17 @@ public class FacadeUserStore11 {
 				descricao);
 	}
 	
-	//TODO METODO QUE DETELA O PROFILE DO USUARIO
-	public void deleteProfile(String sesionId){
+	public String createPost(String idSession, String idBlog, String titulo,
+			String texto) throws ArgumentInvalidException,
+			PersistenceException, IOException, UserInvalidException {
 		
+		return gerenteDados.getGerentePosts().createPost(idSession, idBlog, titulo, texto);
+
+	}
+	
+	//TODO METODO QUE DETELA O PROFILE DO USUARIO
+	public void deleteProfile(String sesionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException{
+		gerenteDados.getGerentePerfis().deletePerfil(sesionId);
 	}
 	
 	//METODO QUE RETORNA O NUMERO DE POSTS DO BLOG.
@@ -48,9 +56,9 @@ public class FacadeUserStore11 {
 		return gerenteDados.getGerenteBlogs().getBlog(blogId).getNumeroDePosts();
 		
 	}
-	
-	// TODO SALVA TODOS OS DADOS NO BD
-	public void saveData() {
+
+	public void saveData() throws PersistenceException, IOException {
+		gerenteDados.saveData();
 	}
 
 }
