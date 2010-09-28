@@ -1,6 +1,5 @@
 package classes.func.usuario;
 
-import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,13 +7,8 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
-import classes.gerenciadores.GerenciadorDePosts;
-import classes.gerenciadores.GerenciadorDeSessoes;
-import classes.gerenciadores.GerenciadorDeComentarios;
-import classes.Comentario;
+
 
 /**
  * Classe para testes do us8
@@ -92,7 +86,6 @@ public class FacadeUserStore8 {
 		return gerenteDados.getGerenteComentarios().getTextoComentario(idComentario);
 	}
 
-	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
 	public String getCommentAuthor(String idComentario) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
 		return gerenteDados.getGerenteComentarios().getCommentAuthor(idComentario);
 	}
