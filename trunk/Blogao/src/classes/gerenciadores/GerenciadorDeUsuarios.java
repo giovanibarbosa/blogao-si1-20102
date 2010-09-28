@@ -119,19 +119,6 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	}
 
-	// public void addAtualizacaoNoAnnouncement(String SessionId, String blogId,
-	// String att) throws ArgumentInvalidException, FileNotFoundException,
-	// PersistenceException{
-	// //valida a sessao e o blog.
-	// Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
-	// gerenteDados.getGerenteBlogs().validaDonoBlog(blog, SessionId);
-	//
-	//
-	// Usuario user = recuperaUsuarioPorIdSessao(SessionId);
-	// Announcement not = new Announcement(SessionId, blogId);
-	// user.addEmListaAnnoucement(not);
-	// }
-
 	public void addPostAnnouncement(String sessionId, String blogId)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
@@ -139,6 +126,11 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
 		user.addPostAnnouncement(blogId);
 
+	}
+
+	public String getNumberOfAnnouncements(String sessionId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
