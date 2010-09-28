@@ -11,7 +11,7 @@ public class UserInvalidException extends Exception {
 	
 	/**
 	 * Construtor da classe.
-	 * @param String problema
+	 * @param {@link String} problema
 	 */
 	public UserInvalidException(String problem) {
 		super(problem);
@@ -19,8 +19,8 @@ public class UserInvalidException extends Exception {
 	
 	/**
 	 * Construtor auxiliar da classe.
-	 * @param String problem
-	 * @param Exception e
+	 * @param {@link String} problema
+	 * @param {@link Exception} e
 	 */
 	public UserInvalidException(String problem, Exception e) {
 		super(problem, e);

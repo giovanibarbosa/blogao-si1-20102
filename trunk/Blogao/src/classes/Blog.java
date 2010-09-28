@@ -15,7 +15,7 @@ import ourExceptions.ArgumentInvalidException;
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  * @colaborator Rodolfo Marinho -  rodolfoams@lcc.ufcg.edu.br
  * @colaborator Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
- * @colaborator Giovani Barbosa - giovanibarbosa@gmail.com
+ * @colaborator Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  *
  */
 public class Blog {
