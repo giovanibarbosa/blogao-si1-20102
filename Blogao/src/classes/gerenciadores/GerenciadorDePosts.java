@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.tools.jxc.apt.Const;
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
@@ -467,6 +469,20 @@ public class GerenciadorDePosts implements Gerenciador {
 			}
 		}
 
+	}
+	
+	public void validaPostId(String postId) throws ArgumentInvalidException{
+		for (Post post : listaPosts) {
+			if(post.getId().equals(postId)) return;
+		}
+		throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
+	}
+
+	public Comentario GetComentario(String postId, int index) throws PersistenceException, ArgumentInvalidException {
+
+		Post post = getPostPorId(postId);
+		if (index >= post.getListaComentarios().size()) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		return post.getComentario(index);
 	}
 	
 }
