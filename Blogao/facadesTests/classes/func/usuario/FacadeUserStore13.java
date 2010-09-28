@@ -42,7 +42,7 @@ public class FacadeUserStore13 {
 	}
 
 	public String getNumberOfAnnouncements(String sessionId) {
-		return null;
+		return gerenteDados.getGerenciadorDeUsuarios().getNumberOfAnnouncements(sessionId);
 
 	}
 
