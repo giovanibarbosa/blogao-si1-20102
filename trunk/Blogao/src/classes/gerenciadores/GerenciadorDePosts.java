@@ -461,6 +461,11 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		return post.getListaComentarios().size();
 	}
+	
+//	public int getNumberOfComments(String login, String blogId) {
+//		
+//	}
+
 
 	public int getNumberOfComments(String login, String blogId)
 			throws UserInvalidException, ArgumentInvalidException, PersistenceException {
@@ -472,13 +477,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		return retorno;	
 	}
 
-	public void removePost(String postId) {
-		for (Post post : listaPosts) {
-			if (post.getId().equals(postId)) {
-				listaPosts.remove(post);
-				return;
-			}
+
+	public void removePost(String postId) throws PersistenceException {
+		Post post = getPostPorId(postId);
+		while (!post.getListaComentarios().isEmpty()){
+			Comentario removido = post.getListaComentarios().remove(0);
+			gerenteDados.getGerenteComentarios().remove(removido);
 		}
+		listaPosts.remove(post);
 
 	}
 
@@ -498,5 +504,16 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getComentario(index);
 	}
+
+
+	public List<Post> getListaPostsPorBlog(Blog blog) {
+		List<Post> listaPostsProcurados = new ArrayList<Post>();
+		for(Post post : listaPosts){
+			if (post.getIdBlogDono().equals(blog.getId()))
+				listaPostsProcurados.add(post);
+		}
+		return listaPostsProcurados;
+	}
+	
 
 }

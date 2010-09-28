@@ -181,9 +181,9 @@ public class GerenciadorDePerfis implements Gerenciador {
 	
 	public void deletePerfil(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
 		Perfil perfil = getPerfil(sessionId);
-		List<Blog> listaBlogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
-		for (Blog blog : listaBlogs) {
-			if (blog.getIdSessao().equals(sessionId)) gerenteDados.getGerenteBlogs().deleteBlog(sessionId, blog.getId());
+		List<Blog> listaBlogsAApagar = gerenteDados.getGerenteBlogs().getListaDeBlogsPorIdSessao(sessionId);
+		while(!listaBlogsAApagar.isEmpty()){
+			gerenteDados.getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
 		}
 		listaPerfis.remove(perfil);
 		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionId);
