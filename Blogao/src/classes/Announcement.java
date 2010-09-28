@@ -1,5 +1,6 @@
 package classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
@@ -15,6 +16,7 @@ public class Announcement {
 	public Announcement(String blogId){
 		idBlogDeInteresse = blogId;
 		id = geraId();
+		atualizacoes = new ArrayList<String>();
 	}
 
 	private String geraId() {
