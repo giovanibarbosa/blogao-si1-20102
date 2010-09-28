@@ -12,8 +12,8 @@ import enuns.Sexo;
 
 /**
  * Classe que inicializa uma perfil
- * 
  * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * 
  */
 public class Perfil {
@@ -50,10 +50,18 @@ public class Perfil {
 		return email;
 	}
 
+	/**
+	 * Metodo acessador do login do dono do perfil
+	 * @return {@link String} login
+	 */
 	public String getLoginUsuarioDono() {
 		return loginUsuarioDono;
 	}
 
+	/**
+	 * Metodo modificador de logins
+	 * @param {@link String} loginUsuarioDono
+	 */
 	public void setLoginUsuario(String loginUsuarioDono) {
 		this.loginUsuarioDono = loginUsuarioDono;
 	}

@@ -161,10 +161,20 @@ public class Usuario {
 		return logavel.toString();
 	}
 
+	/**
+	 * Metodo acessador de lista de Announcements
+	 * @return List<{@link Announcement}>
+	 */
 	public List<Announcement> getListaAnnouncement() {
 		return listaAnnouncements;
 	}
 
+	/**
+	 * Metodo que cadastra um Announcement
+	 * @param {@link String} blogId desejado
+	 * @throws {@ArgumentInvalidException} caso 
+	 * 				o Announcement nao seja cadastrado
+	 */
 	public void addPostAnnouncement(String blogId) throws ArgumentInvalidException {
 		Announcement announcement = new Announcement(blogId);
 		if (!(listaAnnouncements.contains(announcement)))
@@ -174,6 +184,13 @@ public class Usuario {
 
 	}
 	
+	/**
+	 * Metodo acessador de Announcements
+	 * @param {@link String} idBlog
+	 * @return {@liunk Announcement}
+	 * @throws {@link ArgumentInvalidException} caso o 
+	 * 					 Announcement seja invalido
+	 */
 	public Announcement getAnnouncementByIdBlog(String idBlog)
 			throws ArgumentInvalidException{
 		for (Announcement announcement : listaAnnouncements){
@@ -184,6 +201,11 @@ public class Usuario {
 		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
 	}
 
+	/**
+	 * Metodo que adiciona um aviso ao blog
+	 * @param {@link Blog}
+	 * @param {@link String} id do announcement
+	 */
 	public void addAviso(Blog blog, String id) {
 		for(Announcement announcement : listaAnnouncements){
 			if (announcement.getIdBlogDeInteresse().equals(blog.getId())){
