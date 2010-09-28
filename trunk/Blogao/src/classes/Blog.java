@@ -25,6 +25,7 @@ public class Blog {
 	private String idSessao;
 	private List<Blog> listaSubBlogs;
 	private List<String> posts;
+	private List<String> loginsOfModificationListeners;
 
 
 	/**
@@ -43,6 +44,11 @@ public class Blog {
 		this.idSessao = idSessao;
 		this.id = gerarId();
 		posts = new ArrayList<String>();
+		loginsOfModificationListeners = new ArrayList<String>();
+	}
+	
+	public void addModificationListener(String listenerLogin){
+		loginsOfModificationListeners.add(listenerLogin);
 	}
 
 	/**
