@@ -8,7 +8,6 @@ import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDeSessoes;
 
 /**
  * Facade do Gerenciamento de Secao. Usado para os testes.

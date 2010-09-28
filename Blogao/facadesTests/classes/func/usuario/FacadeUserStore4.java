@@ -6,15 +6,9 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.Blog;
 import classes.gerenciadores.GerenciadorDeDados;
 
-/**
- * Facade de Blog. Essa classe chama os metodos necess�rios para o teste.
- * 
- * @author Tiago
- * @author Rodolfo Marinho
- */
+
 public class FacadeUserStore4 {
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
@@ -44,8 +38,7 @@ public class FacadeUserStore4 {
 	// RETORNA OS ATRIBUTOS DO BLOG.
 	public String getBlogInformation(String idBlog, String atributo)
 			throws ArgumentInvalidException, FileNotFoundException, PersistenceException {
-		Blog blog = gerenteDados.getGerenteBlogs().getBlog(idBlog);
-		return gerenteDados.getGerenteBlogs().getAtributo(blog, atributo);
+		return gerenteDados.getGerenteBlogs().getBlogInformation(idBlog, atributo);
 	}
 
 	public String logon(String login, String senha)

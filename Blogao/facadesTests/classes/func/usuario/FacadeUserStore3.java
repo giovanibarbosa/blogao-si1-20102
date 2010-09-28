@@ -6,12 +6,8 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import persistencia.daos.UsuariosDAO;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
-import classes.gerenciadores.GerenciadorDeSessoes;
-import classes.Login;
-import classes.Senha;
+
 
 /**
  * Facade de alteracao do perfil. Necessarios para os testes US3
