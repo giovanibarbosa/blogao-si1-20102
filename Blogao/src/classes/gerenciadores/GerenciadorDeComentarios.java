@@ -99,4 +99,9 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		return gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(idSessaoDono).getLogin().getLogin();
 	}
 
+	public void remove(Comentario removido) {
+		mapaComentarios.remove(removido.getId());
+		listaIdsComentarios.remove(removido.getId());
+	}
+
 }
