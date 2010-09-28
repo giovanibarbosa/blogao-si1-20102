@@ -12,16 +12,16 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
- * Classe DAO que cria, deleta, atualiza e recupera usuarios ( {@link Usuario})
- * 
- * 
+ * Classe DAO que cria, deleta, atualiza e recupera usuarios ({@link Usuario})
+ * no BD.
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  */
 
 public class UsuariosDAO {
@@ -34,9 +34,6 @@ public class UsuariosDAO {
 	private static UsuariosDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private UsuariosDAO() {
-
-	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link UsuariosDAO}
@@ -129,28 +126,6 @@ public class UsuariosDAO {
 		this.criar(usuario);
 	}
 
-	/**
-	 * Recupera um {@link Usuario} de um arquivo xml
-	 * 
-	 * @param usuario
-	 *            O {@link Usuario} a ser recuperado do arquivo xml
-	 * @return O {@link Usuario} recuperado de um arquivo xml
-	 * @throws PersistenceException
-	 *             Caso o usuario passado como parametro seja null ou não
-	 *             exista como dado persistente
-	 * @throws FileNotFoundException
-	 *             Caso haja algum problema com arquivos ({@link File})
-	 */
-	public Usuario recupera(String login) throws PersistenceException,
-			FileNotFoundException {
-		if (login == null
-				|| !(new File(CAMINHO + login + TIPO_DE_ARQUIVO).exists()))
-
-			throw new PersistenceException(Constantes.USUARIO_INEXISTENTE);
-
-		File file = new File(CAMINHO + login + TIPO_DE_ARQUIVO);
-		return (Usuario) xstream.fromXML(new FileInputStream(file));
-	}
 
 	/**
 	 * Limpa todos os arquivos contendo os usuarios {@link Usuario}
@@ -164,15 +139,10 @@ public class UsuariosDAO {
 
 	/**
 	 * Recupera um array dos arquivos contidos no path dos usuarios
-	 * 
 	 * @return O array dos arquivos contidos no path dos usuarios
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
 		return file.listFiles();
-	}
-	
-	public List<Usuario> loadData() throws FileNotFoundException {
-		return recuperaUsuarios();
 	}
 }
