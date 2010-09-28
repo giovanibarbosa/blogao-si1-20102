@@ -1,9 +1,11 @@
 package interfaces;
 
 /**
- * Classe temporaria
- * @author tiagohsl
- *
+ * Classe armazenadora de constantes.
+ * Nao e aconselhavel fazer isso. Fizemos devido aos problemas
+ * 								  de formatacao UTF-8 e ISO.
+ * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ * 
  */
 public interface Constantes {
 	
