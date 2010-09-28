@@ -13,7 +13,9 @@ import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
+import classes.Blog;
 import classes.Login;
+import classes.Post;
 import classes.Senha;
 import classes.Email;
 import enuns.Sexo;
@@ -175,6 +177,24 @@ public class GerenciadorDePerfis implements Gerenciador {
 			}
 		}
 		return listaPerfil;
+	}
+	
+	public void deletePerfil(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Perfil perfil = getPerfil(sessionId);
+		List<Blog> listaBlogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
+		List<Post> listaPost = gerenteDados.getGerentePosts().getListaPosts();
+		for (Blog blog : listaBlogs) {
+			gerenteDados.getGerenteBlogs().deleteBlog(sessionId, blog.getId());
+		}
+		listaPerfis.remove(perfil);
+		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionId);
+		user.setPerfil(null);
+		
+	}
+
+	private Perfil getPerfil(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionId);
+		return user.getPerfil();
 	}
 	
 	
