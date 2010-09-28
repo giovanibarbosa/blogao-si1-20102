@@ -124,7 +124,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return recuperaIdBlogDesejado(idSession, index);
 
 		// Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		//		
+		//
 		// return user.getListaBlogs().get(index).getId();
 	}
 
@@ -284,14 +284,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		}
 		return listaBlog;
 	}
-	
-
-
 
 	public List<Blog> getListaDeBlogsPorIdSessao(String idSessao) {
 		List<Blog> listaBlogsComIdSessaoBuscado = new ArrayList<Blog>();
-		for (Blog blog : listaDeBlogs){
-			if (blog.getIdSessao().equals(idSessao)){
+		for (Blog blog : listaDeBlogs) {
+			if (blog.getIdSessao().equals(idSessao)) {
 				listaBlogsComIdSessaoBuscado.add(blog);
 			}
 		}
@@ -299,26 +296,88 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	}
 
 	public void deleteBlog(Blog blog) throws PersistenceException {
-		List<Post> postsAApagar = gerenteDados.getGerentePosts().getListaPostsPorBlog(blog);
-		while (!postsAApagar.isEmpty()){
-			gerenteDados.getGerentePosts().removePost(postsAApagar.get(0).getId());
+		List<Post> postsAApagar = gerenteDados.getGerentePosts()
+				.getListaPostsPorBlog(blog);
+		while (!postsAApagar.isEmpty()) {
+			gerenteDados.getGerentePosts().removePost(
+					postsAApagar.get(0).getId());
 			postsAApagar.remove(0);
 		}
 		listaDeBlogs.remove(blog);
 	}
 
-	public void deleteBlog(String sessionId, String blogId) throws ArgumentInvalidException, PersistenceException {
+	public void deleteBlog(String sessionId, String blogId)
+			throws ArgumentInvalidException, PersistenceException {
 		Blog blog = getBlog(blogId);
 		validaDonoBlog(blog, sessionId);
 		deleteBlog(blog);
-		
+
 	}
 
-	public void avisaListeners(Blog blog, String id) throws UserInvalidException {
-		for(String login : blog.getModificationListeners()){
-			gerenteDados.getGerenciadorDeUsuarios().getUsuario(login).addAviso(blog, id);
+	public void avisaListeners(Blog blog, String id)
+			throws UserInvalidException {
+		for (String login : blog.getModificationListeners()) {
+			gerenteDados.getGerenciadorDeUsuarios().getUsuario(login)
+					.addAviso(blog, id);
 		}
-		
+
 	}
 
+	
+	public String createSubBlog(String idSessao, String idBlogPai, String titulo, String descricao)
+			throws ArgumentInvalidException, PersistenceException, IOException,
+			UserInvalidException {
+
+		Blog blogPai = gerenteDados.getGerenteBlogs().getBlog(idBlogPai, idSessao);
+		Blog subBlog = new Blog(titulo, descricao, idSessao);
+		blogPai.addSubBlog(subBlog);
+		listaDeBlogs.add(subBlog);
+		return subBlog.getId();
+	}
+
+	public int getNumberOfBlogsByLogin(String login) throws UserInvalidException {
+		Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
+		return us.getListaBlogs().size();
+	}
+
+	public int getNumberOfBlogsBySessionId(String idSession) throws UserInvalidException, ArgumentInvalidException {
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(idSession);
+		return getNumberOfBlogsByLogin(login);
+	}
+
+	public int getNumberOfSubBlogs(String blogId) throws ArgumentInvalidException {
+		Blog blog = getBlog(blogId);
+		return blog.getListaSubBlogs().size();
+	}
+
+	
+	public int getNumberOfAllSubBlogs(String blogId) throws ArgumentInvalidException {
+		Blog blog = getBlog(blogId);
+		int total = 0;
+		for (Blog subBlog : blog.getListaSubBlogs()){
+			total++; 
+			total += getNumberOfAllSubBlogs(subBlog.getId());
+		}
+		return total;
+	}
+
+	public String getSubBlog(String blogId, int index) throws ArgumentInvalidException {
+		Blog blog = getBlog(blogId);
+		if (index >= blog.getListaSubBlogs().size()) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		return blog.getListaSubBlogs().get(index).getId();
+	}
+
+	public int getNumberOfAllPosts(String blogId) throws ArgumentInvalidException {
+		Blog blog = getBlog(blogId);
+		int total = 0;
+		for (Blog subBlog : blog.getListaSubBlogs()){
+			total += getNumberOfAllPosts(subBlog.getId());
+		}
+		return total + blog.getListaDePostagens().size();
+	}
+
+	public String getSubComment(String idComentario, String index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
