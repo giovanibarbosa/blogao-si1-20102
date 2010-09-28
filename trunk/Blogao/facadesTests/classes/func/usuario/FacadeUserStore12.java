@@ -42,8 +42,8 @@ public class FacadeUserStore12 {
 	
 	//METODO QUE BUSCA O PERFIL PELO NOME(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
 	public String findProfileByName(String match){
-		String retorno = gerenteDados.getGerentePerfis().getPerfilPorNome(match).toString().replace(" ", "");
-		return retorno;
+		return gerenteDados.getGerentePerfis().getPerfilPorNome(match).toString().replace(" ", "");
+		
 	}
 	
 	
@@ -54,8 +54,7 @@ public class FacadeUserStore12 {
 	
 	//METODO QUE BUSCA O PERFIL PELO SEXO(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
 	public String findProfileByGender(String match){
-		String retorno = gerenteDados.getGerentePerfis().getPerfilPorSexo(match).toString().replace(" ", "");
-		return retorno;
+		return gerenteDados.getGerentePerfis().getPerfilPorSexo(match).toString().replace(" ", "");
 	}
 	
 	// CRIA O BLOG
@@ -69,8 +68,7 @@ public class FacadeUserStore12 {
 	
 	//METODO QUE BUSCA BLOGS PELO NOME(MATCH) E RETORNA A LISTA DE NOMES DOS BLOGS
 	public String findBlogByName(String match){
-		String retorno =  gerenteDados.getGerenteBlogs().getBlogPorNome(match).toString().replace(" ", "");
-		return retorno;
+		return gerenteDados.getGerenteBlogs().getBlogPorNome(match).toString().replace(" ", "");
 	}
 	
 	//CRIA O POST

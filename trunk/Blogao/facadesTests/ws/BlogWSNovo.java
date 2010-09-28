@@ -1,11 +1,9 @@
 package ws;
 
-
-
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-public interface BlogWS {
+public interface BlogWSNovo {
 
 
 

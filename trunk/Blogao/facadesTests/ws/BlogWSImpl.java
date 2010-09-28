@@ -38,8 +38,6 @@ public class BlogWSImpl implements BlogWS {
 
 	@Override
 	public Boolean isUserLogged(String login) {
-		//XXX Lembrar Tiago Leite sobre esse metodo obs.: Ele nao lancava excessao
-		//pode fazer isso?
 		try {
 			return gerenteDados.getGerenteSessoes().isUserLogged(login);
 		} catch (Exception e) {
@@ -56,18 +54,13 @@ public class BlogWSImpl implements BlogWS {
 	}
 
 	@Override
-	public void logoff(String sessionId) {
-		//FIXME TEM QUE AJEITAR ISSO NAO ESTA LANCANDO NADA
+	public void logoff(String sessionId) throws Exception {
 		gerenteDados.getGerenteSessoes().logoff(sessionId);		
 	}
 
 	@Override
 	public void changeProfileInformation(String sessionId, String atributo, String valor)
 			throws Exception {
-		/*FIXME EU MUDEI NA INTERFACE QUE ELA PASSOU PQ EU ACHO QUE TA ERRADO LA
-		*ELA PASSOU APENAS O SESSION ID E O ATRIBUTO.. COMO EH QUE EU VOU MUDAR UMA INFORMACAO
-		*SE NAO PASSOU NADA DE NOVO? ACHO QUE EU AJEITEI CERTO MESMO
-		*/
 		gerenteDados.getGerentePerfis().changeProfileInformation(sessionId, atributo, valor);
 		
 	}
@@ -200,14 +193,12 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public Integer getBlogBySessionId(String sessiongId, Integer index)
 			throws Exception {
-		//FIXME AJEITAR O INTEGER.VALUEOF
 		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdBlogDesejado(sessiongId,
 				index));
 	}
 
 	@Override
 	public Integer getBlogByLogin(String login, Integer index) throws Exception {
-		//FIXME AJEITAR O INTEGER.VALUEOF
 		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdBlogPorLogin(login,
 				index));
 	}
@@ -293,32 +284,34 @@ public class BlogWSImpl implements BlogWS {
 
 	@Override
 	public void findProfileByName(String match) {
-		// TODO Auto-generated method stub
+		gerenteDados.getGerentePerfis().getPerfilPorNome(match).
+					toString().replace(" ", "");
 		
 	}
 
 	@Override
 	public void findProfileByInterests(String match) {
-		// TODO Auto-generated method stub
+		gerenteDados.getGerentePerfis().getPerfilPorInteresse(match);
 		
 	}
 
 	@Override
 	public void findProfileByGender(String match) {
-		// TODO Auto-generated method stub
+		gerenteDados.getGerentePerfis().getPerfilPorSexo(match)
+							.toString().replace(" ", "");
 		
 	}
 
 	@Override
 	public void findBlogByName(String match) {
-		// TODO Auto-generated method stub
+		gerenteDados.getGerenteBlogs().getBlogPorNome(match)
+							.toString().replace(" ", "");
 		
 	}
 
 	@Override
 	public Integer getNumberOfAnnouncements(String sessionId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerenciadorDeUsuarios().getNumberOfAnnouncements(sessionId);
 	}
 
 	@Override
