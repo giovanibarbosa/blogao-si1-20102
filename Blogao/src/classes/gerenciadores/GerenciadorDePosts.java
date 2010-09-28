@@ -100,7 +100,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			String descricao, String dado) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
 
-		Post post =getPostPorId(postId);
+		Post post = getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
 		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
@@ -249,10 +249,11 @@ public class GerenciadorDePosts implements Gerenciador {
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
 
-	public String getImagem(String id, int index)
-			throws PersistenceException, ArgumentInvalidException {
+	public String getImagem(String id, int index) throws PersistenceException,
+			ArgumentInvalidException {
 		Post post = getPostPorId(id);
-		if(index >= post.getListaDeImagem().size()) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		if (index >= post.getListaDeImagem().size())
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getListaDeImagem().get(index).getId();
 	}
 
@@ -460,9 +461,15 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		return post.getListaComentarios().size();
 	}
-	
-	public int getNumberOfComments(String login, String blogId) {
-		
+
+	public int getNumberOfComments(String login, String blogId)
+			throws UserInvalidException, ArgumentInvalidException, PersistenceException {
+		List<Blog> blogs = gerenteDados.getGerenteBlogs().getBlogPorLogin(login);
+		Blog blog = blogs.get(blogs.indexOf(gerenteDados.getGerenteBlogs().getBlog(blogId)));
+		int retorno = 0;
+		for (String p : blog.getListaDePostagens())
+			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
+		return retorno;	
 	}
 
 	public void removePost(String postId) {
@@ -474,19 +481,22 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 
 	}
-	
-	public void validaPostId(String postId) throws ArgumentInvalidException{
+
+	public void validaPostId(String postId) throws ArgumentInvalidException {
 		for (Post post : listaPosts) {
-			if(post.getId().equals(postId)) return;
+			if (post.getId().equals(postId))
+				return;
 		}
 		throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
 	}
 
-	public Comentario GetComentario(String postId, int index) throws PersistenceException, ArgumentInvalidException {
+	public Comentario GetComentario(String postId, int index)
+			throws PersistenceException, ArgumentInvalidException {
 
 		Post post = getPostPorId(postId);
-		if (index >= post.getListaComentarios().size()) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		if (index >= post.getListaComentarios().size())
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getComentario(index);
 	}
-	
+
 }
