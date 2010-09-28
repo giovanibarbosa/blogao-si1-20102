@@ -288,21 +288,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return listaBlog;
 	}
 
-//	public void deleteBlog(String sessionId, String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
-//		Blog blog = getBlog(blogId);
-//		this.removeBlog(blog);
-//		
-//	}
-
-//	private void removeBlog(Blog blog) {
-//		for(String postId : blog.getListaDePostagens()){
-//			gerenteDados.getGerentePosts().removePost(postId);
-//		}
-//		for (Blog subBlog : blog.getListaSubBlogs()) {
-//			removeBlog(subBlog);			
-//		}
-//		listaDeBlogs.remove(blog);
-//	}
 
 	public List<Blog> getListaDeBlogsPorIdSessao(String idSessao) {
 		List<Blog> listaBlogsComIdSessaoBuscado = new ArrayList<Blog>();
@@ -314,12 +299,13 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return listaBlogsComIdSessaoBuscado;
 	}
 
-//	TODO
 	public void deleteBlog(Blog blog) throws PersistenceException {
 		List<Post> postsAApagar = gerenteDados.getGerentePosts().getListaPostsPorBlog(blog);
 		while (!postsAApagar.isEmpty()){
 			gerenteDados.getGerentePosts().removePost(postsAApagar.get(0).getId());
+			postsAApagar.remove(0);
 		}
+		listaDeBlogs.remove(blog);
 	}
 
 }

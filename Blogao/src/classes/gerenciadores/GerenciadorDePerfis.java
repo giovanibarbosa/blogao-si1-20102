@@ -184,6 +184,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 		List<Blog> listaBlogsAApagar = gerenteDados.getGerenteBlogs().getListaDeBlogsPorIdSessao(sessionId);
 		while(!listaBlogsAApagar.isEmpty()){
 			gerenteDados.getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
+			listaBlogsAApagar.remove(0);
 		}
 		listaPerfis.remove(perfil);
 		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionId);
