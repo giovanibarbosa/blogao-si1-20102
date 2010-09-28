@@ -8,10 +8,7 @@ import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.func.Data;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
-import classes.gerenciadores.GerenciadorDePosts;
-import classes.gerenciadores.GerenciadorDeSessoes;
-import classes.gerenciadores.GerenciadorDeBlogs;
+
 
 public class FacadeUserStore6 {
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
