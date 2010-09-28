@@ -22,7 +22,6 @@ public class LogavelImpl implements Logavel {
 	public LogavelImpl(Login log, Senha sen) {
 		setLogin(log);
 		setSenha(sen);
-		System.out.println();
 	}
 	
 	/**
