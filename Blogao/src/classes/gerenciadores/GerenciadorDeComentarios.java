@@ -6,21 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.collections.map.HashedMap;
 
-import com.sun.xml.xsom.impl.scd.Iterators.Map;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import ourExceptions.UserInvalidException;
 
 import persistencia.daos.ComentariosDAO;
 
-import classes.Blog;
 import classes.Comentario;
 import classes.Post;
-import classes.Sessao;
-import classes.func.usuario.Usuario;
 
 import interfaces.Constantes;
 import interfaces.Gerenciador;
@@ -71,8 +65,6 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	public String addComentario(String sessionId, String postId, String texto)
 			throws ArgumentInvalidException, PersistenceException {
-		System.out.println("Id sessao: " + sessionId + "; Id Post: " + postId
-				+ "; Texto: " + texto);
 
 		gerenteDados.getGerenteSessoes().getSessao(sessionId);
 
