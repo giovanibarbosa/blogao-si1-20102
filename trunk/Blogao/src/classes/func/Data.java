@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import ourExceptions.ArgumentInvalidException;
 
@@ -16,28 +17,34 @@ import ourExceptions.ArgumentInvalidException;
  */
 public class Data {
 
-	
 	private static final long serialVersionUID = 1L;
 	private static final int DIAS_DO_MES = 31;
 	private static final int MESES_DO_ANO = 12;
-	private static final int ANO_ATUAL = 2010; //FIXME Ajeitar para automatizar isso.
+	private static int ANO_ATUAL;
 	private Calendar data;
 	
-	
-	public Data(String data) throws Exception {
-		setData(data);
-	}
-	
+	/**
+	 * Construtor default da classe Data
+	 */
 	public Data() {
-		
+		this.ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
 	}
 	
 	
 	/**
-     * Verifica a validade de configuracao de uma data.
+	 * Construtor da classe Data
+	 * @param String data
+	 * @throws Exception caso a cada seja invalida
+	 */
+	public Data(String data) throws Exception {
+		this.ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
+		setData(data);
+	}
+	
+	/**
+     * Metodo que verifica a validade de configuracao de uma data.
      * @param String data
-     * @return boolean
-	 * @throws Exception 
+     * @return True caso a data seja valida
      */
 	public static boolean verificaData(String data) {
 		if (data == null || !data.matches("\\d\\d\\/\\d\\d\\/\\d\\d\\d\\d")
@@ -81,20 +88,18 @@ public class Data {
 	}
 
 	/**
-	 * @return the data
+	 * Metodo acessador de uma data
+	 * @return Calendar data
 	 */
 	public Calendar getData() {
 		return data;
 	}
-
-
-	/**
-	 * @param data the data to set
-	 */
-	public void setData(Calendar data) {
-		this.data = data;
-	}
 	
+	/**
+	 * Metodo que seta uma data
+	 * @param String nova data
+	 * @throws ArgumentInvalidException caso a data seja invalida
+	 */
 	public void setData(String data) throws ArgumentInvalidException {
 		if (!verificaData(data)) {
 			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
@@ -105,15 +110,19 @@ public class Data {
 			
 		} catch (Exception e) {
 			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
-		}
-		
+		}		
 	}
 	
+	/**
+	 * Metodo que retorna a data de hoje
+	 * @return String data
+	 */
 	public String todaysDate() {
 		Date data = new Date();  
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
 		return formatador.format(data);
 	}
+	
 	
 	
 	
