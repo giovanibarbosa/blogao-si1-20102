@@ -4,6 +4,11 @@ package ws;
 
 import classes.gerenciadores.GerenciadorDeDados;
 
+/**
+ * Classe que implementa um BlogWS
+ * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ *
+ */
 public class BlogWSImpl implements BlogWS {
 	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
 
@@ -392,6 +397,21 @@ public class BlogWSImpl implements BlogWS {
 	public Integer getNumberOfAllSubComments(String commentId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	//FIXME VERIFICAR SE VAI DEIXAR ESTE METODO AQUI
+	public void loadData() throws Exception {
+		gerenteDados.loadData();
+	}
+
+	//FIXME VERIFICAR SE VAI DEIXAR ESTE METODO AQUI
+	public void cleanPersistence() {
+		gerenteDados.cleanPersistence();
+	}
+	
+	//FIXME VERIFICAR SE VAI DEIXAR ESTE METODO AQUI
+	public void saveData() throws Exception {
+		gerenteDados.saveData();
 	}
 
 }
