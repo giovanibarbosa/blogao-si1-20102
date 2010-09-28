@@ -2,18 +2,9 @@ package classes.gerenciadores;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import ourExceptions.PersistenceException;
-
-import classes.Blog;
-import classes.Post;
-import classes.func.usuario.Perfil;
-import classes.func.usuario.Usuario;
-
-import interfaces.Gerenciador;
-import persistencia.daos.*;
 
 /**
  * Classe que gerencia a base de dados.

@@ -128,6 +128,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		//		
 		// return user.getListaBlogs().get(index).getId();
 	}
+	
 
 	public int totalDePosts(String idBlog) throws FileNotFoundException,
 			PersistenceException, ArgumentInvalidException {

@@ -3,9 +3,7 @@ package classes.func.usuario;
 import java.io.IOException;
 
 import ourExceptions.PersistenceException;
-import interfaces.Gerenciador;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
 
 /**
  * Facade do Perfil. Utilizada para chamar os metodos necessarios para os
