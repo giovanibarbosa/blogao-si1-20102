@@ -41,7 +41,7 @@ public class FacadeUserStore13 {
 		return gerenteDados.getGerenteSessoes().logon(login, senha);
 	}
 
-	public String getNumberOfAnnouncements(String sessionId) {
+	public int getNumberOfAnnouncements(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
 		return gerenteDados.getGerenciadorDeUsuarios().getNumberOfAnnouncements(sessionId);
 
 	}
@@ -55,10 +55,10 @@ public class FacadeUserStore13 {
 		return gerenteDados.getGerentePosts().createPost(sessionId, blogId, titulo, texto);
 	}
 
-//	// Adiciona um notificador para novos posts
-//	public void addPostAnnouncements(String sessionId, String blogId) {
-//		gerenteDados.getGerenciadorDeUsuarios().addPostAnnouncement(sessionId, blogId);
-//	}
+	// Adiciona um notificador para novos posts
+	public void addPostAnnouncements(String sessionId, String blogId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		gerenteDados.getGerenciadorDeUsuarios().addPostAnnouncement(sessionId, blogId);
+	}
 
 	public String getAnnouncement(String sessionId, String index) {
 		return null;
