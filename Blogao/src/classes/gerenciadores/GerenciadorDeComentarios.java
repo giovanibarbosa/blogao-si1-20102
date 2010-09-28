@@ -111,4 +111,43 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		listaIdsComentarios.remove(removido.getId());
 	}
 
+	public String addSubComment(String sessionId, String idComentario,
+			String texto) throws ArgumentInvalidException {
+		gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionId);
+		Comentario comentPai = mapaComentarios.get(idComentario);
+		if(comentPai == null) throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+		Comentario coment = new Comentario(sessionId, texto);
+		listaIdsComentarios.add(coment.getId());
+		mapaComentarios.put(coment.getId(), coment);
+		comentPai.getListaSubComentarios().add(coment);
+		return coment.getId();
+	}
+
+	public String getSubComment(String idComentario, int index) throws ArgumentInvalidException {
+		Comentario coment = mapaComentarios.get(idComentario);
+		if(coment == null) throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO); 
+		if(index >= coment.getListaSubComentarios().size()) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO); 
+		
+		return coment.getListaSubComentarios().get(index).getId();
+	}
+
+	public int getNumberOfSubComments(String idComentario) throws ArgumentInvalidException {
+		Comentario coment = mapaComentarios.get(idComentario);
+		if(coment == null) throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO); 
+		return coment.getListaSubComentarios().size();
+	}
+
+	public int getNumberOfAllSubComments(String idComentario) throws ArgumentInvalidException {
+		Comentario coment = mapaComentarios.get(idComentario);
+		if(coment == null) throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+		int total = 0;
+		for (Comentario subComent : coment.getListaSubComentarios()) {
+			total += getNumberOfAllSubComments(subComent.getId());
+			total++;
+		}
+		return total;
+	}
+	
+	
+
 }
