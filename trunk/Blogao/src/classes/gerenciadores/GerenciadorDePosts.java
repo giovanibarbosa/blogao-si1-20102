@@ -462,19 +462,22 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post.getListaComentarios().size();
 	}
 	
-//	public int getNumberOfComments(String login, String blogId) {
-//		
-//	}
-
-
 	public int getNumberOfComments(String login, String blogId)
 			throws UserInvalidException, ArgumentInvalidException, PersistenceException {
 		List<Blog> blogs = gerenteDados.getGerenteBlogs().getBlogPorLogin(login);
-		Blog blog = blogs.get(blogs.indexOf(gerenteDados.getGerenteBlogs().getBlog(blogId)));
+		Blog blog = getBlogAuxiliar(blogs, blogId);
 		int retorno = 0;
 		for (String p : blog.getListaDePostagens())
 			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
 		return retorno;	
+	}
+	
+	private Blog getBlogAuxiliar(List<Blog> blogs, String blogId) {
+		for (Blog b : blogs) {
+			if (blogId.equals(b.getId()))
+				return b;
+		}
+		return null;
 	}
 
 
