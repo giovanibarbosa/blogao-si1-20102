@@ -82,19 +82,19 @@ public class FacadeUserStore8 {
 
 	// RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
 	public String getComment(String postId, int index)
-			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteComentarios()
+			throws ArgumentInvalidException, PersistenceException {
+		return gerenteDados.getGerentePosts()
 				.GetComentario(postId, index).getId();
 	}
 
-	// // TODO RETORNA O TEXTO DO COMETARIO.
-	public String getCommentText(String idComentario) {
-		return gerenteDados.getGerenteComentarios()
+	//RETORNA O TEXTO DO COMETARIO.
+	public String getCommentText(String idComentario) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteComentarios().getTextoComentario(idComentario);
 	}
 
 	// TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
-	public String getCommentAuthor(String idComentario) {
-		return null;
+	public String getCommentAuthor(String idComentario) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		return gerenteDados.getGerenteComentarios().getCommentAuthor(idComentario);
 	}
 
 	public void logoff(String idSessao) throws ArgumentInvalidException {

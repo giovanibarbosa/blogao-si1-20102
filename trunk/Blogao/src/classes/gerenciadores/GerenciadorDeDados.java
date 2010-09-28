@@ -39,30 +39,28 @@ public class GerenciadorDeDados {
 		gerenteSessoes = new GerenciadorDeSessoes(this);
 		gerenteBlogs = new GerenciadorDeBlogs(this);
 		gerentePosts = new GerenciadorDePosts(this);
-//		gerenteComentarios = new GerenciadorDeComentarios();
+		gerenteComentarios = new GerenciadorDeComentarios(this);
 	}
 	
 	/**
 	 * Metodo que carrega todos* os dados do BD para a aplicação.
 	 * @throws FileNotFoundException
 	 */
-	//FIXME ajeitar o email e os comentarios.
 	public void loadData() throws FileNotFoundException {
 		gerenteUsuarios.loadData();
 		gerentePerfis.loadData();
 		gerenteSessoes.loadData();
 		gerenteBlogs.loadData();
 		gerentePosts.loadData();
-//		gerenteComentarios.loadData();
+		gerenteComentarios.loadData();
 	}
 
 	public void saveData() throws PersistenceException, IOException{
 		gerenteUsuarios.saveData();
-		//gerentePerfis.saveData();
 		gerenteSessoes.saveData();
 		gerenteBlogs.saveData();
 		gerentePosts.saveData();
-//		gerenteComentarios.saveData();
+		gerenteComentarios.saveData();
 	}
 	public void cleanPersistence(){
 		gerenteUsuarios.cleanPersistence();
@@ -70,7 +68,7 @@ public class GerenciadorDeDados {
 		gerenteSessoes.cleanPersistence();
 		gerenteBlogs.cleanPersistence();
 		gerentePosts.cleanPersistence();
-//		gerenteComentarios.cleanPersistence();
+		gerenteComentarios.cleanPersistence();
 	}
 	
 	public GerenciadorDeUsuarios getGerenciadorDeUsuarios() {

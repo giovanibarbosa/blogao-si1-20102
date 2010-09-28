@@ -38,7 +38,6 @@ public class Post {
 	private List<String> listaIDsAudios;
 	private List<String> listaIDsImagens;
 	
-
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
 
@@ -413,4 +412,9 @@ public class Post {
 	private void setCorpo(String texto2) {
 		this.corpo = texto2;		
 	}
+
+	public Comentario getComentario(int index) {
+		return comentarios.get(index);
+	}
+
 }

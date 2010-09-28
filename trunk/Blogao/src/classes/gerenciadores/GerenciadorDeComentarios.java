@@ -3,7 +3,12 @@ package classes.gerenciadores;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.collections.map.HashedMap;
+
+import com.sun.xml.xsom.impl.scd.Iterators.Map;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -17,24 +22,27 @@ import classes.Post;
 import classes.Sessao;
 import classes.func.usuario.Usuario;
 
+import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 public class GerenciadorDeComentarios implements Gerenciador {
 
 	private GerenciadorDeDados gerenteDados;
-	private List<Comentario> listaComentarios;
+	private List<String> listaIdsComentarios;
+	private HashMap<String, Comentario> mapaComentarios;
 	private ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
 
 	public GerenciadorDeComentarios(GerenciadorDeDados gerenteDados) {
-		listaComentarios = new ArrayList<Comentario>();
+		listaIdsComentarios = new ArrayList<String>();
+		mapaComentarios = new HashMap<String, Comentario>();
 		this.gerenteDados = gerenteDados;
 	}
 
 	@Override
 	public void saveData() throws PersistenceException, IOException {
 		comentariosDAO.limparComentarios();
-		for (Comentario coment : listaComentarios) {
-			comentariosDAO.criar(coment);
+		for (String comentId : listaIdsComentarios) {
+			comentariosDAO.criar(mapaComentarios.get(comentId));
 		}
 
 	}
@@ -42,30 +50,18 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	@Override
 	public void loadData() {
 		try {
-			listaComentarios = comentariosDAO.recuperaComentarios();
+			List<Comentario> listaComents = comentariosDAO
+					.recuperaComentarios();
+			for (Comentario comentario : listaComents) {
+				listaIdsComentarios.add(comentario.getId());
+				mapaComentarios.put(comentario.getId(), comentario);
+			}
 		} catch (FileNotFoundException e) {
-			listaComentarios = new ArrayList<Comentario>();
+			listaIdsComentarios = new ArrayList<String>();
+			mapaComentarios = new HashMap<String, Comentario>();
 		}
 
 	}
-
-	// FIXME
-	// public Comentario GetComentario(String postId, int index)
-	// throws ArgumentInvalidException {
-	// return gerenteDados.getGerentePosts().getPost(postId)
-	// .getListaComentarios().get(index);
-	// }
-
-	// FIXME
-	// public String addComentario(String sessionId, String postId, String
-	// texto)
-	// throws ArgumentInvalidException, UserInvalidException {
-	// Comentario coment = new Comentario(texto);
-	// gerenteDados.getGerentePosts().getPost(postId, sessionId)
-	// .addComentario2(coment);
-	// return coment.getId();
-	//
-	// }
 
 	@Override
 	public void cleanPersistence() {
@@ -75,13 +71,40 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	public String addComentario(String sessionId, String postId, String texto)
 			throws ArgumentInvalidException, PersistenceException {
+		System.out.println("Id sessao: " + sessionId + "; Id Post: " + postId
+				+ "; Texto: " + texto);
+
 		gerenteDados.getGerenteSessoes().getSessao(sessionId);
-		
+
 		Comentario coment = new Comentario(sessionId, texto);
 		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
-		
+
 		post.addComentario2(coment);
+		listaIdsComentarios.add(coment.getId());
+		mapaComentarios.put(coment.getId(), coment);
 		return coment.getId();
+	}
+
+	public String getTextoComentario(String idComentario)
+			throws ArgumentInvalidException {
+		validaIdComentario(idComentario);
+		return mapaComentarios.get(idComentario).getCorpoComentario();
+	}
+
+	private void validaIdComentario(String idComentario)
+			throws ArgumentInvalidException {
+		for (String idComentario2 : listaIdsComentarios) {
+			if (idComentario.equals(idComentario2))
+				return;
+		}
+		throw new ArgumentInvalidException(Constantes.COMENTARIO_INEXISTENTE);
+
+	}
+
+	public String getCommentAuthor(String idComentario) throws ArgumentInvalidException, FileNotFoundException, PersistenceException {
+		validaIdComentario(idComentario);
+		String idSessaoDono = mapaComentarios.get(idComentario).getIdSessaoDono();
+		return gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(idSessaoDono).getLogin().getLogin();
 	}
 
 }
