@@ -40,7 +40,7 @@ public class Perfil {
 	private static final int FILMES = -1274498766;
 	private static final int MUSICAS = 1412695319;
 	private static final int LIVROS = -1102420835;
-	
+
 	/**
 	 * Metodo acessador de {@link Email}
 	 * 
@@ -49,11 +49,11 @@ public class Perfil {
 	public Email getEmail() {
 		return email;
 	}
-	
+
 	public String getLoginUsuarioDono() {
 		return loginUsuarioDono;
 	}
-	
+
 	public void setLoginUsuario(String loginUsuarioDono) {
 		this.loginUsuarioDono = loginUsuarioDono;
 	}
@@ -265,6 +265,7 @@ public class Perfil {
 		case (EMAIL):
 			return this.email.toString();
 		case (NOME):
+			if(this.nomeDeExibicao.equals("")) return this.loginUsuarioDono;
 			return this.nomeDeExibicao;
 		case (ENDERECO):
 			return this.endereco;
