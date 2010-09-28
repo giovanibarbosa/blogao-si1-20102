@@ -41,29 +41,31 @@ public class FacadeUserStore9 {
 		return gerenteDados.getGerenteBlogs().recuperaIdDoPost(blogId, index);
 	}
 	
-	//TODO RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
-	public Comentario getComment(String postId, int index){
-		return null;
+	//RETORNA O COMENTARIO SEGUNDO O POST(PARAMENTRO) E SEU INDICE.
+	public String getComment(String postId, int index) throws PersistenceException{
+		return gerenteDados.getGerentePosts().getPostPorId(postId).getListaComentarios().get(index).getId();
 	}
 	
-	//TODO RETORNA O TEXTO DO COMETARIO.
-	public String getCommentText(String idComentario){
-		return null;
+	//RETORNA O TEXTO DO COMETARIO.
+	public String getCommentText(String idComentario) throws ArgumentInvalidException{
+		return gerenteDados.getGerenteComentarios().getTextoComentario(idComentario);
 	}
 	
-	//TODO RETORNA O NOME DO AUTOR DO COMENTARIO.
-	public String getCommentAuthor(String idComentario){
-		return null;
+	//RETORNA O NOME DO AUTOR DO COMENTARIO.
+	public String getCommentAuthor(String idComentario) throws FileNotFoundException, ArgumentInvalidException, PersistenceException{
+		return gerenteDados.getGerenteComentarios().getCommentAuthor(idComentario);
 	}
 	
-	//TODO METODO QUE DELETA UM POST.
+	//METODO QUE DELETA UM POST.
 	public void deletePost(String sessionId, String postId) throws ArgumentInvalidException, PersistenceException, IOException{
-//		gerenteDados.getGerentePosts().deletePost(sessionId, postId);
+		gerenteDados.getGerentePosts().validaPostId(postId, sessionId);
+		gerenteDados.getGerentePosts().removePost(postId);
+		
 	}
 	
 	//TODO RETORNA AS INFORMACOES DO POST.
-	public String getPostInformation(String idPost,String atributo){
-		return null;
+	public String getPostInformation(String idPost,String atributo) throws ArgumentInvalidException, FileNotFoundException, PersistenceException{
+		return gerenteDados.getGerentePosts().informacaoDoPost(idPost, atributo);
 		
 	}
 	

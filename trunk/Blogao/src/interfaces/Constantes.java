@@ -47,6 +47,7 @@ public interface Constantes {
 	static final String DADO_INVALIDO = "Dado inválido";
 	static final String TITULO_OBRIGATORIO = "Título obrigatório";
 	static final String INDICE_INVALIDO = "Índice incorreto";
+	static final String COMENTARIO_INVALIDO = "Comentário inválido";
 	
 	
 	
