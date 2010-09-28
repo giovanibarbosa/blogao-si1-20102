@@ -81,146 +81,131 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String createPost(String sessionId, String blogId, String titulo,
 			String texto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().createPost(sessionId, blogId, titulo, texto);
 	}
 
 	@Override
 	public String attachSound(String sessionId, String postId,
 			String descricao, String dado) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return gerenteDados.getGerentePosts().attachSound(sessionId, postId, descricao, dado);
 	}
 
 	@Override
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return gerenteDados.getGerentePosts().attachMovie(sessionId, postId, descricao, dado);
 	}
 
 	@Override
 	public String attachPicture(String sessionId, String postId,
 			String descricao, String dado) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return gerenteDados.getGerentePosts().attachPicture(sessionId, postId, descricao, dado);
 	}
 
 	@Override
 	public String getPostInformation(String postId, String atributo)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return gerenteDados.getGerentePosts().informacaoDoPost(postId, atributo);
 	}
 
 	@Override
 	public Integer getNumberOfSounds(String postId) {
-		// TODO Auto-generated method stub
-		return null;
+		//FIXME
+		return gerenteDados.getGerentePosts().getNumeroDeSons(postId);
 	}
 
 	@Override
 	public Integer getNumberOfMovies(String postId) {
-		// TODO Auto-generated method stub
-		return null;
+		//FIXME
+		return gerenteDados.getGerentePosts().getNumeroDeVideos(postId);
 	}
 
 	@Override
 	public Integer getNumberOfPictures(String postId) {
-		// TODO Auto-generated method stub
-		return null;
+		//FIXME
+		return gerenteDados.getGerentePosts().getNumeroDeImagens(postId);
 	}
 
 	@Override
 	public String getSound(String postId, Integer index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().getSom(postId, index);
 	}
 
 	@Override
 	public String getSoundDescription(String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().getDescricaoDoSom(soundId);
 	}
 
 	@Override
 	public String getSoundData(String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().getDadoDoSom(soundId);
 	}
 
 	@Override
 	public String getMovie(String postId, Integer index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().getVideo(postId, index);
 	}
 
-	@Override
-	public String getMovieDescription(String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public String getMovieDescription(String movieId) throws Exception {
+		return gerenteDados.getGerentePosts().getDescricaoDoVideo(movieId);
 	}
 
-	@Override
-	public String getMovieData(String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public String getMovieData(String movieId) throws Exception {
+		return gerenteDados.getGerentePosts().getDadoDoVideo(movieId);
 	}
 
 	@Override
 	public String getPicture(String postId, Integer index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().getImagem(postId, index);
+	}
+
+	public String getPictureDescription(String pictureId) throws Exception {
+		return gerenteDados.getGerentePosts().getDescricaoDaImagem(pictureId);
 	}
 
 	@Override
-	public String getPictureDescription(String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPictureData(String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public String getPictureData(String pictureId) throws Exception {
+		return gerenteDados.getGerentePosts().getDadoDaImagem(pictureId);
 	}
 
 	@Override
 	public Integer getNumberOfBlogsByLogin(String login) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerenteBlogs().totalDeBlogsPorLogin(login);
 	}
 
 	@Override
 	public Integer getNumberOfBlogsBySessionId(String sessiongId)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerenteBlogs().totalDeBlogsPorSessao(sessiongId);
 	}
 
 	@Override
 	public Integer getBlogBySessionId(String sessiongId, Integer index)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		//FIXME AJEITAR O INTEGER.VALUEOF
+		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdBlogDesejado(sessiongId,
+				index));
 	}
 
 	@Override
 	public Integer getBlogByLogin(String login, Integer index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		//FIXME AJEITAR O INTEGER.VALUEOF
+		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdBlogPorLogin(login,
+				index));
 	}
 
 	@Override
 	public Integer getNumberOfPosts(String blogId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerenteBlogs().totalDePosts(blogId);
 	}
 
 	@Override
 	public Integer getPost(String blogId, Integer index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdDoPost(blogId, index));
 	}
 
 	@Override

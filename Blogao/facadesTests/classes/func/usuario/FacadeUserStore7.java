@@ -3,10 +3,7 @@ package classes.func.usuario;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import classes.gerenciadores.GerenciadorDeBlogs;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePosts;
-import classes.gerenciadores.GerenciadorDeSessoes;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
