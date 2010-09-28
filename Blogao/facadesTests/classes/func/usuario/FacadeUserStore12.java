@@ -81,14 +81,15 @@ public class FacadeUserStore12 {
 	
 	//TODO METODO QUE ADD COMETARIO AO POST
 	//acho que já foi implementado em algum canto.
-	public void addComment(String sessionId, String postId, String texto){
-		
+	public void addComment(String sessionId, String postId, String texto)
+			throws ArgumentInvalidException, PersistenceException{
+		gerenteDados.getGerenteComentarios().addComentario(sessionId, postId, texto);
 	}
 	
 	
 	//TODO METODO QUE RETORNA O NUMERO DE COMENTARIOS
 	public int getNumberOfComments(String login, String blogId){
-		return 0;
+		return gerenteDados.getGerentePosts().getNumberOfComments(login, blogId)
 	}
 	
 
