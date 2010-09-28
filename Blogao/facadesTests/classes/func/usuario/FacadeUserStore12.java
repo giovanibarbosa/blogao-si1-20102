@@ -41,8 +41,8 @@ public class FacadeUserStore12 {
 	}
 	
 	//METODO QUE BUSCA O PERFIL PELO NOME(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
-	public List<String> findProfileByName(String match){
-		return gerenteDados.getGerentePerfis().getPerfilPorNome(match);
+	public String findProfileByName(String match){
+		return gerenteDados.getGerentePerfis().getPerfilPorNome(match).toString();
 	}
 	
 	

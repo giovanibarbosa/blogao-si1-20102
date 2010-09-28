@@ -144,9 +144,9 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 	
 	public List<String> getPerfilPorNome(String nome){
-		List<String> listaPerfil = new ArrayList();
-		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
-		for(Perfil pf : listAllProfiles){
+		List<String> listaPerfil = new ArrayList<String>();
+		gerenteDados.getGerenteUsuarios().getListaUsuarios();
+		for(Perfil pf : listaPerfis){
 			if(pf.getNomeDeExibicao().equals(nome))
 				listaPerfil.add(pf.getNomeDeExibicao());
 		}
@@ -154,7 +154,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 
 	public List<String> getPerfilPorInteresse(String interesse) {
-		List<String> listaPerfil = new ArrayList();
+		List<String> listaPerfil = new ArrayList<String>();
 		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
 		for(Perfil pf : listAllProfiles){
 			if(pf.getInteresses().equals(interesse))
