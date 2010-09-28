@@ -79,7 +79,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		Comentario coment = new Comentario(sessionId, texto);
 		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
 
-		post.addComentario2(coment);
+		post.addComentario(coment);
 		listaIdsComentarios.add(coment.getId());
 		mapaComentarios.put(coment.getId(), coment);
 		return coment.getId();
