@@ -36,6 +36,7 @@ public class Usuario {
 	public Usuario(Login log, Senha sen) throws Exception {
 		logavel = new LogavelImpl(log, sen);
 		listaBlogs = new ArrayList<Blog>();
+		listaAnnouncements = new ArrayList<Announcement>();
 	}
 
 	/**
@@ -49,6 +50,7 @@ public class Usuario {
 		this.logavel = new LogavelImpl(log, sen);
 		setPerfil(per);
 		listaBlogs = new ArrayList<Blog>();
+		listaAnnouncements = new ArrayList<Announcement>();
 	}
 
 	/**

@@ -128,9 +128,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	}
 
-	public String getNumberOfAnnouncements(String sessionId) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getNumberOfAnnouncements(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
+		return user.getListaAnnouncement().size();
 	}
 
 }
