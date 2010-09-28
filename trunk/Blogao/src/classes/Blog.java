@@ -170,6 +170,15 @@ public class Blog {
 	}
 	
 	/**
+	 * Metodo modificador que seta uma lista de posts
+	 * @param ArrayList<{@link String}> listaDePosts
+	 */
+	public void setlistaDePosts(ArrayList<String> listaDePosts) {
+		posts = listaDePosts;
+		
+	}
+	
+	/**
 	 * Metodo que retorna o numero de posts de um Blog
 	 * @return int numero de posts
 	 */
@@ -195,9 +204,6 @@ public class Blog {
 		return getId().equals(outra.getId());
 	}
 
-	public void setlistaDePosts(ArrayList<String> listaDePosts) {
-		posts = listaDePosts;
-		
-	}
+
 
 }

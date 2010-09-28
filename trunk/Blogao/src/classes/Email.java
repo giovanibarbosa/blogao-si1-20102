@@ -51,10 +51,6 @@ public class Email {
 		return email;
 	}
 	
-	/**
-	 * Metodo que verifica a igualdade entre objetos Blog.
-	 * @return True caso os objetos sejam iguais 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Email))

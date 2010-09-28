@@ -72,7 +72,7 @@ public class Post {
 	/**
 	 * Metodo modificador de titulo
 	 * @param String novo titulo
-	 * @throws ArgumentInvalidException caso o titulo seja invalido
+	 * @throws {@link ArgumentInvalidException} caso o titulo seja invalido
 	 */
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
 		if (titulo == null || titulo.trim().equals("")) {
@@ -229,86 +229,6 @@ public class Post {
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
 		}
 	}
-
-//	/**
-//	 * destructor do post.
-//	 * 
-//	 * @return
-//	 * @throws PersistenceException
-//	 */
-//	public void deleta() throws PersistenceException {
-//
-//	}
-
-	/**
-	 * retorna a lista de comentarios do post.
-	 * 
-	 * @return
-	 * @throws FileNotFoundException
-	 */
-//	public List<Comentario> getComentarios() {
-//		List<Comentario> listaDeComentarios = new ArrayList<Comentario>();
-//		try {
-//			listaDeComentarios = comentDao.recuperaComentarios();
-//		} catch (Exception e) {
-//			System.out.println(Constantes.ERRO_LISTA_COMENTARIOS);
-//		}
-//		return listaDeComentarios;
-//	}
-
-	/**
-	 * Adiciona um comentario ao um post.
-	 * 
-	 * @param comentario
-	 * @return
-	 * @throws FileNotFoundException
-	 */
-//	public boolean addComentario(Comentario comentario) {
-//		if (getComentarios().contains(comentario)) {
-//			return false;
-//		} else {
-//			try {
-//				comentDao.criar(comentario);
-//			} catch (PersistenceException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			return true;
-//		}
-//	}
-
-	/**
-	 * remove um comentario do post.
-	 * 
-	 * @param comentario
-	 * @return
-	 */
-//	public boolean removeComentario(Comentario comentario) {
-//		if (getComentarios().contains(comentario)) {
-//			try {
-//				comentDao.deletar(comentario);
-//			} catch (PersistenceException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-//
-//	/**
-//	 * Salva as alteracoes do post.
-//	 * 
-//	 * @throws PersistenceException
-//	 * @throws IOException
-//	 */
-//	public void saveData() throws PersistenceException, IOException {
-//	}
-
 
 	/**
 	 * Metodo acessador de id do post
