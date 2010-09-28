@@ -288,11 +288,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return listaBlog;
 	}
 
-	public void deleteBlog(String sessionId, String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
-		Blog blog = getBlog(blogId);
-		this.removeBlog(blog);
-		
-	}
+//	public void deleteBlog(String sessionId, String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
+//		Blog blog = getBlog(blogId);
+//		this.removeBlog(blog);
+//		
+//	}
 
 	private void removeBlog(Blog blog) {
 		for(String postId : blog.getListaDePostagens()){
