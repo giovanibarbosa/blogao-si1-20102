@@ -15,6 +15,7 @@ import persistencia.daos.ComentariosDAO;
 
 import classes.Comentario;
 import classes.Post;
+import classes.func.usuario.Usuario;
 
 import interfaces.Constantes;
 import interfaces.Gerenciador;
@@ -89,14 +90,20 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			if (idComentario.equals(idComentario2))
 				return;
 		}
-		throw new ArgumentInvalidException(Constantes.COMENTARIO_INEXISTENTE);
+		throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
 
 	}
 
 	public String getCommentAuthor(String idComentario) throws ArgumentInvalidException, FileNotFoundException, PersistenceException {
 		validaIdComentario(idComentario);
 		String idSessaoDono = mapaComentarios.get(idComentario).getIdSessaoDono();
-		return gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(idSessaoDono).getLogin().getLogin();
+		for (Usuario user : gerenteDados.getGerenciadorDeUsuarios().getListaUsuarios()) {
+			if (String.valueOf(user.getLogin().getLogin().hashCode()).equals(idSessaoDono)){
+				return user.getLogin().getLogin();
+			}
+			
+		}
+		throw new ArgumentInvalidException(Constantes.COMENTARIO_INEXISTENTE);
 	}
 
 	public void remove(Comentario removido) {

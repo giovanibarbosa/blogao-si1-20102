@@ -461,16 +461,18 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		return post.getListaComentarios().size();
 	}
-	
 	public int getNumberOfComments(String login, String blogId)
-			throws UserInvalidException, ArgumentInvalidException, PersistenceException {
-		List<Blog> blogs = gerenteDados.getGerenteBlogs().getBlogPorLogin(login);
+			throws UserInvalidException, ArgumentInvalidException,
+			PersistenceException {
+		List<Blog> blogs = gerenteDados.getGerenteBlogs()
+				.getBlogPorLogin(login);
 		Blog blog = getBlogAuxiliar(blogs, blogId);
+		if (blog == null)
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		int retorno = 0;
-		if (blog == null) throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		for (String p : blog.getListaDePostagens())
 			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
-		return retorno;	
+		return retorno;
 	}
 	
 	private Blog getBlogAuxiliar(List<Blog> blogs, String blogId) {
@@ -480,11 +482,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return null;
 	}
-
-
+	
 	public void removePost(String postId) throws PersistenceException {
 		Post post = getPostPorId(postId);
-		while (!post.getListaComentarios().isEmpty()){
+		while (!post.getListaComentarios().isEmpty()) {
 			Comentario removido = post.getListaComentarios().remove(0);
 			gerenteDados.getGerenteComentarios().remove(removido);
 		}
@@ -509,15 +510,22 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post.getComentario(index);
 	}
 
-
 	public List<Post> getListaPostsPorBlog(Blog blog) {
 		List<Post> listaPostsProcurados = new ArrayList<Post>();
-		for(Post post : listaPosts){
+		for (Post post : listaPosts) {
 			if (post.getIdBlogDono().equals(blog.getId()))
 				listaPostsProcurados.add(post);
 		}
 		return listaPostsProcurados;
 	}
-	
 
+	public void validaPostId(String postId, String sessionId)
+			throws ArgumentInvalidException, PersistenceException {
+		validaPostId(postId);
+		Blog dono = gerenteDados.getGerenteBlogs().getBlog(
+				getPostPorId(postId).getIdBlogDono());
+		if (!dono.getIdSessao().equals(sessionId))
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+
+	}
 }
