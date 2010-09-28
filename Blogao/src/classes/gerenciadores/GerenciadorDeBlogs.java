@@ -45,9 +45,8 @@ public class GerenciadorDeBlogs implements Gerenciador {
 
 		us.addBlog2(blog);
 		gerenteDados.getGerenciadorDeUsuarios().remover(us);
-		listaDeBlogs.add(blog);
 		gerenteDados.getGerenciadorDeUsuarios().adicionar(us);
-
+		listaDeBlogs.add(blog);
 		return blog.getId();
 
 	}
