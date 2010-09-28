@@ -41,37 +41,36 @@ public class FacadeUserStore14 {
 		return gerenteDados.getGerenteBlogs().createBlog(sessionId, titulo, descricao);
 	}
 	
-	//TODO
 	public String createSubBlog(String sessionId, String blogPai, String titulo, String descricao) throws ArgumentInvalidException, PersistenceException, IOException, UserInvalidException {
 		return gerenteDados.getGerenteBlogs().createSubBlog(sessionId, blogPai, titulo, descricao);
 		
 	}
 
 	// sub blogs não entram na contabilização de blogs de usuários, ou seja, um subblog é encarado como uma seção de um blog
-	public String getNumberOfBlogsByLogin(String login) throws UserInvalidException {
-		return String.valueOf(gerenteDados.getGerenteBlogs().getBlogPorLogin(login).size());
+	public int getNumberOfBlogsByLogin(String login) throws UserInvalidException {
+		return gerenteDados.getGerenteBlogs().getNumberOfBlogsByLogin(login);
 		
 	}
 	
-	public String getNumberOfBlogsBySessionId(String idSession){
-		return String.valueOf(gerenteDados.getGerenteBlogs().getListaDeBlogsPorIdSessao(idSession).size());
+	public int getNumberOfBlogsBySessionId(String idSession) throws UserInvalidException, ArgumentInvalidException{
+		return gerenteDados.getGerenteBlogs().getNumberOfBlogsBySessionId(idSession);
 	}
 
 	//Considera apenas um nivel de subblogs.A flag passada indica se deve ser feita uma busca em subniveis
-	public String getNumberOfSubBlogs(String blogId) {
-		return null;
+	public int getNumberOfSubBlogs(String blogId) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().getNumberOfSubBlogs(blogId);
 		
 	}
 
-	public String getNumberOfAllSubBlogs(String blogId) {
-		return null;
+	public int getNumberOfAllSubBlogs(String blogId) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().getNumberOfAllSubBlogs(blogId);
 		
 	} 
 
 
 	// Considera-se apenas um nível
-	public String getSubBlog(String blogId, String index) {
-		return null;
+	public String getSubBlog(String blogId, int index) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().getSubBlog(blogId, index);
 		
 	}
 
@@ -82,14 +81,14 @@ public class FacadeUserStore14 {
 
 
 	//Retorna o numero de posts apenas do blog pai. 
-	public String getNumberOfPosts(String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
-		return String.valueOf(gerenteDados.getGerenteBlogs().totalDePosts(blogId));
+	public int getNumberOfPosts(String blogId) throws FileNotFoundException, PersistenceException, ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().totalDePosts(blogId);
 	}
 
 	//Retorna o numero total de posts de um blog, Considerando todos os niveis
 
-	public String getNumberOfAllPosts(String blogId) {
-		return null;
+	public int getNumberOfAllPosts(String blogId) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().getNumberOfAllPosts(blogId);
 		
 	}
 
@@ -103,7 +102,7 @@ public class FacadeUserStore14 {
 	}
 
 	public String getSubComment(String idComentario, String index) {
-		return null;
+		return gerenteDados.getGerenteBlogs().getSubComment(idComentario, index);
 		
 	}
 
