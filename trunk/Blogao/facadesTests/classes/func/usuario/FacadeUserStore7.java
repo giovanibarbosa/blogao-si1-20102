@@ -33,7 +33,6 @@ public class FacadeUserStore7 {
 		gerenteDados.loadData();
 	}
 
-	// METODO QUE LOGA O USUARIO
 	public String logon(String login, String senha)
 			throws FileNotFoundException, ArgumentInvalidException,
 			PersistenceException {
@@ -42,7 +41,6 @@ public class FacadeUserStore7 {
 
 	}
 
-	// VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public int getNumberOfBlogsByLogin(String login)
 			throws PersistenceException, ArgumentInvalidException,
 			FileNotFoundException, UserInvalidException {
@@ -101,7 +99,6 @@ public class FacadeUserStore7 {
 
 	}
 	
-	// // FIXME VERIFICAR QUANDO O 6 ESTIVER PRONTO
 	public void deletePicture(String sessionID, String idImagem)
 			throws PersistenceException, ArgumentInvalidException,
 			FileNotFoundException, UserInvalidException {

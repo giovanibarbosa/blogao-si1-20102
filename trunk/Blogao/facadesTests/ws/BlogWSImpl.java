@@ -211,75 +211,69 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void changePostInformation(String sessionId, String postId,
 			String atributo, String valor) throws Exception {
-		// TODO Auto-generated method stub
 		
+		gerenteDados.getGerentePosts().mudarInformacaoDoPost(sessionId, postId,
+				atributo, valor);		
 	}
 
 	@Override
 	public void deleteMovie(String sessionId, String videoId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		gerenteDados.getGerentePosts().deletaVideo(sessionId, videoId);		
 	}
 
 	@Override
 	public void deleteSound(String sessionId, String soundId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		gerenteDados.getGerentePosts().deletaAudio(sessionId, soundId);		
 	}
 
 	@Override
 	public void deletePicture(String sessionId, String pictureId)
 			throws Exception {
-		// TODO Auto-generated method stub
-		
+		gerenteDados.getGerentePosts().deletaImagem(sessionId, pictureId);		
 	}
 
 	@Override
 	public String addComment(String sessionId, String postId, String texto)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return gerenteDados.getGerenteComentarios().addComentario(sessionId,
+				postId, texto);
 	}
 
 	@Override
 	public Integer getNumberOfComments(String postId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().getNumberOfComments(postId);
 	}
 
 	@Override
 	public String getComment(String postId, Integer index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerentePosts().GetComentario(postId, index).getId();
 	}
 
 	@Override
 	public String getCommentText(String commentId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerenteComentarios().getTextoComentario(commentId);
 	}
 
 	@Override
 	public String getCommentAuthor(String commentId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return gerenteDados.getGerenteComentarios().getCommentAuthor(commentId);
 	}
 
 	@Override
 	public void deletePost(String sessionId, String postId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		gerenteDados.getGerentePosts().deletePost(sessionId, postId);		
 	}
 
 	@Override
 	public void deleteBlog(String sessionId, String blogId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		gerenteDados.getGerenteBlogs().deleteBlog(sessionId, blogId);		
 	}
 
+	//FIXME VERIFICAR SE ESTA OK
 	@Override
 	public void deleteProfile(String sessionId) throws Exception {
-		// TODO Auto-generated method stub
+		gerenteDados.getGerentePerfis().deletePerfil(sessionId);
 		
 	}
 

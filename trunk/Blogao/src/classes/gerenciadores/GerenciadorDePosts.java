@@ -174,6 +174,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return retorno;
 	}
+	
+	public void deletePost(String sessionId, String postId) throws
+			ArgumentInvalidException, PersistenceException, IOException	{
+		gerenteDados.getGerentePosts().validaPostId(postId, sessionId);
+		gerenteDados.getGerentePosts().removePost(postId);		
+	}
 
 	public int getNumeroDeSons(String idDoPost) throws FileNotFoundException,
 			PersistenceException {

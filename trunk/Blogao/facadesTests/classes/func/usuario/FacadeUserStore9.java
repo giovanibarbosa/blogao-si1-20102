@@ -1,6 +1,5 @@
 package classes.func.usuario;
 
-import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.Comentario;
 import classes.gerenciadores.GerenciadorDeDados;
 
 public class FacadeUserStore9 {
@@ -58,12 +56,9 @@ public class FacadeUserStore9 {
 	
 	//METODO QUE DELETA UM POST.
 	public void deletePost(String sessionId, String postId) throws ArgumentInvalidException, PersistenceException, IOException{
-		gerenteDados.getGerentePosts().validaPostId(postId, sessionId);
-		gerenteDados.getGerentePosts().removePost(postId);
-		
+		gerenteDados.getGerentePosts().deletePost(sessionId, postId);				
 	}
 	
-	//TODO RETORNA AS INFORMACOES DO POST.
 	public String getPostInformation(String idPost,String atributo) throws ArgumentInvalidException, FileNotFoundException, PersistenceException{
 		return gerenteDados.getGerentePosts().informacaoDoPost(idPost, atributo);
 		
