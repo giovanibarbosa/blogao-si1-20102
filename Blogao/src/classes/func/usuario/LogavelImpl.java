@@ -54,7 +54,7 @@ public class LogavelImpl implements Logavel {
 	}
 
 	/**
-	 * Metodo modificado que seta uma nova senha
+	 * Metodo modificador que seta uma nova senha
 	 * @param {@link Senha}
 	 */
 	@Override
