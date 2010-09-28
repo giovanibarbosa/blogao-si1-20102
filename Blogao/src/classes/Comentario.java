@@ -21,9 +21,10 @@ public class Comentario {
 	 * Contrutor da classe Comentario. Recebe uma string como texto do
 	 * comentario.
 	 * 
-	 * @param String
+	 * @param {@link String}
 	 *            corpo do Comentario
-	 * @throws ArgumentInvalidException 
+	 * @throws {@link ArgumentInvalidException}
+	 * 			  caso o comentario seja invalido 
 	 */
 	public Comentario(String idSessao, String corpo) throws ArgumentInvalidException {
 		corpoComentario = corpo;
@@ -32,47 +33,39 @@ public class Comentario {
 
 	}
 
+	/**
+	 * Metodo acessador de id de sessao do dono
+	 * @return {@link String} id da sessao do dono
+	 */
 	public String getIdSessaoDono() {
 		return idSessaoDono;
 	}
 
-	/**
-	 * Gera o id da classe.
-	 * 
-	 * @return
-	 */
-	private String gerarId() {
-		return String.valueOf(this.hashCode());
-	}
 
 	/**
-	 * @return o texto relativo ao comentario.
+	 * Metodo acessador do corpo de um comentario
+	 * @return {@link String} corpo
 	 */
 	public String getCorpoComentario() {
 		return corpoComentario;
 	}
 
 	/**
-	 * Seta o id do Comentario.
-	 * 
-	 * @param id
+	 * Metodo modificador que seta um id do comentario
+	 * @param {@link String} comentarioId
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return o id do comnetario.
+	 * Metodo acessador de id do comentario
+	 * @return {@link String} comentarioId
 	 */
 	public String getId() {
 		return id;
 	}
 
-	/**
-	 * Metodo que verifica a igualdade entre objetos Blog.
-	 * 
-	 * @return True caso os objetos sejam iguais
-	 */
 	@Override
 	public boolean equals(Object objeto) {
 		if (!(objeto instanceof Comentario)) {
@@ -80,7 +73,11 @@ public class Comentario {
 		}
 		Comentario outra = (Comentario) objeto;
 		return getId().equals(outra.getId());
+	}
+	
 
+	private String gerarId() {
+		return String.valueOf(this.hashCode());
 	}
 
 }
