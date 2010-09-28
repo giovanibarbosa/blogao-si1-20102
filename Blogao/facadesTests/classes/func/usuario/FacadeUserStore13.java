@@ -6,12 +6,7 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.gerenciadores.GerenciadorDeBlogs;
-import classes.gerenciadores.GerenciadorDeComentarios;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
-import classes.gerenciadores.GerenciadorDePosts;
-import classes.gerenciadores.GerenciadorDeSessoes;
 
 /**
  * 

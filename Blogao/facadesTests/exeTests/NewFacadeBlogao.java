@@ -31,6 +31,9 @@ public class NewFacadeBlogao {
 		files.add("Tests/us10.txt");
 		files.add("Tests/us11.txt");
 		files.add("Tests/us12.txt");
+		files.add("Tests/us13.txt");
+		files.add("Tests/us14.txt");
+		
 		
 		 BlogWS perfFac = new BlogWSImpl();        
 		 EasyAcceptFacade eaFacade = new EasyAcceptFacade(perfFac, files);        
