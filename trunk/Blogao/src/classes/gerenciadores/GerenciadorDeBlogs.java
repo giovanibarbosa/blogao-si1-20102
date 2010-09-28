@@ -308,4 +308,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		listaDeBlogs.remove(blog);
 	}
 
+	public void deleteBlog(String sessionId, String blogId) throws ArgumentInvalidException, PersistenceException {
+		Blog blog = getBlog(blogId);
+		validaDonoBlog(blog, sessionId);
+		deleteBlog(blog);
+		
+	}
+
 }
