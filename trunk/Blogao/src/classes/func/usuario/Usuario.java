@@ -11,7 +11,6 @@ import persistencia.daos.BlogsDAO;
 
 import interfaces.Logavel;
 import classes.Blog;
-import classes.Comentario;
 import classes.Login;
 import classes.Senha;
 
