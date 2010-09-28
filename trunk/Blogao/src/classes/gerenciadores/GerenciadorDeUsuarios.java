@@ -130,6 +130,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	public int getNumberOfAnnouncements(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
 		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
+		int
 		return user.getListaAnnouncement().size();
 	}
 
