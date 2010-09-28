@@ -460,6 +460,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		return post.getListaComentarios().size();
 	}
+	
+	public int getNumberOfComments(String login, String blogId) {
+		
+	}
 
 	public void removePost(String postId) {
 		for (Post post : listaPosts) {
