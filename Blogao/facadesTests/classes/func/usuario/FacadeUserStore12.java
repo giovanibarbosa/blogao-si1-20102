@@ -89,7 +89,7 @@ public class FacadeUserStore12 {
 	
 	//TODO METODO QUE RETORNA O NUMERO DE COMENTARIOS
 	public int getNumberOfComments(String login, String blogId){
-		return gerenteDados.getGerentePosts().getNumberOfComments(login, blogId)
+		return gerenteDados.getGerentePosts().getNumberOfComments(login, blogId);
 	}
 	
 
