@@ -9,6 +9,7 @@ import easyaccept.EasyAcceptFacade;
 import classes.func.usuario.FacadeUserStore1;
 import classes.func.usuario.FacadeUserStore10;
 import classes.func.usuario.FacadeUserStore11;
+import classes.func.usuario.FacadeUserStore12;
 import classes.func.usuario.FacadeUserStore2;
 import classes.func.usuario.FacadeUserStore3;
 import classes.func.usuario.FacadeUserStore4;
@@ -41,6 +42,7 @@ public class FacadeBlogao {
 		List<String> files9 = new ArrayList<String>();
 		List<String> files10 = new ArrayList<String>();
 		List<String> files11 = new ArrayList<String>();
+		List<String> files12 = new ArrayList<String>();
 		
         //Put the us1.txt file into the "test scripts" list
         files1.add("Tests/us1.txt");		
@@ -54,6 +56,7 @@ public class FacadeBlogao {
         files9.add("Tests/us9.txt");
         files10.add("Tests/us10.txt");
         files11.add("Tests/us11.txt");
+        files12.add("Tests/us12.txt");
 
         
         //Testes para a us1.txt
@@ -106,6 +109,10 @@ public class FacadeBlogao {
         EasyAcceptFacade eaFacade11= new EasyAcceptFacade(perfFac11, files11);  
         eaFacade11.executeTests();
         
+        FacadeUserStore12 perfFac12 = new FacadeUserStore12();
+        EasyAcceptFacade eaFacade12= new EasyAcceptFacade(perfFac12, files12);  
+        eaFacade12.executeTests();
+        
         System.out.println(eaFacade1.getCompleteResults()); //Resultados para a us1.txt
         System.out.println(eaFacade2.getCompleteResults()); //Resultados para a us2.txt
         System.out.println(eaFacade3.getCompleteResults()); //Resultados para a us3.txt
@@ -117,6 +124,7 @@ public class FacadeBlogao {
         System.out.println(eaFacade9.getCompleteResults()); //Resultados para a us9.txt
         System.out.println(eaFacade10.getCompleteResults()); //Resultados para a us10.txt
         System.out.println(eaFacade11.getCompleteResults()); //Resultados para a us11.txt
+        System.out.println(eaFacade12.getCompleteResults()); //Resultados para a us12.txt
 	}
 
 }
