@@ -96,25 +96,25 @@ public class FacadeUserStore14 {
 		return gerenteDados.getGerenteComentarios().addComentario(sessionId, postId, texto);
 	}
 	
-	public String addSubComment(String sessionId, String idComentario, String texto) {
-		return null;
+	public String addSubComment(String sessionId, String idComentario, String texto) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteComentarios().addSubComment(sessionId, idComentario, texto);
 		
 	}
 
-	public String getSubComment(String idComentario, String index) {
-		return gerenteDados.getGerenteBlogs().getSubComment(idComentario, index);
+	public String getSubComment(String idComentario, int index) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteComentarios().getSubComment(idComentario, index);
 		
 	}
 
 	//Considera apenas um nivel de Comentario.A flag passada indica se deve ser feita uma busca em subniveis
-	public String getNumberOfSubComments(String idComentario) {
-		return null;
+	public int getNumberOfSubComments(String idComentario) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteComentarios().getNumberOfSubComments(idComentario);
 		
 	}
 	
 	//Retorna o numero total de subcomentários de um comentário, Considerando todos os niveis
-	public String getNumberOfAllSubComments(String idComentario) {
-		return null;
+	public int getNumberOfAllSubComments(String idComentario) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteComentarios().getNumberOfAllSubComments(idComentario);
 		
 	}
 }

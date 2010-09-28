@@ -376,8 +376,5 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return total + blog.getListaDePostagens().size();
 	}
 
-	public String getSubComment(String idComentario, String index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

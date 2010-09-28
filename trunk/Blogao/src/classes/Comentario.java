@@ -1,5 +1,8 @@
 package classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -16,7 +19,8 @@ public class Comentario {
 	private String id;
 	private String idSessaoDono;
 	private String corpoComentario;
-
+	private List<Comentario> listaSubComentarios;
+	
 	/**
 	 * Contrutor da classe Comentario. Recebe uma string como texto do
 	 * comentario.
@@ -30,6 +34,7 @@ public class Comentario {
 		corpoComentario = corpo;
 		idSessaoDono = idSessao;
 		setId(gerarId());
+		listaSubComentarios = new ArrayList<Comentario>();
 
 	}
 
@@ -78,6 +83,15 @@ public class Comentario {
 
 	private String gerarId() {
 		return String.valueOf(this.hashCode());
+	}
+
+	public List<Comentario> getListaSubComentarios() {
+		return listaSubComentarios;
+	}
+	
+	public String addSubComentario(Comentario coment){
+		listaSubComentarios.add(coment);
+		return coment.getId();
 	}
 
 }
