@@ -7,6 +7,8 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import persistencia.daos.UsuariosDAO;
+import classes.Announcement;
+import classes.Blog;
 import classes.Login;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
@@ -114,6 +116,28 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	public void adicionar(Usuario us) {
 		this.listaUsuarios.add(us);
+
+	}
+
+	// public void addAtualizacaoNoAnnouncement(String SessionId, String blogId,
+	// String att) throws ArgumentInvalidException, FileNotFoundException,
+	// PersistenceException{
+	// //valida a sessao e o blog.
+	// Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
+	// gerenteDados.getGerenteBlogs().validaDonoBlog(blog, SessionId);
+	//
+	//
+	// Usuario user = recuperaUsuarioPorIdSessao(SessionId);
+	// Announcement not = new Announcement(SessionId, blogId);
+	// user.addEmListaAnnoucement(not);
+	// }
+
+	public void addPostAnnouncement(String sessionId, String blogId)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
+		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
+		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
+		user.addPostAnnouncement(blogId);
 
 	}
 
