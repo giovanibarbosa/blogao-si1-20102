@@ -467,6 +467,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		List<Blog> blogs = gerenteDados.getGerenteBlogs().getBlogPorLogin(login);
 		Blog blog = getBlogAuxiliar(blogs, blogId);
 		int retorno = 0;
+		if (blog == null) throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		for (String p : blog.getListaDePostagens())
 			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
 		return retorno;	
