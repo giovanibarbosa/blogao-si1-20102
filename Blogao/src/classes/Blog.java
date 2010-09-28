@@ -39,7 +39,6 @@ public class Blog {
 			throws ArgumentInvalidException {		
 		setTitulo(titulo);
 		this.descricao = descricao;
-		// this.idsComentarios = new ArrayList<Integer>();
 		this.listaSubBlogs = new ArrayList<Blog>();
 		this.idSessao = idSessao;
 		this.id = gerarId();
@@ -49,6 +48,10 @@ public class Blog {
 	
 	public void addModificationListener(String listenerLogin){
 		loginsOfModificationListeners.add(listenerLogin);
+	}
+	
+	public List<String> getModificationListeners(){
+		return loginsOfModificationListeners;
 	}
 
 	/**

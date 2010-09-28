@@ -1,0 +1,45 @@
+<classes.func.usuario.Usuario>
+  <logavel class="classes.func.usuario.LogavelImpl">
+    <login>
+      <login>sicrano</login>
+    </login>
+    <senha>
+      <senha>senhona</senha>
+    </senha>
+  </logavel>
+  <perfil>
+    <email>
+      <email>sicrano@gmail.com</email>
+    </email>
+    <nomeDeExibicao></nomeDeExibicao>
+    <endereco>Rua das cocadas</endereco>
+    <interesses>ping pong, paraquedismo</interesses>
+    <dataDeNascimento>
+      <data>
+        <time>315543600000</time>
+        <timezone>America/Recife</timezone>
+      </data>
+    </dataDeNascimento>
+    <sexo>Mas</sexo>
+    <quemSouEu>E... boa pergunta!</quemSouEu>
+    <filmesFavoritos>e o vento levou</filmesFavoritos>
+    <musicasFavoritas>MPB</musicasFavoritas>
+    <livrosFavoritos>poeira em alto mar</livrosFavoritos>
+    <loginUsuarioDono>sicrano</loginUsuarioDono>
+  </perfil>
+  <listaBlogs>
+    <classes.Blog>
+      <titulo>Meu primeiro blog</titulo>
+      <id>17103608</id>
+      <descricao>Quidquid latine dictum sit, altum viditur</descricao>
+      <idSessao>2084690557</idSessao>
+      <listaSubBlogs/>
+      <posts>
+        <string>33081055</string>
+        <string>19116636</string>
+      </posts>
+      <loginsOfModificationListeners/>
+    </classes.Blog>
+  </listaBlogs>
+  <listaAnnouncements/>
+</classes.func.usuario.Usuario>

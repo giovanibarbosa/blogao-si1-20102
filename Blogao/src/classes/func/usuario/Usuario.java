@@ -184,4 +184,13 @@ public class Usuario {
 		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
 	}
 
+	public void addAviso(Blog blog, String id) {
+		for(Announcement announcement : listaAnnouncements){
+			if (announcement.getIdBlogDeInteresse().equals(blog.getId())){
+				announcement.addAtualizacao(id);
+			}
+		}
+		
+	}
+
 }

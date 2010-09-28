@@ -66,6 +66,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		blog.addPost(post);
 		user.addBlog2(blog);
 		listaPosts.add(post);
+		
+		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
 
 		return post.getId();
 	}

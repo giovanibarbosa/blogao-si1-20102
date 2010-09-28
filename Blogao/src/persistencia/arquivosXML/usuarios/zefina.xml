@@ -1,0 +1,32 @@
+<classes.func.usuario.Usuario>
+  <logavel class="classes.func.usuario.LogavelImpl">
+    <login>
+      <login>zefina</login>
+    </login>
+    <senha>
+      <senha>123456</senha>
+    </senha>
+  </logavel>
+  <perfil>
+    <email>
+      <email>zef@gmail.com</email>
+    </email>
+    <nomeDeExibicao></nomeDeExibicao>
+    <endereco></endereco>
+    <interesses>seriados</interesses>
+    <dataDeNascimento>
+      <data>
+        <time>315543600000</time>
+        <timezone>America/Recife</timezone>
+      </data>
+    </dataDeNascimento>
+    <sexo>Nao_Inf</sexo>
+    <quemSouEu></quemSouEu>
+    <filmesFavoritos></filmesFavoritos>
+    <musicasFavoritas></musicasFavoritas>
+    <livrosFavoritos></livrosFavoritos>
+    <loginUsuarioDono>zefina</loginUsuarioDono>
+  </perfil>
+  <listaBlogs/>
+  <listaAnnouncements/>
+</classes.func.usuario.Usuario>

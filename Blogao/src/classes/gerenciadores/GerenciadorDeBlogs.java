@@ -314,4 +314,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		
 	}
 
+	public void avisaListeners(Blog blog, String id) throws UserInvalidException {
+		for(String login : blog.getModificationListeners()){
+			gerenteDados.getGerenciadorDeUsuarios().getUsuario(login).addAviso(blog, id);
+		}
+		
+	}
+
 }
