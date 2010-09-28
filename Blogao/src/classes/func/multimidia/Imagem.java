@@ -2,18 +2,12 @@ package classes.func.multimidia;
 
 import interfaces.Constantes;
 
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.SystemColor;
-import java.awt.Toolkit;
   
 import ourExceptions.ArgumentInvalidException;
 
 /**
- * Classe que manipula imagens do blog.
- * @author Tiago
+ * Classe que inicializa uma Imagem
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
  *
  */
 
@@ -22,28 +16,56 @@ public class Imagem {
 	private String descricao;
 	private String dado;
 
+	/**
+	 * Construtor default do Imagem
+	 */
+	public Imagem() {
+		setId(gerarId());
+	}
+	
+	
+	/**
+	 * Construtor do objeto Imagem
+	 * @param String descricao
+	 * @param String dado
+	 * @throws ArgumentInvalidException
+	 */
 	public Imagem(String desc, String dado) throws ArgumentInvalidException {
 		setId(gerarId());
 		setDescricao(desc);
 		setDado(dado);
 	}
 
-	public Imagem() {
-		setId(gerarId());
-	}
-
+	/**
+	 * Metodo acessador de Descricao
+	 * @return String descricao
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
 
+	/**
+	 * Metodo modificador da descricao
+	 * @param String nova descricao
+	 */
 	public void setDescricao(String desc) {
 		descricao = desc;
 	}
 
+	/**
+	 * Metodo acessador de dados
+	 * @return String dado
+	 */
 	public String getDado() {
 		return dado;
 	}
 
+	
+	/**
+	 * Metodo modificador de dados
+	 * @param String dado
+	 * @throws ArgumentInvalidException caso o dado seja invalido
+	 */
 	public void setDado(String dado) throws ArgumentInvalidException {
 		if (dado == null || dado.trim().isEmpty())
 			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
@@ -51,29 +73,23 @@ public class Imagem {
 	}
 	
 	
-	
-	
 	/**
-	 * Retorna o id da classe.
-	 * @return
+	 * Metodo acessador de ids da imagem.
+	 * @return String idImagem
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * Modifica o id da classe.
-	 * @param id
+	 * Metodo modificador de id da Imagem.
+	 * @param String novaId
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 
-	/**
-	 * Gera o id da classe.
-	 * @return
-	 */
 	private String gerarId() {
 		return String.valueOf(this.hashCode());
 	}
