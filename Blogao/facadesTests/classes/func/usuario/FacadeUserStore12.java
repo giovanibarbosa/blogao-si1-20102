@@ -88,8 +88,8 @@ public class FacadeUserStore12 {
 	
 	
 	//TODO METODO QUE RETORNA O NUMERO DE COMENTARIOS
-	public int getNumberOfComments(String login, String blogId) throws UserInvalidException, ArgumentInvalidException, PersistenceException{
-		return gerenteDados.getGerentePosts().getNumberOfComments(login, blogId);
+	public String getNumberOfComments(String login, String blogId) throws UserInvalidException, ArgumentInvalidException, PersistenceException{
+		return String.valueOf(gerenteDados.getGerentePosts().getNumberOfComments(login, blogId));
 	}
 	
 
