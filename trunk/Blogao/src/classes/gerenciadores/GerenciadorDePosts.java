@@ -181,15 +181,23 @@ public class GerenciadorDePosts implements Gerenciador {
 		gerenteDados.getGerentePosts().removePost(postId);		
 	}
 
-	public int getNumeroDeSons(String idDoPost) throws FileNotFoundException,
-			PersistenceException {
-		Post post = getPostPorId(idDoPost);
+	public int getNumeroDeSons(String idDoPost) {
+		Post post;
+		try {
+			post = getPostPorId(idDoPost);
+		} catch (Exception e) {
+			return 0;
+		}
 		return post == null ? 0 : post.getListaDeAudio().size();
 	}
 
-	public int getNumeroDeVideos(String idDoPost) throws FileNotFoundException,
-			PersistenceException {
-		Post post = getPostPorId(idDoPost);
+	public int getNumeroDeVideos(String idDoPost)  {
+		Post post = null;
+		try {
+			post = getPostPorId(idDoPost);
+		} catch (Exception e) {
+			return 0;
+		}
 		return post == null ? 0 : post.getListaDeVideo().size();
 	}
 

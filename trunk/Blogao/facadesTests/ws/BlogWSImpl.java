@@ -126,19 +126,16 @@ public class BlogWSImpl implements BlogWS {
 
 	@Override
 	public Integer getNumberOfSounds(String postId) {
-		//FIXME
 		return gerenteDados.getGerentePosts().getNumeroDeSons(postId);
 	}
 
 	@Override
 	public Integer getNumberOfMovies(String postId) {
-		//FIXME
 		return gerenteDados.getGerentePosts().getNumeroDeVideos(postId);
 	}
 
 	@Override
 	public Integer getNumberOfPictures(String postId) {
-		//FIXME
 		return gerenteDados.getGerentePosts().getNumeroDeImagens(postId);
 	}
 
