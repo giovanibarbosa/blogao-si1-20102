@@ -50,6 +50,7 @@ public interface Constantes {
 	static final String COMENTARIO_INVALIDO = "Comentário inválido";
 	static final String ANNOUNCEMENT_CADASTRADO = "Announcement já cadastrado";
 	static final String ANNOUNCEMENT_INVALIDO = "Announcement inválido";
+	static final String INDICE_INVALIDO2 = "Índice inválido";
 	
 	
 	

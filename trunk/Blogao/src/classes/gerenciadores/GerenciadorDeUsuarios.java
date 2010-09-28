@@ -125,6 +125,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
 		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
 		user.addPostAnnouncement(blogId);
+		blog.addModificationListener(user.getLogin().getLogin());
 
 	}
 
@@ -135,6 +136,40 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 			total += announcement.getAtualizacoes().size();
 		}
 		return total;
+	}
+
+	public String getAnnouncement(String sessionId, int index) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
+		if (index >= user.getListaAnnouncement().size() || index < 0) throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO2);
+		return user.getListaAnnouncement().get(index).getId();
+	}
+
+	public String getPostJustCreated(String announcementId) throws ArgumentInvalidException {
+		for(Usuario user : listaUsuarios){
+			for(Announcement announcement : user.getListaAnnouncement()){
+				if (announcement.getId().equals(announcementId)){
+					List<String> atualizacoes = announcement.getAtualizacoes();
+					if (atualizacoes.size() > 0){
+						return atualizacoes.get(atualizacoes.size() - 1);
+					}
+				}
+			}
+		}
+		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
+	}
+
+	public void deleteAnnouncement(String sessionId, String announcementId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
+		for(Announcement announcement : user.getListaAnnouncement()){
+			if(announcement.getId().equals(announcementId)){
+				String idBlog = announcement.getIdBlogDeInteresse();
+				user.getListaAnnouncement().remove(announcement);
+				Blog blog = gerenteDados.getGerenteBlogs().getBlog(idBlog);
+				blog.getModificationListeners().remove(user.getLogin().getLogin());
+				return;
+			}
+		}
+		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
 	}
 
 }

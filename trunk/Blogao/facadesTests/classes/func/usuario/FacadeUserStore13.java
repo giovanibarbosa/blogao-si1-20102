@@ -60,18 +60,18 @@ public class FacadeUserStore13 {
 		gerenteDados.getGerenciadorDeUsuarios().addPostAnnouncement(sessionId, blogId);
 	}
 
-	public String getAnnouncement(String sessionId, String index) {
-		return null;
+	public String getAnnouncement(String sessionId, int index) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		return gerenteDados.getGerenciadorDeUsuarios().getAnnouncement(sessionId, index);
 
 	}
 
-	public String getPostJustCreated(String announcementId) {
-		return null;
+	public String getPostJustCreated(String announcementId) throws ArgumentInvalidException {
+		return gerenteDados.getGerenciadorDeUsuarios().getPostJustCreated(announcementId);
 
 	}
 
-	public void deleteAnnouncement(String sessionId, String announcementId) {
-
+	public void deleteAnnouncement(String sessionId, String announcementId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+		gerenteDados.getGerenciadorDeUsuarios().deleteAnnouncement(sessionId, announcementId);
 	}
 
 	// Desloga usuarios
