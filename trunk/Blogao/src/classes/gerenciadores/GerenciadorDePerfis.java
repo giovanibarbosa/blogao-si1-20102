@@ -21,19 +21,18 @@ import classes.Email;
 import enuns.Sexo;
 
 public class GerenciadorDePerfis implements Gerenciador {
-	
+
 	private Perfil perfil;
 	private List<Perfil> listaPerfis;
-	
-	//private EmailsDAO emailsDAO = EmailsDAO.getInstance();
-	private GerenciadorDeDados gerenteDados ;
-	
-	
+
+	// private EmailsDAO emailsDAO = EmailsDAO.getInstance();
+	private GerenciadorDeDados gerenteDados;
+
 	public GerenciadorDePerfis(GerenciadorDeDados gerenteDados) {
 		listaPerfis = new ArrayList<Perfil>();
 		this.gerenteDados = gerenteDados;
 	}
-	
+
 	public void createProfile(String login, String senha, String nome_exibicao,
 			String email, String sexo, String dataNasc, String endereco,
 			String interesses, String quem_sou_eu, String filmes,
@@ -42,7 +41,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 		Login log = new Login(login);
 		Senha sen = new Senha(senha);
 		Email mail = new Email(email);
-		
+
 		perfil = new Perfil();
 		perfil.setNomeDeExibicao(nome_exibicao);
 		perfil.setEmail(mail);
@@ -57,29 +56,33 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 		Usuario user1 = new Usuario(log, sen, perfil);
 
+		perfil.setLoginUsuario(log.getLogin());
+
+		user1.setPerfil(perfil);
+
 		validaEmail(mail);
 		gerenteDados.getGerenteUsuarios().validaLogin(log);
 		gerenteDados.getGerenciadorDeUsuarios().criarUsuario(user1);
 		listaPerfis.add(perfil);
 	}
-	
-	
+
 	public String getProfileInformation(String login, String atributo)
-			throws ArgumentInvalidException, FileNotFoundException, PersistenceException, UserInvalidException {
-			String retorno;
-			Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-			
-			Perfil perf = user.getPerfil();
-			retorno = perf.getAtributo(atributo);
-			
-			if(retorno == null)
-				return login;
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException, UserInvalidException {
+		String retorno;
+		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+
+		Perfil perf = user.getPerfil();
+		retorno = perf.getAtributo(atributo);
+
+		if (retorno == null)
+			return login;
 		return retorno;
 	}
 
 	@Override
-	public void saveData() {}
-
+	public void saveData() {
+	}
 
 	@Override
 	public void loadData() {
@@ -100,9 +103,9 @@ public class GerenciadorDePerfis implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		listaPerfis = new ArrayList<Perfil>();
-		
+
 	}
-	
+
 	private void validaEmail(Email mail) throws ArgumentInvalidException {
 		for (Perfil perf : listaPerfis) {
 			if (perf.getEmail().equals(mail))
@@ -111,21 +114,24 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 
 	public void changeProfileInformation(String idSessao, String atributo,
-			String novoValor) throws ArgumentInvalidException, UserInvalidException,
-					PersistenceException, IOException {
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
-		
+			String novoValor) throws ArgumentInvalidException,
+			UserInvalidException, PersistenceException, IOException {
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				idSessao);
+
 		try {
-			Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
-			
+			Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(
+					login);
+
 			if ("senha".equals(atributo)) {
 				us.setSenha(new Senha(novoValor));
-			} else if ("email".equals(atributo)){
+			} else if ("email".equals(atributo)) {
 				validaEmail(new Email(novoValor));
 			}
-			
+
 			else if ("login".equals(atributo)) {
-				gerenteDados.getGerenciadorDeUsuarios().validaLogin(new Login(novoValor));
+				gerenteDados.getGerenciadorDeUsuarios().validaLogin(
+						new Login(novoValor));
 				gerenteDados.getGerenciadorDeUsuarios().remover(us);
 				us.setLogin(new Login(novoValor));
 				gerenteDados.getGerenciadorDeUsuarios().adicionar(us);
@@ -138,65 +144,87 @@ public class GerenciadorDePerfis implements Gerenciador {
 			}
 		} catch (UserInvalidException e) {
 			throw new ArgumentInvalidException(Constantes.LOGIN_INVALIDO);
-		} 
-		
-		
-	}
-	
-	public List<String> getPerfilPorNome(String nome){
-		List<String> listaPerfil = new ArrayList<String>();
-		gerenteDados.getGerenteUsuarios().getListaUsuarios();
-		for(Perfil pf : listaPerfis){
-			if(pf.getNomeDeExibicao().equals(nome))
-				listaPerfil.add(pf.getNomeDeExibicao());
 		}
+
+	}
+
+	public List<String> getPerfilPorNome(String nome) {
+		List<String> listaPerfil = new ArrayList<String>();
+		for (Perfil pf : listaPerfis) {
+			if (pf.getNomeDeExibicao().toLowerCase()
+					.startsWith(nome.toLowerCase())
+					|| pf.getLoginUsuarioDono().toLowerCase()
+							.startsWith(nome.toLowerCase()))
+				listaPerfil.add(pf.getLoginUsuarioDono());
+		}
+
 		return listaPerfil;
+	}
+	 
+	
+	//PODE SER APAGADO!
+	private void ordenaPerfisPorNome(List<String> lista) {
+		for (int i = 0; i < lista.size() - 1; i++) {
+			for (int j = 0; j < lista.size() - 1 - i; j++) {
+				if (lista.get(j).compareToIgnoreCase(lista.get(j + 1)) > 0) {
+					String elemento1 = lista.get(j);
+					String elemento2 = lista.get(j + 1);
+					lista.set(j + 1, elemento1);
+					lista.set(j, elemento2);
+				}
+			}
+		}
 	}
 
 	public List<String> getPerfilPorInteresse(String interesse) {
 		List<String> listaPerfil = new ArrayList<String>();
-		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
-		for(Perfil pf : listAllProfiles){
-			if(pf.getInteresses().equals(interesse))
-				listaPerfil.add(pf.getNomeDeExibicao());
+		for (Perfil pf : listaPerfis) {
+			if (pf.getInteresses().toLowerCase()
+					.startsWith(interesse.toLowerCase()))
+				listaPerfil.add(pf.getLoginUsuarioDono());
 		}
+		ordenaPerfisPorNome(listaPerfil);
 		return listaPerfil;
 	}
 
 	public List<String> getPerfilPorSexo(String sexo) {
-		List<String> listaPerfil = new ArrayList();
-		List<Perfil> listAllProfiles = gerenteDados.getGerentePerfis().getListaPerfis();
-		if(sexo.equals(Sexo.Nao_Inf)){
-			for(Perfil pf : listAllProfiles){
-				listaPerfil.add(pf.getNomeDeExibicao());
+		List<String> listaPerfil = new ArrayList<String>();
+		if (sexo.equalsIgnoreCase(Sexo.Nao_Inf.getSexo())) {
+			for (Perfil pf : listaPerfis) {
+				listaPerfil.add(pf.getLoginUsuarioDono());
 			}
-		}else{
-			for(Perfil pf : listAllProfiles){
-				if(pf.getSexo().equals(sexo))
-					listaPerfil.add(pf.getNomeDeExibicao());
+		ordenaPerfisPorNome(listaPerfil);	
+		return listaPerfil; 
+		} 
+		for (Perfil pf : listaPerfis) {
+			if (pf.getSexo().getSexo().equalsIgnoreCase(sexo))
+				listaPerfil.add(pf.getLoginUsuarioDono());
 			}
-		}
+		ordenaPerfisPorNome(listaPerfil);
 		return listaPerfil;
 	}
-	
-	public void deletePerfil(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
+
+	public void deletePerfil(String sessionId) throws FileNotFoundException,
+			ArgumentInvalidException, PersistenceException {
 		Perfil perfil = getPerfil(sessionId);
-		List<Blog> listaBlogsAApagar = gerenteDados.getGerenteBlogs().getListaDeBlogsPorIdSessao(sessionId);
-		while(!listaBlogsAApagar.isEmpty()){
+		List<Blog> listaBlogsAApagar = gerenteDados.getGerenteBlogs()
+				.getListaDeBlogsPorIdSessao(sessionId);
+		while (!listaBlogsAApagar.isEmpty()) {
 			gerenteDados.getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
 			listaBlogsAApagar.remove(0);
 		}
 		listaPerfis.remove(perfil);
-		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionId);
+		Usuario user = gerenteDados.getGerenteUsuarios()
+				.recuperaUsuarioPorIdSessao(sessionId);
 		user.setPerfil(null);
-		
+
 	}
 
-	private Perfil getPerfil(String sessionId) throws FileNotFoundException, ArgumentInvalidException, PersistenceException {
-		Usuario user = gerenteDados.getGerenteUsuarios().recuperaUsuarioPorIdSessao(sessionId);
+	private Perfil getPerfil(String sessionId) throws FileNotFoundException,
+			ArgumentInvalidException, PersistenceException {
+		Usuario user = gerenteDados.getGerenteUsuarios()
+				.recuperaUsuarioPorIdSessao(sessionId);
 		return user.getPerfil();
 	}
-	
-	
 
 }
