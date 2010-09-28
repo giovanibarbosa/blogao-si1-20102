@@ -12,7 +12,6 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.Blog;
-import classes.Post;
 import classes.func.usuario.Usuario;
 import persistencia.daos.BlogsDAO;
 
@@ -298,7 +297,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		for(String postId : blog.getListaDePostagens()){
 			gerenteDados.getGerentePosts().removePost(postId);
 		}
-		blog.setlistaDePosts(new ArrayList<String>());
 		for (Blog subBlog : blog.getListaSubBlogs()) {
 			removeBlog(subBlog);			
 		}
