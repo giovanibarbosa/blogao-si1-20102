@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.ListableBeanFactory;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -21,7 +20,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera blogs ({@link Blog})
- * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @colaborator Rodolfo Marinho -  rodolfoams@lcc.ufcg.edu.br
  * 
  */
 public class BlogsDAO {
@@ -33,9 +33,6 @@ public class BlogsDAO {
 	private static BlogsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private BlogsDAO() {
-
-	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link BlgsDAO}
@@ -168,7 +165,7 @@ public class BlogsDAO {
 	}
 
 	/**
-	 * Limpa todos os arquivos contendo os blogs {@link Blog}
+	 * Limpa todos os arquivos contendo os {@link Blog}
 	 */
 	public void limparBlogs() {
 		for (File arquivo : arrayDosArquivos()) {
@@ -176,28 +173,23 @@ public class BlogsDAO {
 				arquivo.delete();
 		}
 	}
-
+	
+	/**
+	 * Metodo acessador que recupera todos os Blogs do BD
+	 * @return List<{@link Blog}}>
+	 * @throws FileNotFoundException
+	 */
+	public List<Blog> loadData() throws FileNotFoundException {
+		return recuperaBlogs();	
+	}
+	
 	/**
 	 * Recupera um array dos arquivos contidos no path dos blogs
-	 * 
 	 * @return O array dos arquivos contidos no path dos blogs
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
 		return file.listFiles();
-	}
-
-	public Blog recuperaBlogPorId(String idBlog) throws FileNotFoundException {
-		for (Blog blog : recuperaBlogs()) {
-			if (blog.getId().equals(idBlog)) {
-				return blog;
-			}
-		}
-		return null;
-	}
-	
-	public List<Blog> loadData() throws FileNotFoundException {
-		return recuperaBlogs();	
 	}
 
 }

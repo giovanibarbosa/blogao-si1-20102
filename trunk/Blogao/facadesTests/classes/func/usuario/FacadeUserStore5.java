@@ -6,15 +6,7 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import persistencia.daos.BlogsDAO;
-import persistencia.daos.PostsDAO;
-import persistencia.daos.UsuariosDAO;
-import interfaces.Constantes;
-import classes.Blog;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDePerfis;
-import classes.gerenciadores.GerenciadorDeSessoes;
-import classes.gerenciadores.GerenciadorDeBlogs;
 
 /**
  * Facade de alteracoes do blog. Classe necessaria para testes.

@@ -17,6 +17,12 @@ import classes.Sessao;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+/**
+ * Classe DAO que cria, deleta, atualiza e recupera sessoes ({@link Sessao})
+ * no BD.
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ */
 public class SessoesDAO {
 
 	private final static String SEPARADOR = System
@@ -27,13 +33,9 @@ public class SessoesDAO {
 	private static SessoesDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private SessoesDAO() {
-
-	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link SessoesDAO}
-	 * 
 	 * @return A instancia unica para este objeto {@link SessoesDAO}
 	 */
 	public static synchronized SessoesDAO getInstance() {
@@ -46,7 +48,7 @@ public class SessoesDAO {
 	/**
 	 * Cria uma sessao aberta no formato de arquivo xml
 	 * 
-	 * @param sessao
+	 * @param {@link Sessao}
 	 *            A sessao a ser criado
 	 * @throws PersistenceException
 	 *             Caso a sessao passado como parametro seja null ou ja exista
@@ -62,9 +64,8 @@ public class SessoesDAO {
 	}
 
 	/**
-	 * Apaga uma sessão no formato de arquivo xml
-	 * 
-	 * @param sessao
+	 * Apaga uma sessao no formato de arquivo xml
+	 * @param {@link Sessao}
 	 *            A sessão a ser apagada
 	 * @throws PersistenceException
 	 *             Caso a sessao passado como parametro seja null ou não exista
@@ -79,9 +80,10 @@ public class SessoesDAO {
 	}
 
 	/**
-	 * Recupera todas as sessoes como forma de {@link List}
+	 * Recupera todas as sessoes({@link Sessao}) como forma de {@link List}
 	 * 
-	 * @return Uma {@link List} contento todos as sessoes persistentes
+	 * @return Uma {@link List} contento todos as sessoes({@link Sessao})
+	 * 							 persistentes
 	 * @throws FileNotFoundException
 	 *             Caso haja algum problema com arquivos ({@link File})
 	 */
@@ -100,7 +102,7 @@ public class SessoesDAO {
 	/**
 	 * Recupera uma Sessao de um arquivo xml
 	 * 
-	 * @param sessao
+	 * @param {@link Sessao}
 	 *            A sessao a ser recuperado do arquivo xml
 	 * @return A sessao recuperada de um arquivo xml
 	 * @throws PersistenceException
@@ -136,10 +138,6 @@ public class SessoesDAO {
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
 		return file.listFiles();
-	}
-	
-	public List<Sessao> loadData() throws FileNotFoundException {
-		return recuperaSessoes();
 	}
 
 }

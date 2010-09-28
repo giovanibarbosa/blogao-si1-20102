@@ -17,6 +17,13 @@ import classes.Post;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+
+/**
+ * Classe DAO que cria, deleta, atualiza e recupera posts ({@link Post})
+ * no BD.
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ */
 public class PostsDAO {
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
@@ -26,9 +33,6 @@ public class PostsDAO {
 	private static PostsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private PostsDAO() {
-
-	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link PostsDAO}
@@ -121,26 +125,6 @@ public class PostsDAO {
 		xstream.toXML(post, new FileOutputStream(file));
 	}
 
-	/**
-	 * Recupera um {@link Post} de um arquivo xml
-	 * 
-	 * @param post
-	 *            O {@link Post} a ser recuperado do arquivo xml
-	 * @return O {@link Post} recuperado de um arquivo xml
-	 * @throws PersistenceException
-	 *             Caso o post passado como parametro seja null ou não exista
-	 *             como dado persistente
-	 * @throws FileNotFoundException
-	 *             Caso haja algum problema com arquivos ({@link File})
-	 */
-	public Post recupera(String postId) throws PersistenceException,
-			FileNotFoundException {
-		if (postId == null
-				|| !(new File(CAMINHO + postId + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.POST_INEXISTENTE);
-		File file = new File(CAMINHO + postId + TIPO_DE_ARQUIVO);
-		return (Post) xstream.fromXML(new FileInputStream(file));
-	}
 
 	/**
 	 * Limpa todos os arquivos contendo os posts {@link Post}
@@ -154,32 +138,10 @@ public class PostsDAO {
 
 	/**
 	 * Recupera um array dos arquivos contidos no path dos posts
-	 * 
 	 * @return O array dos arquivos contidos no path dos posts
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
 		return file.listFiles();
-	}
-
-	/**
-	 * Gera um id para um {@link Post}
-	 * 
-	 * @return O id a ser incrementado para um {@link Post}
-	 * @throws FileNotFoundException
-	 *             Caso haja algum problema com arquivos ({@link File})
-	 */
-	private String geraId() throws FileNotFoundException {
-		List<Post> lista = recuperaPosts();
-		int index = 0;
-		for (int i = 1; i < lista.size(); i++) {
-			if (Integer.parseInt(lista.get(i).getId()) > Integer.parseInt(lista.get(index).getId()))
-				index = i;
-		}
-		return lista.isEmpty() ? "1" : (Integer.parseInt(lista.get(index).getId()) + 1)+ "";
-	}
-	
-	public List<Post> loadData() throws FileNotFoundException {
-		return recuperaPosts();
 	}
 }

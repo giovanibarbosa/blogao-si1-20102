@@ -18,10 +18,10 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
- * Classe DAO que cria, deleta, atualiza e recupera comentarios (
- * {@link Comentario})
- * 
- * 
+ * Classe DAO que cria, deleta, atualiza e recupera comentarios ({@link Comentario})
+ * no BD.
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  */
 public class ComentariosDAO {
 
@@ -33,14 +33,10 @@ public class ComentariosDAO {
 	private static ComentariosDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-	private ComentariosDAO() {
-
-	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link ComentariosDAO}
-	 * 
-	 * @return A instancia unica para este objeto {@link ComentariosDAO}
+	 * @return {@link ComentariosDAO} A instancia unica para este objeto 
 	 */
 	public static synchronized ComentariosDAO getInstance() {
 		if (instancia == null)
@@ -83,22 +79,6 @@ public class ComentariosDAO {
 		file.delete();
 	}
 	
-	/**
-	 * Apaga um {@link Comentario} no formato de arquivo xml
-	 * 
-	 * @param id
-	 *            O id do {@link Comentario} a ser apagado
-	 * @throws ArgumentInvalidException
-	 *             Caso o id passado como parametro seja null ou não exista
-	 *             como dado persistente
-	 */
-	public void deletar(Integer id) throws PersistenceException {
-		if (id == null
-				|| !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.COMENTARIO_NAO_PODE_SER_REMOVIDO);
-		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
-		file.delete();
-	}
 	
 	/**
 	 * Recupera todos os comentarios ({@link Comentario}) como forma de {@link List}
@@ -153,7 +133,6 @@ public class ComentariosDAO {
 	
 	/**
 	 * Recupera um array dos arquivos contidos no path dos comentarios
-	 * 
 	 * @return O array dos arquivos contidos no path dos comentarios
 	 */
 	private File[] arrayDosArquivos() {
