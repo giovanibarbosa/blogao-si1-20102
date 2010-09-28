@@ -3,33 +3,63 @@ package classes.func.multimidia;
 import interfaces.Constantes;
 import ourExceptions.ArgumentInvalidException;
 
+/**
+ * Classe que inicializa uma Video
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ */
 public class Video {
 	private String id;
 	private String descricao;
 	private String dado;
+	
+	/**
+	 * Construtor default do Imagem
+	 */
+	public Video() {
+		setId(gerarId());
+	}
 
+	/**
+	 * Construtor do objeto Video
+	 * @param String descricao
+	 * @param String dado
+	 * @throws ArgumentInvalidException
+	 */
 	public Video(String desc, String dado) throws ArgumentInvalidException {
 		setId(gerarId());
 		setDescricao(desc);
 		setDado(dado);
 	}
 
-	public Video() {
-		setId(gerarId());
-	}
-
+	/**
+	 * Metodo acessador de Descricao
+	 * @return String descricao
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
 
+	/**
+	 * Metodo modificador da descricao
+	 * @param String nova descricao
+	 */
 	public void setDescricao(String desc) {
 		descricao = desc;
 	}
 
+	/**
+	 * Metodo acessador de dados
+	 * @return String dado
+	 */
 	public String getDado() {
 		return dado;
 	}
 
+	/**
+	 * Metodo modificador de dados
+	 * @param String dado
+	 * @throws ArgumentInvalidException caso o dado seja invalido
+	 */
 	public void setDado(String dado) throws ArgumentInvalidException {
 		if (dado == null || dado.trim().isEmpty())
 			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
@@ -37,28 +67,21 @@ public class Video {
 	}
 
 	/**
-	 * Retorna o id da classe.
-	 * 
-	 * @return
+	 * Metodo acessador de ids do Video.
+	 * @return String idVideo
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * Modifica o id da classe.
-	 * 
-	 * @param id
+	 * Metodo modificador de id da Video.
+	 * @param String novaId
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * Gera o id da classe.
-	 * 
-	 * @return
-	 */
 	private String gerarId() {
 		return String.valueOf(this.hashCode());
 	}
