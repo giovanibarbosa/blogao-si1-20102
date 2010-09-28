@@ -8,8 +8,8 @@ public class HelperClient {
 
 	/**
 	 * Retorna uma instancia do objeto BlogWS
-	 * @param port
-	 * @return
+	 * @param {@link String} port
+	 * @return {@link BlogWS}
 	 */
 	public static BlogWS getInstance(String port) {
 		JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();

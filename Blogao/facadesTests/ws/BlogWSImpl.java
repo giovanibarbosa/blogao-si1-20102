@@ -1,5 +1,7 @@
 package ws;
 
+
+
 import classes.gerenciadores.GerenciadorDeDados;
 
 public class BlogWSImpl implements BlogWS {
@@ -31,8 +33,14 @@ public class BlogWSImpl implements BlogWS {
 
 	@Override
 	public Boolean isUserLogged(String login) {
-		//FIXME
-		return gerenteDados.getGerenteSessoes().isUserLogged(login);
+		//XXX Lembrar Tiago Leite sobre esse metodo obs.: Ele nao lancava excessao
+		//pode fazer isso?
+		try {
+			return gerenteDados.getGerenteSessoes().isUserLogged(login);
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 
 	@Override
@@ -44,14 +52,18 @@ public class BlogWSImpl implements BlogWS {
 
 	@Override
 	public void logoff(String sessionId) {
-		//FIXME
+		//FIXME TEM QUE AJEITAR ISSO NAO ESTA LANCANDO NADA
 		gerenteDados.getGerenteSessoes().logoff(sessionId);		
 	}
 
 	@Override
-	public void changeProfileInformation(String sessionId, String atributo)
+	public void changeProfileInformation(String sessionId, String atributo, String valor)
 			throws Exception {
-		// FIXME
+		/*FIXME EU MUDEI NA INTERFACE QUE ELA PASSOU PQ EU ACHO QUE TA ERRADO LA
+		*ELA PASSOU APENAS O SESSION ID E O ATRIBUTO.. COMO EH QUE EU VOU MUDAR UMA INFORMACAO
+		*SE NAO PASSOU NADA DE NOVO? ACHO QUE EU AJEITEI CERTO MESMO
+		*/
+		gerenteDados.getGerentePerfis().changeProfileInformation(sessionId, atributo, valor);
 		
 	}
 

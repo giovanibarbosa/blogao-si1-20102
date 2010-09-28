@@ -141,6 +141,11 @@ public class GerenciadorDeSessoes implements Gerenciador {
 
 	// METODO QUE DESLOGA O USUARIO.
 	public void logoff(String idSession) throws ArgumentInvalidException {
+//		for (Sessao ses : listaSessoes) {
+//			if (ses.getIdSessao().equals(idSession)) {
+//				listaSessoes.remove(ses);
+//			}
+//		}
 		Sessao ses = getSessao(idSession);
 		listaSessoes.remove(ses);
 	}

@@ -193,9 +193,13 @@ public class GerenciadorDePosts implements Gerenciador {
 		return post == null ? 0 : post.getListaDeVideo().size();
 	}
 
-	public int getNumeroDeImagens(String idDoPost)
-			throws FileNotFoundException, PersistenceException {
-		Post post = getPostPorId(idDoPost);
+	public int getNumeroDeImagens(String idDoPost) {
+		Post post = null;
+		try {
+			post = getPostPorId(idDoPost);
+		} catch (Exception e) {
+			return 0;
+		}
 		return post == null ? 0 : post.getListaDeImagem().size();
 	}
 

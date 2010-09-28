@@ -1,5 +1,7 @@
 package ws;
 
+
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
@@ -49,7 +51,7 @@ public interface BlogWS {
 	@WebMethod
 	public void changeProfileInformation(@WebParam(name = "sessionId")
 	String sessionId, @WebParam(name = "atributo")
-	String atributo) throws Exception;
+	String atributo, @WebParam(name = "valor") String valor) throws Exception;
 
 	@WebMethod
 	public String createBlog(@WebParam(name = "sessionId")
