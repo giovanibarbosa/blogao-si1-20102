@@ -13,9 +13,8 @@ import easyaccept.EasyAcceptFacade;
  * @author tiagohsl
  * 
  */
-public class NewFacadeBlogao {
+public class FacadeBlogao {
 
-	// FIXME AJEITAR ISSO AQUI
 	public static void main(String[] args) {
 		List<String> files = new ArrayList<String>();
 		String saida = "";
