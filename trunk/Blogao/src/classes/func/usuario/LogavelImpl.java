@@ -16,8 +16,8 @@ public class LogavelImpl implements Logavel {
 	
 	/**
 	 * Construtor do objeto Lovavel
-	 * @param {@link Login} login
-	 * @param {@link Senha} senha
+	 * @param log {@link Login}(Senha)
+	 * @param sen {@link Senha}(Login)
 	 */
 	public LogavelImpl(Login log, Senha sen) {
 		setLogin(log);
@@ -44,7 +44,7 @@ public class LogavelImpl implements Logavel {
 
 	/**
 	 * Metodo modificador de login
-	 * @param {@link Login}
+	 * @param log {@link Login}
 	 */
 	@Override
 	public void setLogin(Login log){
@@ -54,7 +54,7 @@ public class LogavelImpl implements Logavel {
 
 	/**
 	 * Metodo modificador que seta uma nova senha
-	 * @param {@link Senha}
+	 * @param sen {@link Senha}
 	 */
 	@Override
 	public void setSenha(Senha sen) {

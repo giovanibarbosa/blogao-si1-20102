@@ -14,7 +14,7 @@ public enum Sexo {
 	
 	/**
 	 * Construtor do Enum de sexo
-	 * @param {@link String} tipo
+	 * @param  tipo {@link String}
 	 */
 	Sexo(String tipo) {
 		this.tipo = tipo;		
@@ -22,7 +22,7 @@ public enum Sexo {
 	
 	/**
 	 * Verificador de Sexo
-	 * @param {@link String} do sexo
+	 * @param sex {@link String} Sexo
 	 * @return True se o sexo passado foi validado
 	 */
 	public static boolean verificaSexo(String sex) {
@@ -37,7 +37,7 @@ public enum Sexo {
 	
 	/**
 	 * Metodo acessador de sexo que retorna o Enum sexo
-	 * @param {@link String} do sexo desejado
+	 * @param sex {@link String} 
 	 * @return {@link Sexo}
 	 */
 	public static Sexo setadorSexo(String sex) {

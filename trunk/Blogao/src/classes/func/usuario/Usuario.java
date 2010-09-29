@@ -28,8 +28,8 @@ public class Usuario {
 	/**
 	 * Construtor do objeto Usuario
 	 * 
-	 * @param {@link Login}
-	 * @param {@link Senha}
+	 * @param log {@link Login}
+	 * @param sen {@link Senha}
 	 * @throws Exception
 	 *             caso algum dos parametros passados seja invalido
 	 */
@@ -42,9 +42,9 @@ public class Usuario {
 	/**
 	 * Construtor do objeto Usuario
 	 * 
-	 * @param {@link Login}
-	 * @param {@link Senha}
-	 * @param {@link Perfil}
+	 * @param log {@link Login}
+	 * @param sen {@link Senha}
+	 * @param per {@link Perfil}
 	 */
 	public Usuario(Login log, Senha sen, Perfil per) {
 		this.logavel = new LogavelImpl(log, sen);
@@ -85,7 +85,7 @@ public class Usuario {
 	/**
 	 * Metodo modificador de {@link Senha}
 	 * 
-	 * @param {@link Senha} nova senha
+	 * @param sen {@link Senha}Senha nova.
 	 */
 	public void setSenha(Senha sen) {
 		logavel.setSenha(sen);
@@ -103,7 +103,7 @@ public class Usuario {
 	/**
 	 * Metodo modificador de {@link Perfil}
 	 * 
-	 * @param {@link Perfil} novo perfil
+	 * @param perfil{@link Perfil} novo.
 	 */
 	public void setPerfil(Perfil perfil) {
 		if (perfil != null)
@@ -113,7 +113,7 @@ public class Usuario {
 	/**
 	 * Metodo modificar de {@link Login}
 	 * 
-	 * @param {@link Login} novo login
+	 * @param  log {@link Login} Novo login.
 	 */
 	public void setLogavel(Logavel log) {
 		this.logavel = log;
@@ -131,7 +131,7 @@ public class Usuario {
 	/**
 	 * Metodo que adiciona um {@link Blog} lista de blogs do usuario.
 	 * 
-	 * @param {@link Blog}
+	 * @param blg {@link Blog}
 	 */
 	public void addBlog2(Blog blg) {
 		if (!listaBlogs.contains(blg))
@@ -141,7 +141,7 @@ public class Usuario {
 	/**
 	 * Metodo que remove um {@link Blog} da lista de blogs do usuario.
 	 * 
-	 * @param {@link Blog}
+	 * @param blg {@link Blog}
 	 */
 	public void removeBlog2(Blog blg) {
 		if (listaBlogs.contains(blg))
@@ -171,7 +171,7 @@ public class Usuario {
 
 	/**
 	 * Metodo que cadastra um Announcement
-	 * @param {@link String} blogId desejado
+	 * @param blogId {@link String} desejado
 	 * @throws {@ArgumentInvalidException} caso 
 	 * 				o Announcement nao seja cadastrado
 	 */
@@ -186,7 +186,7 @@ public class Usuario {
 	
 	/**
 	 * Metodo acessador de Announcements
-	 * @param {@link String} idBlog
+	 * @param idBlog {@link String}
 	 * @return {@liunk Announcement}
 	 * @throws {@link ArgumentInvalidException} caso o 
 	 * 					 Announcement seja invalido
@@ -203,8 +203,8 @@ public class Usuario {
 
 	/**
 	 * Metodo que adiciona um aviso ao blog
-	 * @param {@link Blog}
-	 * @param {@link String} id do announcement
+	 * @param blog {@link Blog}
+	 * @param id {@link String} id do announcement
 	 */
 	public void addAviso(Blog blog, String id) {
 		for(Announcement announcement : listaAnnouncements){
