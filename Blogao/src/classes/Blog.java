@@ -30,9 +30,9 @@ public class Blog {
 
 	/**
 	 * Construtor do Blog.
-	 * @param String titulo
-	 * @param String descricao
-	 * @param String IdSessao que e gerada automaticamente.
+	 * @param  titulo {@link String}
+	 * @param descricao {@link String}
+	 * @param IdSessao {@link String}
 	 * @throws ArgumentInvalidException Caso o titulo seja invalido
 	 */
 	public Blog(String titulo, String descricao, String idSessao)
@@ -72,7 +72,7 @@ public class Blog {
 
 	/**
 	 * Metodo modificador que seta um titulo
-	 * @param String titulo desejado
+	 * @param titulo {@link String}
 	 * @throws ArgumentInvalidException caso o titulo do blog seja
 	 * 	vazio ou null
 	 */
@@ -92,7 +92,7 @@ public class Blog {
 
 	/**
 	 * Metodo modificador que seta uma descricao
-	 * @param String descricao desejada
+	 * @param descricao {@link String}
 	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
@@ -100,7 +100,7 @@ public class Blog {
 
 	/**
 	 * Metodo validador que verifica o titulo
-	 * @param String titulo
+	 * @param titulo {@link String}
 	 * @return True caso o titulo seja valido
 	 */
 	private boolean validaTitulo(String titulo) {
@@ -137,7 +137,7 @@ public class Blog {
 
 	/**
 	 * Metodo que adiciona um subBlog a um blog
-	 * @param Blog subblog
+	 * @param subblog {@link Blog}
 	 */
 	public void addSubBlog(Blog subblog) {
 		listaSubBlogs.add(subblog);
@@ -153,7 +153,7 @@ public class Blog {
 
 	/**
 	 * Metodo que adiciona um post a um blog
-	 * @param Post postNovo
+	 * @param postNovo {@link Post}
 	 */
 	public void addPost(Post post) {
 		if (!posts.contains(post.getId()))
@@ -162,7 +162,7 @@ public class Blog {
 
 	/**
 	 * Metodo que remove um post do blog
-	 * @param Post post a ser removido
+	 * @param post {@link Post}
 	 */
 	public void removePost(Post post) {
 		if (posts.contains(post))
@@ -171,7 +171,7 @@ public class Blog {
 	
 	/**
 	 * Metodo modificador que seta uma lista de posts
-	 * @param ArrayList<{@link String}> listaDePosts
+	 * @param listaDePosts ArrayList<{@link String}> 
 	 */
 	public void setlistaDePosts(ArrayList<String> listaDePosts) {
 		posts = listaDePosts;

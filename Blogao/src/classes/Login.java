@@ -17,7 +17,7 @@ public class Login {
 	
 	/**
 	 * Construtor do Login
-	 * @param String login desejado
+	 * @param login {@link String}
 	 * @throws {@link ArgumentInvalidException} caso o login seja 
 	 * nulo ou vazio
 	 */
@@ -27,7 +27,7 @@ public class Login {
 	
 	/**
 	 * Metodo modificador que seta um novo login
-	 * @param {@link String} login
+	 * @param  login {@link String}
 	 * @throws {@link ArgumentInvalidException} caso o login seja 
 	 * nulo ou vazio
 	 */

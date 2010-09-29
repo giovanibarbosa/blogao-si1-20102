@@ -51,7 +51,7 @@ public class Announcement {
 
 	/**
 	 * Metodo que adiciona uma atualizacao
-	 * @param {@link String} atualizacao
+	 * @param  att {@link String}
 	 */
 	public void addAtualizacao(String att){
 		if(!atualizacoes.contains(att))
@@ -60,7 +60,7 @@ public class Announcement {
 	
 	/**
 	 * Metodo que remove uma atualizacao
-	 * @param {@link String} atualizacao
+	 * @param  att {@link String}
 	 */
 	public void removeAtualizacao(String att){
 		if(atualizacoes.contains(att))
