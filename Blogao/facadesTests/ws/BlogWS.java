@@ -1,7 +1,5 @@
 package ws;
 
-
-
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
@@ -276,7 +274,7 @@ public interface BlogWS {
 	String announcementId) throws Exception;
 
 	@WebMethod
-	public String deleteAnnouncement(@WebParam(name = "sessiondId")
+	public void deleteAnnouncement(@WebParam(name = "sessiondId")
 	String sessionId, @WebParam(name = "announcementId")
 	String announcementId) throws Exception;
 
