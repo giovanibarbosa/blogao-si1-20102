@@ -361,7 +361,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public Integer getNumberOfBlogsBySessionId(String sessionId)
 			throws Exception {
-		return gerenteDados.getGerenteBlogs().getNumberOfBlogsBySessionId(sessionId);
+		return gerenteDados.getGerenteBlogs().totalDeBlogsPorSessao(sessionId);
 	}
 
 	@Override
