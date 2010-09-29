@@ -27,13 +27,13 @@ public interface Logavel {
 	
 	/**
 	 * Metodo modificador de login
-	 * @param {@link Login}
+	 * @param login {@link Login}
 	 */
 	public void setLogin(Login login) throws ArgumentInvalidException;
 	
 	/**
 	 * Metodo modificador que seta uma nova senha
-	 * @param {@link Senha}
+	 * @param senha {@link Senha}
 	 */
 	public void setSenha(Senha senha);
 
