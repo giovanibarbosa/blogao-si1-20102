@@ -1,13 +1,10 @@
 package ws;
 
-import java.io.FileNotFoundException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 import ourExceptions.ArgumentInvalidException;
-import ourExceptions.PersistenceException;
-import ourExceptions.UserInvalidException;
 
 public interface BlogWS {
 
@@ -326,4 +323,5 @@ public interface BlogWS {
 	@WebMethod
 	public Integer getNumberOfAllPosts(@WebParam(name = "blogId")
 	String blogId) throws ArgumentInvalidException;
+
 }

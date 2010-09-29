@@ -15,7 +15,6 @@ import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 import classes.Blog;
 import classes.Login;
-import classes.Post;
 import classes.Senha;
 import classes.Email;
 import enuns.Sexo;

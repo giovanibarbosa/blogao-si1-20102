@@ -10,7 +10,6 @@ import persistencia.daos.UsuariosDAO;
 import classes.Announcement;
 import classes.Blog;
 import classes.Login;
-import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 import java.util.ArrayList;

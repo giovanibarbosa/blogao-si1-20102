@@ -1,6 +1,5 @@
 package ws;
 
-import java.io.FileNotFoundException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
