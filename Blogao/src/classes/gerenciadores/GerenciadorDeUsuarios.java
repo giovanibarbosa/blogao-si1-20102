@@ -80,6 +80,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		userDAO.limparUsuarios();
+		listaUsuarios = new ArrayList<Usuario>();
 	}
 
 	public List<Perfil> getListaPerfis() {

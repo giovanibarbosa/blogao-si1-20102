@@ -61,6 +61,8 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		comentariosDAO.limparComentarios();
+		listaIdsComentarios = new ArrayList<String>();
+		mapaComentarios = new HashMap<String, Comentario>();
 
 	}
 
