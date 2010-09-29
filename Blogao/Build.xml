@@ -92,36 +92,10 @@
  =================== comando testa =================== 
 -->
 
-        <target name="testa" depends="compilaTestes" description="Executará os testes de unidade">
-                <echo message="Executando os testes..." />
 
-                <!-- O Ant possui uma tag específica para o junit também.
-                        Essas são os principais atributos a serem definidos.
-                        printsummary - O usuário define se quer que seja mostrado um resumo da execução
-                        fork - No caso do JUnit deve ser escolhido "no" para que não crie outra JVM da que o Ant
-                               esteja utilizando, no comando roda tem uma descrição melhor desse atributo 
-                        haltonfailure - O usuário indica se deve ou não para a execução do Ant caso encontre
-                               algum erro nos testes -->
-
-                <junit printsummary="yes" fork="no" haltonfailure="no">
-                        <classpath refid="classpath" />
-
-                        <!-- Aqui será definido o tipo de report que o usuário quer
-                                que seja gerado ao executar os testes. Possíveis 
-                                opções: plain, xml e brief. Plain e Brief criam arquivos .txt, já
-                                o xml cria um XML =D -->
-
-                        
-
-                        <!-- Aqui será definido quais classes de testes unitários devem
-                                ser executadas, caso não queira colocar um por um, é só criar uma
-                                suite de testes e usar o mesmo comando chamando a classe que possui
-                                a suite de testes -->
-                        <test name="${testSuite}" outfile="result">
-                                <formatter type="plain" />
-                        </test>
-                </junit>
-        </target>
+    <target name="testa">
+        <ant antfile="${build}/build.xml"/>
+    </target>
 
 
 	<!--
