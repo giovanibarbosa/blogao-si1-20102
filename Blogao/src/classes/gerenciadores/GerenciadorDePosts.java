@@ -511,13 +511,15 @@ public class GerenciadorDePosts implements Gerenciador {
 	public void removePost(String postId) throws PersistenceException, ArgumentInvalidException {
 		Post post = getPostPorId(postId);
 		while (!post.getListaComentarios().isEmpty()) {
+			System.out.println("Quantidade comentarios = " + post.getListaComentarios().size());
 			Comentario removido = post.getListaComentarios().remove(0);
 			gerenteDados.getGerenteComentarios().remove(removido);
 		}
+		System.out.println("Quantidade comentarios = " + post.getListaComentarios().size());
 		listaPosts.remove(post);
 		String blogDonoId = post.getIdBlogDono();
 		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogDonoId);
-		blog.removePost(post);
+		blog.removePost2(post);
 
 	}
 
