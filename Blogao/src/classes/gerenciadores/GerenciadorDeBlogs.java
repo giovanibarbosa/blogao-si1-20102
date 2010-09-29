@@ -169,13 +169,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public int totalDeBlogsPorSessao(String sessionID)
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
-		int cont = 0;
-		for (Blog blog : listaDeBlogs) {
-			if (blog.getIdSessao().equals(sessionID)) {
-				cont++;
-			}
-		}
-		return cont;
+		
+		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionID);
+		Usuario user = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
+		return user.getListaBlogs().size();
 	}
 
 	/**
