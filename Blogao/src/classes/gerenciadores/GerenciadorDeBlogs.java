@@ -37,6 +37,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	private GerenciadorDeDados gerenteDados;
 
 	private List<Blog> listaDeBlogs;
+	private List<Blog> listaDeSubBlogs;
 
 	private static final int DESCRICAO = 1499866697;
 	private static final int TITULO = -873444423;
@@ -50,6 +51,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 */
 	public GerenciadorDeBlogs(GerenciadorDeDados gerenteDados) {
 		listaDeBlogs = new ArrayList<Blog>();
+		listaDeSubBlogs = new ArrayList<Blog>();
 		this.gerenteDados = gerenteDados;
 	}
 
@@ -69,18 +71,14 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 * @throws UserInvalidException
 	 */
 	public String createBlog(String idSessao, String titulo, String descricao)
-			throws ArgumentInvalidException, PersistenceException, IOException,
-			UserInvalidException {
+			throws Exception {
 
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
 				idSessao);
 		Blog blog = new Blog(titulo, descricao, idSessao);
 
 		Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
-
 		us.addBlog2(blog);
-		gerenteDados.getGerenciadorDeUsuarios().remover(us);
-		gerenteDados.getGerenciadorDeUsuarios().adicionar(us);
 		listaDeBlogs.add(blog);
 		return blog.getId();
 
@@ -152,6 +150,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		for(Blog blog : user.getListaBlogs()){
+			System.out.println(blog.getId());
+		}
 		return user.getListaBlogs().size();
 	}
 
