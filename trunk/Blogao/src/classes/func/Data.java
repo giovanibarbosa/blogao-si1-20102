@@ -33,7 +33,7 @@ public class Data {
 	
 	/**
 	 * Construtor da classe Data
-	 * @param String data
+	 * @param data {@link String}
 	 * @throws Exception caso a cada seja invalida
 	 */
 	public Data(String data) throws Exception {
@@ -43,7 +43,7 @@ public class Data {
 	
 	/**
      * Metodo que verifica a validade de configuracao de uma data.
-     * @param String data
+     * @param data {@link String}
      * @return True caso a data seja valida
      */
 	public static boolean verificaData(String data) {
@@ -58,7 +58,7 @@ public class Data {
 	
 	/**
 	 * Metodo que converte de Calendar para String no formato "dd/MM/yyyy"
-	 * @param Calendar data
+	 * @param data {@link Calendar}
 	 * @return String data *dd/MM/yyyy*
 	 */
 	public static String calendarToString(Calendar data) {
@@ -73,7 +73,7 @@ public class Data {
 	
 	/**
 	 * Metodo usado para converter uma String num Calendar.
-	 * @param String data
+	 * @param data {@link String}
 	 * @return Calendar data
 	 * @throws ParseException caso nao consiga converter.
 	 */
@@ -97,7 +97,7 @@ public class Data {
 	
 	/**
 	 * Metodo que seta uma data
-	 * @param String nova data
+	 * @param data {@link String} nova
 	 * @throws ArgumentInvalidException caso a data seja invalida
 	 */
 	public void setData(String data) throws ArgumentInvalidException {
