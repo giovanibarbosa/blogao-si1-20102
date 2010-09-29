@@ -26,8 +26,8 @@ public class Imagem {
 	
 	/**
 	 * Construtor do objeto Imagem
-	 * @param String descricao
-	 * @param String dado
+	 * @param desc {@link String} Descricao da imagem.
+	 * @param dado {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public Imagem(String desc, String dado) throws ArgumentInvalidException {
@@ -46,7 +46,7 @@ public class Imagem {
 
 	/**
 	 * Metodo modificador da descricao
-	 * @param String nova descricao
+	 * @param desc {@link String}
 	 */
 	public void setDescricao(String desc) {
 		descricao = desc;
@@ -63,7 +63,7 @@ public class Imagem {
 	
 	/**
 	 * Metodo modificador de dados
-	 * @param String dado
+	 * @param dado {@link String}
 	 * @throws ArgumentInvalidException caso o dado seja invalido
 	 */
 	public void setDado(String dado) throws ArgumentInvalidException {
@@ -83,7 +83,7 @@ public class Imagem {
 
 	/**
 	 * Metodo modificador de id da Imagem.
-	 * @param String novaId
+	 * @param id {@link String}
 	 */
 	public void setId(String id) {
 		this.id = id;
