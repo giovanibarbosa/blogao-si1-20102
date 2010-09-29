@@ -359,9 +359,9 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getNumberOfBlogsBySessionId(java.lang.String)
 	 */
 	@Override
-	public Integer getNumberOfBlogsBySessionId(String sessiongId)
+	public Integer getNumberOfBlogsBySessionId(String sessionId)
 			throws Exception {
-		return gerenteDados.getGerenteBlogs().totalDeBlogsPorSessao(sessiongId);
+		return gerenteDados.getGerenteBlogs().getNumberOfBlogsBySessionId(sessionId);
 	}
 
 	/* (non-Javadoc)
@@ -414,7 +414,7 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getNumberOfSubAllBlogs(java.lang.String)
 	 */
 	@Override
-	public Integer getNumberOfSubAllBlogs(String blogId) throws Exception {
+	public Integer getNumberOfAllSubBlogs(String blogId) throws Exception {
 		return gerenteDados.getGerenteBlogs().getNumberOfAllSubBlogs(blogId);
 	}
 
