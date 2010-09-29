@@ -396,6 +396,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		postsDAO.limparPosts();
+		listaPosts = new ArrayList<Post>();
 	}
 
 	public void mudarInformacaoDoPost(String sessionID, String postID,

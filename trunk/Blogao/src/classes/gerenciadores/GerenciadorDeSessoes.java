@@ -166,5 +166,6 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		sessoesDAO.limparSessoes();
+		listaSessoes = new ArrayList<Sessao>();
 	}
 }

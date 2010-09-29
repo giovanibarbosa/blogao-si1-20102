@@ -273,6 +273,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	@Override
 	public void cleanPersistence() {
 		blogsDAO.limparBlogs();
+		listaDeBlogs = new ArrayList<Blog>();
 
 	}
 
