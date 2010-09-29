@@ -85,12 +85,13 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		validaIdComentario(idComentario);
 		return mapaComentarios.get(idComentario).getCorpoComentario();
 	}
+	
 
-	private void validaIdComentario(String idComentario)
+	private boolean validaIdComentario(String idComentario)
 			throws ArgumentInvalidException {
 		for (String idComentario2 : listaIdsComentarios) {
-			if (idComentario.equals(idComentario2))
-				return;
+			if (idComentario2.equals(idComentario))
+				return true;
 		}
 		throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
 
@@ -101,7 +102,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		String idSessaoDono = mapaComentarios.get(idComentario).getIdSessaoDono();
 		for (Usuario user : gerenteDados.getGerenciadorDeUsuarios().getListaUsuarios()) {
 			if (String.valueOf(user.getLogin().getLogin().hashCode()).equals(idSessaoDono)){
-				return user.getLogin().getLogin();
+				return (user.getLogin().getLogin());
 			}
 			
 		}

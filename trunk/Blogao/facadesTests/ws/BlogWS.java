@@ -1,7 +1,13 @@
 package ws;
 
+import java.io.FileNotFoundException;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
 
 public interface BlogWS {
 
@@ -34,7 +40,7 @@ public interface BlogWS {
 
 	@WebMethod
 	public Boolean isUserLogged(@WebParam(name = "login")
-	String login);
+	String login) throws Exception ;
 
 	@WebMethod
 	public String getProfileInformationBySessionId(

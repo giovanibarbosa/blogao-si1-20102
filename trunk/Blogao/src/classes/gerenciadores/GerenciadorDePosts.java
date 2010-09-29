@@ -179,8 +179,8 @@ public class GerenciadorDePosts implements Gerenciador {
 	
 	public void deletePost(String sessionId, String postId) throws
 			ArgumentInvalidException, PersistenceException, IOException	{
-		gerenteDados.getGerentePosts().validaPostId(postId, sessionId);
-		gerenteDados.getGerentePosts().removePost(postId);		
+		validaPostId(postId, sessionId);
+		removePost(postId);		
 	}
 
 	public int getNumeroDeSons(String idDoPost) {
@@ -508,13 +508,16 @@ public class GerenciadorDePosts implements Gerenciador {
 		return null;
 	}
 	
-	public void removePost(String postId) throws PersistenceException {
+	public void removePost(String postId) throws PersistenceException, ArgumentInvalidException {
 		Post post = getPostPorId(postId);
 		while (!post.getListaComentarios().isEmpty()) {
 			Comentario removido = post.getListaComentarios().remove(0);
 			gerenteDados.getGerenteComentarios().remove(removido);
 		}
 		listaPosts.remove(post);
+		String blogDonoId = post.getIdBlogDono();
+		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogDonoId);
+		blog.removePost(post);
 
 	}
 
@@ -547,6 +550,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	public void validaPostId(String postId, String sessionId)
 			throws ArgumentInvalidException, PersistenceException {
 		validaPostId(postId);
+		gerenteDados.getGerenteSessoes().validaSessao(sessionId);
 		Blog dono = gerenteDados.getGerenteBlogs().getBlog(
 				getPostPorId(postId).getIdBlogDono());
 		if (!dono.getIdSessao().equals(sessionId))

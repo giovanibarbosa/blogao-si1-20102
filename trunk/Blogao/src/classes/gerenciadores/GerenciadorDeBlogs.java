@@ -296,7 +296,8 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		return listaBlogsComIdSessaoBuscado;
 	}
 
-	public void deleteBlog(Blog blog) throws PersistenceException {
+	public void deleteBlog(Blog blog) throws PersistenceException,
+			ArgumentInvalidException {
 		List<Post> postsAApagar = gerenteDados.getGerentePosts()
 				.getListaPostsPorBlog(blog);
 		while (!postsAApagar.isEmpty()) {
