@@ -11,7 +11,7 @@ public class ArgumentInvalidException extends Exception {
 	
 	/**
 	 * Construtor da classe.
-	 * @param {@link String} problema
+	 * @param problem {@link String}
 	 */
 	public ArgumentInvalidException(String problem) {
 		super(problem);
@@ -19,8 +19,8 @@ public class ArgumentInvalidException extends Exception {
 	
 	/**
 	 * Construtor auxiliar da classe.
-	 * @param {@link String} problema
-	 * @param {@link Exception} e
+	 * @param problem {@link String}
+	 * @param e {@link Exception}
 	 */
 	public ArgumentInvalidException(String problem, Exception e) {
 		super(problem, e);

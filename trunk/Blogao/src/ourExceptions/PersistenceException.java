@@ -11,8 +11,8 @@ public class PersistenceException extends Exception {
 
 	/**
 	 * Construtor da classe
-	 * @param {@link String}
-	 *            A mensagem a ser exibida no lancamento da excecao
+	 * @param mensagem {@link String} a ser exibida no lancamento da excecao 
+	 *            
 	 */
 	public PersistenceException(String mensagem) {
 		super(mensagem);
@@ -21,9 +21,9 @@ public class PersistenceException extends Exception {
 	/**
 	 * Construtor auxiliar da classe
 	 * 
-	 * @param {@link String}
-	 *            A mensagem a ser exibida
-	 * @param {@link Exception}
+	 * @param mensagem {@link String} a ser exibida
+	 *            
+	 * @param e {@link Exception}
 	 */
 	public PersistenceException(String mensagem, Exception e) {
 		super(mensagem, e);
