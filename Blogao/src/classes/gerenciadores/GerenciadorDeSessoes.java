@@ -21,7 +21,7 @@ import persistencia.daos.SessoesDAO;
  * Classe para gerenciamento de sessoes no blogao
  * 
  * @author Rodolfo Marinho
- * 
+ * @colaborator Tiago B Araujo - brasileiroaraujo@gmail.com
  */
 public class GerenciadorDeSessoes implements Gerenciador {
 	private List<Sessao> listaSessoes;
@@ -34,7 +34,15 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		this.gerenteDados = gerenciadorDeDados;
 	}
 
-	// METODO QUE LOGA O USUARIO
+	/**
+	 * Metodo que loga um usuario.
+	 * @param login {@link String}
+	 * @param senha {@link String}
+	 * @return id da Sessao {@link String}
+	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
+	 * @throws FileNotFoundException
+	 */
 	public String logon(String login, String senha)
 			throws ArgumentInvalidException, PersistenceException,
 			FileNotFoundException {
@@ -64,7 +72,15 @@ public class GerenciadorDeSessoes implements Gerenciador {
 
 	}
 
-	// METODO QUE VERIFICA SE O USUARIO JA ESTA LOGADO
+	/**
+	 * Metodo que verifica se um usuario ja esta logado.
+	 * @param login {@link String}
+	 * @return {@link boolean}
+	 * @throws PersistenceException
+	 * @throws FileNotFoundException
+	 * @throws ArgumentInvalidException
+	 * @throws UserInvalidException
+	 */
 	@SuppressWarnings("unused")
 	public boolean isUserLogged(String login) throws PersistenceException,
 			FileNotFoundException, ArgumentInvalidException,
@@ -82,8 +98,8 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	/**
 	 * metodo que retorna a existencia de um logavel dado seu login.
 	 * 
-	 * @param log
-	 * @return
+	 * @param log {@link String}
+	 * @return {@link String} Informacoes do profile
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 * @throws UserInvalidException
@@ -109,7 +125,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	/**
 	 * Metodo que retorna o login referente a sessao passada como parametro.
 	 * 
-	 * @param idSessao
+	 * @param idSessao {@link String}
 	 *            a sessao da qual se procura o login
 	 * @return login o login da sessao procurada
 	 * @throws ArgumentInvalidException
@@ -120,7 +136,13 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		Sessao ses = getSessao(idSessao);
 		return ses.getLogin();
 	}
-
+	
+	/**
+	 * Metodo que retorna a Sessao referente ao id.
+	 * @param idSessao {@link String}
+	 * @return {@link Sessao} Sessao
+	 * @throws ArgumentInvalidException
+	 */
 	public Sessao getSessao(String idSessao) throws ArgumentInvalidException {
 		for (Sessao ses : listaSessoes) {
 			if (ses.getIdSessao().equals(idSessao)) {
@@ -129,7 +151,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 	}
-
+	
+	/**
+	 * Verificador de existencia de sessao.
+	 * @param idsessao {@link String}
+	 * @return booleano.
+	 */
 	private boolean sessaoExistente(String idsessao) {
 		for (Sessao ses : listaSessoes) {
 			if (ses.getIdSessao().equals(idsessao)) {
@@ -138,13 +165,22 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 		return false;
 	}
-
+	/**
+	 * Metodo que desloga um usuario.
+	 * @param idSession {@link String}
+	 * @throws ArgumentInvalidException
+	 */
 	public void logoff(String idSession) throws ArgumentInvalidException {
 		Sessao ses = getSessao(idSession);
 		listaSessoes.remove(ses);
 	}
+	
+	
 
-	@Override
+	@Override 
+	/**
+	 * Salva os dados.
+	 */
 	public void saveData() throws PersistenceException, IOException {
 		sessoesDAO.limparSessoes();
 		for (Sessao ses : listaSessoes) {
@@ -152,8 +188,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 
 	}
+	
 
 	@Override
+	/**
+	 * Carrega os dados.
+	 */
 	public void loadData() {
 		try {
 			listaSessoes = sessoesDAO.recuperaSessoes();
@@ -164,11 +204,19 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	}
 
 	@Override
+	/**
+	 * Remove todos os arquivos que eram persistentes.
+	 */
 	public void cleanPersistence() {
 		sessoesDAO.limparSessoes();
 		listaSessoes = new ArrayList<Sessao>();
 	}
-
+	
+	/**
+	 * Validador da Sessao.
+	 * @param sessionId {@link String}
+	 * @throws ArgumentInvalidException
+	 */
 	public void validaSessao(String sessionId) throws ArgumentInvalidException {
 		for(Sessao idSessao : listaSessoes){
 			if (idSessao.getIdSessao().equals(sessionId)) return;
