@@ -20,7 +20,11 @@ import classes.func.usuario.Usuario;
 import classes.Comentario;
 import classes.Post;
 import classes.Blog;
-
+/**
+ * Classe que gerencia Posts.
+ * @author Tiago Brasileiro
+ * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ */
 public class GerenciadorDePosts implements Gerenciador {
 	private GerenciadorDeDados gerenteDados;
 	private List<Post> listaPosts;
