@@ -204,6 +204,11 @@ public class Blog {
 		return getId().equals(outra.getId());
 	}
 
+	public void removePost2(Post post) {
+		posts.remove(post);
+		
+	}
+
 
 
 }
