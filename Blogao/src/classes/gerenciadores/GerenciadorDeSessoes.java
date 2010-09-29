@@ -168,4 +168,11 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		sessoesDAO.limparSessoes();
 		listaSessoes = new ArrayList<Sessao>();
 	}
+
+	public void validaSessao(String sessionId) throws ArgumentInvalidException {
+		for(Sessao idSessao : listaSessoes){
+			if (idSessao.getIdSessao().equals(sessionId)) return;
+		}
+		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+	}
 }

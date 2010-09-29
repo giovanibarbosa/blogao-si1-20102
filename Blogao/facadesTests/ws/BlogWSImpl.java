@@ -1,5 +1,11 @@
 package ws;
 
+import java.io.FileNotFoundException;
+
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.PersistenceException;
+import ourExceptions.UserInvalidException;
+import classes.func.Data;
 import classes.gerenciadores.GerenciadorDeDados;
 
 /**
@@ -291,7 +297,9 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getCommentAuthor(String commentId) throws Exception {
-		return gerenteDados.getGerenteComentarios().getCommentAuthor(commentId);
+		String retorno = gerenteDados.getGerenteComentarios().getCommentAuthor(commentId);
+		System.out.println(retorno);
+		return retorno;
 	}
 
 	/* (non-Javadoc)
@@ -537,12 +545,13 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#isUserLogged(java.lang.String)
 	 */
 	@Override
-	public Boolean isUserLogged(String login) {
-		try {
-			return gerenteDados.getGerenteSessoes().isUserLogged(login);
-		} catch (Exception e) {
-			return false;
-		}
+	public Boolean isUserLogged(String login) throws Exception {
+		return gerenteDados.getGerenteSessoes().isUserLogged(login);
+		
+	}
+	
+	public String todaysDate(){
+		return new Data().todaysDate();
 	}
 
 	
