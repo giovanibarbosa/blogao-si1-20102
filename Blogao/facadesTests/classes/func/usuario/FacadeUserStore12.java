@@ -48,8 +48,8 @@ public class FacadeUserStore12 {
 	
 	
 	//METODO QUE BUSCA O PERFIL PELO INTERESSE(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
-	public List<String> findProfileByInterests(String match){
-		return gerenteDados.getGerentePerfis().getPerfilPorInteresse(match);
+	public String findProfileByInterests(String match){
+		return gerenteDados.getGerentePerfis().getPerfilPorInteresse(match).toString().replace(" ", "");
 	}
 	
 	//METODO QUE BUSCA O PERFIL PELO SEXO(MATCH) E RETORNA A LISTA DOS NOMES PERFIS
