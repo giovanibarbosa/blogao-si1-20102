@@ -322,4 +322,8 @@ public interface BlogWS {
 	@WebMethod
 	public Integer getNumberOfAllSubComments(@WebParam(name = "commentId")
 	String commentId) throws Exception;
+
+	@WebMethod
+	public Integer getNumberOfAllPosts(@WebParam(name = "blogId")
+	String blogId) throws ArgumentInvalidException;
 }

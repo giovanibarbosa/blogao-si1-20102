@@ -364,6 +364,10 @@ public class BlogWSImpl implements BlogWS {
 		return gerenteDados.getGerenteBlogs().getNumberOfBlogsBySessionId(sessionId);
 	}
 
+	@Override
+	public Integer getNumberOfAllPosts(String blogId) throws ArgumentInvalidException{
+		return gerenteDados.getGerenteBlogs().getNumberOfAllPosts(blogId);
+	}
 	/* (non-Javadoc)
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getNumberOfComments(java.lang.String)
 	 */
