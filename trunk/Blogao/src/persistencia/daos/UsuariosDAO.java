@@ -94,9 +94,9 @@ public class UsuariosDAO {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		for (File arquivo : arrayDosArquivos()) {
 			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
-				Usuario comentario = (Usuario) xstream
+				Usuario usuario = (Usuario) xstream
 						.fromXML(new FileInputStream(arquivo));
-				usuarios.add(comentario);
+				usuarios.add(usuario);
 			}
 		}
 		return usuarios;

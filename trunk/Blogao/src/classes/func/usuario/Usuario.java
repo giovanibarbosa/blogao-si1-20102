@@ -145,8 +145,7 @@ public class Usuario {
 	 *            {@link Blog}
 	 */
 	public void addBlog2(Blog blg) {
-		if (!listaBlogs.contains(blg))
-			listaBlogs.add(blg);
+		listaBlogs.add(blg);
 	}
 
 	/**
