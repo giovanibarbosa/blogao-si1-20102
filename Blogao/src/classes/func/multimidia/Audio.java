@@ -25,8 +25,8 @@ public class Audio {
 	
 	/**
 	 * Construtor do objeto Audio
-	 * @param String descricao
-	 * @param String dado
+	 * @param desc {@link String} descricao do audio
+	 * @param dado {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public Audio(String desc, String dado) throws ArgumentInvalidException{
@@ -46,7 +46,7 @@ public class Audio {
 	
 	/**
 	 * Metodo modificador da descricao
-	 * @param String nova descricao
+	 * @param desc {@link String} nova descricao.
 	 */
 	public void setDescricao(String desc) {
 		descricao = desc;
@@ -62,7 +62,7 @@ public class Audio {
 	
 	/**
 	 * Metodo modificador de dados
-	 * @param String dado
+	 * @param dado {@link String}
 	 * @throws ArgumentInvalidException caso o dado seja invalido
 	 */
 	public void setDado(String dado) throws ArgumentInvalidException {
@@ -81,7 +81,7 @@ public class Audio {
 
 	/**
 	 * Metodo modificador de id do Audio.
-	 * @param String novaId
+	 * @param id {@link String}
 	 */
 	public void setId(String id) {
 		this.id = id;

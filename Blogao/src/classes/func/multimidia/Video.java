@@ -21,8 +21,8 @@ public class Video {
 
 	/**
 	 * Construtor do objeto Video
-	 * @param String descricao
-	 * @param String dado
+	 * @param desc {@link String} Descricao do video.
+	 * @param dado {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public Video(String desc, String dado) throws ArgumentInvalidException {
@@ -41,7 +41,7 @@ public class Video {
 
 	/**
 	 * Metodo modificador da descricao
-	 * @param String nova descricao
+	 * @param desc {@link String}
 	 */
 	public void setDescricao(String desc) {
 		descricao = desc;
@@ -57,7 +57,7 @@ public class Video {
 
 	/**
 	 * Metodo modificador de dados
-	 * @param String dado
+	 * @param dado {@link String}
 	 * @throws ArgumentInvalidException caso o dado seja invalido
 	 */
 	public void setDado(String dado) throws ArgumentInvalidException {
@@ -76,7 +76,7 @@ public class Video {
 
 	/**
 	 * Metodo modificador de id da Video.
-	 * @param String novaId
+	 * @param id {@link String}
 	 */
 	public void setId(String id) {
 		this.id = id;
