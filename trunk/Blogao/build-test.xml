@@ -1,0 +1,15 @@
+<project name="blogao" default="testa" basedir=".">
+    <path id="classpath">
+         <pathelement location="${build}"/>
+         <pathelement location="${lib}"/>
+             <fileset dir="${lib}">
+                 <include name="**/*.jar"/>
+             </fileset>
+    </path>
+
+    <target name="testa">
+        <exec executable="bash">
+            <arg value="testa.bat"/>
+        </exec>
+    </target>
+</project>
