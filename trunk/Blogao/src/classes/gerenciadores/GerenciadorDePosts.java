@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.tools.jxc.apt.Const;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -842,23 +841,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		for (String p : blg.getListaDePostagens())
 			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
 		return retorno;
-	}
-
-	/**
-	 * Recupera um Blog.
-	 * 
-	 * @param blogs
-	 *            {@link String}
-	 * @param blogId
-	 *            {@link String}
-	 * @return {@link Blog}
-	 */
-	private Blog getBlogAuxiliar(List<Blog> blogs, String blogId) {
-		for (Blog b : blogs) {
-			if (blogId.equals(b.getId()))
-				return b;
-		}
-		return null;
 	}
 
 	/**

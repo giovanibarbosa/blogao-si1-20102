@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.dao.DeadlockLoserDataAccessException;
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
@@ -97,6 +95,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			if (blog.getId().equals(idBlog))
 				return blog;
 		}
+		for (Blog subBlog : listaDeSubBlogs) {
+			if (subBlog.getId().equals(idBlog))
+				return subBlog;
+		}
 		throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 	}
 
@@ -150,9 +152,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-		for(Blog blog : user.getListaBlogs()){
-			System.out.println(blog.getId());
-		}
 		return user.getListaBlogs().size();
 	}
 
@@ -170,9 +169,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public int totalDeBlogsPorSessao(String sessionID)
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
-		
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionID);
-		return totalDeBlogsPorLogin(login);
+		int contador = 0;
+		for(Blog blog : listaDeBlogs){
+			if(blog.getIdSessao().equals(sessionID)) contador++;
+		}
+		return contador;
 	}
 
 	/**
@@ -583,7 +584,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 				idSessao);
 		Blog subBlog = new Blog(titulo, descricao, idSessao);
 		blogPai.addSubBlog(subBlog);
-		listaDeBlogs.add(subBlog);
+		listaDeSubBlogs.add(subBlog);
 		return subBlog.getId();
 	}
 
