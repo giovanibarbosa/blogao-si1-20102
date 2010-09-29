@@ -296,7 +296,7 @@ public interface BlogWS {
 	String blogId) throws Exception;
 
 	@WebMethod
-	public Integer getNumberOfSubAllBlogs(@WebParam(name = "blogId")
+	public Integer getNumberOfAllSubBlogs(@WebParam(name = "blogId")
 	String blogId) throws Exception;
 
 	@WebMethod
