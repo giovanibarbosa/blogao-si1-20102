@@ -8,11 +8,12 @@ import ourExceptions.ArgumentInvalidException;
 /**
  * Classe que inicializa um Comentario.
  * 
+ * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
- * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
- * @colaborator Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
- * @colaborator Giovani Barbosa - giovanibarbosa@gmail.com
- * 
+ *
  */
 public class Comentario {
 
@@ -20,17 +21,17 @@ public class Comentario {
 	private String idSessaoDono;
 	private String corpoComentario;
 	private List<Comentario> listaSubComentarios;
-	
+
 	/**
 	 * Contrutor da classe Comentario. Recebe uma string como texto do
 	 * comentario.
 	 * 
-	 * @param corpo 
-	 *             {@link String}
-	 * @throws {@link ArgumentInvalidException}
-	 * 			  caso o comentario seja invalido 
+	 * @param corpo
+	 *            {@link String}
+	 * @throws {@link ArgumentInvalidException} caso o comentario seja invalido
 	 */
-	public Comentario(String idSessao, String corpo) throws ArgumentInvalidException {
+	public Comentario(String idSessao, String corpo)
+			throws ArgumentInvalidException {
 		corpoComentario = corpo;
 		idSessaoDono = idSessao;
 		setId(gerarId());
@@ -40,15 +41,16 @@ public class Comentario {
 
 	/**
 	 * Metodo acessador de id de sessao do dono
+	 * 
 	 * @return {@link String} id da sessao do dono
 	 */
 	public String getIdSessaoDono() {
 		return idSessaoDono;
 	}
 
-
 	/**
 	 * Metodo acessador do corpo de um comentario
+	 * 
 	 * @return {@link String} corpo
 	 */
 	public String getCorpoComentario() {
@@ -57,7 +59,9 @@ public class Comentario {
 
 	/**
 	 * Metodo modificador que seta um id do comentario
-	 * @param  comentarioId {@link String}
+	 * 
+	 * @param comentarioId
+	 *            {@link String}
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -65,7 +69,8 @@ public class Comentario {
 
 	/**
 	 * Metodo acessador de id do comentario
-	 * @return  comentarioId {@link String}
+	 * 
+	 * @return comentarioId {@link String}
 	 */
 	public String getId() {
 		return id;
@@ -79,7 +84,6 @@ public class Comentario {
 		Comentario outra = (Comentario) objeto;
 		return getId().equals(outra.getId());
 	}
-	
 
 	private String gerarId() {
 		return String.valueOf(this.hashCode());
@@ -88,8 +92,8 @@ public class Comentario {
 	public List<Comentario> getListaSubComentarios() {
 		return listaSubComentarios;
 	}
-	
-	public String addSubComentario(Comentario coment){
+
+	public String addSubComentario(Comentario coment) {
 		listaSubComentarios.add(coment);
 		return coment.getId();
 	}

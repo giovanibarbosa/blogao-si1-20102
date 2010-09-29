@@ -6,8 +6,13 @@ import interfaces.Logavel;
 
 /**
  * Classe que implementa a classe {@link Logavel}
+ * 
  * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
- *
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
+ * 
  */
 public class LogavelImpl implements Logavel {
 

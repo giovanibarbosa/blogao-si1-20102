@@ -15,8 +15,10 @@ import classes.Senha;
 /**
  * Classe que inicializa um Usuario
  * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
- * @colaborator Tiago Leite - tiagohsl@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 public class Usuario {
 
@@ -28,8 +30,10 @@ public class Usuario {
 	/**
 	 * Construtor do objeto Usuario
 	 * 
-	 * @param log {@link Login}
-	 * @param sen {@link Senha}
+	 * @param log
+	 *            {@link Login}
+	 * @param sen
+	 *            {@link Senha}
 	 * @throws Exception
 	 *             caso algum dos parametros passados seja invalido
 	 */
@@ -42,9 +46,12 @@ public class Usuario {
 	/**
 	 * Construtor do objeto Usuario
 	 * 
-	 * @param log {@link Login}
-	 * @param sen {@link Senha}
-	 * @param per {@link Perfil}
+	 * @param log
+	 *            {@link Login}
+	 * @param sen
+	 *            {@link Senha}
+	 * @param per
+	 *            {@link Perfil}
 	 */
 	public Usuario(Login log, Senha sen, Perfil per) {
 		this.logavel = new LogavelImpl(log, sen);
@@ -85,7 +92,8 @@ public class Usuario {
 	/**
 	 * Metodo modificador de {@link Senha}
 	 * 
-	 * @param sen {@link Senha}Senha nova.
+	 * @param sen
+	 *            {@link Senha}Senha nova.
 	 */
 	public void setSenha(Senha sen) {
 		logavel.setSenha(sen);
@@ -103,7 +111,8 @@ public class Usuario {
 	/**
 	 * Metodo modificador de {@link Perfil}
 	 * 
-	 * @param perfil{@link Perfil} novo.
+	 * @param perfil
+	 *            {@link Perfil} novo.
 	 */
 	public void setPerfil(Perfil perfil) {
 		if (perfil != null)
@@ -113,7 +122,8 @@ public class Usuario {
 	/**
 	 * Metodo modificar de {@link Login}
 	 * 
-	 * @param  log {@link Login} Novo login.
+	 * @param log
+	 *            {@link Login} Novo login.
 	 */
 	public void setLogavel(Logavel log) {
 		this.logavel = log;
@@ -131,7 +141,8 @@ public class Usuario {
 	/**
 	 * Metodo que adiciona um {@link Blog} lista de blogs do usuario.
 	 * 
-	 * @param blg {@link Blog}
+	 * @param blg
+	 *            {@link Blog}
 	 */
 	public void addBlog2(Blog blg) {
 		if (!listaBlogs.contains(blg))
@@ -141,7 +152,8 @@ public class Usuario {
 	/**
 	 * Metodo que remove um {@link Blog} da lista de blogs do usuario.
 	 * 
-	 * @param blg {@link Blog}
+	 * @param blg
+	 *            {@link Blog}
 	 */
 	public void removeBlog2(Blog blg) {
 		if (listaBlogs.contains(blg))
@@ -163,6 +175,7 @@ public class Usuario {
 
 	/**
 	 * Metodo acessador de lista de Announcements
+	 * 
 	 * @return List<{@link Announcement}>
 	 */
 	public List<Announcement> getListaAnnouncement() {
@@ -171,30 +184,36 @@ public class Usuario {
 
 	/**
 	 * Metodo que cadastra um Announcement
-	 * @param blogId {@link String} desejado
-	 * @throws {@ArgumentInvalidException} caso 
-	 * 				o Announcement nao seja cadastrado
+	 * 
+	 * @param blogId
+	 *            {@link String} desejado
+	 * @throws {@ArgumentInvalidException} caso o
+	 *         Announcement nao seja cadastrado
 	 */
-	public void addPostAnnouncement(String blogId) throws ArgumentInvalidException {
+	public void addPostAnnouncement(String blogId)
+			throws ArgumentInvalidException {
 		Announcement announcement = new Announcement(blogId);
 		if (!(listaAnnouncements.contains(announcement)))
 			listaAnnouncements.add(announcement);
 		else
-			throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_CADASTRADO);
+			throw new ArgumentInvalidException(
+					Constantes.ANNOUNCEMENT_CADASTRADO);
 
 	}
-	
+
 	/**
 	 * Metodo acessador de Announcements
-	 * @param idBlog {@link String}
+	 * 
+	 * @param idBlog
+	 *            {@link String}
 	 * @return {@liunk Announcement}
-	 * @throws {@link ArgumentInvalidException} caso o 
-	 * 					 Announcement seja invalido
+	 * @throws {@link ArgumentInvalidException} caso o Announcement seja
+	 *         invalido
 	 */
 	public Announcement getAnnouncementByIdBlog(String idBlog)
-			throws ArgumentInvalidException{
-		for (Announcement announcement : listaAnnouncements){
-			if (announcement.getIdBlogDeInteresse().equals(idBlog)){
+			throws ArgumentInvalidException {
+		for (Announcement announcement : listaAnnouncements) {
+			if (announcement.getIdBlogDeInteresse().equals(idBlog)) {
 				return announcement;
 			}
 		}
@@ -203,16 +222,19 @@ public class Usuario {
 
 	/**
 	 * Metodo que adiciona um aviso ao blog
-	 * @param blog {@link Blog}
-	 * @param id {@link String} id do announcement
+	 * 
+	 * @param blog
+	 *            {@link Blog}
+	 * @param id
+	 *            {@link String} id do announcement
 	 */
 	public void addAviso(Blog blog, String id) {
-		for(Announcement announcement : listaAnnouncements){
-			if (announcement.getIdBlogDeInteresse().equals(blog.getId())){
+		for (Announcement announcement : listaAnnouncements) {
+			if (announcement.getIdBlogDeInteresse().equals(blog.getId())) {
 				announcement.addAtualizacao(id);
 			}
 		}
-		
+
 	}
 
 }

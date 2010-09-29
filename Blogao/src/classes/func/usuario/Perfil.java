@@ -12,8 +12,11 @@ import enuns.Sexo;
 
 /**
  * Classe que inicializa uma perfil
- * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
- * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  * 
  */
 public class Perfil {
@@ -52,6 +55,7 @@ public class Perfil {
 
 	/**
 	 * Metodo acessador do login do dono do perfil
+	 * 
 	 * @return {@link String} login
 	 */
 	public String getLoginUsuarioDono() {
@@ -60,7 +64,9 @@ public class Perfil {
 
 	/**
 	 * Metodo modificador de logins
-	 * @param  loginUsuarioDono {@link String}
+	 * 
+	 * @param loginUsuarioDono
+	 *            {@link String}
 	 */
 	public void setLoginUsuario(String loginUsuarioDono) {
 		this.loginUsuarioDono = loginUsuarioDono;
@@ -69,7 +75,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de {@link Email}
 	 * 
-	 * @param email {@link Email}
+	 * @param email
+	 *            {@link Email}
 	 */
 	public void setEmail(Email email) {
 		this.email = email;
@@ -87,7 +94,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de nome de exibicao
 	 * 
-	 * @param nomeDeExibicao {@link String}
+	 * @param nomeDeExibicao
+	 *            {@link String}
 	 */
 	public void setNomeDeExibicao(String nomeDeExibicao) {
 		if (nomeDeExibicao != null)
@@ -106,7 +114,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de endereco
 	 * 
-	 * @param endereco {@link String} 
+	 * @param endereco
+	 *            {@link String}
 	 */
 	public void setEndereco(String endereco) {
 		if (endereco != null)
@@ -125,7 +134,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de interesses
 	 * 
-	 * @param interesses {@link String} 
+	 * @param interesses
+	 *            {@link String}
 	 */
 	public void setInteresses(String interesses) {
 		if (interesses != null)
@@ -144,7 +154,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de data de nascimento
 	 * 
-	 * @param dataDeNascimento {@link String}
+	 * @param dataDeNascimento
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 *             caso a data seja invalida
 	 */
@@ -169,7 +180,8 @@ public class Perfil {
 	/**
 	 * Metodo moficador de quem eu sou
 	 * 
-	 * @param quemSouEu {@link String}
+	 * @param quemSouEu
+	 *            {@link String}
 	 */
 	public void setQuemSouEu(String quemSouEu) {
 		if (quemSouEu != null)
@@ -188,7 +200,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de filmes favoritos
 	 * 
-	 * @param filmesFavoritos {@link String}
+	 * @param filmesFavoritos
+	 *            {@link String}
 	 */
 	public void setFilmesFavoritos(String filmesFavoritos) {
 		if (filmesFavoritos != null)
@@ -207,7 +220,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de musicas favoritas
 	 * 
-	 * @param musicasFavoritas {@link String}
+	 * @param musicasFavoritas
+	 *            {@link String}
 	 */
 	public void setMusicasFavoritas(String musicasFavoritas) {
 		if (musicasFavoritas != null)
@@ -226,7 +240,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de livros favoritos
 	 * 
-	 * @param livrosFavoritos {@link String}
+	 * @param livrosFavoritos
+	 *            {@link String}
 	 */
 	public void setLivrosFavoritos(String livrosFavoritos) {
 		if (livrosFavoritos != null)
@@ -236,7 +251,8 @@ public class Perfil {
 	/**
 	 * Metodo modificador de {@link Sexo}
 	 * 
-	 * @param sex {@link Sexo}
+	 * @param sex
+	 *            {@link Sexo}
 	 * @throws ArgumentInvalidException
 	 *             caso o sexo seja invalido
 	 */
@@ -259,7 +275,8 @@ public class Perfil {
 	/**
 	 * Metodo acessador de atributo
 	 * 
-	 * @param atributo {@link String} desejado
+	 * @param atributo
+	 *            {@link String} desejado
 	 * @return {@link String} o atributo do Perfil
 	 * @throws ArgumentInvalidException
 	 *             caso o atributo passado seja invalido
@@ -273,7 +290,8 @@ public class Perfil {
 		case (EMAIL):
 			return this.email.toString();
 		case (NOME):
-			if(this.nomeDeExibicao.equals("")) return this.loginUsuarioDono;
+			if (this.nomeDeExibicao.equals(""))
+				return this.loginUsuarioDono;
 			return this.nomeDeExibicao;
 		case (ENDERECO):
 			return this.endereco;
@@ -300,8 +318,10 @@ public class Perfil {
 	/**
 	 * Metodo modificador de atributo
 	 * 
-	 * @param atributo {@link String} desejado
-	 * @param novoValor {@link String}
+	 * @param atributo
+	 *            {@link String} desejado
+	 * @param novoValor
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 *             caso o atributo passado seja invalido
 	 * @throws PersistenceException

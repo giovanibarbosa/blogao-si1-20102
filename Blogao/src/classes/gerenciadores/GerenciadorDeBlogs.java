@@ -23,11 +23,11 @@ import persistencia.daos.BlogsDAO;
 /**
  * Classe que gerencia os blogs ({@link Blog})
  * 
- * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
- * @colaborator Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
- * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
- * @colaborator Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
  * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br 
  * 
  */
 public class GerenciadorDeBlogs implements Gerenciador {
