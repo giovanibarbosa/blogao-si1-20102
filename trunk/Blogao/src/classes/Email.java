@@ -18,8 +18,8 @@ public class Email {
 	/**
 	 * Construtor da objeto.
 	 * 
-	 * @param String
-	 *            email
+	 * @param email
+	 *              {@link String}
 	 * @throws Exception
 	 *             caso o email seja vazio ou null
 	 */
@@ -30,8 +30,8 @@ public class Email {
 	/**
 	 * Metodo que seta um email de um determinado {@link Usuario}.
 	 * 
-	 * @param String
-	 *            email desejado
+	 * @param novoEmail 
+	 * 			{@link String}
 	 * @throws Exception
 	 *             caso o email seja vazio ou null.
 	 */

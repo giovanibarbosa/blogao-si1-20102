@@ -15,7 +15,7 @@ public class Senha {
 	
 	/**
 	 * Construtor da {@link Senha}
-	 * @param String senha
+	 * @param senha {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public Senha(String senha) throws ArgumentInvalidException {
@@ -24,7 +24,7 @@ public class Senha {
 	
 	/**
 	 * Metodo modificador de senha
-	 * @param String novaSenha
+	 * @param novaSenha {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
@@ -44,7 +44,7 @@ public class Senha {
 	
 	/**
 	 * Metodo validador que verifica a senha
-	 * @param String senha
+	 * @param senha {@link String}
 	 * @return True caso a senha seja valida
 	 */
 	private boolean validaSenha(String senha) {
@@ -55,7 +55,7 @@ public class Senha {
 	
 	/**
 	 * Metodo que verifica duas senhas.
-	 * @param String senha
+	 * @param senha {@link String}
 	 * @return True caso a senha seja valida
 	 */
 	public boolean equals(String senha){

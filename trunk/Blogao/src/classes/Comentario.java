@@ -25,8 +25,8 @@ public class Comentario {
 	 * Contrutor da classe Comentario. Recebe uma string como texto do
 	 * comentario.
 	 * 
-	 * @param {@link String}
-	 *            corpo do Comentario
+	 * @param corpo 
+	 *             {@link String}
 	 * @throws {@link ArgumentInvalidException}
 	 * 			  caso o comentario seja invalido 
 	 */
@@ -57,7 +57,7 @@ public class Comentario {
 
 	/**
 	 * Metodo modificador que seta um id do comentario
-	 * @param {@link String} comentarioId
+	 * @param  comentarioId {@link String}
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -65,7 +65,7 @@ public class Comentario {
 
 	/**
 	 * Metodo acessador de id do comentario
-	 * @return {@link String} comentarioId
+	 * @return  comentarioId {@link String}
 	 */
 	public String getId() {
 		return id;

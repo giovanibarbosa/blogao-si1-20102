@@ -48,9 +48,9 @@ public class Post {
 
 	/**
 	 * Construtor da classe {@link Post} 
-	 * @param String titulo do post
-	 * @param String corpo do post
-	 * @param String idBlogDono
+	 * @param titulo {@link String} do post
+	 * @param corpo {@link String} do post
+	 * @param idBlogDono {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public Post(String titulo, String corpo, String idBlogDono) throws ArgumentInvalidException {
@@ -71,7 +71,7 @@ public class Post {
 
 	/**
 	 * Metodo modificador de titulo
-	 * @param String novo titulo
+	 * @param titulo {@link String} novo
 	 * @throws {@link ArgumentInvalidException} caso o titulo seja invalido
 	 */
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
@@ -99,7 +99,7 @@ public class Post {
 
 	/**
 	 * Metodo que adiciona um comentario a lista de comentarios.
-	 * @param {@link Comentario} comentario
+	 * @param coment {@link Comentario}
 	 */
 	public void addComentario(Comentario coment) {
 		if (!comentarios.contains(coment))
@@ -108,7 +108,7 @@ public class Post {
 
 	/**
 	 * Metodo que remove um comentario da lista de comentarios.
-	 * @param {@link Comentario} comentario
+	 * @param coment {@link Comentario}
 	 */
 	public void removeComentario(Comentario coment) {
 		if (comentarios.contains(coment))
@@ -117,7 +117,7 @@ public class Post {
 	
 	/**
 	 * Metodo que adiciona um audio ao post.
-	 * @param {@link Audio} audio
+	 * @param audio {@link Audio}
 	 */
 	public void addAudio(Audio audio) {
 		if (!mapaAudio.containsValue(audio)){
@@ -128,7 +128,7 @@ public class Post {
 
 	/**
 	 * Metodo que remove um audio do post.
-	 * @param {@link Audio} audio
+	 * @param audio {@link Audio}
 	 */
 	public void removeAudio(Audio audio) {
 		if (mapaAudio.containsValue(audio)){
@@ -139,7 +139,7 @@ public class Post {
 
 	/**
 	 * Metodo que adiciona uma {@link Imagem} ao post
-	 * @param {@link Imagem} imagem
+	 * @param imagem {@link Imagem}
 	 */
 	public void addImagem(Imagem imagem) {
 		if (!mapaImagens.containsValue(imagem)){
@@ -150,7 +150,7 @@ public class Post {
 	
 	/**
 	 * Metodo que remove uma {@link Imagem} do post.
-	 * @param {@link Imagem}
+	 * @param {@link Imagem} imagem
 	 */
 	public void removeImagem(Imagem imagem) {
 		if (mapaImagens.containsValue(imagem)){
@@ -206,8 +206,8 @@ public class Post {
 	
 	/**
 	 * Metodo modificador que seta um atributo desejado e a sua atualizacao
-	 * @param String atributo desejado
-	 * @param String atualizacao
+	 * @param atributo {@link String} desejado
+	 * @param mudanca {@link String} (atualizacao)
 	 * @throws ArgumentInvalidException caso o atributo passado nao exista
 	 */
 	public void setAtributo(String atributo, String mudanca)

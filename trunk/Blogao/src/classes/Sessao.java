@@ -14,8 +14,8 @@ public class Sessao {
 	
 	/**
 	 * Construtor do objeto Sessao
-	 * @param String idSessao
-	 * @param String login
+	 * @param id {@link String} da Sessao
+	 * @param login {@link String}
 	 */
 	public Sessao(String id, String log) {
 		this.idSessao = id;
