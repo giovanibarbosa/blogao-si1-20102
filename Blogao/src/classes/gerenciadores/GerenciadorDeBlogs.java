@@ -171,8 +171,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			PersistenceException, UserInvalidException {
 		
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionID);
-		Usuario user = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
-		return user.getListaBlogs().size();
+		return totalDeBlogsPorLogin(login);
 	}
 
 	/**
