@@ -20,10 +20,14 @@ import classes.func.usuario.Usuario;
 import classes.Comentario;
 import classes.Post;
 import classes.Blog;
+
 /**
  * Classe que gerencia Posts.
- * @author Tiago Brasileiro - brasileiroaraujo@gmail.com
+ * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 public class GerenciadorDePosts implements Gerenciador {
 	private GerenciadorDeDados gerenteDados;
@@ -33,10 +37,12 @@ public class GerenciadorDePosts implements Gerenciador {
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
 	private static final int DATA_CRIACAO = 358082837;
-	
+
 	/**
 	 * Construtor da classe.
-	 * @param gerenteDados {@link GerenciadorDeDados}
+	 * 
+	 * @param gerenteDados
+	 *            {@link GerenciadorDeDados}
 	 */
 	public GerenciadorDePosts(GerenciadorDeDados gerenteDados) {
 		this.gerenteDados = gerenteDados;
@@ -47,10 +53,14 @@ public class GerenciadorDePosts implements Gerenciador {
 	/**
 	 * Metodo que gerancia a criacao de um Post.
 	 * 
-	 * @param idSessao {@link String}
-	 * @param idBlog {@link String}
-	 * @param titulo {@link String}
-	 * @param texto {@link String}
+	 * @param idSessao
+	 *            {@link String}
+	 * @param idBlog
+	 *            {@link String}
+	 * @param titulo
+	 *            {@link String}
+	 * @param texto
+	 *            {@link String}
 	 * @return {@link String} Id do post.
 	 * @throws IOException
 	 * @throws ArgumentInvalidException
@@ -74,7 +84,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		blog.addPost(post);
 		user.addBlog2(blog);
 		listaPosts.add(post);
-		
+
 		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
 
 		return post.getId();
@@ -82,10 +92,15 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	/**
 	 * Adiciona um audio ao post.
-	 * @param sessionId {@link String}
-	 * @param postId {@link String}
-	 * @param descricao {@link String}
-	 * @param dado {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param postId
+	 *            {@link String}
+	 * @param descricao
+	 *            {@link String}
+	 * @param dado
+	 *            {@link String}
 	 * @return Id {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
@@ -116,14 +131,18 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		return audio.getId();
 	}
-	
-	
+
 	/**
 	 * Adiciona uma foto ao post.
-	 * @param sessionId {@link String}
-	 * @param postId {@link String}
-	 * @param descricao {@link String}
-	 * @param dado {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param postId
+	 *            {@link String}
+	 * @param descricao
+	 *            {@link String}
+	 * @param dado
+	 *            {@link String}
 	 * @return Id {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
@@ -154,13 +173,18 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		return imagem.getId();
 	}
-	
+
 	/**
 	 * Adiciona um filme ao Post.s
-	 * @param sessionId {@link String}
-	 * @param postId {@link String}
-	 * @param descricao {@link String}
-	 * @param dado {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param postId
+	 *            {@link String}
+	 * @param descricao
+	 *            {@link String}
+	 * @param dado
+	 *            {@link String}
 	 * @return {@link String} Id.
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
@@ -191,11 +215,14 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		return video.getId();
 	}
-	
+
 	/**
 	 * Retorna as inforacoes do post.
-	 * @param idDoPost {@link String}
-	 * @param atributo {@link String}
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
+	 * @param atributo
+	 *            {@link String}
 	 * @return informacoes {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws FileNotFoundException
@@ -229,24 +256,29 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return retorno;
 	}
-	
+
 	/**
 	 * Deleta post.
-	 * @param sessionId {@link String}
-	 * @param postId {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param postId
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 * @throws IOException
 	 */
-	public void deletePost(String sessionId, String postId) throws
-			ArgumentInvalidException, PersistenceException, IOException	{
+	public void deletePost(String sessionId, String postId)
+			throws ArgumentInvalidException, PersistenceException, IOException {
 		validaPostId(postId, sessionId);
-		removePost(postId);		
+		removePost(postId);
 	}
-	
+
 	/**
 	 * Retorna o numero de arquivos de audio no post.
-	 * @param idDoPost {@link String}
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
 	 * @return numero de audios.
 	 */
 	public int getNumeroDeSons(String idDoPost) {
@@ -258,13 +290,15 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return post == null ? 0 : post.getListaDeAudio().size();
 	}
-	
+
 	/**
 	 * Retorna o numeto de Videos do post
-	 * @param idDoPost {@link String}
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
 	 * @return numero de videos.
 	 */
-	public int getNumeroDeVideos(String idDoPost)  {
+	public int getNumeroDeVideos(String idDoPost) {
 		Post post = null;
 		try {
 			post = getPostPorId(idDoPost);
@@ -273,9 +307,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return post == null ? 0 : post.getListaDeVideo().size();
 	}
+
 	/**
 	 * Retorna o numeor de imagens do post.
-	 * @param idDoPost {@link String}
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
 	 * @return numero de imagens.
 	 */
 	public int getNumeroDeImagens(String idDoPost) {
@@ -287,11 +324,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return post == null ? 0 : post.getListaDeImagem().size();
 	}
-	
+
 	/**
 	 * Acessa um audio.
-	 * @param idDoPost {@link String}
-	 * @param index {@link int}
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
 	 * @return Id do audio.
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -305,10 +345,12 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getListaDeAudio().get(Integer.valueOf(index)).getId();
 	}
-	
+
 	/**
 	 * Retorna a descricao do som.
-	 * @param audioId {@link String}
+	 * 
+	 * @param audioId
+	 *            {@link String}
 	 * @return descricao do som.
 	 * @throws FileNotFoundException
 	 */
@@ -317,10 +359,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		Audio audio = getAudio(audioId);
 		return audio.getDescricao();
 	}
-	
+
 	/**
 	 * Retorna dos dados do audio.
-	 * @param audioId {@link String}
+	 * 
+	 * @param audioId
+	 *            {@link String}
 	 * @return dados do audio.
 	 * @throws FileNotFoundException
 	 */
@@ -328,10 +372,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		Audio audio = getAudio(audioId);
 		return audio.getDado();
 	}
-	
+
 	/**
 	 * Recupera o audio.
-	 * @param audioId {@link String} 
+	 * 
+	 * @param audioId
+	 *            {@link String}
 	 * @return {@link Audio}
 	 * @throws FileNotFoundException
 	 */
@@ -346,9 +392,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
+
 	/**
 	 * Retorna a descricao da imagem.
-	 * @param imagemId {@link String}
+	 * 
+	 * @param imagemId
+	 *            {@link String}
 	 * @return descricao da imagem.
 	 * @throws FileNotFoundException
 	 */
@@ -364,10 +413,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
-	
+
 	/**
 	 * Recupera os dados da imagem.
-	 * @param imagemId {@link String}
+	 * 
+	 * @param imagemId
+	 *            {@link String}
 	 * @return dados da imagem.
 	 * @throws FileNotFoundException
 	 */
@@ -381,11 +432,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
-	
+
 	/**
 	 * Recupera uma imagem da lista.
-	 * @param id {@link String}
-	 * @param index {@link String}
+	 * 
+	 * @param id
+	 *            {@link String}
+	 * @param index
+	 *            {@link String}
 	 * @return id da imagem.
 	 * @throws PersistenceException
 	 * @throws ArgumentInvalidException
@@ -397,10 +451,12 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getListaDeImagem().get(index).getId();
 	}
-	
+
 	/**
 	 * Recupera a descricao do video.
-	 * @param videoId {@link String}
+	 * 
+	 * @param videoId
+	 *            {@link String}
 	 * @return descricao do video.
 	 * @throws FileNotFoundException
 	 */
@@ -416,10 +472,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
-	
+
 	/**
 	 * Retorna os dados do video.
-	 * @param videoId {@link String}
+	 * 
+	 * @param videoId
+	 *            {@link String}
 	 * @return Dados do video.
 	 * @throws FileNotFoundException
 	 */
@@ -433,10 +491,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
 	}
+
 	/**
 	 * Recupera um video da lista.
-	 * @param id {@link String}
-	 * @param index {@link int}
+	 * 
+	 * @param id
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
 	 * @return id do video.
 	 * @throws PersistenceException
 	 */
@@ -471,9 +533,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 
 	}
+
 	/**
 	 * Recupera o total de filmes em um post.
-	 * @param postID {@link String}
+	 * 
+	 * @param postID
+	 *            {@link String}
 	 * @return numero de filmes
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -483,10 +548,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postID);
 		return post.getListaDeVideo().size();
 	}
-	
+
 	/**
 	 * Recupera total de iamgens do post
-	 * @param postID {@link String}
+	 * 
+	 * @param postID
+	 *            {@link String}
 	 * @return total de imagens.
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -496,10 +563,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postID);
 		return post.getListaDeImagem().size();
 	}
-	
+
 	/**
 	 * Recupera o total de audios do post.
-	 * @param postID {@link String}
+	 * 
+	 * @param postID
+	 *            {@link String}
 	 * @return numero de audios.
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -509,11 +578,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postID);
 		return post.getListaDeAudio().size();
 	}
-	
+
 	/**
 	 * Recupera o id do audio.
-	 * @param postID {@link String}
-	 * @param index {@link int}
+	 * 
+	 * @param postID
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
 	 * @return id do Audio.
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -525,11 +597,14 @@ public class GerenciadorDePosts implements Gerenciador {
 				.getId());
 
 	}
-	
+
 	/**
 	 * Recupera o Id do video.
-	 * @param postID {@link String}
-	 * @param index {@link int}
+	 * 
+	 * @param postID
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
 	 * @return id do video.
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -541,11 +616,14 @@ public class GerenciadorDePosts implements Gerenciador {
 				.getId());
 
 	}
-	
+
 	/**
 	 * Recupera o id da imagem.
-	 * @param postID {@link String}
-	 * @param index {@link int}
+	 * 
+	 * @param postID
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
 	 * @return id da imagem.
 	 * @throws FileNotFoundException
 	 * @throws PersistenceException
@@ -574,7 +652,9 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	/**
 	 * Recupera um post.
-	 * @param idDoPost {@link String}
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
 	 * @return {@link Post}
 	 * @throws PersistenceException
 	 */
@@ -595,13 +675,18 @@ public class GerenciadorDePosts implements Gerenciador {
 		postsDAO.limparPosts();
 		listaPosts = new ArrayList<Post>();
 	}
-	
+
 	/**
 	 * Modifica as informacoes do post.
-	 * @param sessionID {@link String}
-	 * @param postID {@link String}
-	 * @param atributo {@link String}
-	 * @param novoTexto {@link String}
+	 * 
+	 * @param sessionID
+	 *            {@link String}
+	 * @param postID
+	 *            {@link String}
+	 * @param atributo
+	 *            {@link String}
+	 * @param novoTexto
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 * @throws UserInvalidException
@@ -630,11 +715,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.addBlog2(blog);
 
 	}
-	
+
 	/**
 	 * Deleta um video.
-	 * @param sessionId {@link String}
-	 * @param idMovie {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param idMovie
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws UserInvalidException
 	 */
@@ -646,7 +734,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		post.removeVideo(post.getMapaVideos().get(idMovie));
 	}
-	
+
 	private Post getPostByVideoID(String movieID) {
 		for (Post post : listaPosts) {
 			if (post.getMapaVideos().containsKey(movieID)) {
@@ -655,11 +743,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Deleta um audio.
-	 * @param sessionId {@link String}
-	 * @param idAudio {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param idAudio
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws UserInvalidException
 	 */
@@ -680,10 +771,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return null;
 	}
+
 	/**
 	 * Deleta uma imagem.
-	 * @param sessionId {@link String}
-	 * @param idImagem {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param idImagem
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws UserInvalidException
 	 */
@@ -704,10 +799,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Recupera o numero de comentarios.
-	 * @param postId {@link String}
+	 * 
+	 * @param postId
+	 *            {@link String}
 	 * @return total de comentarios.
 	 * @throws PersistenceException
 	 */
@@ -715,11 +812,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		return post.getListaComentarios().size();
 	}
-	
+
 	/**
 	 * Recupera o numero de comentarios.
-	 * @param login {@link String}
-	 * @param blogId {@link String}
+	 * 
+	 * @param login
+	 *            {@link String}
+	 * @param blogId
+	 *            {@link String}
 	 * @return total de comentarios.
 	 * @throws UserInvalidException
 	 * @throws ArgumentInvalidException
@@ -728,11 +828,12 @@ public class GerenciadorDePosts implements Gerenciador {
 	public int getNumberOfComments(String login, String blogId)
 			throws UserInvalidException, ArgumentInvalidException,
 			PersistenceException {
-		Usuario user = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
+		Usuario user = gerenteDados.getGerenciadorDeUsuarios()
+				.getUsuario(login);
 		List<Blog> blogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
 		Blog blg = null;
 		for (Blog blog : blogs) {
-			if(blog.getId().equals(blogId))
+			if (blog.getId().equals(blogId))
 				blg = blog;
 		}
 		if (blg == null)
@@ -745,8 +846,11 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	/**
 	 * Recupera um Blog.
-	 * @param blogs {@link String}
-	 * @param blogId {@link String}
+	 * 
+	 * @param blogs
+	 *            {@link String}
+	 * @param blogId
+	 *            {@link String}
 	 * @return {@link Blog}
 	 */
 	private Blog getBlogAuxiliar(List<Blog> blogs, String blogId) {
@@ -756,14 +860,17 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Remove um post.
-	 * @param postId {@link String}
+	 * 
+	 * @param postId
+	 *            {@link String}
 	 * @throws PersistenceException
 	 * @throws ArgumentInvalidException
 	 */
-	public void removePost(String postId) throws PersistenceException, ArgumentInvalidException {
+	public void removePost(String postId) throws PersistenceException,
+			ArgumentInvalidException {
 		Post post = getPostPorId(postId);
 		while (!post.getListaComentarios().isEmpty()) {
 			Comentario removido = post.getListaComentarios().remove(0);
@@ -775,10 +882,12 @@ public class GerenciadorDePosts implements Gerenciador {
 		blog.removePost2(post);
 
 	}
-	
+
 	/**
 	 * Valida um Post.
-	 * @param postId {@link String}
+	 * 
+	 * @param postId
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public void validaPostId(String postId) throws ArgumentInvalidException {
@@ -788,12 +897,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
 	}
-	
-	
+
 	/**
 	 * Recupera um comentario.
-	 * @param postId {@link String}
-	 * @param index {@link int}
+	 * 
+	 * @param postId
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
 	 * @return {@link Comentario}
 	 * @throws PersistenceException
 	 * @throws ArgumentInvalidException
@@ -806,10 +917,12 @@ public class GerenciadorDePosts implements Gerenciador {
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
 		return post.getComentario(index);
 	}
-	
+
 	/**
 	 * Recupera a lista de posts.
-	 * @param blog {@link Blog}
+	 * 
+	 * @param blog
+	 *            {@link Blog}
 	 * @return List<{@link Post}>
 	 */
 	public List<Post> getListaPostsPorBlog(Blog blog) {
@@ -820,10 +933,14 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		return listaPostsProcurados;
 	}
+
 	/**
 	 * Valida o id do post.
-	 * @param postId {@link String}
-	 * @param sessionId {@link String}
+	 * 
+	 * @param postId
+	 *            {@link String}
+	 * @param sessionId
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 */

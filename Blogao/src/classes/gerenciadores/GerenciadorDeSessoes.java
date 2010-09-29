@@ -20,8 +20,10 @@ import persistencia.daos.SessoesDAO;
 /**
  * Classe para gerenciamento de sessoes no blogao
  * 
- * @author Rodolfo Marinho
- * @colaborator Tiago B Araujo - brasileiroaraujo@gmail.com
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 public class GerenciadorDeSessoes implements Gerenciador {
 	private List<Sessao> listaSessoes;
@@ -36,8 +38,11 @@ public class GerenciadorDeSessoes implements Gerenciador {
 
 	/**
 	 * Metodo que loga um usuario.
-	 * @param login {@link String}
-	 * @param senha {@link String}
+	 * 
+	 * @param login
+	 *            {@link String}
+	 * @param senha
+	 *            {@link String}
 	 * @return id da Sessao {@link String}
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
@@ -74,7 +79,9 @@ public class GerenciadorDeSessoes implements Gerenciador {
 
 	/**
 	 * Metodo que verifica se um usuario ja esta logado.
-	 * @param login {@link String}
+	 * 
+	 * @param login
+	 *            {@link String}
 	 * @return {@link boolean}
 	 * @throws PersistenceException
 	 * @throws FileNotFoundException
@@ -98,7 +105,8 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	/**
 	 * metodo que retorna a existencia de um logavel dado seu login.
 	 * 
-	 * @param log {@link String}
+	 * @param log
+	 *            {@link String}
 	 * @return {@link String} Informacoes do profile
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
@@ -125,8 +133,8 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	/**
 	 * Metodo que retorna o login referente a sessao passada como parametro.
 	 * 
-	 * @param idSessao {@link String}
-	 *            a sessao da qual se procura o login
+	 * @param idSessao
+	 *            {@link String} a sessao da qual se procura o login
 	 * @return login o login da sessao procurada
 	 * @throws ArgumentInvalidException
 	 *             caso a sessao nao exista
@@ -136,10 +144,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		Sessao ses = getSessao(idSessao);
 		return ses.getLogin();
 	}
-	
+
 	/**
 	 * Metodo que retorna a Sessao referente ao id.
-	 * @param idSessao {@link String}
+	 * 
+	 * @param idSessao
+	 *            {@link String}
 	 * @return {@link Sessao} Sessao
 	 * @throws ArgumentInvalidException
 	 */
@@ -151,10 +161,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 	}
-	
+
 	/**
 	 * Verificador de existencia de sessao.
-	 * @param idsessao {@link String}
+	 * 
+	 * @param idsessao
+	 *            {@link String}
 	 * @return booleano.
 	 */
 	private boolean sessaoExistente(String idsessao) {
@@ -165,19 +177,20 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 		return false;
 	}
+
 	/**
 	 * Metodo que desloga um usuario.
-	 * @param idSession {@link String}
+	 * 
+	 * @param idSession
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public void logoff(String idSession) throws ArgumentInvalidException {
 		Sessao ses = getSessao(idSession);
 		listaSessoes.remove(ses);
 	}
-	
-	
 
-	@Override 
+	@Override
 	/**
 	 * Salva os dados.
 	 */
@@ -188,7 +201,6 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 
 	}
-	
 
 	@Override
 	/**
@@ -211,15 +223,18 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		sessoesDAO.limparSessoes();
 		listaSessoes = new ArrayList<Sessao>();
 	}
-	
+
 	/**
 	 * Validador da Sessao.
-	 * @param sessionId {@link String}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public void validaSessao(String sessionId) throws ArgumentInvalidException {
-		for(Sessao idSessao : listaSessoes){
-			if (idSessao.getIdSessao().equals(sessionId)) return;
+		for (Sessao idSessao : listaSessoes) {
+			if (idSessao.getIdSessao().equals(sessionId))
+				return;
 		}
 		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 	}
