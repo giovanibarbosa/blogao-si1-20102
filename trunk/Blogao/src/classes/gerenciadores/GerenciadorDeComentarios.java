@@ -18,6 +18,15 @@ import classes.func.usuario.Usuario;
 import interfaces.Constantes;
 import interfaces.Gerenciador;
 
+/**
+ * Classe que gerencia comentários ({@link Comentario})
+ * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
+ * 
+ */
 public class GerenciadorDeComentarios implements Gerenciador {
 
 	private GerenciadorDeDados gerenteDados;
@@ -25,6 +34,12 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	private HashMap<String, Comentario> mapaComentarios;
 	private ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
 
+	/**
+	 * Construtor para este {@link GerenciadorDeComentarios}
+	 * 
+	 * @param gerenteDados
+	 *            {@link GerenciadorDeDados}
+	 */
 	public GerenciadorDeComentarios(GerenciadorDeDados gerenteDados) {
 		listaIdsComentarios = new ArrayList<String>();
 		mapaComentarios = new HashMap<String, Comentario>();
@@ -64,6 +79,19 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	}
 
+	/**
+	 * Adiciona um {@link Comentario}
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param postId
+	 *            {@link String}
+	 * @param texto
+	 *            {@link String}
+	 * @return O id do {@link Comentario} adicionado
+	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
+	 */
 	public String addComentario(String sessionId, String postId, String texto)
 			throws ArgumentInvalidException, PersistenceException {
 
@@ -78,12 +106,27 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		return coment.getId();
 	}
 
+	/**
+	 * Recupera um texto pra um {@link Comentario}
+	 * 
+	 * @param idComentario
+	 *            {@link String}
+	 * @return Um texto pra um {@link Comentario}
+	 * @throws ArgumentInvalidException
+	 */
 	public String getTextoComentario(String idComentario)
 			throws ArgumentInvalidException {
 		validaIdComentario(idComentario);
 		return mapaComentarios.get(idComentario).getCorpoComentario();
 	}
 
+	/**
+	 * Valida um {@link Comentario}
+	 * 
+	 * @param idComentario
+	 *            {@link String}
+	 * @throws ArgumentInvalidException
+	 */
 	private void validaIdComentario(String idComentario)
 			throws ArgumentInvalidException {
 		if (!listaIdsComentarios.contains(idComentario))
@@ -91,6 +134,16 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	}
 
+	/**
+	 * Recupera um id {@link Comentario}
+	 * 
+	 * @param idComentario
+	 *            {@link String}
+	 * @return Um id {@link Comentario}
+	 * @throws ArgumentInvalidException
+	 * @throws FileNotFoundException
+	 * @throws PersistenceException
+	 */
 	public String getCommentAuthor(String idComentario)
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException {
@@ -109,12 +162,30 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		throw new ArgumentInvalidException(Constantes.COMENTARIO_INEXISTENTE);
 	}
 
+	/**
+	 * Remove um {@link Comentario}
+	 * 
+	 * @param removido
+	 *            {@link Comentario}
+	 */
 	public void remove(Comentario removido) {
 		mapaComentarios.remove(removido.getId());
 		while (listaIdsComentarios.contains(removido.getId()))
-				listaIdsComentarios.remove(removido.getId());
+			listaIdsComentarios.remove(removido.getId());
 	}
 
+	/**
+	 * Adiciona um sub comentario
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param idComentario
+	 *            {@link String}
+	 * @param texto
+	 *            {@link String}
+	 * @return O id do sub comentario adicionado
+	 * @throws ArgumentInvalidException
+	 */
 	public String addSubComment(String sessionId, String idComentario,
 			String texto) throws ArgumentInvalidException {
 		gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionId);
@@ -128,6 +199,16 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		return coment.getId();
 	}
 
+	/**
+	 * Recupera o id de um sub comentario
+	 * 
+	 * @param idComentario
+	 *            {@link String}
+	 * @param index
+	 *            {@link String}
+	 * @return o id de um sub comentario
+	 * @throws ArgumentInvalidException
+	 */
 	public String getSubComment(String idComentario, int index)
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
@@ -139,6 +220,14 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		return coment.getListaSubComentarios().get(index).getId();
 	}
 
+	/**
+	 * Recupera o número de subcomentarios de um {@link Comentario}
+	 * 
+	 * @param idComentario
+	 *            {@link String}
+	 * @return O número de subcomentarios de um {@link Comentario}
+	 * @throws ArgumentInvalidException
+	 */
 	public int getNumberOfSubComments(String idComentario)
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
@@ -147,6 +236,13 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		return coment.getListaSubComentarios().size();
 	}
 
+	/**
+	 * Recupera o número de todos os subcomentários de um {@link Comentario}
+	 * 
+	 * @param idComentario
+	 * @return
+	 * @throws ArgumentInvalidException
+	 */
 	public int getNumberOfAllSubComments(String idComentario)
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
