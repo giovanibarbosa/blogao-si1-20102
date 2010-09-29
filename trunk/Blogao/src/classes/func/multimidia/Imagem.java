@@ -2,16 +2,18 @@ package classes.func.multimidia;
 
 import interfaces.Constantes;
 
-  
 import ourExceptions.ArgumentInvalidException;
 
 /**
  * Classe que inicializa uma Imagem
+ * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
- *
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 
-public class Imagem {  
+public class Imagem {
 	private String id;
 	private String descricao;
 	private String dado;
@@ -22,12 +24,14 @@ public class Imagem {
 	public Imagem() {
 		setId(gerarId());
 	}
-	
-	
+
 	/**
 	 * Construtor do objeto Imagem
-	 * @param desc {@link String} Descricao da imagem.
-	 * @param dado {@link String}
+	 * 
+	 * @param desc
+	 *            {@link String} Descricao da imagem.
+	 * @param dado
+	 *            {@link String}
 	 * @throws ArgumentInvalidException
 	 */
 	public Imagem(String desc, String dado) throws ArgumentInvalidException {
@@ -38,6 +42,7 @@ public class Imagem {
 
 	/**
 	 * Metodo acessador de Descricao
+	 * 
 	 * @return String descricao
 	 */
 	public String getDescricao() {
@@ -46,7 +51,9 @@ public class Imagem {
 
 	/**
 	 * Metodo modificador da descricao
-	 * @param desc {@link String}
+	 * 
+	 * @param desc
+	 *            {@link String}
 	 */
 	public void setDescricao(String desc) {
 		descricao = desc;
@@ -54,27 +61,30 @@ public class Imagem {
 
 	/**
 	 * Metodo acessador de dados
+	 * 
 	 * @return String dado
 	 */
 	public String getDado() {
 		return dado;
 	}
 
-	
 	/**
 	 * Metodo modificador de dados
-	 * @param dado {@link String}
-	 * @throws ArgumentInvalidException caso o dado seja invalido
+	 * 
+	 * @param dado
+	 *            {@link String}
+	 * @throws ArgumentInvalidException
+	 *             caso o dado seja invalido
 	 */
 	public void setDado(String dado) throws ArgumentInvalidException {
 		if (dado == null || dado.trim().isEmpty())
 			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
 		this.dado = dado;
 	}
-	
-	
+
 	/**
 	 * Metodo acessador de ids da imagem.
+	 * 
 	 * @return String idImagem
 	 */
 	public String getId() {
@@ -83,15 +93,16 @@ public class Imagem {
 
 	/**
 	 * Metodo modificador de id da Imagem.
-	 * @param id {@link String}
+	 * 
+	 * @param id
+	 *            {@link String}
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-
 	private String gerarId() {
 		return String.valueOf(this.hashCode());
 	}
-	
-} 
+
+}

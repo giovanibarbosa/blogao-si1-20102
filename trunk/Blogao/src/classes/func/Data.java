@@ -12,8 +12,12 @@ import ourExceptions.ArgumentInvalidException;
 
 /**
  * Classe que inicializa uma data.
- * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
- *
+ * 
+ * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
+ * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
+ * 
  */
 public class Data {
 
@@ -22,43 +26,49 @@ public class Data {
 	private static final int MESES_DO_ANO = 12;
 	private static int ANO_ATUAL;
 	private Calendar data;
-	
+
 	/**
 	 * Construtor default da classe Data
 	 */
 	public Data() {
 		this.ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
 	}
-	
-	
+
 	/**
 	 * Construtor da classe Data
-	 * @param data {@link String}
-	 * @throws Exception caso a cada seja invalida
+	 * 
+	 * @param data
+	 *            {@link String}
+	 * @throws Exception
+	 *             caso a cada seja invalida
 	 */
 	public Data(String data) throws Exception {
 		this.ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
 		setData(data);
 	}
-	
+
 	/**
-     * Metodo que verifica a validade de configuracao de uma data.
-     * @param data {@link String}
-     * @return True caso a data seja valida
-     */
+	 * Metodo que verifica a validade de configuracao de uma data.
+	 * 
+	 * @param data
+	 *            {@link String}
+	 * @return True caso a data seja valida
+	 */
 	public static boolean verificaData(String data) {
 		if (data == null || !data.matches("\\d\\d\\/\\d\\d\\/\\d\\d\\d\\d")
 				|| Integer.valueOf(data.substring(0, 2)) > DIAS_DO_MES
 				|| Integer.valueOf(data.substring(3, 5)) > MESES_DO_ANO
-				|| Integer.valueOf(data.substring(6, 10)) > ANO_ATUAL ) {
+				|| Integer.valueOf(data.substring(6, 10)) > ANO_ATUAL) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Metodo que converte de Calendar para String no formato "dd/MM/yyyy"
-	 * @param data {@link Calendar}
+	 * 
+	 * @param data
+	 *            {@link Calendar}
 	 * @return String data *dd/MM/yyyy*
 	 */
 	public static String calendarToString(Calendar data) {
@@ -70,62 +80,65 @@ public class Data {
 		}
 		return strdate;
 	}
-	
+
 	/**
 	 * Metodo usado para converter uma String num Calendar.
-	 * @param data {@link String}
+	 * 
+	 * @param data
+	 *            {@link String}
 	 * @return Calendar data
-	 * @throws ParseException caso nao consiga converter.
+	 * @throws ParseException
+	 *             caso nao consiga converter.
 	 */
 	public static Calendar conversorData(String dat) throws ParseException {
 		String data = dat;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(sdf.parse(data));
-		
+
 		return cal;
 
 	}
 
 	/**
 	 * Metodo acessador de uma data
+	 * 
 	 * @return Calendar data
 	 */
 	public Calendar getData() {
 		return data;
 	}
-	
+
 	/**
 	 * Metodo que seta uma data
-	 * @param data {@link String} nova
-	 * @throws ArgumentInvalidException caso a data seja invalida
+	 * 
+	 * @param data
+	 *            {@link String} nova
+	 * @throws ArgumentInvalidException
+	 *             caso a data seja invalida
 	 */
 	public void setData(String data) throws ArgumentInvalidException {
 		if (!verificaData(data)) {
-			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
-		}		
+			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
+		}
 		try {
 			Calendar date = conversorData(data);
 			this.data = date;
-			
+
 		} catch (Exception e) {
-			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);			
-		}		
+			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
+		}
 	}
-	
+
 	/**
 	 * Metodo que retorna a data de hoje
+	 * 
 	 * @return String data
 	 */
 	public String todaysDate() {
-		Date data = new Date();  
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		Date data = new Date();
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		return formatador.format(data);
 	}
-	
-	
-	
-	
-	
 
 }
