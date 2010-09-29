@@ -212,8 +212,8 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#findBlogByName(java.lang.String)
 	 */
 	@Override
-	public void findBlogByName(String match) {
-		gerenteDados.getGerenteBlogs().getBlogPorNome(match)
+	public String findBlogByName(String match) {
+		return gerenteDados.getGerenteBlogs().getBlogPorNome(match)
 						.toString().replace(" ", "");
 		
 	}
@@ -222,8 +222,8 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#findProfileByGender(java.lang.String)
 	 */
 	@Override
-	public void findProfileByGender(String match) {
-		gerenteDados.getGerentePerfis().getPerfilPorSexo(match)
+	public String findProfileByGender(String match) {
+		return gerenteDados.getGerentePerfis().getPerfilPorSexo(match)
 		.toString().replace(" ", "");
 		
 	}
@@ -232,8 +232,8 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#findProfileByInterests(java.lang.String)
 	 */
 	@Override
-	public void findProfileByInterests(String match) {
-		gerenteDados.getGerentePerfis().getPerfilPorInteresse(match);
+	public String findProfileByInterests(String match) {
+		return gerenteDados.getGerentePerfis().getPerfilPorInteresse(match).toString().replace(" ", "");
 		
 	}
 
@@ -241,9 +241,8 @@ public class BlogWSImpl implements BlogWS {
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#findProfileByName(java.lang.String)
 	 */
 	@Override
-	public void findProfileByName(String match) {
-		gerenteDados.getGerentePerfis().getPerfilPorNome(match).
-						toString().replace(" ", "");
+	public String findProfileByName(String match) {
+		return gerenteDados.getGerentePerfis().getPerfilPorNome(match).toString().replace(" ", "");
 		
 	}
 
@@ -297,9 +296,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getCommentAuthor(String commentId) throws Exception {
-		String retorno = gerenteDados.getGerenteComentarios().getCommentAuthor(commentId);
-		System.out.println(retorno);
-		return retorno;
+		return gerenteDados.getGerenteComentarios().getCommentAuthor(commentId);
 	}
 
 	/* (non-Javadoc)
@@ -373,6 +370,12 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public Integer getNumberOfComments(String postId) throws Exception {
 		return gerenteDados.getGerentePosts().getNumberOfComments(postId);
+	}
+	/* (non-Javadoc
+	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getNumberOfComments(java.lang.String)
+	 */
+	public String getNumberOfComments(String login, String blogId) throws UserInvalidException, ArgumentInvalidException, PersistenceException{
+		return String.valueOf(gerenteDados.getGerentePosts().getNumberOfComments(login, blogId));
 	}
 
 	/* (non-Javadoc)

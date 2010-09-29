@@ -246,19 +246,19 @@ public interface BlogWS {
 	String sessionId) throws Exception;
 
 	@WebMethod
-	public void findProfileByName(@WebParam(name = "match")
+	public String findProfileByName(@WebParam(name = "match")
 	String match);
 
 	@WebMethod
-	public void findProfileByInterests(@WebParam(name = "match")
+	public String findProfileByInterests(@WebParam(name = "match")
 	String match);
 
 	@WebMethod
-	public void findProfileByGender(@WebParam(name = "match")
+	public String findProfileByGender(@WebParam(name = "match")
 	String match);
 
 	@WebMethod
-	public void findBlogByName(@WebParam(name = "match")
+	public String findBlogByName(@WebParam(name = "match")
 	String match);
 
 	@WebMethod
