@@ -23,8 +23,7 @@
 	<property name="package" value="src" />
 
 	<property name="testSuite" value="${package}.facadesTests" />
-
-
+	  
 	<path id="classpath">
 
 		 <fileset dir="${basedir}/lib" includes="**.jar" />
@@ -58,7 +57,7 @@
 -->
 
 	 <target name="compila" depends="limpa">
-                <echo message="Compilando o código..." />
+                <echo message="Compilando o codigo..." />
                 <mkdir dir="${build}" />
 
                 <javac srcdir="${src}" destdir="${build}">
@@ -67,7 +66,7 @@
         </target>
 
         <target name="compilaTestes" depends="compila">
-                <echo message="Compilando o código de testes..." />
+                <echo message="Compilando o codigo de testes..." />
 
                 <javac srcdir="${facadesTests}" destdir="${build}">
                         <classpath refid="facadesTests.classpath" />
@@ -96,7 +95,7 @@
     <target name="testa">
         <ant antfile="${build}/build.xml"/>
     </target>
-
+	
 
 	<!--
 
