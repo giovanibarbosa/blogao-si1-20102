@@ -1,18 +1,23 @@
-echo off
-set JAVA=java -cp lib\easyaccept.jar easyaccept.EasyAccept FacadeBlogao
+echo `pwd`
+T=`pwd`
+cd "$T/build"
+echo `pwd`
 
-%JAVA% tests/us1.txt 
-%JAVA% tests/us2.txt 
-%JAVA% tests/us3.txt 
-%JAVA% tests/us4.txt 
-%JAVA% tests/us5.txt 
-%JAVA% tests/us6.txt 
-%JAVA% tests/us7.txt 
-%JAVA% tests/us8.txt 
-%JAVA% tests/us9.txt 
-%JAVA% tests/us10.txt 
-%JAVA% tests/us11.txt
-%JAVA% tests/us12.txt  
-%JAVA% tests/us13.txt 
-%JAVA% tests/us14.txt 
+export TESTA="java -classpath lib/easyaccept.jar:./tests/:. easyaccept.EasyAccept "
+
+
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us1.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us2.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us3.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us4.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us5.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us6.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us7.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us8.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us9.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us10.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us11.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us12.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us13.txt;
+$TESTA facadesTests.ws.BlogaoWSImpl tests/us14.txt;
 
