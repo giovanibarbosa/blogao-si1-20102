@@ -13,7 +13,7 @@ import easyaccept.EasyAcceptFacade;
  * @author tiagohsl
  * 
  */
-public class FacadeBlogao {
+public class RodaTestes {
 
 	public static void main(String[] args) {
 		List<String> files = new ArrayList<String>();
