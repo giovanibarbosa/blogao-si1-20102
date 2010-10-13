@@ -1,14 +1,14 @@
 package interfaces;
 
 /**
- * Classe armazenadora de constantes.
- * Nao e aconselhavel fazer isso. Fizemos devido aos problemas
- * 								  de formatacao UTF-8 e ISO.
+ * Classe armazenadora de constantes. Nao e aconselhavel fazer isso. Fizemos
+ * devido aos problemas de formatacao UTF-8 e ISO.
+ * 
  * @author Tiago Leite - tiagohsl@lcc.ufcg.edu.br
  * 
  */
 public interface Constantes {
-	
+
 	static final String SEXO_INVALIDO = "Sexo inválido";
 	static final String SESSAO_INVALIDA = "Sessão inválida";
 	static final String LOGIN_OU_SENHA_INVALIDO = "Login ou senha inválido";
@@ -51,8 +51,16 @@ public interface Constantes {
 	static final String ANNOUNCEMENT_CADASTRADO = "Announcement já cadastrado";
 	static final String ANNOUNCEMENT_INVALIDO = "Announcement inválido";
 	static final String INDICE_INVALIDO2 = "Índice inválido";
-	
-	
-	
+
+	static final int EMAIL = 96619420;
+	static final int NOME = 513276986;
+	static final int ENDERECO = 1731028937;
+	static final int INTERESSES = -1598911081;
+	static final int DATA = 1788869133;
+	static final int SEXO = 3526857;
+	static final int QUEM = -2073846039;
+	static final int FILMES = -1274498766;
+	static final int MUSICAS = 1412695319;
+	static final int LIVROS = -1102420835;
 
 }
