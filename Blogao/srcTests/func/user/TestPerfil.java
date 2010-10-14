@@ -4,6 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ourExceptions.ArgumentInvalidException;
+import ourExceptions.DataInvalidaException;
+import ourExceptions.SexoInvalidoException;
+
 
 import classes.Email;
 import classes.Login;
@@ -37,6 +41,46 @@ public class TestPerfil {
 		Assert.assertNotNull("Senha do perfil nao deveria ser nula", perfil1.getSenha());
 		Assert.assertNotNull("Email do perfil nao deveria ser nulo", perfil1.getEmail());
 	}
+	
+	@Test (expected=SexoInvalidoException.class)
+	public void testeSexo() throws SexoInvalidoException {
+		Assert.assertEquals("Não informado", perfil1.getSexo().getSexo());
+		perfil1.setSexo("Masculino");
+		Assert.assertEquals("Masculino", perfil1.getSexo().getSexo());
+		perfil1.setSexo("Feminino");
+		Assert.assertEquals("Feminino", perfil1.getSexo().getSexo());
+		perfil1.setSexo("sexo invalido");//lanca a excecao		
+	}
+	
+	@Test (expected=ArgumentInvalidException.class)
+	public void testeEndereco() throws ArgumentInvalidException {
+		Assert.assertEquals("", perfil1.getEndereco());
+		perfil1.setEndereco("Rua do rio");
+		Assert.assertEquals("Rua do rio", perfil1.getEndereco());
+		perfil1.setEndereco(null);		
+	}
+	
+	@Test (expected=DataInvalidaException.class)
+	public void testeDataNascimento() throws Exception {
+		Assert.assertEquals(null, perfil1.getDataDeNascimento());
+		perfil1.setDataDeNascimento("27/12/1987");
+		Assert.assertEquals("27/12/1987", perfil1.getDataDeNascimento().toString());
+		perfil1.setDataDeNascimento("31/13/3322");		
+	}
+	
+	@Test
+	public void testeSetAtributo() throws ArgumentInvalidException { 
+		Assert.assertEquals("", perfil1.getAtributo("endereco"));
+		Assert.assertEquals("", perfil1.getAtributo("nomeDeExibicao"));
+		Assert.assertEquals("", perfil1.getAtributo("filmesFavoritos"));
+		Assert.assertEquals("", perfil1.getAtributo("musicasFavoritas"));
+		Assert.assertEquals("", perfil1.getAtributo("livrosFavoritos"));
+		Assert.assertEquals("", perfil1.getAtributo("quemSouEu"));
+		Assert.assertEquals("", perfil1.getAtributo("interesses"));
+		Assert.assertEquals(perfil1.getSexo().getSexo(), perfil1.getAtributo("sexo"));
+		Assert.assertEquals(null, perfil1.getAtributo("dataDeNascimento"));		
+	}
+	
 	
 	
 

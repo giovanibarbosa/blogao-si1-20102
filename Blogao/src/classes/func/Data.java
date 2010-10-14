@@ -8,7 +8,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.velocity.exception.ParseErrorException;
+
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.DataInvalidaException;
 
 /**
  * Classe que inicializa uma data.
@@ -24,15 +27,13 @@ public class Data {
 	private static final long serialVersionUID = 1L;
 	private static final int DIAS_DO_MES = 31;
 	private static final int MESES_DO_ANO = 12;
-	private static int ANO_ATUAL;
+	private static int ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
 	private Calendar data;
 
 	/**
 	 * Construtor default da classe Data
 	 */
-	public Data() {
-		this.ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
-	}
+	public Data() {}
 
 	/**
 	 * Construtor da classe Data
@@ -43,7 +44,6 @@ public class Data {
 	 *             caso a cada seja invalida
 	 */
 	public Data(String data) throws Exception {
-		this.ANO_ATUAL = new GregorianCalendar().get(Calendar.YEAR);
 		setData(data);
 	}
 
@@ -117,16 +117,16 @@ public class Data {
 	 * @throws ArgumentInvalidException
 	 *             caso a data seja invalida
 	 */
-	public void setData(String data) throws ArgumentInvalidException {
+	public void setData(String data) throws DataInvalidaException {
 		if (!verificaData(data)) {
-			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
+			throw new DataInvalidaException(Constantes.DATA_INVALIDA);
 		}
 		try {
 			Calendar date = conversorData(data);
 			this.data = date;
 
 		} catch (Exception e) {
-			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
+			throw new DataInvalidaException(Constantes.DATA_INVALIDA);
 		}
 	}
 
@@ -139,6 +139,11 @@ public class Data {
 		Date data = new Date();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		return formatador.format(data);
+	}
+	
+	@Override
+	public String toString() {
+		return calendarToString(data);
 	}
 
 }
