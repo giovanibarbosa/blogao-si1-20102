@@ -9,6 +9,7 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
+import ourExceptions.SexoInvalidoException;
 
 import classes.Announcement;
 import classes.Blog;
@@ -51,6 +52,7 @@ public class NewPerfil {
 		listaBlogs = new ArrayList<Blog>();
 		listaAnnouncements = new ArrayList<Announcement>();
 		setEmail(email);
+		setSexo(Sexo.Nao_Inf.getSexo());
 	}
 	
 	/**
@@ -285,10 +287,14 @@ public class NewPerfil {
 	 * 
 	 * @param endereco
 	 *            {@link String}
+	 * @throws ArgumentInvalidException 
 	 */
-	public void setEndereco(String endereco) {
-		if (endereco != null)
-			this.endereco = endereco;
+	public void setEndereco(String endereco) throws ArgumentInvalidException {
+		if (endereco == null) {
+			throw new ArgumentInvalidException("Endereço inválido");
+		}
+		this.endereco = endereco;
+		
 	}
 
 	/**
@@ -325,16 +331,11 @@ public class NewPerfil {
 	 * 
 	 * @param dataDeNascimento
 	 *            {@link String}
-	 * @throws ArgumentInvalidException
-	 *             caso a data seja invalida
+	 * @throws Exception 
 	 */
 	public void setDataDeNascimento(String dataDeNasc)
-			throws ArgumentInvalidException {
-		try {
-			dataDeNascimento = new Data(dataDeNasc);
-		} catch (Exception e) {
-			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
-		}
+			throws Exception {
+		dataDeNascimento = new Data(dataDeNasc);
 	}
 
 	/**
@@ -425,9 +426,9 @@ public class NewPerfil {
 	 * @throws ArgumentInvalidException
 	 *             caso o sexo seja invalido
 	 */
-	public void setSexo(String sex) throws ArgumentInvalidException {
+	public void setSexo(String sex) throws SexoInvalidoException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException(Constantes.SEXO_INVALIDO);
+			throw new SexoInvalidoException(Constantes.SEXO_INVALIDO);
 		}
 		this.sexo = Sexo.setadorSexo(sex);
 	}
@@ -497,7 +498,8 @@ public class NewPerfil {
 	 * @throws IOException
 	 */
 	public void setAtributo(String atributo, String novoValor)
-			throws ArgumentInvalidException, PersistenceException, IOException {
+			throws ArgumentInvalidException, PersistenceException, IOException,
+			SexoInvalidoException, Exception {
 		if (atributo == null)
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		int codigoAtributo = atributo.hashCode();
