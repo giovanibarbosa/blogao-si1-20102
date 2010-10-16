@@ -7,6 +7,7 @@ import java.io.IOException;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
+import ourExceptions.SexoInvalidoException;
 import classes.Email;
 import classes.func.Data;
 import enuns.Sexo;
@@ -256,8 +257,9 @@ public class Perfil {
 	 *            {@link Sexo}
 	 * @throws ArgumentInvalidException
 	 *             caso o sexo seja invalido
+	 * @throws SexoInvalidoException 
 	 */
-	public void setSexo(String sex) throws ArgumentInvalidException {
+	public void setSexo(String sex) throws ArgumentInvalidException, SexoInvalidoException {
 		if (!Sexo.verificaSexo(sex)) {
 			throw new ArgumentInvalidException(Constantes.SEXO_INVALIDO);
 		}
@@ -328,9 +330,10 @@ public class Perfil {
 	 *             caso o atributo passado seja invalido
 	 * @throws PersistenceException
 	 * @throws IOException
+	 * @throws SexoInvalidoException 
 	 */
 	public void setAtributo(String atributo, String novoValor)
-			throws ArgumentInvalidException, PersistenceException, IOException {
+			throws ArgumentInvalidException, PersistenceException, IOException, SexoInvalidoException {
 		if (atributo == null)
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		int codigoAtributo = atributo.hashCode();

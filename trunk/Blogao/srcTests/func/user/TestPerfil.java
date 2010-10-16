@@ -1,6 +1,5 @@
 package func.user;
 
-import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,14 +7,12 @@ import org.junit.Test;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
-import ourExceptions.PersistenceException;
 import ourExceptions.SexoInvalidoException;
 
 
 import classes.Email;
 import classes.Login;
 import classes.Senha;
-import classes.func.Data;
 import classes.func.usuario.NewPerfil;
 
 
