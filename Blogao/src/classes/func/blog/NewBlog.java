@@ -8,6 +8,7 @@ import java.util.List;
 import classes.Post;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.BlogInvalidException;
 
 /**
  * Classe que inicializa um NewBlog.
@@ -159,9 +160,27 @@ public class NewBlog {
 	 * 
 	 * @param subNewBlog
 	 *            {@link NewBlog}
+	 * @throws BlogInvalidException 
+	 * @throws ArgumentInvalidException 
 	 */
-	public void addSubNewBlog(NewBlog subNewBlog) {
+	public void addSubNewBlog(NewBlog subNewBlog) throws BlogInvalidException, ArgumentInvalidException {
+		if(subNewBlog == null) {
+			throw new BlogInvalidException(Constantes.BLOG_INVALIDO);
+		}
+		if (listaSubNewBlogs.contains(subNewBlog)) {
+			throw new ArgumentInvalidException(Constantes.BLOG_EXISTENTE);
+		}
 		listaSubNewBlogs.add(subNewBlog);
+	}
+	
+	public void removeSubNewBlog(NewBlog subNewBlog) throws ArgumentInvalidException, BlogInvalidException {
+		if(subNewBlog == null) {
+			throw new BlogInvalidException(Constantes.BLOG_INVALIDO);
+		}
+		if (!listaSubNewBlogs.contains(subNewBlog)) {
+			throw new ArgumentInvalidException(Constantes.BLOG_INEXISTENTE);
+		}
+		listaSubNewBlogs.remove(subNewBlog);
 	}
 
 	/**
@@ -237,6 +256,10 @@ public class NewBlog {
 	public void removePost2(Post post) {
 		posts.remove(post);
 
+	}
+	
+	public int getTotalSubNewBlogs() {
+		return listaSubNewBlogs.size();
 	}
 
 }
