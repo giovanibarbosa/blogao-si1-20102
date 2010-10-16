@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.SexoInvalidoException;
 
@@ -450,8 +451,9 @@ public class NewPerfil {
 	 * @return {@link String} o atributo do Perfil
 	 * @throws ArgumentInvalidException
 	 *             caso o atributo passado seja invalido
+	 * @throws DataInvalidaException 
 	 */
-	public String getAtributo(String atributo) throws ArgumentInvalidException {
+	public String getAtributo(String atributo) throws ArgumentInvalidException, DataInvalidaException {
 		if (atributo == null)
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		int codigoAtributo = atributo.hashCode();
@@ -468,7 +470,9 @@ public class NewPerfil {
 		case (Constantes.INTERESSES):
 			return this.interesses;
 		case (Constantes.DATA):
-			return Data.calendarToString(dataDeNascimento.getData());
+			if(dataDeNascimento != null)
+				return Data.calendarToString(dataDeNascimento.getData());
+			return null;
 		case (Constantes.SEXO):
 			return sexo.getSexo();
 		case (Constantes.QUEM):

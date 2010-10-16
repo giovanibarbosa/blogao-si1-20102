@@ -69,9 +69,13 @@ public class Data {
 	 * 
 	 * @param data
 	 *            {@link Calendar}
-	 * @return String data *dd/MM/yyyy*
+	 * @return String data *dd/MM/yyyy
+	 * @throws DataInvalidaException *
 	 */
-	public static String calendarToString(Calendar data) {
+	public static String calendarToString(Calendar data) throws DataInvalidaException {
+		if (data == null) {
+			throw new DataInvalidaException(Constantes.DATA_INVALIDA);
+		}
 		String strdate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -143,7 +147,13 @@ public class Data {
 	
 	@Override
 	public String toString() {
-		return calendarToString(data);
+		try {
+			return calendarToString(data);
+		} catch (DataInvalidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 }
