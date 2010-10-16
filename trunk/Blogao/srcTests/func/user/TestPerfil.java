@@ -1,17 +1,21 @@
 package func.user;
 
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
+import ourExceptions.PersistenceException;
 import ourExceptions.SexoInvalidoException;
 
 
 import classes.Email;
 import classes.Login;
 import classes.Senha;
+import classes.func.Data;
 import classes.func.usuario.NewPerfil;
 
 
@@ -69,19 +73,36 @@ public class TestPerfil {
 	}
 	
 	@Test
-	public void testeSetAtributo() throws ArgumentInvalidException { 
+	public void testeGetAtributo() throws ArgumentInvalidException, DataInvalidaException { 
 		Assert.assertEquals("", perfil1.getAtributo("endereco"));
-		Assert.assertEquals("", perfil1.getAtributo("nomeDeExibicao"));
-		Assert.assertEquals("", perfil1.getAtributo("filmesFavoritos"));
-		Assert.assertEquals("", perfil1.getAtributo("musicasFavoritas"));
-		Assert.assertEquals("", perfil1.getAtributo("livrosFavoritos"));
-		Assert.assertEquals("", perfil1.getAtributo("quemSouEu"));
+		Assert.assertEquals("", perfil1.getAtributo("nome_exibicao"));
+		Assert.assertEquals("", perfil1.getAtributo("filmes"));
+		Assert.assertEquals("", perfil1.getAtributo("musicas"));
+		Assert.assertEquals("", perfil1.getAtributo("livros"));
+		Assert.assertEquals("", perfil1.getAtributo("quem_sou_eu"));
 		Assert.assertEquals("", perfil1.getAtributo("interesses"));
 		Assert.assertEquals(perfil1.getSexo().getSexo(), perfil1.getAtributo("sexo"));
-		Assert.assertEquals(null, perfil1.getAtributo("dataDeNascimento"));		
+		Assert.assertEquals(null, perfil1.getAtributo("dataNasc"));		
 	}
 	
-	
-	
-
+	@Test (expected=ArgumentInvalidException.class)
+	public void testeSetAtributo() throws Exception {
+		perfil1.setAtributo("endereco", "rua do rio");
+		Assert.assertEquals("rua do rio", perfil1.getEndereco());
+		perfil1.setAtributo("nome_exibicao", "tiago leite");
+		Assert.assertEquals("tiago leite", perfil1.getNomeDeExibicao());
+		perfil1.setAtributo("filmes", "21g, lost");
+		Assert.assertEquals("21g, lost", perfil1.getFilmesFavoritos());
+		perfil1.setAtributo("musicas", "varias");
+		Assert.assertEquals("varias", perfil1.getMusicasFavoritas());
+		perfil1.setAtributo("quem_sou_eu", "alto, gordo");
+		Assert.assertEquals("alto, gordo", perfil1.getQuemSouEu());
+		perfil1.setAtributo("interesses", "tecnologia, outras coisas");
+		Assert.assertEquals("tecnologia, outras coisas", perfil1.getInteresses());
+		perfil1.setAtributo("sexo", "Masculino");
+		Assert.assertEquals("Masculino", perfil1.getSexo().getSexo());
+		perfil1.setAtributo("dataNasc", "27/12/1987");
+		Assert.assertEquals("27/12/1987", perfil1.getDataDeNascimento().toString());	
+		perfil1.setAtributo("nao tem", "vai lancar excecao");
+	}
 }

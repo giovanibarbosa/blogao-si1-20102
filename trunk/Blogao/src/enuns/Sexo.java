@@ -8,7 +8,7 @@ import interfaces.Constantes;
  *
  */
 public enum Sexo {
-	Mas("Masculino"), Fem("Feminino"), Nao_Inf(Constantes.NAO_INFORMADO);
+	Masculino("Masculino"), Feminino("Feminino"), Nao_Inf(Constantes.NAO_INFORMADO);
 	
 	private final String tipo;
 	
@@ -41,11 +41,11 @@ public enum Sexo {
 	 * @return {@link Sexo}
 	 */
 	public static Sexo setadorSexo(String sex) {
-		if (sex.equalsIgnoreCase(Sexo.Fem.getSexo())) {
-			return Sexo.Fem;
+		if (sex.equalsIgnoreCase(Sexo.Feminino.getSexo())) {
+			return Sexo.Feminino;
 		}
-		else if (sex.equalsIgnoreCase(Sexo.Mas.getSexo())) {
-			return Sexo.Mas;
+		else if (sex.equalsIgnoreCase(Sexo.Masculino.getSexo())) {
+			return Sexo.Masculino;
 		}
 		return Sexo.Nao_Inf;		
 	}

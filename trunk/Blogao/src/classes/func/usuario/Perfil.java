@@ -5,6 +5,7 @@ import interfaces.Constantes;
 import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import classes.Email;
 import classes.func.Data;
@@ -280,8 +281,9 @@ public class Perfil {
 	 * @return {@link String} o atributo do Perfil
 	 * @throws ArgumentInvalidException
 	 *             caso o atributo passado seja invalido
+	 * @throws DataInvalidaException 
 	 */
-	public String getAtributo(String atributo) throws ArgumentInvalidException {
+	public String getAtributo(String atributo) throws ArgumentInvalidException, DataInvalidaException {
 		if (atributo == null)
 			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
 		int codigoAtributo = atributo.hashCode();

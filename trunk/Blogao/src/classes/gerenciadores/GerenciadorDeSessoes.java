@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.Sessao;
@@ -111,11 +112,12 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 * @throws UserInvalidException
+	 * @throws DataInvalidaException 
 	 */
 
 	public String getProfileInformationBySessionId(String idsessao,
 			String atributo) throws ArgumentInvalidException,
-			PersistenceException, UserInvalidException {
+			PersistenceException, UserInvalidException, DataInvalidaException {
 		if (!sessaoExistente(idsessao))
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 		String retorno;

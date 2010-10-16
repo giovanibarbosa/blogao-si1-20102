@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.func.usuario.Perfil;
@@ -67,7 +68,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	public String getProfileInformation(String login, String atributo)
 			throws ArgumentInvalidException, FileNotFoundException,
-			PersistenceException, UserInvalidException {
+			PersistenceException, UserInvalidException, DataInvalidaException {
 		String retorno;
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 
