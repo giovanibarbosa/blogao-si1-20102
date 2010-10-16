@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ourExceptions.ArgumentInvalidException;
+import ourExceptions.BlogInvalidException;
 
 import classes.func.blog.NewBlog;
 
@@ -42,7 +43,38 @@ public class TestBlog {
 		blog.setTitulo("");		
 	}
 	
+	@Test (expected=ArgumentInvalidException.class)
+	public void testAddSubBlog() throws ArgumentInvalidException, BlogInvalidException {
+		NewBlog subBlog = new NewBlog("SubBlog de saude", "Para as pessoas que gostam de saude", "45");
+		blog.addSubNewBlog(subBlog);
+		Assert.assertEquals(1, blog.getTotalSubNewBlogs());
+		
+		NewBlog subBlog2 = new NewBlog("SubBlog de luta", "Para as pessoas que gostam de lutas", "45");
+		blog.addSubNewBlog(subBlog2);
+		Assert.assertEquals(2, blog.getTotalSubNewBlogs());
+		
+		blog.addSubNewBlog(subBlog2);
+		Assert.assertEquals(2, blog.getTotalSubNewBlogs());
+	}
 	
+	@Test (expected=ArgumentInvalidException.class)
+	public void testRemoveSubBlog() throws ArgumentInvalidException, BlogInvalidException {
+		NewBlog subBlog = new NewBlog("SubBlog de saude", "Para as pessoas que gostam de saude", "45");
+		blog.addSubNewBlog(subBlog);
+		Assert.assertEquals(1, blog.getTotalSubNewBlogs());
+		
+		NewBlog subBlog2 = new NewBlog("SubBlog de luta", "Para as pessoas que gostam de lutas", "45");
+		blog.addSubNewBlog(subBlog2);
+		Assert.assertEquals(2, blog.getTotalSubNewBlogs());
+		
+		blog.removeSubNewBlog(subBlog);
+		Assert.assertEquals(1, blog.getTotalSubNewBlogs());
+		blog.removeSubNewBlog(subBlog2);
+		Assert.assertEquals(0, blog.getTotalSubNewBlogs());
+		
+		NewBlog subBlog3 = new NewBlog("SubBlog de comida", "Para as pessoas que gostam de comida", "45");
+		blog.removeSubNewBlog(subBlog3);
+	}
 	
 	
 
