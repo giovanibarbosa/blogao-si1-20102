@@ -11,6 +11,7 @@ import java.util.List;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
+import ourExceptions.SexoInvalidoException;
 import ourExceptions.UserInvalidException;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
@@ -115,7 +116,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	public void changeProfileInformation(String idSessao, String atributo,
 			String novoValor) throws ArgumentInvalidException,
-			UserInvalidException, PersistenceException, IOException {
+			UserInvalidException, PersistenceException, IOException, SexoInvalidoException {
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
 				idSessao);
 

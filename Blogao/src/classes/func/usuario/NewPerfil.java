@@ -428,9 +428,6 @@ public class NewPerfil {
 	 *             caso o sexo seja invalido
 	 */
 	public void setSexo(String sex) throws SexoInvalidoException {
-		if (!Sexo.verificaSexo(sex)) {
-			throw new SexoInvalidoException(Constantes.SEXO_INVALIDO);
-		}
 		this.sexo = Sexo.setadorSexo(sex);
 	}
 

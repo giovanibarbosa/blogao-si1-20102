@@ -1,5 +1,6 @@
 package enuns;
 
+import ourExceptions.SexoInvalidoException;
 import interfaces.Constantes;
 
 /**
@@ -10,7 +11,7 @@ import interfaces.Constantes;
 public enum Sexo {
 	Masculino("Masculino"), Feminino("Feminino"), Nao_Inf(Constantes.NAO_INFORMADO);
 	
-	private final String tipo;
+	private String tipo;
 	
 	/**
 	 * Construtor do Enum de sexo
@@ -39,14 +40,21 @@ public enum Sexo {
 	 * Metodo acessador de sexo que retorna o Enum sexo
 	 * @param sex {@link String} 
 	 * @return {@link Sexo}
+	 * @throws SexoInvalidoException 
 	 */
-	public static Sexo setadorSexo(String sex) {
+	public static Sexo setadorSexo(String sex) throws SexoInvalidoException {
+		if (!verificaSexo(sex)) {
+			throw new SexoInvalidoException(Constantes.SEXO_INVALIDO);
+		}	
 		if (sex.equalsIgnoreCase(Sexo.Feminino.getSexo())) {
+			//this.tipo = Sexo.Feminino.getSexo();
 			return Sexo.Feminino;
 		}
 		else if (sex.equalsIgnoreCase(Sexo.Masculino.getSexo())) {
+			//this.tipo = Sexo.Masculino.getSexo();
 			return Sexo.Masculino;
 		}
+		//this.tipo = Sexo.Nao_Inf.getSexo();
 		return Sexo.Nao_Inf;		
 	}
 	
