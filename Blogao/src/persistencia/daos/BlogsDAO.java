@@ -60,6 +60,7 @@ public class BlogsDAO {
 		if (blog == null)
 			throw new PersistenceException(Constantes.BLOG_NAO_CRIADO);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
+		file.mkdirs();
 		xstream.toXML(blog, new FileOutputStream(file));
 	}
 
