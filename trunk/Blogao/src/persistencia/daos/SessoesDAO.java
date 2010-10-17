@@ -60,6 +60,7 @@ public class SessoesDAO {
 		if (new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists())
 			throw new PersistenceException(Constantes.EMAIL_EXISTENTE);
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
+		file.mkdirs();
 		xstream.toXML(sessao, new FileOutputStream(file));
 	}
 

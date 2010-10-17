@@ -68,6 +68,7 @@ public class NewPerfilDAO {
 			throw new PersistenceException(Constantes.LOGIN_EXISTENTE);
 		}
 		File file = new File(CAMINHO + perfil + TIPO_DE_ARQUIVO);
+		file.mkdirs();
 		xstream.toXML(perfil, new FileOutputStream(file));
 	}
 

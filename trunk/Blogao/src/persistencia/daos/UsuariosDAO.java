@@ -62,6 +62,7 @@ public class UsuariosDAO {
 				|| new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists())
 			throw new PersistenceException(Constantes.LOGIN_EXISTENTE);
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
+		file.mkdirs();
 		xstream.toXML(usuario, new FileOutputStream(file));
 	}
 
