@@ -60,7 +60,6 @@ public class PostsDAO {
 		if (post == null)
 			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_CRIADO);
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
-		file.mkdirs();
 		xstream.toXML(post, new FileOutputStream(file));
 	}
 

@@ -59,7 +59,6 @@ public class ComentariosDAO {
 		if (comentario == null)
 			throw new PersistenceException(Constantes.COMENTARIO_NAO_CRIADO);
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
-		file.mkdirs();
 		xstream.toXML(comentario, new FileOutputStream(file));
 	}
 	

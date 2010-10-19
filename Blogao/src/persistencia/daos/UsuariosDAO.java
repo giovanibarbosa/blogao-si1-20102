@@ -21,7 +21,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * Classe DAO que cria, deleta, atualiza e recupera usuarios ({@link Usuario})
  * no BD.
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
- * @colaborator Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
+ * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  */
 
 public class UsuariosDAO {
@@ -62,7 +62,6 @@ public class UsuariosDAO {
 				|| new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists())
 			throw new PersistenceException(Constantes.LOGIN_EXISTENTE);
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
-		file.mkdirs();
 		xstream.toXML(usuario, new FileOutputStream(file));
 	}
 
