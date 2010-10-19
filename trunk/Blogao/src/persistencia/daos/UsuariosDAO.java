@@ -59,7 +59,7 @@ public class UsuariosDAO {
 	 */
 	public void criar(Usuario usuario) throws PersistenceException, IOException {
 		if (usuario == null
-				|| new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists())
+				/*|| new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()*/) //FIXME esta condicao esta sendo verificada no gerente de usuários no método validaLogin
 			throw new PersistenceException(Constantes.LOGIN_EXISTENTE);
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		xstream.toXML(usuario, new FileOutputStream(file));
@@ -93,7 +93,7 @@ public class UsuariosDAO {
 	public List<Usuario> recuperaUsuarios() throws FileNotFoundException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		for (File arquivo : arrayDosArquivos()) {
-			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
+			if (arquivo.getName().endsWith(TIPO_DE_ARQUIVO)) {
 				Usuario usuario = (Usuario) xstream
 						.fromXML(new FileInputStream(arquivo));
 				usuarios.add(usuario);
@@ -132,7 +132,7 @@ public class UsuariosDAO {
 	 */
 	public void limparUsuarios() {
 		for (File arquivo : arrayDosArquivos()) {
-			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+			if (arquivo.getName().endsWith(TIPO_DE_ARQUIVO))
 				arquivo.delete();
 		}
 	}
