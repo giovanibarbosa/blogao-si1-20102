@@ -57,8 +57,8 @@ public class SessoesDAO {
 	 *             Caso haja um problema ao gerar o arquivo xml
 	 */
 	public void criar(Sessao sessao) throws PersistenceException, IOException {
-		if (new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists())
-			throw new PersistenceException(Constantes.EMAIL_EXISTENTE);
+		if (sessao == null)
+			throw new PersistenceException(Constantes.SESSAO_INVALIDA);
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
 		xstream.toXML(sessao, new FileOutputStream(file));
 	}
