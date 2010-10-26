@@ -76,15 +76,20 @@ public class NewGerenciadorDeUsuarios implements Gerenciador {
 	 */
 	public Usuario recuperaUsuarioPorIdSessao(String sessionID)
 			throws ArgumentInvalidException, FileNotFoundException,
-			PersistenceException {
-		String log = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionID);
+										PersistenceException {
+		String log = recuperaLoginPorSessionId(sessionID);
 		for (Usuario user : listaUsuarios) {
 			if (log.equals(user.getLogin().getLogin())) {
 				return user;
 			}
 		}
 		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+	}
+
+	private String recuperaLoginPorSessionId(String sessionID)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				sessionID);
 	}
 
 	/**
