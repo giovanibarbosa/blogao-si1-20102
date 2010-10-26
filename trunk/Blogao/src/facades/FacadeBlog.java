@@ -9,16 +9,16 @@ import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 
 import classes.Blog;
-import classes.gerenciadores.GerenciadorDeBlogs;
-import classes.gerenciadores.GerenciadorDeDados;
+import classes.gerenciadores.NewGerenciadorDeBlogs;
+import classes.gerenciadores.NewGerenciadorDeDados;
 
 public class FacadeBlog {
 
 	private static FacadeBlog instance;
-	private GerenciadorDeBlogs gerenteBlog;
+	private NewGerenciadorDeBlogs gerenteBlog;
 
 	protected FacadeBlog() {
-		gerenteBlog = new GerenciadorDeBlogs(GerenciadorDeDados.getInstance());
+		gerenteBlog = new NewGerenciadorDeBlogs(NewGerenciadorDeDados.getInstance());
 	}
 
 	public static FacadeBlog getInstance() {
