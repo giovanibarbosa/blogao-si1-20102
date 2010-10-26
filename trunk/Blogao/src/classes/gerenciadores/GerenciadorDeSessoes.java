@@ -91,6 +91,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			FileNotFoundException, ArgumentInvalidException,
 			UserInvalidException {
 		//FIXME user não está sendo usado... o método passa em um teste, só que em outro não
+		//quando ele é utilizado, com o if comentado abaixo, outros testes passam e outros não
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		for (Sessao ses : listaSessoes) {
 			//if (ses.getLogin().equals(user.getLogin()) //FIXME
