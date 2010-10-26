@@ -14,25 +14,33 @@ import ourExceptions.PersistenceException;
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  * 
  */
-public class GerenciadorDeDados {
-	private GerenciadorDeUsuarios gerenteUsuarios;
+public class NewGerenciadorDeDados {
+	private NewGerenciadorDeUsuarios gerenteUsuarios;
+	private static NewGerenciadorDeDados instance;
 
-	private GerenciadorDeSessoes gerenteSessoes;
-	private GerenciadorDeBlogs gerenteBlogs;
-	private GerenciadorDeComentarios gerenteComentarios;
-	private GerenciadorDePerfis gerentePerfis;
-	private GerenciadorDePosts gerentePosts;
+	private NewGerenciadorDeSessoes gerenteSessoes;
+	private NewGerenciadorDeBlogs gerenteBlogs;
+	private NewGerenciadorDeComentarios gerenteComentarios;
+	private NewGerenciadorDePerfis gerentePerfis;
+	private NewGerenciadorDePosts gerentePosts;
+	
+	public static NewGerenciadorDeDados getInstance() {
+		if (instance != null) {
+			return instance;
+		}
+		return new NewGerenciadorDeDados();
+	}
 
 	/**
 	 * Construtor para um {@link GerenciadorDeDados}
 	 */
-	public GerenciadorDeDados() {
-		gerentePerfis = new GerenciadorDePerfis(this);
-		gerenteUsuarios = new GerenciadorDeUsuarios(this);
-		gerenteSessoes = new GerenciadorDeSessoes(this);
-		gerenteBlogs = new GerenciadorDeBlogs(this);
-		gerentePosts = new GerenciadorDePosts(this);
-		gerenteComentarios = new GerenciadorDeComentarios(this);
+	protected NewGerenciadorDeDados() {
+		gerentePerfis = new NewGerenciadorDePerfis(this);
+		gerenteUsuarios = new NewGerenciadorDeUsuarios(this);
+		gerenteSessoes = new NewGerenciadorDeSessoes(this);
+		gerenteBlogs = new NewGerenciadorDeBlogs(this);
+		gerentePosts = new NewGerenciadorDePosts(this);
+		gerenteComentarios = new NewGerenciadorDeComentarios(this);
 	}
 
 	/**
@@ -80,7 +88,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDeUsuarios}
 	 */
-	public GerenciadorDeUsuarios getGerenciadorDeUsuarios() {
+	public NewGerenciadorDeUsuarios getGerenciadorDeUsuarios() {
 		return gerenteUsuarios;
 	}
 
@@ -89,7 +97,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDeUsuarios}
 	 */
-	public GerenciadorDeUsuarios getGerenteUsuarios() {
+	public NewGerenciadorDeUsuarios getGerenteUsuarios() {
 		return gerenteUsuarios;
 	}
 
@@ -98,7 +106,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDeSessoes}
 	 */
-	public GerenciadorDeSessoes getGerenteSessoes() {
+	public NewGerenciadorDeSessoes getGerenteSessoes() {
 		return gerenteSessoes;
 	}
 
@@ -107,7 +115,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDeBlogs}
 	 */
-	public GerenciadorDeBlogs getGerenteBlogs() {
+	public NewGerenciadorDeBlogs getGerenteBlogs() {
 		return gerenteBlogs;
 	}
 
@@ -116,7 +124,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDeComentarios}
 	 */
-	public GerenciadorDeComentarios getGerenteComentarios() {
+	public NewGerenciadorDeComentarios getGerenteComentarios() {
 		return gerenteComentarios;
 	}
 
@@ -125,7 +133,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDePerfis}
 	 */
-	public GerenciadorDePerfis getGerentePerfis() {
+	public NewGerenciadorDePerfis getGerentePerfis() {
 		return gerentePerfis;
 	}
 
@@ -134,12 +142,7 @@ public class GerenciadorDeDados {
 	 * 
 	 * @return Um {@link GerenciadorDePosts}
 	 */
-	public GerenciadorDePosts getGerentePosts() {
+	public NewGerenciadorDePosts getGerentePosts() {
 		return gerentePosts;
-	}
-
-	public static GerenciadorDeDados getInstance() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
