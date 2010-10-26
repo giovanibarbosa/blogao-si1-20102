@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
@@ -61,32 +60,49 @@ public class GerenciadorDePosts implements Gerenciador {
 	 * @param texto
 	 *            {@link String}
 	 * @return {@link String} Id do post.
-	 * @throws IOException
-	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException
-	 * @throws UserInvalidException
+	 * @throws Exception
 	 */
 	public String createPost(String idSessao, String blogId, String titulo,
-			String texto) throws IOException, ArgumentInvalidException,
-			PersistenceException, UserInvalidException {
+			String texto) throws Exception {
 
 		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
+		verificaDonoDoBlog(idSessao, blog);
 
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, idSessao);
-
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				idSessao);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		String login = recuperaLoginPorSessionId(idSessao);
+		Usuario user = recuperaUsuarioPorLogin(login);
 
 		user.removeBlog2(blog);
+		// gerenteDados.getGerenteBlogs().deleteBlog(blog); //adicionei essa
+		// linha
 		Post post = new Post(titulo, texto, blogId);
 		blog.addPost(post);
 		user.addBlog2(blog);
+		// gerenteDados.getGerenteBlogs().atualizaBlog(blog); //adicionei essa
+		// linha
+		// gerenteDados.getGerenteBlogs().createBlog(blog.getIdSessao(),
+		// blog.getTitulo(), blog.getDescricao()); // adicionei essa linha tbm
+		// gerenteDados.getGerenteBlogs().addBlogTiagoLeite(blog); // adicionei
+		// essa linha tbm
 		listaPosts.add(post);
 
 		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
 
 		return post.getId();
+	}
+
+	private Usuario recuperaUsuarioPorLogin(String login)
+			throws UserInvalidException {
+		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+	}
+
+	private String recuperaLoginPorSessionId(String idSessao)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
+	}
+
+	private void verificaDonoDoBlog(String idSessao, Blog blog)
+			throws ArgumentInvalidException {
+		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, idSessao);
 	}
 
 	/**
@@ -113,11 +129,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
+		verificaDonoDoBlog(sessionId, blog);
 
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionId);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		String login = recuperaLoginPorSessionId(sessionId);
+		Usuario user = recuperaUsuarioPorLogin(login);
 
 		user.removeBlog2(blog);
 		blog.removePost(post);
@@ -155,11 +170,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
+		verificaDonoDoBlog(sessionId, blog);
 
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionId);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		String login = recuperaLoginPorSessionId(sessionId);
+		Usuario user = recuperaUsuarioPorLogin(login);
 
 		user.removeBlog2(blog);
 		blog.removePost(post);
@@ -197,11 +211,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(postId);
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionId);
+		verificaDonoDoBlog(sessionId, blog);
 
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionId);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		String login = recuperaLoginPorSessionId(sessionId);
+		Usuario user = recuperaUsuarioPorLogin(login);
 
 		user.removeBlog2(blog);
 		blog.removePost(post);
@@ -699,11 +712,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Blog blog = gerenteDados.getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
 
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, sessionID);
+		verificaDonoDoBlog(sessionID, blog);
 
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionID);
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
+		String login = recuperaLoginPorSessionId(sessionID);
+		Usuario user = recuperaUsuarioPorLogin(login);
 
 		user.removeBlog2(blog);
 		blog.removePost(post);
@@ -827,8 +839,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	public int getNumberOfComments(String login, String blogId)
 			throws UserInvalidException, ArgumentInvalidException,
 			PersistenceException {
-		Usuario user = gerenteDados.getGerenciadorDeUsuarios()
-				.getUsuario(login);
+		validateLoggedUser(login);
 		List<Blog> blogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
 		Blog blg = null;
 		for (Blog blog : blogs) {
@@ -841,6 +852,11 @@ public class GerenciadorDePosts implements Gerenciador {
 		for (String p : blg.getListaDePostagens())
 			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
 		return retorno;
+	}
+
+	private void validateLoggedUser(String login) throws UserInvalidException {
+		Usuario user = gerenteDados.getGerenciadorDeUsuarios()
+				.getUsuario(login);
 	}
 
 	/**

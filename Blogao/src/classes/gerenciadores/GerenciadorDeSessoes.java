@@ -186,10 +186,17 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @param idSession
 	 *            {@link String}
 	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException 
 	 */
-	public void logoff(String idSession) throws ArgumentInvalidException {
+	public void logoff(String idSession) throws ArgumentInvalidException, PersistenceException {
 		Sessao ses = getSessao(idSession);
 		listaSessoes.remove(ses);
+//		/deleteSessionOnDB(ses);
+		
+	}
+	
+	private void deleteSessionOnDB(Sessao session) throws PersistenceException {
+		sessoesDAO.deletar(session);
 	}
 
 	@Override
@@ -240,4 +247,9 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		}
 		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 	}
+	
+//	public static void main(String[] args) {
+//		
+//		
+//	}
 }

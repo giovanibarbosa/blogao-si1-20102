@@ -8,8 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.velocity.exception.ParseErrorException;
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 
