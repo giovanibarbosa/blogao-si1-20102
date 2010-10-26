@@ -54,7 +54,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			FileNotFoundException {
 		try {
 			String idSessao = String.valueOf(login.hashCode());
-			if (isUserLogged(login)) {
+			if (isUserLogged(login)) { //FIXME
 				throw new ArgumentInvalidException(Constantes.USUARIO_LOGADO);
 			}
 			Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
@@ -69,8 +69,6 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			}
 		} catch (PersistenceException e) {
 			throw new PersistenceException(Constantes.LOGIN_OU_SENHA_INVALIDO);
-		} catch (ArgumentInvalidException e) {
-			throw e;
 		} catch (UserInvalidException e) {
 			throw new ArgumentInvalidException(
 					Constantes.LOGIN_OU_SENHA_INVALIDO);
@@ -89,12 +87,13 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 * @throws UserInvalidException
 	 */
-	@SuppressWarnings("unused")
 	public boolean isUserLogged(String login) throws PersistenceException,
 			FileNotFoundException, ArgumentInvalidException,
 			UserInvalidException {
+		//FIXME user não está sendo usado... o método passa em um teste, só que em outro não
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
 		for (Sessao ses : listaSessoes) {
+			//if (ses.getLogin().equals(user.getLogin()) //FIXME
 			if (ses.getLogin().equals(login)) {
 				return true;
 			}
