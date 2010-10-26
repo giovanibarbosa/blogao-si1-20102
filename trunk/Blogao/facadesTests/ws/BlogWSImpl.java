@@ -4,8 +4,11 @@ package ws;
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
+import classes.Login;
+import classes.Senha;
 import classes.func.Data;
 import classes.gerenciadores.GerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDeSessoes;
 
 /**
  * @author ivocalado
@@ -592,5 +595,36 @@ public class BlogWSImpl implements BlogWS {
 	public String logon(String login, String senha) throws Exception {
 		return gerenteDados.getGerenteSessoes().logon(login, senha);
 	}
+	
+//	public static void main(String[] args) throws Exception {
+//		BlogWSImpl teste = new BlogWSImpl();
+//		
+//		teste.loadData();
+//		//teste.createProfile("tiagohsl", "abcd", "Sei La", "qualquer@gmail", "Masculino",
+//			//	"27/12/1987", "rua", "nada", "ninguem", "nao gosto", "tbm nao", "menos ainda");
+//		//String sessionId = teste.logon("tiagohsl", "abcd");
+//		
+//		
+//		teste.logoff("1876702669");
+//		teste.saveData(); //1876702669
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

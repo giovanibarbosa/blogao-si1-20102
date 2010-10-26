@@ -40,6 +40,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	private static final int DESCRICAO = 1499866697;
 	private static final int TITULO = -873444423;
 	private static final int DONO = 3089292;
+	
+	public void addBlogTiagoLeite(Blog b) {
+		listaDeBlogs.add(b);
+	}
 
 	/**
 	 * Contrutor para este gerenciador
@@ -701,6 +705,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 				}
 			}
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
+		}
+
+		public void atualizaBlog(Blog blog) throws PersistenceException, IOException {
+			blogsDAO.atualizar(blog);
 		}
 
 }
