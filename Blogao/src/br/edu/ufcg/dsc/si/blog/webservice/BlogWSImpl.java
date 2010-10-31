@@ -1,17 +1,15 @@
-package ws;
+package br.edu.ufcg.dsc.si.blog.webservice;
 
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.Login;
-import classes.Senha;
 import classes.func.Data;
 import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.GerenciadorDeSessoes;
 
 /**
- * @author ivocalado
+ * @author tiagohsl
  *
  */
 public class BlogWSImpl implements BlogWS {

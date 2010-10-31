@@ -244,14 +244,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 *            {@link String}
 	 * @param novoValor
 	 *            {@link String}
-	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException
-	 * @throws UserInvalidException
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	public void changeBlogInformation(String idSessao, String idBlog,
-			String atributo, String novoValor) throws ArgumentInvalidException,
-			PersistenceException, UserInvalidException, IOException {
+			String atributo, String novoValor) throws Exception {
 	
 		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
 				idSessao);
