@@ -45,13 +45,10 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @param senha
 	 *            {@link String}
 	 * @return id da Sessao {@link String}
-	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException
-	 * @throws FileNotFoundException
+	 * @throws Exception 
 	 */
 	public String logon(String login, String senha)
-			throws ArgumentInvalidException, PersistenceException,
-			FileNotFoundException {
+			throws Exception {
 		try {
 			String idSessao = String.valueOf(login.hashCode());
 			if (isUserLogged(login)) { //FIXME
@@ -87,9 +84,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 * @throws UserInvalidException
 	 */
-	public boolean isUserLogged(String login) throws PersistenceException,
-			FileNotFoundException, ArgumentInvalidException,
-			UserInvalidException {
+	public boolean isUserLogged(String login) throws Exception {
 		//FIXME user não está sendo usado... o método passa em um teste, só que em outro não
 		//quando ele é utilizado, com o if comentado abaixo, outros testes passam e outros não
 		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
