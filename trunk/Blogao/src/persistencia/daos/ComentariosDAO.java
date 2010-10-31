@@ -15,7 +15,7 @@ import ourExceptions.PersistenceException;
 import classes.Comentario;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XomDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera comentarios ({@link Comentario})
@@ -31,7 +31,7 @@ public class ComentariosDAO {
 			+ SEPARADOR + "arquivosXML" + SEPARADOR + "comentarios" + SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static ComentariosDAO instancia;
-	private static XStream xstream = new XStream(new DomDriver());
+	private static XStream xstream = new XStream(new XomDriver());
 
 
 	/**

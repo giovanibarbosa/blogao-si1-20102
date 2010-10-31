@@ -16,7 +16,7 @@ import ourExceptions.PersistenceException;
 import classes.Blog;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XomDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera blogs ({@link Blog})
@@ -31,7 +31,7 @@ public class BlogsDAO {
 			+ SEPARADOR + "arquivosXML" + SEPARADOR + "blogs" + SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static BlogsDAO instancia;
-	private static XStream xstream = new XStream(new DomDriver());
+	private static XStream xstream = new XStream(new XomDriver());
 
 
 	/**
