@@ -10,12 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.func.usuario.Usuario;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera usuarios ({@link Usuario})
@@ -32,7 +33,7 @@ public class UsuariosDAO {
 			+ SEPARADOR + "arquivosXML" + SEPARADOR + "usuarios" + SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static UsuariosDAO instancia;
-	private static XStream xstream = new XStream(new DomDriver());
+	private static XStream xstream = new XStream(new StaxDriver());
 
 
 	/**

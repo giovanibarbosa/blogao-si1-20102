@@ -15,7 +15,7 @@ import ourExceptions.PersistenceException;
 import classes.Sessao;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.XomDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera sessoes ({@link Sessao})
@@ -31,7 +31,7 @@ public class SessoesDAO {
 			+ SEPARADOR + "arquivosXML" + SEPARADOR + "sessoesAbertas" + SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static SessoesDAO instancia;
-	private static XStream xstream = new XStream(new DomDriver());
+	private static XStream xstream = new XStream(new XomDriver());
 
 
 	/**

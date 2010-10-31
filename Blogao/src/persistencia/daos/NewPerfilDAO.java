@@ -12,14 +12,11 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
-import classes.Email;
-import classes.Login;
-import classes.Senha;
 import classes.func.usuario.NewPerfil;
 import classes.func.usuario.Usuario;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera um perfil ({@link Perfil})
@@ -37,7 +34,7 @@ public class NewPerfilDAO {
 	
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static NewPerfilDAO instancia;
-	private static XStream xstream = new XStream(new DomDriver());
+	private static XStream xstream = new XStream(new StaxDriver());
 
 
 	/**
