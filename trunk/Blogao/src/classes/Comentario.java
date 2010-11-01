@@ -97,5 +97,9 @@ public class Comentario {
 		listaSubComentarios.add(coment);
 		return coment.getId();
 	}
-
+	
+	@Override
+	public String toString() {
+		return getId();
+	}
 }
