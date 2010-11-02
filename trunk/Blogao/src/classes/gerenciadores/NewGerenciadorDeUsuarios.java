@@ -58,7 +58,7 @@ public class NewGerenciadorDeUsuarios implements Gerenciador {
 	public void loadData() {
 		try {
 			listaUsuarios = userDAO.recuperaUsuarios();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			listaUsuarios = new ArrayList<Usuario>();
 		}
 

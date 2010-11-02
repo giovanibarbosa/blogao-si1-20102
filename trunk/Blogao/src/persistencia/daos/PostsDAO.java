@@ -15,6 +15,7 @@ import ourExceptions.PersistenceException;
 import classes.Post;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XomDriver;
 
 
@@ -31,7 +32,7 @@ public class PostsDAO {
 			+ SEPARADOR + "arquivosXML" + SEPARADOR + "posts" + SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static PostsDAO instancia;
-	private static XStream xstream = new XStream(new XomDriver());
+	private static XStream xstream = new XStream(new DomDriver());
 
 
 	/**

@@ -16,6 +16,7 @@ import classes.func.usuario.NewPerfil;
 import classes.func.usuario.Usuario;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 /**
@@ -34,7 +35,7 @@ public class NewPerfilDAO {
 	
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static NewPerfilDAO instancia;
-	private static XStream xstream = new XStream(new StaxDriver());
+	private static XStream xstream = new XStream(new DomDriver());
 
 
 	/**
