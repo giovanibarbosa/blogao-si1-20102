@@ -99,7 +99,7 @@ public class RodaTestes {
 		eaFacade.executeTests();
 		saida += eaFacade.getCompleteResults();
 		files.remove(0);
-//
+
 		files.add("Tests/us14.txt");
 		eaFacade = new EasyAcceptFacade(perfFac, files);
 		eaFacade.executeTests();
