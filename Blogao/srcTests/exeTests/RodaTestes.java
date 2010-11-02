@@ -52,59 +52,59 @@ public class RodaTestes {
 		saida += eaFacade.getCompleteResults();
 		files.remove(0);
 
-//		files.add("Tests/us6.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
+		files.add("Tests/us6.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us7.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us8.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us9.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us10.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us11.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us12.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
+
+		files.add("Tests/us13.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
 //
-//		files.add("Tests/us7.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us8.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us9.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us10.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us11.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us12.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us13.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
-//
-//		files.add("Tests/us14.txt");
-//		eaFacade = new EasyAcceptFacade(perfFac, files);
-//		eaFacade.executeTests();
-//		saida += eaFacade.getCompleteResults();
-//		files.remove(0);
+		files.add("Tests/us14.txt");
+		eaFacade = new EasyAcceptFacade(perfFac, files);
+		eaFacade.executeTests();
+		saida += eaFacade.getCompleteResults();
+		files.remove(0);
 
 		System.out.println(saida);
 
