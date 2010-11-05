@@ -1,6 +1,7 @@
 package classes.func.multimidia;
 
 import interfaces.Constantes;
+import interfaces.Midia;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -11,7 +12,7 @@ import ourExceptions.ArgumentInvalidException;
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
-public class Audio {
+public class Audio implements Midia{
 
 	private String id;
 	private String descricao;
@@ -72,10 +73,11 @@ public class Audio {
 	 * 
 	 * @param dado
 	 *            {@link String}
+	 * @throws ArgumentInvalidException 
 	 * @throws ArgumentInvalidException
 	 *             caso o dado seja invalido
 	 */
-	public void setDado(String dado) throws ArgumentInvalidException {
+	public void setDado(String dado) throws ArgumentInvalidException{
 		if (dado == null || dado.trim().isEmpty())
 			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
 		this.dado = dado;

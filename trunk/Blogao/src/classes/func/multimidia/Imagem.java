@@ -1,6 +1,7 @@
 package classes.func.multimidia;
 
 import interfaces.Constantes;
+import interfaces.Midia;
 
 import ourExceptions.ArgumentInvalidException;
 
@@ -13,7 +14,7 @@ import ourExceptions.ArgumentInvalidException;
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 
-public class Imagem {
+public class Imagem implements Midia{
 	private String id;
 	private String descricao;
 	private String dado;
