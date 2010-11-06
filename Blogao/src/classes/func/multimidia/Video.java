@@ -1,7 +1,6 @@
 package classes.func.multimidia;
 
 import interfaces.Constantes;
-import interfaces.Midia;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -12,8 +11,8 @@ import ourExceptions.ArgumentInvalidException;
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
-public class Video implements Midia{
-	private String id;
+public class Video extends Midia{
+	//private String id;
 	private String descricao;
 	private String dado;
 
@@ -86,9 +85,9 @@ public class Video implements Midia{
 	 * 
 	 * @return String idVideo
 	 */
-	public String getId() {
-		return id;
-	}
+//	public String getId() {
+//		return id;
+//	}
 
 	/**
 	 * Metodo modificador de id da Video.
@@ -96,9 +95,9 @@ public class Video implements Midia{
 	 * @param id
 	 *            {@link String}
 	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	private String gerarId() {
 		return String.valueOf(this.hashCode());

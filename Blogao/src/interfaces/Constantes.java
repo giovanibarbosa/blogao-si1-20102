@@ -53,6 +53,7 @@ public interface Constantes {
 	static final String INDICE_INVALIDO2 = "Índice inválido";
 	static final String DESCRICAO_INVALIDA = "Descrição inválida";
 	static final String BLOG_EXISTENTE = "Blog Existente";
+	static final String MIDIA_INVALIDA = "Midia inválida";
 
 	static final int EMAIL = 96619420;
 	static final int NOME = 513276986;
@@ -64,6 +65,7 @@ public interface Constantes {
 	static final int FILMES = -1274498766;
 	static final int MUSICAS = 1412695319;
 	static final int LIVROS = -1102420835;
+	
 	
 	
 

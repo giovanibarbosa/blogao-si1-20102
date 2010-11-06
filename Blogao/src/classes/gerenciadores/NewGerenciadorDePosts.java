@@ -2,7 +2,6 @@ package classes.gerenciadores;
 
 import interfaces.Constantes;
 import interfaces.Gerenciador;
-import interfaces.Midia;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import ourExceptions.UserInvalidException;
 import persistencia.daos.PostsDAO;
 import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
+import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
 import classes.func.usuario.Usuario;
 import classes.Comentario;

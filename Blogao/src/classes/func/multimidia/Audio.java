@@ -1,7 +1,6 @@
 package classes.func.multimidia;
 
 import interfaces.Constantes;
-import interfaces.Midia;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -12,9 +11,9 @@ import ourExceptions.ArgumentInvalidException;
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
-public class Audio implements Midia{
+public class Audio extends Midia{
 
-	private String id;
+	//private String id;
 	private String descricao;
 	private String dado;
 
@@ -88,9 +87,9 @@ public class Audio implements Midia{
 	 * 
 	 * @return String idAudio
 	 */
-	public String getId() {
-		return id;
-	}
+//	public String getId() {
+//		return id;
+//	}
 
 	/**
 	 * Metodo modificador de id do Audio.
@@ -98,9 +97,9 @@ public class Audio implements Midia{
 	 * @param id
 	 *            {@link String}
 	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	private String gerarId() {
 		return String.valueOf(this.hashCode());
