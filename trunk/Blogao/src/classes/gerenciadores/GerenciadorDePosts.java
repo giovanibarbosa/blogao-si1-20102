@@ -2,7 +2,6 @@ package classes.gerenciadores;
 
 import interfaces.Constantes;
 import interfaces.Gerenciador;
-import interfaces.Midia;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import ourExceptions.UserInvalidException;
 import persistencia.daos.PostsDAO;
 import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
+import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
 import classes.func.usuario.Usuario;
 import classes.Comentario;
@@ -139,7 +139,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		blog.removePost(post);
 
-		Midia audio = new Audio(descricao, dado);
+		Midia audio = new Midia().fabricaDeMidia("audio" ,descricao, dado);
 		post.addMidia(audio);
 
 		blog.addPost(post);
@@ -180,7 +180,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		blog.removePost(post);
 
-		Midia imagem = new Imagem(descricao, dado);
+		Midia imagem = new Midia().fabricaDeMidia("imagem" ,descricao, dado);
 		post.addMidia(imagem);
 
 		blog.addPost(post);
@@ -221,7 +221,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		blog.removePost(post);
 
-		Midia video = new Video(descricao, dado);
+		Midia video = new Midia().fabricaDeMidia("video" ,descricao, dado);
 		post.addMidia(video);
 
 		blog.addPost(post);

@@ -1,7 +1,6 @@
 package classes;
 
 import interfaces.Constantes;
-import interfaces.Midia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +10,7 @@ import java.util.Map;
 import classes.func.Data;
 import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
+import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
 
 import ourExceptions.ArgumentInvalidException;
