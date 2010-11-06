@@ -1,6 +1,7 @@
 package classes;
 
 import interfaces.Constantes;
+import interfaces.Midia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,10 +32,12 @@ public class Post {
 
 	private List<Comentario> comentarios;
 	
-	private Map<String, Video> mapaVideos;
+	private Map<String, Midia>mapaMidias;
+	
+	/*private Map<String, Video> mapaVideos;
 
 	private Map<String, Audio> mapaAudio;
-	private Map<String, Imagem> mapaImagens;
+	private Map<String, Imagem> mapaImagens;*/
 	
 	private List<String> listaIDsVideos;
 	private List<String> listaIDsAudios;
@@ -62,9 +65,10 @@ public class Post {
 		setDataCriacao(new Data().todaysDate());
 		this.idBlogDono = idBlogDono;
 		comentarios = new ArrayList<Comentario>();
-		mapaVideos = new HashMap<String, Video>();
+		mapaMidias = new HashMap<String, Midia>();
+		/*mapaVideos = new HashMap<String, Video>();
 		mapaAudio = new HashMap<String, Audio>();
-		mapaImagens = new HashMap<String, Imagem>();
+		mapaImagens = new HashMap<String, Imagem>();*/
 		listaIDsVideos = new ArrayList<String>();
 		listaIDsAudios = new ArrayList<String>();
 		listaIDsImagens = new ArrayList<String>();
@@ -117,70 +121,103 @@ public class Post {
 			comentarios.remove(coment);
 	}
 	
-	/**
-	 * Metodo que adiciona um audio ao post.
-	 * @param audio {@link Audio}
-	 */
-	public void addAudio(Audio audio) {
-		if (!mapaAudio.containsValue(audio)){
-			mapaAudio.put(audio.getId(),audio);
-			listaIDsAudios.add(audio.getId());
-		}
-	}
-
-	/**
-	 * Metodo que remove um audio do post.
-	 * @param audio {@link Audio}
-	 */
-	public void removeAudio(Audio audio) {
-		if (mapaAudio.containsValue(audio)){
-			mapaAudio.remove(audio.getId());
-			listaIDsAudios.remove(audio.getId());
-		}
-	}
-
-	/**
-	 * Metodo que adiciona uma {@link Imagem} ao post
-	 * @param imagem {@link Imagem}
-	 */
-	public void addImagem(Imagem imagem) {
-		if (!mapaImagens.containsValue(imagem)){
-			mapaImagens.put(imagem.getId(),imagem);
-			listaIDsImagens.add(imagem.getId());
+	
+	public void addMidia(Midia midia){
+		if (!mapaMidias.containsValue(midia)){
+			if(midia instanceof Audio){
+				listaIDsAudios.add(midia.getId());
+				mapaMidias.put(midia.getId(),midia);
+			}
+			else if(midia instanceof Imagem){
+				listaIDsImagens.add(midia.getId());
+				mapaMidias.put(midia.getId(),midia);
+			}
+			else if(midia instanceof Video){
+				listaIDsVideos.add(midia.getId());
+				mapaMidias.put(midia.getId(),midia);
+			}
 		}
 	}
 	
-	/**
-	 * Metodo que remove uma {@link Imagem} do post.
-	 * @param {@link Imagem} imagem
-	 */
-	public void removeImagem(Imagem imagem) {
-		if (mapaImagens.containsValue(imagem)){
-			mapaImagens.remove(imagem.getId());
-			listaIDsImagens.remove(imagem.getId());
+	public void removeMidia(Midia midia){
+		if (mapaMidias.containsValue(midia)){
+			mapaMidias.remove(midia.getId());
+			if(midia instanceof Audio){
+				listaIDsAudios.remove(midia.getId());
+			}
+			else if(midia instanceof Imagem){
+				listaIDsImagens.remove(midia.getId());
+			}
+			else if(midia instanceof Video){
+				listaIDsVideos.remove(midia.getId());
+			}
 		}
 	}
 	
-	/**
-	 * Metodo que adiciona um {@link Video} ao post
-	 * @param {@link Video} video
-	 */
-	public void addVideo(Video video) {
-		if (!mapaVideos.containsValue(video)){
-			mapaVideos.put(video.getId(), video);
-			listaIDsVideos.add(video.getId());
-		}
-	}
-	/**
-	 * Metodo que remove um {@link Video} do post
-	 * @param {@link Video} video
-	 */
-	public void removeVideo(Video video) {
-		if (mapaVideos.containsValue(video)){
-			mapaVideos.remove(video);
-			listaIDsVideos.remove(video.getId());
-		}
-	}
+//	/**
+//	 * Metodo que adiciona um audio ao post.
+//	 * @param audio {@link Audio}
+//	 */
+//	public void addAudio(Audio audio) {
+//		if (!mapaMidias.containsValue(audio)){
+//			mapaMidias.put(audio.getId(),audio);
+//			listaIDsAudios.add(audio.getId());
+//		}
+//	}
+//
+//	/**
+//	 * Metodo que remove um audio do post.
+//	 * @param audio {@link Audio}
+//	 */
+//	public void removeAudio(Audio audio) {
+//		if (mapaMidias.containsValue(audio)){
+//			mapaMidias.remove(audio.getId());
+//			listaIDsAudios.remove(audio.getId());
+//		}
+//	}
+//
+//	/**
+//	 * Metodo que adiciona uma {@link Imagem} ao post
+//	 * @param imagem {@link Imagem}
+//	 */
+//	public void addImagem(Imagem imagem) {
+//		if (!mapaMidias.containsValue(imagem)){
+//			mapaMidias.put(imagem.getId(),imagem);
+//			listaIDsImagens.add(imagem.getId());
+//		}
+//	}
+//	
+//	/**
+//	 * Metodo que remove uma {@link Imagem} do post.
+//	 * @param {@link Imagem} imagem
+//	 */
+//	public void removeImagem(Imagem imagem) {
+//		if (mapaMidias.containsValue(imagem)){
+//			mapaMidias.remove(imagem.getId());
+//			listaIDsImagens.remove(imagem.getId());
+//		}
+//	}
+//	
+//	/**
+//	 * Metodo que adiciona um {@link Video} ao post
+//	 * @param {@link Video} video
+//	 */
+//	public void addVideo(Video video) {
+//		if (!mapaMidias.containsValue(video)){
+//			mapaMidias.put(video.getId(), video);
+//			listaIDsVideos.add(video.getId());
+//		}
+//	}
+//	/**
+//	 * Metodo que remove um {@link Video} do post
+//	 * @param {@link Video} video
+//	 */
+//	public void removeVideo(Video video) {
+//		if (mapaMidias.containsValue(video)){
+//			mapaMidias.remove(video);
+//			listaIDsVideos.remove(video.getId());
+//		}
+//	}
 	
 	/**
 	 * Metodo acessador do id do blog
@@ -247,7 +284,7 @@ public class Post {
 	public List<Audio> getListaDeAudio() {
 		List<Audio> listaDeAudio = new ArrayList<Audio>();
 		for (String audioID : listaIDsAudios) {
-			listaDeAudio.add(mapaAudio.get(audioID));
+			listaDeAudio.add((Audio) mapaMidias.get(audioID));
 		}
 		return listaDeAudio;
 	}
@@ -259,7 +296,7 @@ public class Post {
 	public List<Video> getListaDeVideo() {
 		List<Video> listaDeVideo = new ArrayList<Video>();
 		for (String videoID : listaIDsVideos) {
-			listaDeVideo.add(mapaVideos.get(videoID));
+			listaDeVideo.add((Video) mapaMidias.get(videoID));
 		}
 		return listaDeVideo;
 	}
@@ -271,7 +308,7 @@ public class Post {
 	public List<Imagem> getListaDeImagem() {
 		List<Imagem> listaDeImagem = new ArrayList<Imagem>();
 		for (String imagemID : listaIDsImagens) {
-			listaDeImagem.add(mapaImagens.get(imagemID));
+			listaDeImagem.add((Imagem) mapaMidias.get(imagemID));
 		}
 		return listaDeImagem;
 	}
@@ -282,6 +319,12 @@ public class Post {
 	 * @return Map<{@ling String}, {@link Video}> mapa de videos
 	 */
 	public Map<String, Video> getMapaVideos() {
+		HashMap<String, Video> mapaVideos = new HashMap<String, Video>();
+		for (String m : mapaMidias.keySet()) {
+			if(mapaMidias.get(m) instanceof Video){
+				mapaVideos.put(m, (Video) mapaMidias.get(m));
+			}
+		}
 		return mapaVideos;
 	}
 
@@ -290,7 +333,13 @@ public class Post {
 	 * @return Map<{@ling String}, {@link Audio}> mapa de audios
 	 */
 	public Map<String, Audio> getMapaAudio() {
-		return mapaAudio;
+		HashMap<String, Audio> mapaAudios = new HashMap<String, Audio>();
+		for (String m : mapaMidias.keySet()) {
+			if(mapaMidias.get(m) instanceof Audio){
+				mapaAudios.put(m, (Audio) mapaMidias.get(m));
+			}
+		}
+		return mapaAudios;
 	}
 
 	/**
@@ -298,7 +347,13 @@ public class Post {
 	 * @return Map<{@ling String}, {@link Imagem}> mapa de imagens
 	 */
 	public Map<String, Imagem> getMapaImagens() {
-		return mapaImagens;
+		HashMap<String, Imagem> mapaImagems = new HashMap<String, Imagem>();
+		for (String m : mapaMidias.keySet()) {
+			if(mapaMidias.get(m) instanceof Imagem){
+				mapaImagems.put(m, (Imagem) mapaMidias.get(m));
+			}
+		}
+		return mapaImagems;
 	}
 	
 	/**

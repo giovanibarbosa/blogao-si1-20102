@@ -2,6 +2,8 @@ package classes.gerenciadores;
 
 import interfaces.Constantes;
 import interfaces.Gerenciador;
+import interfaces.Midia;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,8 +139,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		blog.removePost(post);
 
-		Audio audio = new Audio(descricao, dado);
-		post.addAudio(audio);
+		Midia audio = new Audio(descricao, dado);
+		post.addMidia(audio);
 
 		blog.addPost(post);
 		user.addBlog2(blog);
@@ -178,8 +180,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		blog.removePost(post);
 
-		Imagem imagem = new Imagem(descricao, dado);
-		post.addImagem(imagem);
+		Midia imagem = new Imagem(descricao, dado);
+		post.addMidia(imagem);
 
 		blog.addPost(post);
 		user.addBlog2(blog);
@@ -219,8 +221,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog2(blog);
 		blog.removePost(post);
 
-		Video video = new Video(descricao, dado);
-		post.addVideo(video);
+		Midia video = new Video(descricao, dado);
+		post.addMidia(video);
 
 		blog.addPost(post);
 		user.addBlog2(blog);
@@ -743,7 +745,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (post == null)
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
-		post.removeVideo(post.getMapaVideos().get(idMovie));
+		post.removeMidia(post.getMapaVideos().get(idMovie));
 	}
 
 	private Post getPostByVideoID(String movieID) {
@@ -771,7 +773,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (post == null)
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
-		post.removeAudio(post.getMapaAudio().get(idAudio));
+		post.removeMidia(post.getMapaAudio().get(idAudio));
 	}
 
 	private Post getPostByAudioID(String audioID) {
@@ -799,7 +801,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (post == null)
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
-		post.removeImagem(post.getMapaImagens().get(idImagem));
+		post.removeMidia(post.getMapaImagens().get(idImagem));
 	}
 
 	private Post getPostByImagemID(String imagemID) {
