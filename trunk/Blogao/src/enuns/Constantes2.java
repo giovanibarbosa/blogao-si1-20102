@@ -13,7 +13,11 @@ public enum Constantes2 {
 	LOGIN_OU_SENHA_INVALIDO ("Login ou senha inválido"),
 	AUDIO ("audio"),
 	VIDEO ("video"),
-	ATRIBUTO_INVALIDO ("Atributo Inválido");
+	ATRIBUTO_INVALIDO ("Atributo Inválido"),
+	POST_INVALIDO ("Post inválido"),
+	BLOG_INVALIDO ("Blog inválido"),
+	EMAIL_EXISTENTE ("Email existente"),
+	LOGIN_INVALIDO ("Login inválido");
 	
 	
 	private String name;

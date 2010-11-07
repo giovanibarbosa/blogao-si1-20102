@@ -1,6 +1,5 @@
 package classes.gerenciadores;
 
-import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
@@ -51,6 +50,40 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	}
 
+	@Override
+	/**
+	 * Salva os dados.
+	 */
+	public void saveData() throws PersistenceException, IOException {
+		postsDAO.limparPosts();
+		for (Post post : listaPosts) {
+			postsDAO.criar(post);
+		}
+	
+	}
+
+	@Override
+	/**
+	 * Carrega os dados.
+	 */
+	public void loadData() {
+		try {
+			listaPosts = postsDAO.recuperaPosts();
+		} catch (FileNotFoundException e) {
+			listaPosts = new ArrayList<Post>();
+		}
+	
+	}
+
+	@Override
+	/**
+	 * Elimina os arquivos persistentes e limpa o ambiente.
+	 */
+	public void cleanPersistence() {
+		postsDAO.limparPosts();
+		listaPosts = new ArrayList<Post>();
+	}
+
 	/**
 	 * Metodo que gerancia a criacao de um Post.
 	 * 
@@ -79,26 +112,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		listaPosts.add(post);
 		avisaListeners(blog, post);
 		return post.getId();
-	}
-
-	private void avisaListeners(Blog blog, Post post)
-			throws UserInvalidException {
-		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
-	}
-
-	private Usuario recuperaUsuarioPorLogin(String login)
-			throws UserInvalidException {
-		return gerenteDados.getGerenteUsuarios().getUsuario(login);
-	}
-
-	private String recuperaLoginPorSessionId(String idSessao)
-			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
-	}
-
-	private void verificaDonoDoBlog(String idSessao, Blog blog)
-			throws ArgumentInvalidException {
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, idSessao);
 	}
 
 	/**
@@ -139,11 +152,6 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.addBlog2(blog);
 
 		return audio.getId();
-	}
-
-	private Blog getBlog(Post post) throws ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs()
-				.getBlog(post.getIdBlogDono());
 	}
 
 	/**
@@ -268,20 +276,167 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	/**
-	 * Deleta post.
+	 * Acessa um audio.
 	 * 
-	 * @param sessionId
+	 * @param idDoPost
 	 *            {@link String}
-	 * @param postId
-	 *            {@link String}
-	 * @throws ArgumentInvalidException
+	 * @param index
+	 *            {@link int}
+	 * @return Id do audio.
+	 * @throws FileNotFoundException
 	 * @throws PersistenceException
-	 * @throws IOException
+	 * @throws ArgumentInvalidException
 	 */
-	public void deletePost(String sessionId, String postId)
-			throws ArgumentInvalidException, PersistenceException, IOException {
-		validaPostId(postId, sessionId);
-		removePost(postId);
+	public String getSom(String idDoPost, int index)
+			throws FileNotFoundException, PersistenceException,
+			ArgumentInvalidException {
+		Post post = getPostPorId(idDoPost);
+		if (index >= post.getListaDeAudio().size())
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+		return getSom(index, post);
+	}
+
+	/**
+	 * Retorna a descricao do som.
+	 * 
+	 * @param audioId
+	 *            {@link String}
+	 * @return descricao do som.
+	 * @throws FileNotFoundException
+	 */
+	public String getDescricaoDoSom(String audioId)
+			throws FileNotFoundException {
+		Audio audio = getAudio(audioId);
+		return audio.getDescricao();
+	}
+
+	/**
+	 * Retorna dos dados do audio.
+	 * 
+	 * @param audioId
+	 *            {@link String}
+	 * @return dados do audio.
+	 * @throws FileNotFoundException
+	 */
+	public String getDadoDoSom(String audioId) throws FileNotFoundException {
+		Audio audio = getAudio(audioId);
+		return audio.getDado();
+	}
+
+	/**
+	 * Retorna a descricao da imagem.
+	 * 
+	 * @param imagemId
+	 *            {@link String}
+	 * @return descricao da imagem.
+	 * @throws FileNotFoundException
+	 */
+	public String getDescricaoDaImagem(String imagemId)
+			throws FileNotFoundException {
+	
+		for (Post post : listaPosts) {
+			for (Imagem imagem : post.getListaDeImagem()) {
+				if (imagem.getId().equals(imagemId)) {
+					return imagem.getDescricao();
+				}
+			}
+		}
+		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+	}
+
+	/**
+	 * Recupera os dados da imagem.
+	 * 
+	 * @param imagemId
+	 *            {@link String}
+	 * @return dados da imagem.
+	 * @throws FileNotFoundException
+	 */
+	public String getDadoDaImagem(String imagemId) throws FileNotFoundException {
+		for (Post post : listaPosts) {
+			for (Imagem imagem : post.getListaDeImagem()) {
+				if (imagem.getId().equals(imagemId)) {
+					return imagem.getDado();
+				}
+			}
+		}
+		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+	}
+
+	/**
+	 * Recupera uma imagem da lista.
+	 * 
+	 * @param id
+	 *            {@link String}
+	 * @param index
+	 *            {@link String}
+	 * @return id da imagem.
+	 * @throws PersistenceException
+	 * @throws ArgumentInvalidException
+	 */
+	public String getImagem(String id, int index) throws PersistenceException,
+			ArgumentInvalidException {
+		Post post = getPostPorId(id);
+		if (index >= post.getListaDeImagem().size())
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+		return getImagem(index, post);
+	}
+
+	/**
+	 * Recupera a descricao do video.
+	 * 
+	 * @param videoId
+	 *            {@link String}
+	 * @return descricao do video.
+	 * @throws FileNotFoundException
+	 */
+	public String getDescricaoDoVideo(String videoId)
+			throws FileNotFoundException {
+	
+		for (Post post : listaPosts) {
+			for (Video video : post.getListaDeVideo()) {
+				if (video.getId().equals(videoId)) {
+					return video.getDescricao();
+				}
+			}
+		}
+		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+	}
+
+	/**
+	 * Retorna os dados do video.
+	 * 
+	 * @param videoId
+	 *            {@link String}
+	 * @return Dados do video.
+	 * @throws FileNotFoundException
+	 */
+	public String getDadoDoVideo(String videoId) throws FileNotFoundException {
+		for (Post post : listaPosts) {
+			for (Video video : post.getListaDeVideo()) {
+				if (video.getId().equals(videoId)) {
+					return video.getDado();
+				}
+			}
+		}
+		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+	}
+
+	/**
+	 * Recupera um video da lista.
+	 * 
+	 * @param id
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
+	 * @return id do video.
+	 * @throws PersistenceException
+	 */
+	public String getVideo(String id, int index) throws PersistenceException {
+		Post post = getPostPorId(id);
+		if (index >= post.getListaDeVideo().size())
+			throw new PersistenceException(Constantes2.INDICE_INCORRETO.getName());
+		return getVideo(index, post);
 	}
 
 	/**
@@ -333,227 +488,6 @@ public class GerenciadorDePosts implements Gerenciador {
 			return 0;
 		}
 		return post == null ? 0 : post.getListaDeImagem().size();
-	}
-
-	/**
-	 * Acessa um audio.
-	 * 
-	 * @param idDoPost
-	 *            {@link String}
-	 * @param index
-	 *            {@link int}
-	 * @return Id do audio.
-	 * @throws FileNotFoundException
-	 * @throws PersistenceException
-	 * @throws ArgumentInvalidException
-	 */
-	public String getSom(String idDoPost, int index)
-			throws FileNotFoundException, PersistenceException,
-			ArgumentInvalidException {
-		Post post = getPostPorId(idDoPost);
-		if (index >= post.getListaDeAudio().size())
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
-		return getSom(index, post);
-	}
-
-	private String getSom(int index, Post post) {
-		return post.getListaDeAudio().get(Integer.valueOf(index)).getId();
-	}
-
-	/**
-	 * Retorna a descricao do som.
-	 * 
-	 * @param audioId
-	 *            {@link String}
-	 * @return descricao do som.
-	 * @throws FileNotFoundException
-	 */
-	public String getDescricaoDoSom(String audioId)
-			throws FileNotFoundException {
-		Audio audio = getAudio(audioId);
-		return audio.getDescricao();
-	}
-
-	/**
-	 * Retorna dos dados do audio.
-	 * 
-	 * @param audioId
-	 *            {@link String}
-	 * @return dados do audio.
-	 * @throws FileNotFoundException
-	 */
-	public String getDadoDoSom(String audioId) throws FileNotFoundException {
-		Audio audio = getAudio(audioId);
-		return audio.getDado();
-	}
-
-	/**
-	 * Recupera o audio.
-	 * 
-	 * @param audioId
-	 *            {@link String}
-	 * @return {@link Audio}
-	 * @throws FileNotFoundException
-	 */
-	private Audio getAudio(String audioId) throws FileNotFoundException {
-
-		for (Post post : listaPosts) {
-			for (Audio audio : post.getListaDeAudio()) {
-				if (audio.getId().equals(audioId)) {
-					return audio;
-				}
-			}
-		}
-		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
-	}
-
-	/**
-	 * Retorna a descricao da imagem.
-	 * 
-	 * @param imagemId
-	 *            {@link String}
-	 * @return descricao da imagem.
-	 * @throws FileNotFoundException
-	 */
-	public String getDescricaoDaImagem(String imagemId)
-			throws FileNotFoundException {
-
-		for (Post post : listaPosts) {
-			for (Imagem imagem : post.getListaDeImagem()) {
-				if (imagem.getId().equals(imagemId)) {
-					return imagem.getDescricao();
-				}
-			}
-		}
-		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
-	}
-
-	/**
-	 * Recupera os dados da imagem.
-	 * 
-	 * @param imagemId
-	 *            {@link String}
-	 * @return dados da imagem.
-	 * @throws FileNotFoundException
-	 */
-	public String getDadoDaImagem(String imagemId) throws FileNotFoundException {
-		for (Post post : listaPosts) {
-			for (Imagem imagem : post.getListaDeImagem()) {
-				if (imagem.getId().equals(imagemId)) {
-					return imagem.getDado();
-				}
-			}
-		}
-		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
-	}
-
-	/**
-	 * Recupera uma imagem da lista.
-	 * 
-	 * @param id
-	 *            {@link String}
-	 * @param index
-	 *            {@link String}
-	 * @return id da imagem.
-	 * @throws PersistenceException
-	 * @throws ArgumentInvalidException
-	 */
-	public String getImagem(String id, int index) throws PersistenceException,
-			ArgumentInvalidException {
-		Post post = getPostPorId(id);
-		if (index >= post.getListaDeImagem().size())
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
-		return getImagem(index, post);
-	}
-
-	private String getImagem(int index, Post post) {
-		return post.getListaDeImagem().get(index).getId();
-	}
-
-	/**
-	 * Recupera a descricao do video.
-	 * 
-	 * @param videoId
-	 *            {@link String}
-	 * @return descricao do video.
-	 * @throws FileNotFoundException
-	 */
-	public String getDescricaoDoVideo(String videoId)
-			throws FileNotFoundException {
-
-		for (Post post : listaPosts) {
-			for (Video video : post.getListaDeVideo()) {
-				if (video.getId().equals(videoId)) {
-					return video.getDescricao();
-				}
-			}
-		}
-		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
-	}
-
-	/**
-	 * Retorna os dados do video.
-	 * 
-	 * @param videoId
-	 *            {@link String}
-	 * @return Dados do video.
-	 * @throws FileNotFoundException
-	 */
-	public String getDadoDoVideo(String videoId) throws FileNotFoundException {
-		for (Post post : listaPosts) {
-			for (Video video : post.getListaDeVideo()) {
-				if (video.getId().equals(videoId)) {
-					return video.getDado();
-				}
-			}
-		}
-		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
-	}
-
-	/**
-	 * Recupera um video da lista.
-	 * 
-	 * @param id
-	 *            {@link String}
-	 * @param index
-	 *            {@link int}
-	 * @return id do video.
-	 * @throws PersistenceException
-	 */
-	public String getVideo(String id, int index) throws PersistenceException {
-		Post post = getPostPorId(id);
-		if (index >= post.getListaDeVideo().size())
-			throw new PersistenceException(Constantes.INDICE_INVALIDO);
-		return getVideo(index, post);
-	}
-
-	private String getVideo(int index, Post post) {
-		return post.getListaDeVideo().get(index).getId();
-	}
-
-	@Override
-	/**
-	 * Salva os dados.
-	 */
-	public void saveData() throws PersistenceException, IOException {
-		postsDAO.limparPosts();
-		for (Post post : listaPosts) {
-			postsDAO.criar(post);
-		}
-
-	}
-
-	@Override
-	/**
-	 * Carrega os dados.
-	 */
-	public void loadData() {
-		try {
-			listaPosts = postsDAO.recuperaPosts();
-		} catch (FileNotFoundException e) {
-			listaPosts = new ArrayList<Post>();
-		}
-
 	}
 
 	/**
@@ -621,6 +555,19 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	/**
+	 * Recupera o numero de comentarios.
+	 * 
+	 * @param postId
+	 *            {@link String}
+	 * @return total de comentarios.
+	 * @throws PersistenceException
+	 */
+	public int getNumberOfComments(String postId) throws PersistenceException {
+		Post post = getPostPorId(postId);
+		return post.getListaComentarios().size();
+	}
+
+	/**
 	 * Recupera o Id do video.
 	 * 
 	 * @param postID
@@ -636,6 +583,36 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post postRecuperado = getPostPorId(postID);
 		return Integer.valueOf(getVideo(index, postRecuperado));
 
+	}
+
+	/**
+	 * Recupera o numero de comentarios.
+	 * 
+	 * @param login
+	 *            {@link String}
+	 * @param blogId
+	 *            {@link String}
+	 * @return total de comentarios.
+	 * @throws UserInvalidException
+	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
+	 */
+	public int getNumberOfComments(String login, String blogId)
+			throws UserInvalidException, ArgumentInvalidException,
+			PersistenceException {
+		validateLoggedUser(login);
+		List<Blog> blogs = getBlogs();
+		Blog blg = null;
+		for (Blog blog : blogs) {
+			if (blog.getId().equals(blogId))
+				blg = blog;
+		}
+		if (blg == null)
+			throw new ArgumentInvalidException(Constantes2.BLOG_INVALIDO.getName());
+		int retorno = 0;
+		for (String idPostagem : blg.getListaDePostagens())
+			retorno += numeroDeComentarios(idPostagem);
+		return retorno;
 	}
 
 	/**
@@ -656,10 +633,20 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	/**
-	 * @return the listaPosts
+	 * Deleta post.
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param postId
+	 *            {@link String}
+	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
+	 * @throws IOException
 	 */
-	public List<Post> getListaPosts() {
-		return listaPosts;
+	public void deletePost(String sessionId, String postId)
+			throws ArgumentInvalidException, PersistenceException, IOException {
+		validaPostId(postId, sessionId);
+		removePost(postId);
 	}
 
 	/**
@@ -671,29 +658,23 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	/**
-	 * Recupera um post.
+	 * Valida o id do post.
 	 * 
-	 * @param idDoPost
+	 * @param postId
 	 *            {@link String}
-	 * @return {@link Post}
+	 * @param sessionId
+	 *            {@link String}
+	 * @throws ArgumentInvalidException
 	 * @throws PersistenceException
 	 */
-	public Post getPostPorId(String idDoPost) throws PersistenceException {
-		for (Post post : listaPosts) {
-			if (post.getId().equals(idDoPost)) {
-				return post;
-			}
-		}
-		throw new PersistenceException(Constantes.POST_INVALIDO);
-	}
-
-	@Override
-	/**
-	 * Elimina os arquivos persistentes e limpa o ambiente.
-	 */
-	public void cleanPersistence() {
-		postsDAO.limparPosts();
-		listaPosts = new ArrayList<Post>();
+	public void validaPostId(String postId, String sessionId)
+			throws ArgumentInvalidException, PersistenceException {
+		validaPostId(postId);
+		validateSession(sessionId);
+		Blog dono = getBlogByIdDono(postId);
+		if (!dono.getIdSessao().equals(sessionId))
+			throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+	
 	}
 
 	/**
@@ -749,21 +730,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostByVideoID(idMovie);
 
 		if (post == null)
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
 		removeMidiaByIdVideo(idMovie, post);
-	}
-
-	private void removeMidiaByIdVideo(String idMovie, Post post) {
-		post.removeMidia(post.getMapaVideos().get(idMovie));
-	}
-
-	private Post getPostByVideoID(String movieID) {
-		for (Post post : listaPosts) {
-			if (post.getMapaVideos().containsKey(movieID)) {
-				return post;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -781,21 +749,8 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostByAudioID(idAudio);
 
 		if (post == null)
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
 		removeMidiaAudio(idAudio, post);
-	}
-
-	private void removeMidiaAudio(String idAudio, Post post) {
-		post.removeMidia(post.getMapaAudio().get(idAudio));
-	}
-
-	private Post getPostByAudioID(String audioID) {
-		for (Post post : listaPosts) {
-			if (post.getMapaAudio().containsKey(audioID)) {
-				return post;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -813,12 +768,192 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostByImagemID(idImagem);
 
 		if (post == null)
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
 		removeMidiaImagem(idImagem, post);
+	}
+
+	/**
+	 * Remove um post.
+	 * 
+	 * @param postId
+	 *            {@link String}
+	 * @throws PersistenceException
+	 * @throws ArgumentInvalidException
+	 */
+	public void removePost(String postId) throws PersistenceException,
+			ArgumentInvalidException {
+		Post post = getPostPorId(postId);
+		while (!post.getListaComentarios().isEmpty()) {
+			Comentario removido = post.getListaComentarios().remove(0);
+			removeComentario(removido);
+		}
+		listaPosts.remove(post);
+		String blogDonoId = post.getIdBlogDono();
+		Blog blog = getBlog(blogDonoId);
+		blog.removePost2(post);
+
+	}
+
+	/**
+	 * Valida um Post.
+	 * 
+	 * @param postId
+	 *            {@link String}
+	 * @throws ArgumentInvalidException
+	 */
+	public void validaPostId(String postId) throws ArgumentInvalidException {
+		for (Post post : listaPosts) {
+			if (post.getId().equals(postId))
+				return;
+		}
+		throw new ArgumentInvalidException(Constantes2.POST_INVALIDO.getName());
+	}
+
+	/**
+	 * Recupera um comentario.
+	 * 
+	 * @param postId
+	 *            {@link String}
+	 * @param index
+	 *            {@link int}
+	 * @return {@link Comentario}
+	 * @throws PersistenceException
+	 * @throws ArgumentInvalidException
+	 */
+	public Comentario GetComentario(String postId, int index)
+			throws PersistenceException, ArgumentInvalidException {
+
+		Post post = getPostPorId(postId);
+		if (index >= post.getListaComentarios().size())
+			throw new ArgumentInvalidException(Constantes2.INDICE_INVALIDO.getName());
+		return post.getComentario(index);
+	}
+
+	/**
+	 * Recupera um post.
+	 * 
+	 * @param idDoPost
+	 *            {@link String}
+	 * @return {@link Post}
+	 * @throws PersistenceException
+	 */
+	public Post getPostPorId(String idDoPost) throws PersistenceException {
+		for (Post post : listaPosts) {
+			if (post.getId().equals(idDoPost)) {
+				return post;
+			}
+		}
+		throw new PersistenceException(Constantes2.POST_INVALIDO.getName());
+	}
+
+	/**
+	 * Recupera a lista de posts.
+	 * 
+	 * @param blog
+	 *            {@link Blog}
+	 * @return List<{@link Post}>
+	 */
+	public List<Post> getListaPostsPorBlog(Blog blog) {
+		List<Post> listaPostsProcurados = new ArrayList<Post>();
+		for (Post post : listaPosts) {
+			if (post.getIdBlogDono().equals(blog.getId()))
+				listaPostsProcurados.add(post);
+		}
+		return listaPostsProcurados;
+	}
+
+	/**
+	 * @return the listaPosts
+	 */
+	public List<Post> getListaPosts() {
+		return listaPosts;
+	}
+
+	private void avisaListeners(Blog blog, Post post)
+			throws UserInvalidException {
+		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
+	}
+
+	private Usuario recuperaUsuarioPorLogin(String login)
+			throws UserInvalidException {
+		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+	}
+
+	private String recuperaLoginPorSessionId(String idSessao)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
+	}
+
+	private void verificaDonoDoBlog(String idSessao, Blog blog)
+			throws ArgumentInvalidException {
+		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, idSessao);
+	}
+
+	private Blog getBlog(Post post) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs()
+				.getBlog(post.getIdBlogDono());
+	}
+
+	private String getSom(int index, Post post) {
+		return post.getListaDeAudio().get(Integer.valueOf(index)).getId();
+	}
+
+	/**
+	 * Recupera o audio.
+	 * 
+	 * @param audioId
+	 *            {@link String}
+	 * @return {@link Audio}
+	 * @throws FileNotFoundException
+	 */
+	private Audio getAudio(String audioId) throws FileNotFoundException {
+	
+		for (Post post : listaPosts) {
+			for (Audio audio : post.getListaDeAudio()) {
+				if (audio.getId().equals(audioId)) {
+					return audio;
+				}
+			}
+		}
+		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+	}
+
+	private String getImagem(int index, Post post) {
+		return post.getListaDeImagem().get(index).getId();
+	}
+
+	private String getVideo(int index, Post post) {
+		return post.getListaDeVideo().get(index).getId();
 	}
 
 	private void removeMidiaImagem(String idImagem, Post post) {
 		post.removeMidia(post.getMapaImagens().get(idImagem));
+	}
+
+	private void removeMidiaByIdVideo(String idMovie, Post post) {
+		post.removeMidia(post.getMapaVideos().get(idMovie));
+	}
+
+	private Post getPostByVideoID(String movieID) {
+		for (Post post : listaPosts) {
+			if (post.getMapaVideos().containsKey(movieID)) {
+				return post;
+			}
+		}
+		return null;
+	}
+
+	private void removeMidiaAudio(String idAudio, Post post) {
+		post.removeMidia(post.getMapaAudio().get(idAudio));
+	}
+
+	private Post getPostByAudioID(String audioID) {
+		for (Post post : listaPosts) {
+			if (post.getMapaAudio().containsKey(audioID)) {
+				return post;
+			}
+		}
+		return null;
 	}
 
 	private Post getPostByImagemID(String imagemID) {
@@ -828,49 +963,6 @@ public class GerenciadorDePosts implements Gerenciador {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * Recupera o numero de comentarios.
-	 * 
-	 * @param postId
-	 *            {@link String}
-	 * @return total de comentarios.
-	 * @throws PersistenceException
-	 */
-	public int getNumberOfComments(String postId) throws PersistenceException {
-		Post post = getPostPorId(postId);
-		return post.getListaComentarios().size();
-	}
-
-	/**
-	 * Recupera o numero de comentarios.
-	 * 
-	 * @param login
-	 *            {@link String}
-	 * @param blogId
-	 *            {@link String}
-	 * @return total de comentarios.
-	 * @throws UserInvalidException
-	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException
-	 */
-	public int getNumberOfComments(String login, String blogId)
-			throws UserInvalidException, ArgumentInvalidException,
-			PersistenceException {
-		validateLoggedUser(login);
-		List<Blog> blogs = getBlogs();
-		Blog blg = null;
-		for (Blog blog : blogs) {
-			if (blog.getId().equals(blogId))
-				blg = blog;
-		}
-		if (blg == null)
-			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
-		int retorno = 0;
-		for (String idPostagem : blg.getListaDePostagens())
-			retorno += numeroDeComentarios(idPostagem);
-		return retorno;
 	}
 
 	private int numeroDeComentarios(String idPostagem)
@@ -891,101 +983,12 @@ public class GerenciadorDePosts implements Gerenciador {
 				.getUsuario(login);
 	}
 
-	/**
-	 * Remove um post.
-	 * 
-	 * @param postId
-	 *            {@link String}
-	 * @throws PersistenceException
-	 * @throws ArgumentInvalidException
-	 */
-	public void removePost(String postId) throws PersistenceException,
-			ArgumentInvalidException {
-		Post post = getPostPorId(postId);
-		while (!post.getListaComentarios().isEmpty()) {
-			Comentario removido = post.getListaComentarios().remove(0);
-			gerenteDados.getGerenteComentarios().remove(removido);
-		}
-		listaPosts.remove(post);
-		String blogDonoId = post.getIdBlogDono();
-		Blog blog = getBlog(blogDonoId);
-		blog.removePost2(post);
-
+	private void removeComentario(Comentario removido) {
+		gerenteDados.getGerenteComentarios().remove(removido);
 	}
 
 	private Blog getBlog(String blogDonoId) throws ArgumentInvalidException {
 		return gerenteDados.getGerenteBlogs().getBlog(blogDonoId);
-	}
-
-	/**
-	 * Valida um Post.
-	 * 
-	 * @param postId
-	 *            {@link String}
-	 * @throws ArgumentInvalidException
-	 */
-	public void validaPostId(String postId) throws ArgumentInvalidException {
-		for (Post post : listaPosts) {
-			if (post.getId().equals(postId))
-				return;
-		}
-		throw new ArgumentInvalidException(Constantes.POST_INVALIDO);
-	}
-
-	/**
-	 * Recupera um comentario.
-	 * 
-	 * @param postId
-	 *            {@link String}
-	 * @param index
-	 *            {@link int}
-	 * @return {@link Comentario}
-	 * @throws PersistenceException
-	 * @throws ArgumentInvalidException
-	 */
-	public Comentario GetComentario(String postId, int index)
-			throws PersistenceException, ArgumentInvalidException {
-
-		Post post = getPostPorId(postId);
-		if (index >= post.getListaComentarios().size())
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
-		return post.getComentario(index);
-	}
-
-	/**
-	 * Recupera a lista de posts.
-	 * 
-	 * @param blog
-	 *            {@link Blog}
-	 * @return List<{@link Post}>
-	 */
-	public List<Post> getListaPostsPorBlog(Blog blog) {
-		List<Post> listaPostsProcurados = new ArrayList<Post>();
-		for (Post post : listaPosts) {
-			if (post.getIdBlogDono().equals(blog.getId()))
-				listaPostsProcurados.add(post);
-		}
-		return listaPostsProcurados;
-	}
-
-	/**
-	 * Valida o id do post.
-	 * 
-	 * @param postId
-	 *            {@link String}
-	 * @param sessionId
-	 *            {@link String}
-	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException
-	 */
-	public void validaPostId(String postId, String sessionId)
-			throws ArgumentInvalidException, PersistenceException {
-		validaPostId(postId);
-		validateSession(sessionId);
-		Blog dono = getBlogByIdDono(postId);
-		if (!dono.getIdSessao().equals(sessionId))
-			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
-
 	}
 
 	private Blog getBlogByIdDono(String postId)

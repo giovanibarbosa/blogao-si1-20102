@@ -90,8 +90,6 @@ deleteSound sessionId=${sessionId1} id=${tmpAudio1}
 
 expectError "Índice incorreto" getSound id=${postId1} index=0
 
-
-
 #Indice do recurso esta no intervalo 0<=x<numRecurso
 tmpImagem1=getPicture id=${postId1} index=0
 deletePicture sessionId=${sessionId1} id=${tmpImagem1}
