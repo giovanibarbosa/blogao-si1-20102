@@ -17,7 +17,10 @@ public enum Constantes2 {
 	POST_INVALIDO ("Post inválido"),
 	BLOG_INVALIDO ("Blog inválido"),
 	EMAIL_EXISTENTE ("Email existente"),
-	LOGIN_INVALIDO ("Login inválido");
+	LOGIN_INVALIDO ("Login inválido"),
+	SENHA ("senha"),
+	EMAIL ("email"),
+	LOGIN ("login");
 	
 	
 	private String name;
