@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -50,8 +52,9 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	@Override
 	public void saveData() throws PersistenceException, IOException {
 		comentariosDAO.limparComentarios();
-		for (String comentId : listaIdsComentarios) {
-			criaComentario(comentId);
+		Iterator<String> it = iteradorComentarios();
+		while(it.hasNext()){
+			criaComentario(it.next());
 		}
 
 	}
@@ -306,4 +309,46 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		return total;
 	}
 
+	
+	/**
+	 * Iterador sobre a lista de Ids dos Comentarios.
+	 * @return Iterator<String>
+	 */
+	public Iterator<String> iteradorComentarios(){
+		return new Iterator<String>() {
+			private int cursor = 0;
+
+
+			@Override
+			public boolean hasNext() {
+				while(cursor < listaIdsComentarios.size()) {
+					if(listaIdsComentarios.get(cursor) instanceof String)
+						return true;
+					cursor++;
+				}				
+				return false;
+			}
+
+
+			@Override
+			public String next() {
+				try {
+					String b = listaIdsComentarios.get(cursor);
+					if(b instanceof String) {
+						cursor++;
+						return b;
+					}
+					cursor++;
+				} catch (NoSuchElementException e) {
+					throw e;
+				}
+				return next();
+			}
+
+
+			@Override
+			public void remove() {				
+			}
+		};
+	}
 }
