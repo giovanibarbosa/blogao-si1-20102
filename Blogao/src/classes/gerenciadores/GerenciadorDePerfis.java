@@ -33,53 +33,6 @@ public class GerenciadorDePerfis implements Gerenciador {
 		this.gerenteDados = gerenteDados;
 	}
 
-	public void createProfile(String login, String senha, String nome_exibicao,
-			String email, String sexo, String dataNasc, String endereco,
-			String interesses, String quem_sou_eu, String filmes,
-			String musicas, String livros) throws Exception {
-
-		Login log = new Login(login);
-		Senha sen = new Senha(senha);
-		Email mail = new Email(email);
-
-		perfil = new Perfil();
-		perfil.setNomeDeExibicao(nome_exibicao);
-		perfil.setEmail(mail);
-		perfil.setSexo(sexo);
-		perfil.setDataDeNascimento(dataNasc);
-		perfil.setEndereco(endereco);
-		perfil.setInteresses(interesses);
-		perfil.setQuemSouEu(quem_sou_eu);
-		perfil.setFilmesFavoritos(filmes);
-		perfil.setMusicasFavoritas(musicas);
-		perfil.setLivrosFavoritos(livros);
-
-		Usuario user1 = new Usuario(log, sen, perfil);
-
-		perfil.setLoginUsuario(log.getName());
-
-		user1.setPerfil(perfil);
-
-		validaEmail(mail);
-		gerenteDados.getGerenteUsuarios().validaLogin(log);
-		gerenteDados.getGerenciadorDeUsuarios().criarUsuario(user1);
-		listaPerfis.add(perfil);
-	}
-
-	public String getProfileInformation(String login, String atributo)
-			throws ArgumentInvalidException, FileNotFoundException,
-			PersistenceException, UserInvalidException, DataInvalidaException {
-		String retorno;
-		Usuario user = gerenteDados.getGerenteUsuarios().getUsuario(login);
-
-		Perfil perf = user.getPerfil();
-		retorno = perf.getAtributo(atributo);
-
-		if (retorno == null)
-			return login;
-		return retorno;
-	}
-
 	@Override
 	public void saveData() {
 	}
@@ -93,54 +46,84 @@ public class GerenciadorDePerfis implements Gerenciador {
 		}
 	}
 
-	/**
-	 * @return the listaPerfis
-	 */
-	public List<Perfil> getListaPerfis() {
-		return listaPerfis;
-	}
-
 	@Override
 	public void cleanPersistence() {
 		listaPerfis = new ArrayList<Perfil>();
-
+	
 	}
 
-	private void validaEmail(Email mail) throws ArgumentInvalidException {
-		for (Perfil perf : listaPerfis) {
-			if (perf.getEmail().equals(mail))
-				throw new ArgumentInvalidException(Constantes2.EMAIL_EXISTENTE.getName());
-		}
+	public String getProfileInformation(String login, String atributo)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException, UserInvalidException, DataInvalidaException {
+		String retorno;
+		Usuario user = getUser(login);
+
+		Perfil perf = user.getPerfil();
+		retorno = perf.getAtributo(atributo);
+
+		if (retorno == null)
+			return login;
+		return retorno;
+	}
+
+	public void createProfile(String login, String senha, String nome_exibicao,
+			String email, String sexo, String dataNasc, String endereco,
+			String interesses, String quem_sou_eu, String filmes,
+			String musicas, String livros) throws Exception {
+	
+		Login log = new Login(login);
+		Senha sen = new Senha(senha);
+		Email mail = new Email(email);
+	
+		perfil = new Perfil();
+		perfil.setNomeDeExibicao(nome_exibicao);
+		perfil.setEmail(mail);
+		perfil.setSexo(sexo);
+		perfil.setDataDeNascimento(dataNasc);
+		perfil.setEndereco(endereco);
+		perfil.setInteresses(interesses);
+		perfil.setQuemSouEu(quem_sou_eu);
+		perfil.setFilmesFavoritos(filmes);
+		perfil.setMusicasFavoritas(musicas);
+		perfil.setLivrosFavoritos(livros);
+	
+		Usuario user1 = new Usuario(log, sen, perfil);
+	
+		perfil.setLoginUsuario(log.getName());
+	
+		user1.setPerfil(perfil);
+	
+		validaEmail(mail);
+		validaLogin(log);
+		criaUsuario(user1);
+		listaPerfis.add(perfil);
 	}
 
 	public void changeProfileInformation(String idSessao, String atributo,
 			String novoValor) throws ArgumentInvalidException,
 			UserInvalidException, PersistenceException, IOException, SexoInvalidoException {
-		String login = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				idSessao);
+		String login = getLoginBySessionId(idSessao);
 
 		try {
-			Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(
-					login);
+			Usuario usuario = getUserByLogin(login);
 
-			if ("senha".equals(atributo)) {
-				us.setSenha(new Senha(novoValor));
-			} else if ("email".equals(atributo)) {
+			if (Constantes2.SENHA.getName().equals(atributo)) {
+				usuario.setSenha(new Senha(novoValor));
+			} else if (Constantes2.EMAIL.getName().equals(atributo)) {
 				validaEmail(new Email(novoValor));
 			}
 
-			else if ("login".equals(atributo)) {
-				gerenteDados.getGerenciadorDeUsuarios().validaLogin(
-						new Login(novoValor));
-				gerenteDados.getGerenciadorDeUsuarios().remover(us);
-				us.setLogin(new Login(novoValor));
-				gerenteDados.getGerenciadorDeUsuarios().adicionar(us);
+			else if (Constantes2.LOGIN.getName().equals(atributo)) {
+				validaLogin(novoValor);
+				removeUsuario(usuario);
+				usuario.setLogin(new Login(novoValor));
+				addUsuario(usuario);
 			}
 
 			else {
-				Perfil perfil = us.getPerfil();
+				Perfil perfil = usuario.getPerfil();
 				perfil.setAtributo(atributo, novoValor);
-				us.setPerfil(perfil);
+				usuario.setPerfil(perfil);
 			}
 		} catch (UserInvalidException e) {
 			throw new ArgumentInvalidException(Constantes2.LOGIN_INVALIDO.getName());
@@ -148,40 +131,28 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	}
 
+	/**
+	 * @return the listaPerfis
+	 */
+	public List<Perfil> getListaPerfis() {
+		return listaPerfis;
+	}
+
 	public List<String> getPerfilPorNome(String nome) {
 		List<String> listaPerfil = new ArrayList<String>();
-		for (Perfil pf : listaPerfis) {
-			if (pf.getNomeDeExibicao().toLowerCase()
-					.startsWith(nome.toLowerCase())
-					|| pf.getLoginUsuarioDono().toLowerCase()
-							.startsWith(nome.toLowerCase()))
-				listaPerfil.add(pf.getLoginUsuarioDono());
+		for (Perfil perfil : listaPerfis) {
+			if (primeiraLetraPerfil(nome, perfil)
+					|| primeiraLetraDono(nome, perfil))
+				listaPerfil.add(perfil.getLoginUsuarioDono());
 		}
-
 		return listaPerfil;
-	}
-	 
-	
-	//PODE SER APAGADO!
-	private void ordenaPerfisPorNome(List<String> lista) {
-		for (int i = 0; i < lista.size() - 1; i++) {
-			for (int j = 0; j < lista.size() - 1 - i; j++) {
-				if (lista.get(j).compareToIgnoreCase(lista.get(j + 1)) > 0) {
-					String elemento1 = lista.get(j);
-					String elemento2 = lista.get(j + 1);
-					lista.set(j + 1, elemento1);
-					lista.set(j, elemento2);
-				}
-			}
-		}
 	}
 
 	public List<String> getPerfilPorInteresse(String interesse) {
 		List<String> listaPerfil = new ArrayList<String>();
-		for (Perfil pf : listaPerfis) {
-			if (pf.getInteresses().toLowerCase()
-					.startsWith(interesse.toLowerCase()))
-				listaPerfil.add(pf.getLoginUsuarioDono());
+		for (Perfil perfil : listaPerfis) {
+			if (interessesEquivalentes(interesse, perfil))
+				listaPerfil.add(perfil.getLoginUsuarioDono());
 		}
 		ordenaPerfisPorNome(listaPerfil);
 		return listaPerfil;
@@ -190,8 +161,8 @@ public class GerenciadorDePerfis implements Gerenciador {
 	public List<String> getPerfilPorSexo(String sexo) {
 		List<String> listaPerfil = new ArrayList<String>();
 		if (sexo.equalsIgnoreCase(Sexo.Nao_Inf.getSexo())) {
-			for (Perfil pf : listaPerfis) {
-				listaPerfil.add(pf.getLoginUsuarioDono());
+			for (Perfil perfil : listaPerfis) {
+				listaPerfil.add(perfil.getLoginUsuarioDono());
 			}
 		ordenaPerfisPorNome(listaPerfil);	
 		return listaPerfil; 
@@ -207,23 +178,107 @@ public class GerenciadorDePerfis implements Gerenciador {
 	public void deletePerfil(String sessionId) throws FileNotFoundException,
 			ArgumentInvalidException, PersistenceException {
 		Perfil perfil = getPerfil(sessionId);
-		List<Blog> listaBlogsAApagar = gerenteDados.getGerenteBlogs()
-				.getListaDeBlogsPorIdSessao(sessionId);
+		List<Blog> listaBlogsAApagar = listaBlogsDel(sessionId);
 		while (!listaBlogsAApagar.isEmpty()) {
-			gerenteDados.getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
+			deletaBlog(listaBlogsAApagar);
 			listaBlogsAApagar.remove(0);
 		}
 		listaPerfis.remove(perfil);
-		Usuario user = gerenteDados.getGerenteUsuarios()
-				.recuperaUsuarioPorIdSessao(sessionId);
+		Usuario user = getUserBySessionId(sessionId);
 		user.setPerfil(null);
+	}
 
+	private void criaUsuario(Usuario user1) {
+		gerenteDados.getGerenciadorDeUsuarios().criarUsuario(user1);
+	}
+
+	private void validaLogin(Login log) throws ArgumentInvalidException {
+		gerenteDados.getGerenteUsuarios().validaLogin(log);
+	}
+
+	private Usuario getUser(String login) throws UserInvalidException {
+		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+	}
+
+	private void validaEmail(Email mail) throws ArgumentInvalidException {
+		for (Perfil perf : listaPerfis) {
+			if (perf.getEmail().equals(mail))
+				throw new ArgumentInvalidException(Constantes2.EMAIL_EXISTENTE.getName());
+		}
+	}
+
+	private void addUsuario(Usuario usuario) {
+		gerenteDados.getGerenciadorDeUsuarios().adicionar(usuario);
+	}
+
+	private void removeUsuario(Usuario usuario) {
+		gerenteDados.getGerenciadorDeUsuarios().remover(usuario);
+	}
+
+	private void validaLogin(String novoValor) throws ArgumentInvalidException {
+		gerenteDados.getGerenciadorDeUsuarios().validaLogin(
+				new Login(novoValor));
+	}
+
+	private Usuario getUserByLogin(String login) throws UserInvalidException {
+		return gerenteDados.getGerenciadorDeUsuarios().getUsuario(
+				login);
+	}
+
+	private String getLoginBySessionId(String idSessao)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				idSessao);
+	}
+
+	private boolean primeiraLetraDono(String nome, Perfil perfil) {
+		return perfil.getLoginUsuarioDono().toLowerCase()
+				.startsWith(nome.toLowerCase());
+	}
+
+	private boolean primeiraLetraPerfil(String nome, Perfil perfil) {
+		return perfil.getNomeDeExibicao().toLowerCase()
+				.startsWith(nome.toLowerCase());
+	}
+
+	private void ordenaPerfisPorNome(List<String> lista) {
+		for (int i = 0; i < lista.size() - 1; i++) {
+			for (int j = 0; j < lista.size() - 1 - i; j++) {
+				if (lista.get(j).compareToIgnoreCase(lista.get(j + 1)) > 0) {
+					String elemento1 = lista.get(j);
+					String elemento2 = lista.get(j + 1);
+					lista.set(j + 1, elemento1);
+					lista.set(j, elemento2);
+				}
+			}
+		}
+	}
+
+	private boolean interessesEquivalentes(String interesse, Perfil perfil) {
+		return perfil.getInteresses().toLowerCase()
+				.startsWith(interesse.toLowerCase());
+	}
+
+	private Usuario getUserBySessionId(String sessionId)
+			throws ArgumentInvalidException, FileNotFoundException,
+			PersistenceException {
+		return gerenteDados.getGerenteUsuarios()
+				.recuperaUsuarioPorIdSessao(sessionId);
+	}
+
+	private void deletaBlog(List<Blog> listaBlogsAApagar)
+			throws PersistenceException, ArgumentInvalidException {
+		gerenteDados.getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
+	}
+
+	private List<Blog> listaBlogsDel(String sessionId) {
+		return gerenteDados.getGerenteBlogs()
+				.getListaDeBlogsPorIdSessao(sessionId);
 	}
 
 	private Perfil getPerfil(String sessionId) throws FileNotFoundException,
 			ArgumentInvalidException, PersistenceException {
-		Usuario user = gerenteDados.getGerenteUsuarios()
-				.recuperaUsuarioPorIdSessao(sessionId);
+		Usuario user = getUserBySessionId(sessionId);
 		return user.getPerfil();
 	}
 
