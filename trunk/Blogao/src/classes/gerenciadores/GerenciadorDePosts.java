@@ -5,7 +5,9 @@ import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -56,8 +58,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 */
 	public void saveData() throws PersistenceException, IOException {
 		postsDAO.limparPosts();
-		for (Post post : listaPosts) {
-			postsDAO.criar(post);
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			postsDAO.criar((Post) it.next());
 		}
 	
 	}
@@ -334,7 +337,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	public String getDescricaoDaImagem(String imagemId)
 			throws FileNotFoundException {
 	
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			for (Imagem imagem : post.getListaDeImagem()) {
 				if (imagem.getId().equals(imagemId)) {
 					return imagem.getDescricao();
@@ -353,7 +358,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 * @throws FileNotFoundException
 	 */
 	public String getDadoDaImagem(String imagemId) throws FileNotFoundException {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			for (Imagem imagem : post.getListaDeImagem()) {
 				if (imagem.getId().equals(imagemId)) {
 					return imagem.getDado();
@@ -393,7 +400,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	public String getDescricaoDoVideo(String videoId)
 			throws FileNotFoundException {
 	
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			for (Video video : post.getListaDeVideo()) {
 				if (video.getId().equals(videoId)) {
 					return video.getDescricao();
@@ -412,7 +421,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 * @throws FileNotFoundException
 	 */
 	public String getDadoDoVideo(String videoId) throws FileNotFoundException {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			for (Video video : post.getListaDeVideo()) {
 				if (video.getId().equals(videoId)) {
 					return video.getDado();
@@ -802,7 +813,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 */
 	public void validaPostId(String postId) throws ArgumentInvalidException {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			if (post.getId().equals(postId))
 				return;
 		}
@@ -838,7 +851,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 * @throws PersistenceException
 	 */
 	public Post getPostPorId(String idDoPost) throws PersistenceException {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			if (post.getId().equals(idDoPost)) {
 				return post;
 			}
@@ -855,7 +870,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 */
 	public List<Post> getListaPostsPorBlog(Blog blog) {
 		List<Post> listaPostsProcurados = new ArrayList<Post>();
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			if (post.getIdBlogDono().equals(blog.getId()))
 				listaPostsProcurados.add(post);
 		}
@@ -908,7 +925,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	 */
 	private Audio getAudio(String audioId) throws FileNotFoundException {
 	
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			for (Audio audio : post.getListaDeAudio()) {
 				if (audio.getId().equals(audioId)) {
 					return audio;
@@ -935,7 +954,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	private Post getPostByVideoID(String movieID) {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			if (post.getMapaVideos().containsKey(movieID)) {
 				return post;
 			}
@@ -948,7 +969,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	private Post getPostByAudioID(String audioID) {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			if (post.getMapaAudio().containsKey(audioID)) {
 				return post;
 			}
@@ -957,7 +980,9 @@ public class GerenciadorDePosts implements Gerenciador {
 	}
 
 	private Post getPostByImagemID(String imagemID) {
-		for (Post post : listaPosts) {
+		Iterator<Post> it = iteradorPost();
+		while(it.hasNext()){
+			Post post = (Post) it.next();
 			if (post.getMapaImagens().containsKey(imagemID)) {
 				return post;
 			}
@@ -1000,5 +1025,47 @@ public class GerenciadorDePosts implements Gerenciador {
 	private void validateSession(String sessionId)
 			throws ArgumentInvalidException {
 		gerenteDados.getGerenteSessoes().validaSessao(sessionId);
+	}
+	
+	/**
+	 * Iterador sobre a lista de Posts.
+	 * @return Iterator<Blog>
+	 */
+	public Iterator<Post> iteradorPost(){
+		return new Iterator<Post>() {
+			private int cursor = 0;
+
+
+			@Override
+			public boolean hasNext() {
+				while(cursor < listaPosts.size()) {
+					if(listaPosts.get(cursor) instanceof Post)
+						return true;
+					cursor++;
+				}				
+				return false;
+			}
+
+
+			@Override
+			public Post next() {
+				try {
+					Post b = listaPosts.get(cursor);
+					if(b instanceof Post) {
+						cursor++;
+						return b;
+					}
+					cursor++;
+				} catch (NoSuchElementException e) {
+					throw e;
+				}
+				return next();
+			}
+
+
+			@Override
+			public void remove() {				
+			}
+		};
 	}
 }
