@@ -78,7 +78,7 @@ public class LogavelImpl implements Logavel {
 	public boolean equals(Object obj){
 		if (!(obj instanceof Login)) return false;
 		Login login = (Login) obj;
-		return login.getLogin().equals(this.getLogin());
+		return login.getName().equals(this.getLogin());
 	}
 
 }

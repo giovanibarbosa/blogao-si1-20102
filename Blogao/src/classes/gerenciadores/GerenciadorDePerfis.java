@@ -57,7 +57,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 		Usuario user1 = new Usuario(log, sen, perfil);
 
-		perfil.setLoginUsuario(log.getLogin());
+		perfil.setLoginUsuario(log.getName());
 
 		user1.setPerfil(perfil);
 

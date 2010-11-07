@@ -15,7 +15,8 @@ import classes.func.usuario.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-import interfaces.Constantes;
+import enuns.Constantes2;
+import facades.FacadeUsuario;
 import interfaces.Gerenciador;
 
 /**
@@ -51,7 +52,6 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 		for (Usuario user : listaUsuarios) {
 			userDAO.criar(user);
 		}
-
 	}
 
 	@Override
@@ -62,6 +62,12 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 			listaUsuarios = new ArrayList<Usuario>();
 		}
 
+	}
+
+	@Override
+	public void cleanPersistence() {
+		userDAO.limparUsuarios();
+		listaUsuarios = new ArrayList<Usuario>();
 	}
 
 	/**
@@ -76,15 +82,31 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	 */
 	public Usuario recuperaUsuarioPorIdSessao(String sessionID)
 			throws ArgumentInvalidException, FileNotFoundException,
-			PersistenceException {
-		String log = gerenteDados.getGerenteSessoes().getLoginPorSessao(
-				sessionID);
+						PersistenceException {
+		String login = getLoginPorSessao(sessionID);
 		for (Usuario user : listaUsuarios) {
-			if (log.equals(user.getLogin().getLogin())) {
+			if (login.equals(getLoginUser(user))) {
 				return user;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+	}
+
+	/**
+	 * Retorna um Usuario dado seu login.
+	 * 
+	 * @param login
+	 *            {@link String}
+	 * @return Usuario {@link Usuario}
+	 * @throws UserInvalidException
+	 */
+	public Usuario getUsuario(String login) throws UserInvalidException {
+		for (Usuario user : listaUsuarios) {
+			if (getLoginUser(user).equals(login)) {
+				return user;
+			}
+		}
+		throw new UserInvalidException(Constantes2.USUARIO_INEXISTENTE.getName());
 	}
 
 	/**
@@ -92,20 +114,6 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	 */
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
-	}
-
-	/**
-	 * @param listaUsuarios
-	 *            {@link Usuario} the listaUsuarios to set
-	 */
-	public void setListaUsuarios(List<Usuario> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
-	}
-
-	@Override
-	public void cleanPersistence() {
-		userDAO.limparUsuarios();
-		listaUsuarios = new ArrayList<Usuario>();
 	}
 
 	/**
@@ -119,89 +127,6 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 			listaPerfis.add(user.getPerfil());
 		}
 		return listaPerfis;
-	}
-
-	/**
-	 * Cria o usuario.
-	 * 
-	 * @param user1
-	 *            {@link Usuario}
-	 */
-	public void criarUsuario(Usuario user1) {
-		listaUsuarios.add(user1);
-	}
-
-	/**
-	 * Valida um Login.
-	 * 
-	 * @param log
-	 *            {@link String}
-	 * @throws ArgumentInvalidException
-	 */
-	public void validaLogin(Login log) throws ArgumentInvalidException {
-		for (Usuario user : listaUsuarios) {
-			if (user.getLogin().equals(log))
-				throw new ArgumentInvalidException(Constantes.LOGIN_EXISTENTE);
-		}
-	}
-
-	/**
-	 * Retorna um Usuario dado seu login.
-	 * 
-	 * @param login
-	 *            {@link String}
-	 * @return Usuario {@link Usuario}
-	 * @throws UserInvalidException
-	 */
-	public Usuario getUsuario(String login) throws UserInvalidException {
-		for (Usuario user : listaUsuarios) {
-			if (user.getLogin().getLogin().equals(login)) {
-				return user;
-			}
-		}
-		throw new UserInvalidException(Constantes.USUARIO_INEXISTENTE);
-	}
-
-	/**
-	 * Remove o Usuario na lista.
-	 * 
-	 * @param us
-	 *            {@link Usuario}
-	 */
-	public void remover(Usuario us) {
-		this.listaUsuarios.remove(us);
-	}
-
-	/**
-	 * Adiciona um Usuario na lista.
-	 * 
-	 * @param us
-	 *            {@link Usuario}
-	 */
-	public void adicionar(Usuario us) {
-		this.listaUsuarios.add(us);
-
-	}
-
-	/**
-	 * Adiciona um notificador de post.
-	 * 
-	 * @param sessionId
-	 *            {@link String}
-	 * @param blogId
-	 *            {@link String}
-	 * @throws FileNotFoundException
-	 * @throws ArgumentInvalidException
-	 * @throws PersistenceException
-	 */
-	public void addPostAnnouncement(String sessionId, String blogId)
-			throws FileNotFoundException, ArgumentInvalidException,
-			PersistenceException {
-		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
-		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
-		user.addPostAnnouncement(blogId);
-		blog.addModificationListener(user.getLogin().getLogin());
-
 	}
 
 	/**
@@ -242,7 +167,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 			PersistenceException {
 		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
 		if (index >= user.getListaAnnouncement().size() || index < 0)
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO2);
+			throw new ArgumentInvalidException(Constantes2.INDICE_INVALIDO.getName());
 		return user.getListaAnnouncement().get(index).getId();
 	}
 
@@ -266,7 +191,81 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 				}
 			}
 		}
-		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
+		throw new ArgumentInvalidException(Constantes2.ANNOUNCEMENT_INVALIDO.getName());
+	}
+
+	/**
+	 * Cria o usuario.
+	 * 
+	 * @param user1
+	 *            {@link Usuario}
+	 */
+	public void criarUsuario(Usuario user1) {
+		listaUsuarios.add(user1);
+	}
+
+	/**
+	 * Remove o Usuario na lista.
+	 * 
+	 * @param us
+	 *            {@link Usuario}
+	 */
+	public void remover(Usuario us) {
+		this.listaUsuarios.remove(us);
+	}
+
+	/**
+	 * Adiciona um Usuario na lista.
+	 * 
+	 * @param us
+	 *            {@link Usuario}
+	 */
+	public void adicionar(Usuario us) {
+		this.listaUsuarios.add(us);
+	
+	}
+
+	/**
+	 * Valida um Login.
+	 * 
+	 * @param log
+	 *            {@link String}
+	 * @throws ArgumentInvalidException
+	 */
+	public void validaLogin(Login log) throws ArgumentInvalidException {
+		for (Usuario user : listaUsuarios) {
+			if (user.getLogin().equals(log))
+				throw new ArgumentInvalidException(Constantes2.LOGIN_EXISTENTE.getName());
+		}
+	}
+
+	/**
+	 * Adiciona um notificador de post.
+	 * 
+	 * @param sessionId
+	 *            {@link String}
+	 * @param blogId
+	 *            {@link String}
+	 * @throws FileNotFoundException
+	 * @throws ArgumentInvalidException
+	 * @throws PersistenceException
+	 */
+	public void addPostAnnouncement(String sessionId, String blogId)
+			throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException {
+		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
+		Blog blog = recuperaBlog(blogId);
+		user.addPostAnnouncement(blogId);
+		blog.addModificationListener(getLoginUser(user));
+	
+	}
+
+	/**
+	 * @param listaUsuarios
+	 *            {@link Usuario} the listaUsuarios to set
+	 */
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 
 	/**
@@ -287,14 +286,32 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 		for (Announcement announcement : user.getListaAnnouncement()) {
 			if (announcement.getId().equals(announcementId)) {
 				String idBlog = announcement.getIdBlogDeInteresse();
-				user.getListaAnnouncement().remove(announcement);
-				Blog blog = gerenteDados.getGerenteBlogs().getBlog(idBlog);
+				removeAnnouncement(user, announcement);
+				Blog blog = recuperaBlog(idBlog);
 				blog.getModificationListeners().remove(
-						user.getLogin().getLogin());
+						getLoginUser(user));
 				return;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
+		throw new ArgumentInvalidException(Constantes2.ANNOUNCEMENT_INVALIDO.getName());
+	}
+
+	private String getLoginPorSessao(String sessionID)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getLoginPorSessao(
+				sessionID);
+	}
+
+	private String getLoginUser(Usuario user) {
+		return user.getLogin().getName();
+	}
+
+	private Blog recuperaBlog(String idBlog) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().getBlog(idBlog);
+	}
+
+	private void removeAnnouncement(Usuario user, Announcement announcement) {
+		user.getListaAnnouncement().remove(announcement);
 	}
 
 }

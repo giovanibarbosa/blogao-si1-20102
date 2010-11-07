@@ -48,7 +48,7 @@ public class Login {
 	 * 
 	 * @return String login
 	 */
-	public String getLogin() {
+	public String getName() {
 		return login;
 	}
 
@@ -63,7 +63,7 @@ public class Login {
 			return false;
 		}
 		Login login2 = (Login) login;
-		return login2.getLogin().equals(this.getLogin());
+		return login2.getName().equals(this.getName());
 	}
 
 	private boolean validaLogin(String login) {

@@ -79,7 +79,7 @@ public class NewGerenciadorDeUsuarios implements Gerenciador {
 										PersistenceException {
 		String log = recuperaLoginPorSessionId(sessionID);
 		for (Usuario user : listaUsuarios) {
-			if (log.equals(user.getLogin().getLogin())) {
+			if (log.equals(user.getLogin().getName())) {
 				return user;
 			}
 		}
@@ -160,7 +160,7 @@ public class NewGerenciadorDeUsuarios implements Gerenciador {
 	 */
 	public Usuario getUsuario(String login) throws UserInvalidException {
 		for (Usuario user : listaUsuarios) {
-			if (user.getLogin().getLogin().equals(login)) {
+			if (user.getLogin().getName().equals(login)) {
 				return user;
 			}
 		}
@@ -205,7 +205,7 @@ public class NewGerenciadorDeUsuarios implements Gerenciador {
 		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
 		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
 		user.addPostAnnouncement(blogId);
-		blog.addModificationListener(user.getLogin().getLogin());
+		blog.addModificationListener(user.getLogin().getName());
 
 	}
 
@@ -295,7 +295,7 @@ public class NewGerenciadorDeUsuarios implements Gerenciador {
 				user.getListaAnnouncement().remove(announcement);
 				Blog blog = gerenteDados.getGerenteBlogs().getBlog(idBlog);
 				blog.getModificationListeners().remove(
-						user.getLogin().getLogin());
+						user.getLogin().getName());
 				return;
 			}
 		}
