@@ -32,7 +32,10 @@ public class SessoesDAO {
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static SessoesDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
-
+	
+	private SessoesDAO() {
+		
+	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link SessoesDAO}
@@ -60,6 +63,7 @@ public class SessoesDAO {
 		if (sessao == null)
 			throw new PersistenceException(Constantes.SESSAO_INVALIDA);
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		xstream.toXML(sessao, new FileOutputStream(file));
 	}
 
@@ -137,6 +141,7 @@ public class SessoesDAO {
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
+		file.mkdirs();
 		return file.listFiles();
 	}
 

@@ -33,7 +33,10 @@ public class BlogsDAO {
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static BlogsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
-
+	
+	private BlogsDAO() {
+		
+	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link BlgsDAO}
@@ -61,6 +64,7 @@ public class BlogsDAO {
 		if (blog == null)
 			throw new PersistenceException(Constantes.BLOG_NAO_CRIADO);
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		xstream.toXML(blog, new FileOutputStream(file));
 	}
 
@@ -190,6 +194,7 @@ public class BlogsDAO {
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
+		file.mkdirs();
 		return file.listFiles();
 	}
 
