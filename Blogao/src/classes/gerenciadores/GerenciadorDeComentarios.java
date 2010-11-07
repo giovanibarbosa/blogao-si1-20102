@@ -13,9 +13,10 @@ import persistencia.daos.ComentariosDAO;
 
 import classes.Comentario;
 import classes.Post;
+import classes.Sessao;
 import classes.func.usuario.Usuario;
+import enuns.Constantes2;
 
-import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 /**
@@ -50,9 +51,14 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	public void saveData() throws PersistenceException, IOException {
 		comentariosDAO.limparComentarios();
 		for (String comentId : listaIdsComentarios) {
-			comentariosDAO.criar(mapaComentarios.get(comentId));
+			criaComentario(comentId);
 		}
 
+	}
+
+	private void criaComentario(String comentId) throws PersistenceException,
+			IOException {
+		comentariosDAO.criar(mapaComentarios.get(comentId));
 	}
 
 	@Override
@@ -61,14 +67,22 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			List<Comentario> listaComents = comentariosDAO
 					.recuperaComentarios();
 			for (Comentario comentario : listaComents) {
-				listaIdsComentarios.add(comentario.getId());
-				mapaComentarios.put(comentario.getId(), comentario);
+				addComentarioNaList(comentario);
+				addComentarioNoMapa(comentario);
 			}
 		} catch (FileNotFoundException e) {
 			listaIdsComentarios = new ArrayList<String>();
 			mapaComentarios = new HashMap<String, Comentario>();
 		}
 
+	}
+
+	private Comentario addComentarioNoMapa(Comentario comentario) {
+		return mapaComentarios.put(comentario.getId(), comentario);
+	}
+
+	private boolean addComentarioNaList(Comentario comentario) {
+		return listaIdsComentarios.add(comentario.getId());
 	}
 
 	@Override
@@ -95,15 +109,24 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	public String addComentario(String sessionId, String postId, String texto)
 			throws ArgumentInvalidException, PersistenceException {
 
-		gerenteDados.getGerenteSessoes().getSessao(sessionId);
+		verificaSessaoValida(sessionId);
 
 		Comentario coment = new Comentario(sessionId, texto);
-		Post post = gerenteDados.getGerentePosts().getPostPorId(postId);
+		Post post = getPost(postId);
 
 		post.addComentario(coment);
-		listaIdsComentarios.add(coment.getId());
-		mapaComentarios.put(coment.getId(), coment);
+		addComentarioNaList(coment);
+		addComentarioNoMapa(coment);
 		return coment.getId();
+	}
+
+	private Post getPost(String postId) throws PersistenceException {
+		return gerenteDados.getGerentePosts().getPostPorId(postId);
+	}
+
+	private Sessao verificaSessaoValida(String sessionId)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getSessao(sessionId);
 	}
 
 	/**
@@ -117,6 +140,10 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	public String getTextoComentario(String idComentario)
 			throws ArgumentInvalidException {
 		validaIdComentario(idComentario);
+		return getCorpoComentario(idComentario);
+	}
+
+	private String getCorpoComentario(String idComentario) {
 		return mapaComentarios.get(idComentario).getCorpoComentario();
 	}
 
@@ -130,7 +157,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	private void validaIdComentario(String idComentario)
 			throws ArgumentInvalidException {
 		if (!listaIdsComentarios.contains(idComentario))
-			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
 
 	}
 
@@ -149,8 +176,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			PersistenceException {
 		validaIdComentario(idComentario);
 
-		String idSessaoDono = mapaComentarios.get(idComentario)
-				.getIdSessaoDono();
+		String idSessaoDono = getSessionIdOwner(idComentario);
 		for (Usuario user : gerenteDados.getGerenciadorDeUsuarios()
 				.getListaUsuarios()) {
 			if (String.valueOf(user.getLogin().getName().hashCode()).equals(
@@ -159,7 +185,12 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			}
 
 		}
-		throw new ArgumentInvalidException(Constantes.COMENTARIO_INEXISTENTE);
+		throw new ArgumentInvalidException(Constantes2.COMENTARIO_INEXISTENTE.getName());
+	}
+
+	private String getSessionIdOwner(String idComentario) {
+		return mapaComentarios.get(idComentario)
+				.getIdSessaoDono();
 	}
 
 	/**
@@ -169,9 +200,13 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	 *            {@link Comentario}
 	 */
 	public void remove(Comentario removido) {
-		mapaComentarios.remove(removido.getId());
+		removeComentario(removido);
 		while (listaIdsComentarios.contains(removido.getId()))
 			listaIdsComentarios.remove(removido.getId());
+	}
+
+	private Comentario removeComentario(Comentario removido) {
+		return mapaComentarios.remove(removido.getId());
 	}
 
 	/**
@@ -188,15 +223,26 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	 */
 	public String addSubComment(String sessionId, String idComentario,
 			String texto) throws ArgumentInvalidException {
-		gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionId);
+		
+		validaLogin(sessionId);
 		Comentario comentPai = mapaComentarios.get(idComentario);
-		if (comentPai == null)
-			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+		if (comentPai == null) {
+			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
+		}
 		Comentario coment = new Comentario(sessionId, texto);
-		listaIdsComentarios.add(coment.getId());
-		mapaComentarios.put(coment.getId(), coment);
-		comentPai.getListaSubComentarios().add(coment);
+		addComentarioNaList(coment);
+		addComentarioNoMapa(coment);
+		addSubComentario(comentPai, coment);
 		return coment.getId();
+	}
+
+	private boolean addSubComentario(Comentario comentPai, Comentario coment) {
+		return comentPai.getListaSubComentarios().add(coment);
+	}
+
+	private String validaLogin(String sessionId)
+			throws ArgumentInvalidException {
+		return gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionId);
 	}
 
 	/**
@@ -213,10 +259,14 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
 		if (coment == null)
-			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
 		if (index >= coment.getListaSubComentarios().size())
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
 
+		return getIdComentario(index, coment);
+	}
+
+	private String getIdComentario(int index, Comentario coment) {
 		return coment.getListaSubComentarios().get(index).getId();
 	}
 
@@ -232,7 +282,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
 		if (coment == null)
-			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
 		return coment.getListaSubComentarios().size();
 	}
 
@@ -247,7 +297,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
 		if (coment == null)
-			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
 		int total = 0;
 		for (Comentario subComent : coment.getListaSubComentarios()) {
 			total += getNumberOfAllSubComments(subComent.getId());

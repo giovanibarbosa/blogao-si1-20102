@@ -15,8 +15,8 @@ import ourExceptions.PersistenceException;
  * 
  */
 public class GerenciadorDeDados {
+	
 	private GerenciadorDeUsuarios gerenteUsuarios;
-
 	private GerenciadorDeSessoes gerenteSessoes;
 	private GerenciadorDeBlogs gerenteBlogs;
 	private GerenciadorDeComentarios gerenteComentarios;
