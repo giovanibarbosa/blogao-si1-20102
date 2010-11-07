@@ -1,5 +1,8 @@
 package classes.func.multimidia;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import interfaces.Constantes;
 import ourExceptions.ArgumentInvalidException;
 
@@ -38,4 +41,6 @@ public class Midia{
 
 		
 	}
+
+
 }
