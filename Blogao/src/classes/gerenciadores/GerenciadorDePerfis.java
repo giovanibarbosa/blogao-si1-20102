@@ -1,6 +1,5 @@
 package classes.gerenciadores;
 
-import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
@@ -19,6 +18,7 @@ import classes.Blog;
 import classes.Login;
 import classes.Senha;
 import classes.Email;
+import enuns.Constantes2;
 import enuns.Sexo;
 
 public class GerenciadorDePerfis implements Gerenciador {
@@ -26,7 +26,6 @@ public class GerenciadorDePerfis implements Gerenciador {
 	private Perfil perfil;
 	private List<Perfil> listaPerfis;
 
-	// private EmailsDAO emailsDAO = EmailsDAO.getInstance();
 	private GerenciadorDeDados gerenteDados;
 
 	public GerenciadorDePerfis(GerenciadorDeDados gerenteDados) {
@@ -110,7 +109,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 	private void validaEmail(Email mail) throws ArgumentInvalidException {
 		for (Perfil perf : listaPerfis) {
 			if (perf.getEmail().equals(mail))
-				throw new ArgumentInvalidException(Constantes.EMAIL_EXISTENTE);
+				throw new ArgumentInvalidException(Constantes2.EMAIL_EXISTENTE.getName());
 		}
 	}
 
@@ -144,7 +143,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 				us.setPerfil(perfil);
 			}
 		} catch (UserInvalidException e) {
-			throw new ArgumentInvalidException(Constantes.LOGIN_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.LOGIN_INVALIDO.getName());
 		}
 
 	}
