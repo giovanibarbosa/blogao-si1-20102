@@ -6,7 +6,9 @@ import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
@@ -60,8 +62,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	@Override
 	public void saveData() throws PersistenceException, IOException {
 		blogsDAO.limparBlogs();
-		for (Blog blog : listaDeBlogs) {
-			blogsDAO.criar(blog);
+		Iterator it = iteradorBlog();
+		while(it.hasNext()){
+			blogsDAO.criar((Blog) it.next());
 		}
 	
 	}
@@ -92,11 +95,15 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 */
 	public Blog getBlog(String idBlog) throws ArgumentInvalidException {
-		for (Blog blog : listaDeBlogs) {
+		Iterator it = iteradorBlog();
+		while(it.hasNext()){
+			Blog blog = (Blog) it.next();
 			if (blog.getId().equals(idBlog))
 				return blog;
 		}
-		for (Blog subBlog : listaDeSubBlogs) {
+		Iterator itSub = iteradorSubBlog();
+		while(itSub.hasNext()){
+			Blog subBlog = (Blog) itSub.next();
 			if (subBlog.getId().equals(idBlog))
 				return subBlog;
 		}
@@ -201,7 +208,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 */
 	public List<Blog> getListaDeBlogsPorIdSessao(String idSessao) {
 		List<Blog> listaBlogsComIdSessaoBuscado = new ArrayList<Blog>();
-		for (Blog blog : listaDeBlogs) {
+		Iterator it = iteradorBlog();
+		while(it.hasNext()){
+			Blog blog = (Blog) it.next();
 			if (blog.getIdSessao().equals(idSessao)) {
 				listaBlogsComIdSessaoBuscado.add(blog);
 			}
@@ -226,9 +235,11 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		 */
 		public List<String> getBlogPorNome(String match) {
 			List<String> listaBlog = new ArrayList<String>();
-			for (Blog blg : listaDeBlogs) {
-				if (blg.getTitulo().toLowerCase().contains(match.toLowerCase()))
-					listaBlog.add(blg.getId());
+			Iterator it = iteradorBlog();
+			while(it.hasNext()){
+				Blog blog = (Blog) it.next();
+				if (blog.getTitulo().toLowerCase().contains(match.toLowerCase()))
+					listaBlog.add(blog.getId());
 			}
 			return listaBlog;
 		}
@@ -386,7 +397,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			PersistenceException, UserInvalidException {
 	
 		int indexAtual = 0;
-		for (Blog blog : listaDeBlogs) {
+		Iterator it = iteradorBlog();
+		while(it.hasNext()){
+			Blog blog = (Blog) it.next();
 			if (blog.getIdSessao().equals(sessionID)) {
 				if (indexAtual == index) {
 					return blog.getId();
@@ -663,7 +676,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
 		int contador = 0;
-		for(Blog blog : listaDeBlogs){
+		Iterator it = iteradorBlog();
+		while(it.hasNext()){
+			Blog blog = (Blog) it.next();
 			if(blog.getIdSessao().equals(sessionID)) contador++;
 		}
 		return contador;
@@ -695,7 +710,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		 */
 		private boolean verificaExistenciaDeBlog(String idBlog)
 				throws ArgumentInvalidException {
-			for (Blog blog : listaDeBlogs) {
+			Iterator it = iteradorBlog();
+			while(it.hasNext()){
+				Blog blog = (Blog) it.next();
 				if (blog.getId().equals(idBlog)) {
 					return true;
 				}
@@ -705,6 +722,91 @@ public class GerenciadorDeBlogs implements Gerenciador {
 
 		public void atualizaBlog(Blog blog) throws PersistenceException, IOException {
 			blogsDAO.atualizar(blog);
+		}
+		
+		
+		/**
+		 * Iterador sobre a lista de Blogs.
+		 * @return Iterator<Blog>
+		 */
+		public Iterator<Blog> iteradorBlog(){
+			return new Iterator<Blog>() {
+				private int cursor = 0;
+
+
+				@Override
+				public boolean hasNext() {
+					while(cursor < listaDeBlogs.size()) {
+						if(listaDeBlogs.get(cursor) instanceof Blog)
+							return true;
+						cursor++;
+					}				
+					return false;
+				}
+
+
+				@Override
+				public Blog next() {
+					try {
+						Blog b = listaDeBlogs.get(cursor);
+						if(b instanceof Blog) {
+							cursor++;
+							return b;
+						}
+						cursor++;
+					} catch (NoSuchElementException e) {
+						throw e;
+					}
+					return next();
+				}
+
+
+				@Override
+				public void remove() {				
+				}
+			};
+		}
+		
+		/**
+		 * Iterador sobre a lista de SubBlogs.
+		 * @return Iterator<Blog>
+		 */
+		public Iterator<Blog> iteradorSubBlog(){
+			return new Iterator<Blog>() {
+				private int cursor = 0;
+
+
+				@Override
+				public boolean hasNext() {
+					while(cursor < listaDeSubBlogs.size()) {
+						if(listaDeSubBlogs.get(cursor) instanceof Blog)
+							return true;
+						cursor++;
+					}				
+					return false;
+				}
+
+
+				@Override
+				public Blog next() {
+					try {
+						Blog b = listaDeSubBlogs.get(cursor);
+						if(b instanceof Blog) {
+							cursor++;
+							return b;
+						}
+						cursor++;
+					} catch (NoSuchElementException e) {
+						throw e;
+					}
+					return next();
+				}
+
+
+				@Override
+				public void remove() {				
+				}
+			};
 		}
 
 }
