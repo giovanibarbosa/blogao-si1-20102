@@ -34,6 +34,10 @@ public class UsuariosDAO {
 	private static UsuariosDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 	
+	private UsuariosDAO() {
+		
+	}
+	
 	/**
 	 * Recupera uma instancia unica para este objeto {@link UsuariosDAO}
 	 * 
@@ -59,6 +63,7 @@ public class UsuariosDAO {
 	public void criar(Usuario usuario) throws IOException {
 		if (usuario != null) {
 			File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
+			file.getParentFile().mkdirs();
 			FileOutputStream output = new FileOutputStream(file);
 			xstream.toXML(usuario, output);
 			output.close();
@@ -146,6 +151,7 @@ public class UsuariosDAO {
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
+		file.mkdirs();
 		return file.listFiles();
 	}
 }

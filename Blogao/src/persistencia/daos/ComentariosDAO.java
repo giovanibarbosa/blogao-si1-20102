@@ -33,7 +33,10 @@ public class ComentariosDAO {
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static ComentariosDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
-
+	
+	private ComentariosDAO() {
+		
+	}
 
 	/**
 	 * Recupera uma instancia unica para este objeto {@link ComentariosDAO}
@@ -60,6 +63,7 @@ public class ComentariosDAO {
 		if (comentario == null)
 			throw new PersistenceException(Constantes.COMENTARIO_NAO_CRIADO);
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		xstream.toXML(comentario, new FileOutputStream(file));
 	}
 	
@@ -138,6 +142,7 @@ public class ComentariosDAO {
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
+		file.mkdirs();
 		return file.listFiles();
 	}
 	

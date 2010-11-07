@@ -34,7 +34,10 @@ public class PostsDAO {
 	private static PostsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
 
-
+	private PostsDAO() {
+		
+	}
+	
 	/**
 	 * Recupera uma instancia unica para este objeto {@link PostsDAO}
 	 * 
@@ -61,6 +64,7 @@ public class PostsDAO {
 		if (post == null)
 			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_CRIADO);
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		xstream.toXML(post, new FileOutputStream(file));
 	}
 
@@ -143,6 +147,7 @@ public class PostsDAO {
 	 */
 	private File[] arrayDosArquivos() {
 		File file = new File(CAMINHO);
+		file.mkdirs();
 		return file.listFiles();
 	}
 }
