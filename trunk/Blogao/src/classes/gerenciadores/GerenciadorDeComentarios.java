@@ -153,9 +153,9 @@ public class GerenciadorDeComentarios implements Gerenciador {
 				.getIdSessaoDono();
 		for (Usuario user : gerenteDados.getGerenciadorDeUsuarios()
 				.getListaUsuarios()) {
-			if (String.valueOf(user.getLogin().getLogin().hashCode()).equals(
+			if (String.valueOf(user.getLogin().getName().hashCode()).equals(
 					idSessaoDono)) {
-				return (user.getLogin().getLogin());
+				return (user.getLogin().getName());
 			}
 
 		}
