@@ -6,8 +6,10 @@ public enum Constantes2 {
 	SESSAO_INVALIDA ("Sessão inválida"),
 	LOGIN_EXISTENTE ("Login existente"),
 	USUARIO_INEXISTENTE ("Usuário inexistente"),
+	USUARIO_LOGADO ("Usuário já logado"),
 	INDICE_INVALIDO ("Índice inválido"),
-	ANNOUNCEMENT_INVALIDO ("Announcement inválido");
+	ANNOUNCEMENT_INVALIDO ("Announcement inválido"),
+	LOGIN_OU_SENHA_INVALIDO ("Login ou senha inválido");
 	
 	
 	private String name;
