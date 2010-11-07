@@ -20,6 +20,7 @@ import classes.func.usuario.Usuario;
 import classes.Comentario;
 import classes.Post;
 import classes.Blog;
+import enuns.Constantes2;
 
 /**
  * Classe que gerencia Posts.
@@ -67,29 +68,22 @@ public class GerenciadorDePosts implements Gerenciador {
 	public String createPost(String idSessao, String blogId, String titulo,
 			String texto) throws Exception {
 
-		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogId);
+		Blog blog = getBlog(blogId);
 		verificaDonoDoBlog(idSessao, blog);
-
 		String login = recuperaLoginPorSessionId(idSessao);
 		Usuario user = recuperaUsuarioPorLogin(login);
-
-		user.removeBlog2(blog);
-		// gerenteDados.getGerenteBlogs().deleteBlog(blog); //adicionei essa
-		// linha
+		user.removeBlog(blog);
 		Post post = new Post(titulo, texto, blogId);
 		blog.addPost(post);
 		user.addBlog2(blog);
-		// gerenteDados.getGerenteBlogs().atualizaBlog(blog); //adicionei essa
-		// linha
-		// gerenteDados.getGerenteBlogs().createBlog(blog.getIdSessao(),
-		// blog.getTitulo(), blog.getDescricao()); // adicionei essa linha tbm
-		// gerenteDados.getGerenteBlogs().addBlogTiagoLeite(blog); // adicionei
-		// essa linha tbm
 		listaPosts.add(post);
-
-		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
-
+		avisaListeners(blog, post);
 		return post.getId();
+	}
+
+	private void avisaListeners(Blog blog, Post post)
+			throws UserInvalidException {
+		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
 	}
 
 	private Usuario recuperaUsuarioPorLogin(String login)
@@ -129,23 +123,27 @@ public class GerenciadorDePosts implements Gerenciador {
 			PersistenceException, IOException, UserInvalidException {
 
 		Post post = getPostPorId(postId);
-		Blog blog = gerenteDados.getGerenteBlogs()
-				.getBlog(post.getIdBlogDono());
+		Blog blog = getBlog(post);
 		verificaDonoDoBlog(sessionId, blog);
 
 		String login = recuperaLoginPorSessionId(sessionId);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
-		Midia audio = new Midia().fabricaDeMidia("audio" ,descricao, dado);
+		Midia audio = new Midia().fabricaDeMidia(Constantes2.AUDIO.getName() ,descricao, dado);
 		post.addMidia(audio);
 
 		blog.addPost(post);
 		user.addBlog2(blog);
 
 		return audio.getId();
+	}
+
+	private Blog getBlog(Post post) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs()
+				.getBlog(post.getIdBlogDono());
 	}
 
 	/**
@@ -170,14 +168,13 @@ public class GerenciadorDePosts implements Gerenciador {
 			PersistenceException, IOException, UserInvalidException {
 
 		Post post = getPostPorId(postId);
-		Blog blog = gerenteDados.getGerenteBlogs()
-				.getBlog(post.getIdBlogDono());
+		Blog blog = getBlog(post);
 		verificaDonoDoBlog(sessionId, blog);
 
 		String login = recuperaLoginPorSessionId(sessionId);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
 		Midia imagem = new Midia().fabricaDeMidia("imagem" ,descricao, dado);
@@ -211,17 +208,16 @@ public class GerenciadorDePosts implements Gerenciador {
 			PersistenceException, IOException, UserInvalidException {
 
 		Post post = getPostPorId(postId);
-		Blog blog = gerenteDados.getGerenteBlogs()
-				.getBlog(post.getIdBlogDono());
+		Blog blog = getBlog(post);
 		verificaDonoDoBlog(sessionId, blog);
 
 		String login = recuperaLoginPorSessionId(sessionId);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
-		Midia video = new Midia().fabricaDeMidia("video" ,descricao, dado);
+		Midia video = new Midia().fabricaDeMidia(Constantes2.VIDEO.getName() ,descricao, dado);
 		post.addMidia(video);
 
 		blog.addPost(post);
@@ -248,7 +244,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		Post post = getPostPorId(idDoPost);
 		if (atributo == null)
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO.getName());
 
 		int codigoAtributo = atributo.hashCode();
 		String retorno = "";
@@ -264,7 +260,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				retorno = post.getDataCriacao();
 				break;
 			default:
-				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+				throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO.getName());
 
 			}
 		}
@@ -356,7 +352,11 @@ public class GerenciadorDePosts implements Gerenciador {
 			ArgumentInvalidException {
 		Post post = getPostPorId(idDoPost);
 		if (index >= post.getListaDeAudio().size())
-			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+		return getSom(index, post);
+	}
+
+	private String getSom(int index, Post post) {
 		return post.getListaDeAudio().get(Integer.valueOf(index)).getId();
 	}
 
@@ -404,7 +404,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				}
 			}
 		}
-		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO);
+		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
 	}
 
 	/**
@@ -463,6 +463,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(id);
 		if (index >= post.getListaDeImagem().size())
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		return getImagem(index, post);
+	}
+
+	private String getImagem(int index, Post post) {
 		return post.getListaDeImagem().get(index).getId();
 	}
 
@@ -520,6 +524,10 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostPorId(id);
 		if (index >= post.getListaDeVideo().size())
 			throw new PersistenceException(Constantes.INDICE_INVALIDO);
+		return getVideo(index, post);
+	}
+
+	private String getVideo(int index, Post post) {
 		return post.getListaDeVideo().get(index).getId();
 	}
 
@@ -626,8 +634,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	public int recuperaIDvideo(String postID, int index)
 			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = getPostPorId(postID);
-		return Integer.valueOf(postRecuperado.getListaDeVideo().get(index)
-				.getId());
+		return Integer.valueOf(getVideo(index, postRecuperado));
 
 	}
 
@@ -645,8 +652,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	public int recuperaIDimagem(String postID, int index)
 			throws FileNotFoundException, PersistenceException {
 		Post postRecuperado = getPostPorId(postID);
-		return Integer.valueOf(postRecuperado.getListaDeImagem().get(index)
-				.getId());
+		return Integer.valueOf(getImagem(index, postRecuperado));
 	}
 
 	/**
@@ -711,15 +717,14 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		Post post = getPostPorId(postID);
 
-		Blog blog = gerenteDados.getGerenteBlogs()
-				.getBlog(post.getIdBlogDono());
+		Blog blog = getBlog(post);
 
 		verificaDonoDoBlog(sessionID, blog);
 
 		String login = recuperaLoginPorSessionId(sessionID);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
 		post.setAtributo(atributo, novoTexto);
@@ -745,6 +750,10 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (post == null)
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		removeMidiaByIdVideo(idMovie, post);
+	}
+
+	private void removeMidiaByIdVideo(String idMovie, Post post) {
 		post.removeMidia(post.getMapaVideos().get(idMovie));
 	}
 
@@ -773,6 +782,10 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (post == null)
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		removeMidiaAudio(idAudio, post);
+	}
+
+	private void removeMidiaAudio(String idAudio, Post post) {
 		post.removeMidia(post.getMapaAudio().get(idAudio));
 	}
 
@@ -801,6 +814,10 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		if (post == null)
 			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO);
+		removeMidiaImagem(idImagem, post);
+	}
+
+	private void removeMidiaImagem(String idImagem, Post post) {
 		post.removeMidia(post.getMapaImagens().get(idImagem));
 	}
 
@@ -842,7 +859,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			throws UserInvalidException, ArgumentInvalidException,
 			PersistenceException {
 		validateLoggedUser(login);
-		List<Blog> blogs = gerenteDados.getGerenteBlogs().getListaDeBlogs();
+		List<Blog> blogs = getBlogs();
 		Blog blg = null;
 		for (Blog blog : blogs) {
 			if (blog.getId().equals(blogId))
@@ -851,13 +868,26 @@ public class GerenciadorDePosts implements Gerenciador {
 		if (blg == null)
 			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO);
 		int retorno = 0;
-		for (String p : blg.getListaDePostagens())
-			retorno += gerenteDados.getGerentePosts().getNumberOfComments(p);
+		for (String idPostagem : blg.getListaDePostagens())
+			retorno += numeroDeComentarios(idPostagem);
 		return retorno;
 	}
 
+	private int numeroDeComentarios(String idPostagem)
+			throws PersistenceException {
+		return gerenteDados.getGerentePosts().getNumberOfComments(idPostagem);
+	}
+
+	private List<Blog> getBlogs() {
+		return gerenteDados.getGerenteBlogs().getListaDeBlogs();
+	}
+
 	private void validateLoggedUser(String login) throws UserInvalidException {
-		Usuario user = gerenteDados.getGerenciadorDeUsuarios()
+		Usuario user = getUser(login);
+	}
+
+	private Usuario getUser(String login) throws UserInvalidException {
+		return gerenteDados.getGerenciadorDeUsuarios()
 				.getUsuario(login);
 	}
 
@@ -878,9 +908,13 @@ public class GerenciadorDePosts implements Gerenciador {
 		}
 		listaPosts.remove(post);
 		String blogDonoId = post.getIdBlogDono();
-		Blog blog = gerenteDados.getGerenteBlogs().getBlog(blogDonoId);
+		Blog blog = getBlog(blogDonoId);
 		blog.removePost2(post);
 
+	}
+
+	private Blog getBlog(String blogDonoId) throws ArgumentInvalidException {
+		return gerenteDados.getGerenteBlogs().getBlog(blogDonoId);
 	}
 
 	/**
@@ -947,11 +981,21 @@ public class GerenciadorDePosts implements Gerenciador {
 	public void validaPostId(String postId, String sessionId)
 			throws ArgumentInvalidException, PersistenceException {
 		validaPostId(postId);
-		gerenteDados.getGerenteSessoes().validaSessao(sessionId);
-		Blog dono = gerenteDados.getGerenteBlogs().getBlog(
-				getPostPorId(postId).getIdBlogDono());
+		validateSession(sessionId);
+		Blog dono = getBlogByIdDono(postId);
 		if (!dono.getIdSessao().equals(sessionId))
 			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
 
+	}
+
+	private Blog getBlogByIdDono(String postId)
+			throws ArgumentInvalidException, PersistenceException {
+		return gerenteDados.getGerenteBlogs().getBlog(
+				getPostPorId(postId).getIdBlogDono());
+	}
+
+	private void validateSession(String sessionId)
+			throws ArgumentInvalidException {
+		gerenteDados.getGerenteSessoes().validaSessao(sessionId);
 	}
 }

@@ -154,7 +154,7 @@ public class Usuario {
 	 * @param blg
 	 *            {@link Blog}
 	 */
-	public void removeBlog2(Blog blg) {
+	public void removeBlog(Blog blg) {
 		if (listaBlogs.contains(blg))
 			listaBlogs.remove(blg);
 	}

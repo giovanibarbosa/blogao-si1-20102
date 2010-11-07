@@ -1,6 +1,5 @@
 package classes.gerenciadores;
 
-import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
@@ -107,7 +106,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 				return ses;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA);
+		throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
 	}
 
 	/**
