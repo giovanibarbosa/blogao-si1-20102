@@ -73,7 +73,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		String login = recuperaLoginPorSessionId(idSessao);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		// gerenteDados.getGerenteBlogs().deleteBlog(blog); //adicionei essa
 		// linha
 		Post post = new Post(titulo, texto, blogId);
@@ -136,7 +136,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		String login = recuperaLoginPorSessionId(sessionId);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
 		Midia audio = new Audio(descricao, dado);
@@ -177,7 +177,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		String login = recuperaLoginPorSessionId(sessionId);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
 		Midia imagem = new Imagem(descricao, dado);
@@ -218,7 +218,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		String login = recuperaLoginPorSessionId(sessionId);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
 		Midia video = new Video(descricao, dado);
@@ -719,7 +719,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		String login = recuperaLoginPorSessionId(sessionID);
 		Usuario user = recuperaUsuarioPorLogin(login);
 
-		user.removeBlog2(blog);
+		user.removeBlog(blog);
 		blog.removePost(post);
 
 		post.setAtributo(atributo, novoTexto);

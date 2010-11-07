@@ -264,7 +264,7 @@ public class NewGerenciadorDeBlogs implements Gerenciador {
 		if (verificaExistenciaDeBlog(idBlog)) {
 			Blog blog = getBlog(idBlog);
 			validaDonoBlog(blog, idSessao);
-			us.removeBlog2(blog);
+			us.removeBlog(blog);
 			us.addBlog2(changeBlogInformation(blog, atributo, novoValor));
 		}
 	

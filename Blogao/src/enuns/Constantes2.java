@@ -8,8 +8,12 @@ public enum Constantes2 {
 	USUARIO_INEXISTENTE ("Usuário inexistente"),
 	USUARIO_LOGADO ("Usuário já logado"),
 	INDICE_INVALIDO ("Índice inválido"),
+	INDICE_INCORRETO ("Índice incorreto"),
 	ANNOUNCEMENT_INVALIDO ("Announcement inválido"),
-	LOGIN_OU_SENHA_INVALIDO ("Login ou senha inválido");
+	LOGIN_OU_SENHA_INVALIDO ("Login ou senha inválido"),
+	AUDIO ("audio"),
+	VIDEO ("video"),
+	ATRIBUTO_INVALIDO ("Atributo Inválido");
 	
 	
 	private String name;
@@ -21,5 +25,9 @@ public enum Constantes2 {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getValue() {
+		return Integer.valueOf(name);
 	}
 }
