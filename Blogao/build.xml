@@ -93,7 +93,7 @@
 
 
     <target name="testa">
-        <ant antfile="${build}/build.xml"/>
+        <ant antfile="${basedir}/build.xml"/>
     </target>
 	
 
