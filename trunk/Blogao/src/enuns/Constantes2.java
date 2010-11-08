@@ -31,7 +31,9 @@ public enum Constantes2 {
 	DATA_INVALIDA ("Data inválida"),
 	MIDIA_INVALIDA ("Midia inválida"),
 	DADO_INVALIDO ("Dado inválido"),
-	ANNOUNCEMENT_CADASTRADO ("Announcement já cadastrado");
+	ANNOUNCEMENT_CADASTRADO ("Announcement já cadastrado"),
+	USUARIO_NAO_PODE_SER_REMOVIDO ("O usuário não pode ser removido"),
+	USUARIO_EXISTENTE ("Usuário existente");
 	
 	
 	private String name;
