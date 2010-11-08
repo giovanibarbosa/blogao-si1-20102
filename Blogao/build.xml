@@ -49,6 +49,7 @@
                 <delete dir="${build}" />
                 <delete dir="${dist}" />
                 <delete dir="${docdir}" />
+		        <delete file="**/*.class"/>
         </target>
 
         <!--
@@ -63,14 +64,47 @@
                 <javac srcdir="${src}" destdir="${build}">
                         <classpath refid="classpath" />
                 </javac>
+                
         </target>
+
+ <!--
+
+ =================== comando compilaTestes =================== 
+-->
 
         <target name="compilaTestes" depends="compila">
                 <echo message="Compilando o codigo de testes..." />
+                <copy todir="${build}">
+                    <fileset dir="${src}"
+                        includes="**/com/**"
+                    />
+                </copy>
+                <copy todir="${build}">
+                    <fileset dir="${src}"
+                        includes="**/easyaccept/**"
+                    />
+                </copy>
+                <copy todir="${build}">
+                    <fileset dir="${src}"
+                        includes="**/util/**"
+                    />
+                </copy>
+                <copy todir="${build}">
+                    <fileset dir="."
+                        includes="**/Tests/**"
+                    />
+                </copy>
+        </target>
 
-                <javac srcdir="${facadesTests}" destdir="${build}">
-                        <classpath refid="facadesTests.classpath" />
-                </javac>
+ <!--
+
+ =================== comando limpaTestes =================== 
+-->
+        <target name="limpaTestes">
+                <delete dir="${build}/com" />
+                <delete dir="${build}/Testes" />
+                <delete dir="${build}/util" />
+                <delete dir="${build}/easyaccept" />
         </target>
 
  	<!--
