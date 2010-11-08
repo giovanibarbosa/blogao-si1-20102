@@ -13,16 +13,16 @@ import ourExceptions.UserInvalidException;
 import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
-import classes.gerenciadores.NewGerenciadorDeBlogs;
-import classes.gerenciadores.NewGerenciadorDeDados;
-import classes.gerenciadores.NewGerenciadorDeSessoes;
+import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDeSessoes;
 
 public class FacadeSessao {
 	private static FacadeSessao instance;
-	private NewGerenciadorDeSessoes gerenteSessao;
+	private GerenciadorDeSessoes gerenteSessao;
 
 	protected FacadeSessao() {
-		gerenteSessao = new NewGerenciadorDeSessoes(NewGerenciadorDeDados.getInstance());
+		gerenteSessao = new GerenciadorDeSessoes(GerenciadorDeDados.getInstance());
 	}
 
 	public static FacadeSessao getInstance() {
