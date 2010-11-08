@@ -265,7 +265,7 @@ public class NewGerenciadorDeBlogs implements Gerenciador {
 			Blog blog = getBlog(idBlog);
 			validaDonoBlog(blog, idSessao);
 			us.removeBlog(blog);
-			us.addBlog2(changeBlogInformation(blog, atributo, novoValor));
+			us.addBlog(changeBlogInformation(blog, atributo, novoValor));
 		}
 	
 	}
@@ -366,7 +366,7 @@ public class NewGerenciadorDeBlogs implements Gerenciador {
 		Blog blog = new Blog(titulo, descricao, idSessao);
 	
 		Usuario us = gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
-		us.addBlog2(blog);
+		us.addBlog(blog);
 		listaDeBlogs.add(blog);
 		return blog.getId();
 	

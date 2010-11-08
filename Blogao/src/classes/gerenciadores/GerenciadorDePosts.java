@@ -111,7 +111,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog(blog);
 		Post post = new Post(titulo, texto, blogId);
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 		listaPosts.add(post);
 		avisaListeners(blog, post);
 		return post.getId();
@@ -152,7 +152,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		post.addMidia(audio);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 		return audio.getId();
 	}
@@ -192,7 +192,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		post.addMidia(imagem);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 		return imagem.getId();
 	}
@@ -232,7 +232,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		post.addMidia(video);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 		return video.getId();
 	}
@@ -722,7 +722,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		post.setAtributo(atributo, novoTexto);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 	}
 
