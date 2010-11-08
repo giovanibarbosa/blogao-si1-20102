@@ -144,7 +144,7 @@ public class Usuario {
 	 * @param blg
 	 *            {@link Blog}
 	 */
-	public void addBlog2(Blog blg) {
+	public void addBlog(Blog blg) {
 		listaBlogs.add(blg);
 	}
 
