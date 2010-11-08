@@ -17,7 +17,7 @@ import classes.Comentario;
 import classes.Post;
 import classes.Sessao;
 import classes.func.usuario.Usuario;
-import enuns.Constantes2;
+import enuns.Constantes;
 
 import interfaces.Gerenciador;
 
@@ -165,7 +165,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			}
 
 		}
-		throw new ArgumentInvalidException(Constantes2.COMENTARIO_INEXISTENTE.getName());
+		throw new ArgumentInvalidException(Constantes.COMENTARIO_INEXISTENTE.getName());
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		validaLogin(sessionId);
 		Comentario comentPai = mapaComentarios.get(idComentario);
 		if (comentPai == null) {
-			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO.getName());
 		}
 		Comentario coment = new Comentario(sessionId, texto);
 		addComentarioNaList(coment);
@@ -209,9 +209,9 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
 		if (coment == null)
-			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO.getName());
 		if (index >= coment.getListaSubComentarios().size())
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INCORRETO.getName());
 
 		return getIdComentario(index, coment);
 	}
@@ -228,7 +228,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
 		if (coment == null)
-			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO.getName());
 		return coment.getListaSubComentarios().size();
 	}
 
@@ -243,7 +243,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 			throws ArgumentInvalidException {
 		Comentario coment = mapaComentarios.get(idComentario);
 		if (coment == null)
-			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO.getName());
 		int total = 0;
 		for (Comentario subComent : coment.getListaSubComentarios()) {
 			total += getNumberOfAllSubComments(subComent.getId());
@@ -288,7 +288,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	private void validaIdComentario(String idComentario)
 			throws ArgumentInvalidException {
 		if (!listaIdsComentarios.contains(idComentario))
-			throw new ArgumentInvalidException(Constantes2.COMENTARIO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.COMENTARIO_INVALIDO.getName());
 	
 	}
 

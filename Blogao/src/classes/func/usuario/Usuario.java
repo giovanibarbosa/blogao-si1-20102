@@ -5,13 +5,12 @@ import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 
-import interfaces.Constantes;
 import interfaces.Logavel;
 import classes.Announcement;
 import classes.Blog;
 import classes.Login;
 import classes.Senha;
-import enuns.Constantes2;
+import enuns.Constantes;
 
 /**
  * Classe que inicializa um Usuario
@@ -197,7 +196,7 @@ public class Usuario {
 			listaAnnouncements.add(announcement);
 		else
 			throw new ArgumentInvalidException(
-					Constantes2.ANNOUNCEMENT_CADASTRADO.getName());
+					Constantes.ANNOUNCEMENT_CADASTRADO.getName());
 
 	}
 
@@ -217,7 +216,7 @@ public class Usuario {
 				return announcement;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes2.ANNOUNCEMENT_INVALIDO.getName());
+		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO.getName());
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package classes.func.multimidia;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -77,7 +77,7 @@ public class Audio extends Midia{
 	 */
 	public void setDado(String dado) throws ArgumentInvalidException{
 		if (dado == null || dado.trim().isEmpty())
-			throw new ArgumentInvalidException(Constantes2.DADO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO.getName());
 		this.dado = dado;
 	}
 

@@ -1,14 +1,12 @@
 package classes.func;
 
-import interfaces.Constantes;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
@@ -74,7 +72,7 @@ public class Data {
 	 */
 	public static String calendarToString(Calendar data) throws DataInvalidaException {
 		if (data == null) {
-			throw new DataInvalidaException(Constantes2.DATA_INVALIDA.getName());
+			throw new DataInvalidaException(Constantes.DATA_INVALIDA.getName());
 		}
 		String strdate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -123,14 +121,14 @@ public class Data {
 	 */
 	public void setData(String data) throws DataInvalidaException {
 		if (!verificaData(data)) {
-			throw new DataInvalidaException(Constantes2.DATA_INVALIDA.getName());
+			throw new DataInvalidaException(Constantes.DATA_INVALIDA.getName());
 		}
 		try {
 			Calendar date = conversorData(data);
 			this.data = date;
 
 		} catch (Exception e) {
-			throw new DataInvalidaException(Constantes2.DATA_INVALIDA.getName());
+			throw new DataInvalidaException(Constantes.DATA_INVALIDA.getName());
 		}
 	}
 

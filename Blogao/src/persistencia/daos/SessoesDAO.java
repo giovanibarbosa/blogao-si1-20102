@@ -1,7 +1,5 @@
 package persistencia.daos;
 
-import interfaces.Constantes;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +15,7 @@ import classes.Sessao;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera sessoes ({@link Sessao})
@@ -63,7 +61,7 @@ public class SessoesDAO {
 	 */
 	public void criar(Sessao sessao) throws PersistenceException, IOException {
 		if (sessao == null)
-			throw new PersistenceException(Constantes2.SESSAO_INVALIDA.getName());
+			throw new PersistenceException(Constantes.SESSAO_INVALIDA.getName());
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
 		file.getParentFile().mkdirs();
 		xstream.toXML(sessao, new FileOutputStream(file));
@@ -80,7 +78,7 @@ public class SessoesDAO {
 	public void deletar(Sessao sessao) throws PersistenceException {
 		if (sessao == null
 				|| !(new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes2.EMAIL_NAO_VALIDO.getName());
+			throw new PersistenceException(Constantes.EMAIL_NAO_VALIDO.getName());
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -121,7 +119,7 @@ public class SessoesDAO {
 			FileNotFoundException {
 		if (sessao == null
 				|| !(new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.EMAIL_INEXISTENTE);
+			throw new PersistenceException(Constantes.EMAIL_INEXISTENTE.getName());
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
 		return (Sessao) xstream.fromXML(new FileInputStream(file));
 	}

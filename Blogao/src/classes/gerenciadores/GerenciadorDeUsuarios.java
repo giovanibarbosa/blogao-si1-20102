@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 import interfaces.Gerenciador;
 
 /**
@@ -91,7 +91,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 				return user;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 				return user;
 			}
 		}
-		throw new UserInvalidException(Constantes2.USUARIO_INEXISTENTE.getName());
+		throw new UserInvalidException(Constantes.USUARIO_INEXISTENTE.getName());
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 			PersistenceException {
 		Usuario user = recuperaUsuarioPorIdSessao(sessionId);
 		if (index >= user.getListaAnnouncement().size() || index < 0)
-			throw new ArgumentInvalidException(Constantes2.INDICE_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO.getName());
 		return user.getListaAnnouncement().get(index).getId();
 	}
 
@@ -199,7 +199,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 				}
 			}
 		}
-		throw new ArgumentInvalidException(Constantes2.ANNOUNCEMENT_INVALIDO.getName());
+		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO.getName());
 	}
 
 	/**
@@ -245,7 +245,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 		while(it.hasNext()){
 			Usuario user = it.next();
 			if (user.getLogin().equals(log))
-				throw new ArgumentInvalidException(Constantes2.LOGIN_EXISTENTE.getName());
+				throw new ArgumentInvalidException(Constantes.LOGIN_EXISTENTE.getName());
 		}
 	}
 
@@ -303,7 +303,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 				return;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes2.ANNOUNCEMENT_INVALIDO.getName());
+		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO.getName());
 	}
 
 	private String getLoginPorSessao(String sessionID)

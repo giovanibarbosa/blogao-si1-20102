@@ -1,7 +1,5 @@
 package classes.func.usuario;
 
-import interfaces.Constantes;
-
 import java.io.IOException;
 
 import ourExceptions.ArgumentInvalidException;
@@ -10,6 +8,7 @@ import ourExceptions.PersistenceException;
 import ourExceptions.SexoInvalidoException;
 import classes.Email;
 import classes.func.Data;
+import enuns.Constantes;
 import enuns.Sexo;
 
 /**
@@ -166,7 +165,7 @@ public class Perfil {
 		try {
 			dataDeNascimento = new Data(dataDeNasc);
 		} catch (Exception e) {
-			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA);
+			throw new ArgumentInvalidException(Constantes.DATA_INVALIDA.getName());
 		}
 	}
 
@@ -261,7 +260,7 @@ public class Perfil {
 	 */
 	public void setSexo(String sex) throws ArgumentInvalidException, SexoInvalidoException {
 		if (!Sexo.verificaSexo(sex)) {
-			throw new ArgumentInvalidException(Constantes.SEXO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes.SEXO_INVALIDO.getName());
 		}
 		this.sexo = Sexo.setadorSexo(sex);
 	}
@@ -287,7 +286,7 @@ public class Perfil {
 	 */
 	public String getAtributo(String atributo) throws ArgumentInvalidException, DataInvalidaException {
 		if (atributo == null)
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 		int codigoAtributo = atributo.hashCode();
 
 		switch (codigoAtributo) {
@@ -315,7 +314,7 @@ public class Perfil {
 			return livrosFavoritos;
 
 		default:
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 		}
 	}
 
@@ -335,7 +334,7 @@ public class Perfil {
 	public void setAtributo(String atributo, String novoValor)
 			throws ArgumentInvalidException, PersistenceException, IOException, SexoInvalidoException {
 		if (atributo == null)
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 		int codigoAtributo = atributo.hashCode();
 
 		switch (codigoAtributo) {
@@ -371,7 +370,7 @@ public class Perfil {
 			break;
 
 		default:
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 		}
 	}
 

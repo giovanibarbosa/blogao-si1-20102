@@ -20,7 +20,7 @@ import classes.Login;
 import classes.Senha;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
-import enuns.Constantes2;
+import enuns.Constantes;
 import enuns.Sexo;
 
 public class GerenciadorDePerfis implements Gerenciador {
@@ -113,13 +113,13 @@ public class GerenciadorDePerfis implements Gerenciador {
 		try {
 			Usuario usuario = getUserByLogin(login);
 
-			if (Constantes2.SENHA.getName().equals(atributo)) {
+			if (Constantes.SENHA.getName().equals(atributo)) {
 				usuario.setSenha(new Senha(novoValor));
-			} else if (Constantes2.EMAIL.getName().equals(atributo)) {
+			} else if (Constantes.EMAIL.getName().equals(atributo)) {
 				validaEmail(new Email(novoValor));
 			}
 
-			else if (Constantes2.LOGIN.getName().equals(atributo)) {
+			else if (Constantes.LOGIN.getName().equals(atributo)) {
 				validaLogin(novoValor);
 				removeUsuario(usuario);
 				usuario.setLogin(new Login(novoValor));
@@ -132,7 +132,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 				usuario.setPerfil(perfil);
 			}
 		} catch (UserInvalidException e) {
-			throw new ArgumentInvalidException(Constantes2.LOGIN_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.LOGIN_INVALIDO.getName());
 		}
 
 	}
@@ -219,7 +219,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 		while(it.hasNext()){
 			Perfil perfil = (Perfil) it.next();
 			if (perfil.getEmail().equals(mail))
-				throw new ArgumentInvalidException(Constantes2.EMAIL_EXISTENTE.getName());
+				throw new ArgumentInvalidException(Constantes.EMAIL_EXISTENTE.getName());
 		}
 	}
 

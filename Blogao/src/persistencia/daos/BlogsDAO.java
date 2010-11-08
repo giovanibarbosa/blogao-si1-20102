@@ -17,7 +17,7 @@ import classes.Blog;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera blogs ({@link Blog})
@@ -62,7 +62,7 @@ public class BlogsDAO {
 	 */
 	public void criar(Blog blog) throws PersistenceException, IOException {
 		if (blog == null)
-			throw new PersistenceException(Constantes2.BLOG_NAO_CRIADO.getName());
+			throw new PersistenceException(Constantes.BLOG_NAO_CRIADO.getName());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.getParentFile().mkdirs();
 		xstream.toXML(blog, new FileOutputStream(file));
@@ -80,7 +80,7 @@ public class BlogsDAO {
 	public void deletar(Blog blog) throws PersistenceException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes2.BLOG_NAO_REMOVIDO.getName());
+			throw new PersistenceException(Constantes.BLOG_NAO_REMOVIDO.getName());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -121,7 +121,7 @@ public class BlogsDAO {
 			FileNotFoundException {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes2.BLOG_INEXISTENTE.getName());
+			throw new PersistenceException(Constantes.BLOG_INEXISTENTE.getName());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
@@ -141,7 +141,7 @@ public class BlogsDAO {
 	public Blog recupera(String id) throws PersistenceException,
 			FileNotFoundException {
 		if (id == null || !(new File(CAMINHO + id + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes2.BLOG_INVALIDO.getName());
+			throw new PersistenceException(Constantes.BLOG_INVALIDO.getName());
 
 		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
 		return (Blog) xstream.fromXML(new FileInputStream(file));
@@ -164,7 +164,7 @@ public class BlogsDAO {
 		if (blog == null
 				|| !(new File(CAMINHO + blog + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(
-					Constantes2.BLOG_NAO_PODE_SER_ATUALIZADO.getName());
+					Constantes.BLOG_NAO_PODE_SER_ATUALIZADO.getName());
 		File file = new File(CAMINHO + blog + TIPO_DE_ARQUIVO);
 		xstream.toXML(blog, new FileOutputStream(file));
 	}

@@ -15,7 +15,7 @@ import classes.Post;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 
 
 /**
@@ -61,7 +61,7 @@ public class PostsDAO {
 	 */
 	public void criar(Post post) throws PersistenceException, IOException {
 		if (post == null)
-			throw new PersistenceException(Constantes2.POST_NAO_PODE_SER_CRIADO.getName());
+			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_CRIADO.getName());
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		file.getParentFile().mkdirs();
 		xstream.toXML(post, new FileOutputStream(file));
@@ -79,7 +79,7 @@ public class PostsDAO {
 	public void deletar(Post post) throws PersistenceException {
 		if (post == null
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes2.POST_NAO_PODE_SER_REMOVIDO.getName());
+			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_REMOVIDO.getName());
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -124,7 +124,7 @@ public class PostsDAO {
 		if (post == null
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(
-					Constantes2.POST_NAO_PODE_SER_ATUALIZADO.getName());
+					Constantes.POST_NAO_PODE_SER_ATUALIZADO.getName());
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
 		xstream.toXML(post, new FileOutputStream(file));
 	}
