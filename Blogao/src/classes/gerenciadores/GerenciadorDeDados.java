@@ -21,18 +21,24 @@ public class GerenciadorDeDados {
 	private GerenciadorDeBlogs gerenteBlogs;
 	private GerenciadorDeComentarios gerenteComentarios;
 	private GerenciadorDePerfis gerentePerfis;
-	private GerenciadorDePosts gerentePosts;
-
+	private GerenciadorDePosts gerentePosts;	
+	private static GerenciadorDeDados instancia;
+	
 	/**
-	 * Construtor para um {@link GerenciadorDeDados}
+	 * Construtor privado para garantir o singleton
 	 */
-	public GerenciadorDeDados() {
-		gerentePerfis = new GerenciadorDePerfis(this);
-		gerenteUsuarios = new GerenciadorDeUsuarios(this);
-		gerenteSessoes = new GerenciadorDeSessoes(this);
-		gerenteBlogs = new GerenciadorDeBlogs(this);
-		gerentePosts = new GerenciadorDePosts(this);
-		gerenteComentarios = new GerenciadorDeComentarios(this);
+	private GerenciadorDeDados() {
+		
+	}
+	
+	/**
+	 * Recupera a instancia unica para esta classe
+	 * @return A a instancia unica para esta classe
+	 */
+	public static GerenciadorDeDados getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDeDados();
+		return instancia;
 	}
 
 	/**
@@ -136,10 +142,5 @@ public class GerenciadorDeDados {
 	 */
 	public GerenciadorDePosts getGerentePosts() {
 		return gerentePosts;
-	}
-
-	public static GerenciadorDeDados getInstance() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
