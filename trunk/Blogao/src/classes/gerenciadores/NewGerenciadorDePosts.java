@@ -78,7 +78,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		// linha
 		Post post = new Post(titulo, texto, blogId);
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 		// gerenteDados.getGerenteBlogs().atualizaBlog(blog); //adicionei essa
 		// linha
 		// gerenteDados.getGerenteBlogs().createBlog(blog.getIdSessao(),
@@ -143,7 +143,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		post.addMidia(audio);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 		return audio.getId();
 	}
@@ -184,7 +184,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		post.addMidia(imagem);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 		return imagem.getId();
 	}
@@ -225,7 +225,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		post.addMidia(video);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 		return video.getId();
 	}
@@ -725,7 +725,7 @@ public class NewGerenciadorDePosts implements Gerenciador {
 		post.setAtributo(atributo, novoTexto);
 
 		blog.addPost(post);
-		user.addBlog2(blog);
+		user.addBlog(blog);
 
 	}
 

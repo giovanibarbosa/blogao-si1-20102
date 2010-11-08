@@ -22,7 +22,8 @@ public enum Constantes2 {
 	EMAIL ("email"),
 	LOGIN ("login"),
 	COMENTARIO_INVALIDO ("Comentário inválido"),
-	COMENTARIO_INEXISTENTE ("Comentario inexistente");
+	COMENTARIO_INEXISTENTE ("Comentario inexistente"),
+	ATRIBUTO_INVALIDO2 ("Atributo inválido");
 	
 	
 	private String name;
