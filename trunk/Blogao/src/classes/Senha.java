@@ -1,6 +1,6 @@
 package classes;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -36,7 +36,7 @@ public class Senha {
 	 */
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
 		if (!validaSenha(novaSenha)) {
-			throw new ArgumentInvalidException(Constantes2.SENHA_INVALIDA.getName());
+			throw new ArgumentInvalidException(Constantes.SENHA_INVALIDA.getName());
 		}
 		this.senha = novaSenha;
 	}

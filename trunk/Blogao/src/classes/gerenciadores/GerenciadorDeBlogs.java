@@ -17,7 +17,7 @@ import classes.Login;
 import classes.Post;
 import classes.Sessao;
 import classes.func.usuario.Usuario;
-import enuns.Constantes2;
+import enuns.Constantes;
 import persistencia.daos.BlogsDAO;
 
 /**
@@ -102,7 +102,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			if (subBlog.getId().equals(idBlog))
 				return subBlog;
 		}
-		throw new ArgumentInvalidException(Constantes2.BLOG_INVALIDO.getName());
+		throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO.getName());
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			ArgumentInvalidException {
 		Blog blog = getBlog(idBlog);
 		if (!idSessao.equals(blog.getIdSessao())) {
-			throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 		}
 		return blog;
 	}
@@ -146,7 +146,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			PersistenceException, IOException {
 	
 		if (atributo == null)
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2.getName());
 	
 		int codigoAtributo = atributo.hashCode();
 		switch (codigoAtributo) {
@@ -161,7 +161,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	
 		case (DONO):
 		default:
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2.getName());
 		}
 	
 	}
@@ -241,7 +241,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		String login = getLogin(idSessao);
 	
 		if (!usuarioLogado(login)) {
-			throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 		}
 	
 		Usuario us = getUser(login);
@@ -266,7 +266,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public void validaDonoBlog(Blog blog, String idSessao)
 			throws ArgumentInvalidException {
 		if (!blog.getIdSessao().equals(idSessao)) {
-			throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 		}	
 	}
 
@@ -382,7 +382,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	
 			}
 		}
-		throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO.getName());
+		throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 	
 	}
 
@@ -438,7 +438,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public String getAtributo(Blog b, String atributo)
 			throws ArgumentInvalidException {
 		if (atributo == null || atributo.equals(""))
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2.getName());
 	
 		int codigoAtributo = atributo.hashCode();
 	
@@ -454,7 +454,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			String idSessao = b.getIdSessao();
 			return getLogin(idSessao);
 		default:
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2.getName());
 		}
 	
 	}
@@ -522,7 +522,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			throws ArgumentInvalidException {
 		Blog blog = getBlog(blogId);
 		if (index >= blog.getListaSubBlogs().size())
-			throw new ArgumentInvalidException(Constantes2.INDICE_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO.getName());
 		return subBlog(index, blog);
 	}
 
@@ -737,7 +737,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 					return true;
 				}
 			}
-			throw new ArgumentInvalidException(Constantes2.BLOG_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO.getName());
 		}
 
 		public void atualizaBlog(Blog blog) throws PersistenceException, IOException {

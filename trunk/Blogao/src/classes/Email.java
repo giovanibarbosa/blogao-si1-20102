@@ -1,6 +1,6 @@
 package classes;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 
 
 import ourExceptions.ArgumentInvalidException;
@@ -41,7 +41,7 @@ public class Email {
 	 */
 	public void setEmail(String novoEmail) throws ArgumentInvalidException {
 		if (novoEmail == null || novoEmail.trim().isEmpty()) {
-			throw new ArgumentInvalidException(Constantes2.EMAIL_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.EMAIL_INVALIDO.getName());
 		}
 		this.email = novoEmail;
 	}

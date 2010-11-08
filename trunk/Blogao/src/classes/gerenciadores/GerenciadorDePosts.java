@@ -21,7 +21,7 @@ import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
 import classes.func.usuario.Usuario;
-import enuns.Constantes2;
+import enuns.Constantes;
 
 /**
  * Classe que gerencia Posts.
@@ -146,7 +146,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog(blog);
 		blog.removePost(post);
 
-		Midia audio = new Midia().fabricaDeMidia(Constantes2.AUDIO.getName() ,descricao, dado);
+		Midia audio = new Midia().fabricaDeMidia(Constantes.AUDIO.getName() ,descricao, dado);
 		post.addMidia(audio);
 
 		blog.addPost(post);
@@ -226,7 +226,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		user.removeBlog(blog);
 		blog.removePost(post);
 
-		Midia video = new Midia().fabricaDeMidia(Constantes2.VIDEO.getName() ,descricao, dado);
+		Midia video = new Midia().fabricaDeMidia(Constantes.VIDEO.getName() ,descricao, dado);
 		post.addMidia(video);
 
 		blog.addPost(post);
@@ -253,7 +253,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		Post post = getPostPorId(idDoPost);
 		if (atributo == null)
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 
 		int codigoAtributo = atributo.hashCode();
 		String retorno = "";
@@ -269,7 +269,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				retorno = post.getDataCriacao();
 				break;
 			default:
-				throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO.getName());
+				throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO.getName());
 
 			}
 		}
@@ -293,7 +293,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			ArgumentInvalidException {
 		Post post = getPostPorId(idDoPost);
 		if (index >= post.getListaDeAudio().size())
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INCORRETO.getName());
 		return getSom(index, post);
 	}
 
@@ -344,7 +344,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				}
 			}
 		}
-		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO.getName());
 	}
 
 	/**
@@ -365,7 +365,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				}
 			}
 		}
-		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO.getName());
 	}
 
 	/**
@@ -383,7 +383,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			ArgumentInvalidException {
 		Post post = getPostPorId(id);
 		if (index >= post.getListaDeImagem().size())
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INCORRETO.getName());
 		return getImagem(index, post);
 	}
 
@@ -407,7 +407,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				}
 			}
 		}
-		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO.getName());
 	}
 
 	/**
@@ -428,7 +428,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				}
 			}
 		}
-		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO.getName());
 	}
 
 	/**
@@ -444,7 +444,7 @@ public class GerenciadorDePosts implements Gerenciador {
 	public String getVideo(String id, int index) throws PersistenceException {
 		Post post = getPostPorId(id);
 		if (index >= post.getListaDeVideo().size())
-			throw new PersistenceException(Constantes2.INDICE_INCORRETO.getName());
+			throw new PersistenceException(Constantes.INDICE_INCORRETO.getName());
 		return getVideo(index, post);
 	}
 
@@ -617,7 +617,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				blg = blog;
 		}
 		if (blg == null)
-			throw new ArgumentInvalidException(Constantes2.BLOG_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.BLOG_INVALIDO.getName());
 		int retorno = 0;
 		for (String idPostagem : blg.getListaDePostagens())
 			retorno += numeroDeComentarios(idPostagem);
@@ -682,7 +682,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		validateSession(sessionId);
 		Blog dono = getBlogByIdDono(postId);
 		if (!dono.getIdSessao().equals(sessionId))
-			throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 	
 	}
 
@@ -739,7 +739,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostByVideoID(idMovie);
 
 		if (post == null)
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INCORRETO.getName());
 		removeMidiaByIdVideo(idMovie, post);
 	}
 
@@ -758,7 +758,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostByAudioID(idAudio);
 
 		if (post == null)
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INCORRETO.getName());
 		removeMidiaAudio(idAudio, post);
 	}
 
@@ -777,7 +777,7 @@ public class GerenciadorDePosts implements Gerenciador {
 		Post post = getPostByImagemID(idImagem);
 
 		if (post == null)
-			throw new ArgumentInvalidException(Constantes2.INDICE_INCORRETO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INCORRETO.getName());
 		removeMidiaImagem(idImagem, post);
 	}
 
@@ -817,7 +817,7 @@ public class GerenciadorDePosts implements Gerenciador {
 			if (post.getId().equals(postId))
 				return;
 		}
-		throw new ArgumentInvalidException(Constantes2.POST_INVALIDO.getName());
+		throw new ArgumentInvalidException(Constantes.POST_INVALIDO.getName());
 	}
 
 	/**
@@ -836,7 +836,7 @@ public class GerenciadorDePosts implements Gerenciador {
 
 		Post post = getPostPorId(postId);
 		if (index >= post.getListaComentarios().size())
-			throw new ArgumentInvalidException(Constantes2.INDICE_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.INDICE_INVALIDO.getName());
 		return post.getComentario(index);
 	}
 
@@ -856,7 +856,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				return post;
 			}
 		}
-		throw new PersistenceException(Constantes2.POST_INVALIDO.getName());
+		throw new PersistenceException(Constantes.POST_INVALIDO.getName());
 	}
 
 	/**
@@ -932,7 +932,7 @@ public class GerenciadorDePosts implements Gerenciador {
 				}
 			}
 		}
-		throw new FileNotFoundException(Constantes2.ATRIBUTO_INVALIDO.getName());
+		throw new FileNotFoundException(Constantes.ATRIBUTO_INVALIDO.getName());
 	}
 
 	private String getImagem(int index, Post post) {

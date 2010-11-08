@@ -43,7 +43,7 @@ public enum Sexo {
 	 */
 	public static Sexo setadorSexo(String sex) throws SexoInvalidoException {
 		if (!verificaSexo(sex)) {
-			throw new SexoInvalidoException(Constantes2.SEXO_INVALIDO.getName());
+			throw new SexoInvalidoException(Constantes.SEXO_INVALIDO.getName());
 		}	
 		if (sex.equalsIgnoreCase(Sexo.Feminino.getSexo())) {
 			return Sexo.Feminino;

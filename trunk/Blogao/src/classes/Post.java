@@ -10,7 +10,7 @@ import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
-import enuns.Constantes2;
+import enuns.Constantes;
 
 import ourExceptions.ArgumentInvalidException;
 
@@ -72,7 +72,7 @@ public class Post {
 	 */
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
 		if (titulo == null || titulo.trim().equals("")) {
-			throw new ArgumentInvalidException(Constantes2.TITULO_OBRIGATORIO.getName());
+			throw new ArgumentInvalidException(Constantes.TITULO_OBRIGATORIO.getName());
 		}
 		this.titulo = titulo;
 	}
@@ -177,7 +177,7 @@ public class Post {
 	public void setAtributo(String atributo, String mudanca)
 			throws ArgumentInvalidException {
 		if (atributo == null) {
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2.getName());
 		}
 		int codigoAtributo = atributo.hashCode();
 		
@@ -190,7 +190,7 @@ public class Post {
 			this.setTitulo(mudanca);
 			break;
 		default:
-			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
+			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2.getName());
 		}
 	}
 

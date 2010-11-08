@@ -1,6 +1,6 @@
 package enuns;
 
-public enum Constantes2 {
+public enum Constantes {
 	
 	SEXO_INVALIDO ("Sexo inválido"), 
 	SESSAO_INVALIDA ("Sessão inválida"),
@@ -52,7 +52,7 @@ public enum Constantes2 {
 	private String name;
 	
 	
-	Constantes2 (String name) {
+	Constantes (String name) {
 		this.name = name;
 	}
 	

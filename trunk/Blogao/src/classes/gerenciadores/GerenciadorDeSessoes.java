@@ -16,7 +16,7 @@ import ourExceptions.UserInvalidException;
 import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
-import enuns.Constantes2;
+import enuns.Constantes;
 
 import persistencia.daos.SessoesDAO;
 
@@ -118,7 +118,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 				return sessao;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			PersistenceException, UserInvalidException, DataInvalidaException {
 		
 		if (!sessaoExistente(idsessao))
-			throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+			throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 		String retorno;
 		String login = getLoginPorSessao(idsessao);
 		if ("login".equals(atributo)) {
@@ -181,7 +181,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 		try {
 			String idSessao = String.valueOf(login.hashCode());
 			if (isUserLogged(login)) {
-				throw new ArgumentInvalidException(Constantes2.USUARIO_LOGADO.getName());
+				throw new ArgumentInvalidException(Constantes.USUARIO_LOGADO.getName());
 			}
 			Usuario user = getUserByLogin(login);
 			Sessao sessaoNova = new Sessao(idSessao, login);
@@ -191,13 +191,13 @@ public class GerenciadorDeSessoes implements Gerenciador {
 				return idSessao;
 			} else {
 				throw new PersistenceException(
-						Constantes2.LOGIN_OU_SENHA_INVALIDO.getName());
+						Constantes.LOGIN_OU_SENHA_INVALIDO.getName());
 			}
 		} catch (PersistenceException e) {
-			throw new PersistenceException(Constantes2.LOGIN_OU_SENHA_INVALIDO.getName());
+			throw new PersistenceException(Constantes.LOGIN_OU_SENHA_INVALIDO.getName());
 		} catch (UserInvalidException e) {
 			throw new ArgumentInvalidException(
-					Constantes2.LOGIN_OU_SENHA_INVALIDO.getName());
+					Constantes.LOGIN_OU_SENHA_INVALIDO.getName());
 		}
 	
 	}
@@ -231,7 +231,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 			if (idSessao.getIdSessao().equals(sessionId))
 				return;
 		}
-		throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
+		throw new ArgumentInvalidException(Constantes.SESSAO_INVALIDA.getName());
 	}
 
 	private Usuario getUserByLogin(String login) throws UserInvalidException {

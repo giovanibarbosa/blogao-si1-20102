@@ -15,7 +15,7 @@ import classes.func.usuario.Usuario;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import enuns.Constantes2;
+import enuns.Constantes;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera usuarios ({@link Usuario})
@@ -84,7 +84,7 @@ public class UsuariosDAO {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(
-					Constantes2.USUARIO_NAO_PODE_SER_REMOVIDO.getName());
+					Constantes.USUARIO_NAO_PODE_SER_REMOVIDO.getName());
 		File file = new File(CAMINHO + usuario + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -128,7 +128,7 @@ public class UsuariosDAO {
 			IOException {
 		if (usuario == null
 				|| !(new File(CAMINHO + usuario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes2.USUARIO_EXISTENTE.getName());
+			throw new PersistenceException(Constantes.USUARIO_EXISTENTE.getName());
 		this.deletar(usuario);
 		this.criar(usuario);
 	}

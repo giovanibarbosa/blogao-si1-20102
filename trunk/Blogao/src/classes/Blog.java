@@ -1,13 +1,9 @@
 package classes;
 
-import interfaces.Constantes;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import enuns.Constantes2;
+import enuns.Constantes;
 
 import ourExceptions.ArgumentInvalidException;
 
@@ -79,7 +75,7 @@ public class Blog {
 	 */
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
 		if (!validaTitulo(titulo))
-			throw new ArgumentInvalidException(Constantes2.TITULO_INVALIDO.getName());
+			throw new ArgumentInvalidException(Constantes.TITULO_INVALIDO.getName());
 		this.titulo = titulo;
 	}
 
