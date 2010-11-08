@@ -62,9 +62,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	@Override
 	public void saveData() throws PersistenceException, IOException {
 		blogsDAO.limparBlogs();
-		Iterator it = iteradorBlog();
+		Iterator<Blog> it = iteradorBlog();
 		while(it.hasNext()){
-			blogsDAO.criar((Blog) it.next());
+			blogsDAO.criar( it.next());
 		}
 	
 	}
@@ -95,15 +95,15 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 */
 	public Blog getBlog(String idBlog) throws ArgumentInvalidException {
-		Iterator it = iteradorBlog();
+		Iterator<Blog> it = iteradorBlog();
 		while(it.hasNext()){
-			Blog blog = (Blog) it.next();
+			Blog blog = it.next();
 			if (blog.getId().equals(idBlog))
 				return blog;
 		}
-		Iterator itSub = iteradorSubBlog();
+		Iterator<Blog> itSub = iteradorSubBlog();
 		while(itSub.hasNext()){
-			Blog subBlog = (Blog) itSub.next();
+			Blog subBlog = itSub.next();
 			if (subBlog.getId().equals(idBlog))
 				return subBlog;
 		}
@@ -208,7 +208,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 */
 	public List<Blog> getListaDeBlogsPorIdSessao(String idSessao) {
 		List<Blog> listaBlogsComIdSessaoBuscado = new ArrayList<Blog>();
-		Iterator it = iteradorBlog();
+		Iterator<Blog> it = iteradorBlog();
 		while(it.hasNext()){
 			Blog blog = (Blog) it.next();
 			if (blog.getIdSessao().equals(idSessao)) {
@@ -235,9 +235,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		 */
 		public List<String> getBlogPorNome(String match) {
 			List<String> listaBlog = new ArrayList<String>();
-			Iterator it = iteradorBlog();
+			Iterator<Blog> it = iteradorBlog();
 			while(it.hasNext()){
-				Blog blog = (Blog) it.next();
+				Blog blog = it.next();
 				if (blog.getTitulo().toLowerCase().contains(match.toLowerCase()))
 					listaBlog.add(blog.getId());
 			}
@@ -397,9 +397,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			PersistenceException, UserInvalidException {
 	
 		int indexAtual = 0;
-		Iterator it = iteradorBlog();
+		Iterator<Blog> it = iteradorBlog();
 		while(it.hasNext()){
-			Blog blog = (Blog) it.next();
+			Blog blog = it.next();
 			if (blog.getIdSessao().equals(sessionID)) {
 				if (indexAtual == index) {
 					return blog.getId();
@@ -676,9 +676,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException, UserInvalidException {
 		int contador = 0;
-		Iterator it = iteradorBlog();
+		Iterator<Blog> it = iteradorBlog();
 		while(it.hasNext()){
-			Blog blog = (Blog) it.next();
+			Blog blog = it.next();
 			if(blog.getIdSessao().equals(sessionID)) contador++;
 		}
 		return contador;
@@ -710,9 +710,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 		 */
 		private boolean verificaExistenciaDeBlog(String idBlog)
 				throws ArgumentInvalidException {
-			Iterator it = iteradorBlog();
+			Iterator<Blog> it = iteradorBlog();
 			while(it.hasNext()){
-				Blog blog = (Blog) it.next();
+				Blog blog = it.next();
 				if (blog.getId().equals(idBlog)) {
 					return true;
 				}
