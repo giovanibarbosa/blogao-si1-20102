@@ -32,10 +32,8 @@ import persistencia.daos.BlogsDAO;
  */
 public class GerenciadorDeBlogs implements Gerenciador {
 
+	private static GerenciadorDeBlogs instancia;
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
-
-	//private GerenciadorDeDados gerenteDados;
-
 	private List<Blog> listaDeBlogs = new ArrayList<Blog>();
 	private List<Blog> listaDeSubBlogs = new ArrayList<Blog>();
 
@@ -44,13 +42,16 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	private static final int DONO = 3089292;
 
 	/**
-	 * Contrutor para este gerenciador
-	 * 
-	 * @param gerenteDados
-	 *            {@link GerenciadorDeDados}
+	 * Construtor privado, para reforçar o singleton
 	 */
-	public GerenciadorDeBlogs(GerenciadorDeDados gerenteDados) {
+	private GerenciadorDeBlogs() {	
 		
+	}
+	
+	public static GerenciadorDeBlogs getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDeBlogs();
+		return instancia;
 	}
 
 	@Override
