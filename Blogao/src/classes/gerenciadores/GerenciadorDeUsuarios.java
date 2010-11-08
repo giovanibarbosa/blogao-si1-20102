@@ -10,7 +10,6 @@ import persistencia.daos.UsuariosDAO;
 import classes.Announcement;
 import classes.Blog;
 import classes.Login;
-import classes.Post;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import enuns.Constantes2;
-import facades.FacadeUsuario;
 import interfaces.Gerenciador;
 
 /**
