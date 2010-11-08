@@ -16,7 +16,6 @@ import classes.Comentario;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.XomDriver;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera comentarios ({@link Comentario})
