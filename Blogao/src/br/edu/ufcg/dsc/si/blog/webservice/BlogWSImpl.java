@@ -13,7 +13,7 @@ import classes.gerenciadores.GerenciadorDeDados;
  *
  */
 public class BlogWSImpl implements BlogWS {
-	private GerenciadorDeDados gerenteDados = new GerenciadorDeDados();
+	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
 
 	/* (non-Javadoc)
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#addComment(java.lang.String, java.lang.String, java.lang.String)
