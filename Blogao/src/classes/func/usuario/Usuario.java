@@ -11,6 +11,7 @@ import classes.Announcement;
 import classes.Blog;
 import classes.Login;
 import classes.Senha;
+import enuns.Constantes2;
 
 /**
  * Classe que inicializa um Usuario
@@ -196,7 +197,7 @@ public class Usuario {
 			listaAnnouncements.add(announcement);
 		else
 			throw new ArgumentInvalidException(
-					Constantes.ANNOUNCEMENT_CADASTRADO);
+					Constantes2.ANNOUNCEMENT_CADASTRADO.getName());
 
 	}
 
@@ -216,7 +217,7 @@ public class Usuario {
 				return announcement;
 			}
 		}
-		throw new ArgumentInvalidException(Constantes.ANNOUNCEMENT_INVALIDO);
+		throw new ArgumentInvalidException(Constantes2.ANNOUNCEMENT_INVALIDO.getName());
 	}
 
 	/**

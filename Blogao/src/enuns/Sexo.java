@@ -1,7 +1,6 @@
 package enuns;
 
 import ourExceptions.SexoInvalidoException;
-import interfaces.Constantes;
 
 /**
  * Enum de Sexo
@@ -9,7 +8,7 @@ import interfaces.Constantes;
  *
  */
 public enum Sexo {
-	Masculino("Masculino"), Feminino("Feminino"), Nao_Inf(Constantes.NAO_INFORMADO);
+	Masculino("Masculino"), Feminino("Feminino"), Nao_Inf("Não informado");
 	
 	private String tipo;
 	
@@ -30,7 +29,7 @@ public enum Sexo {
 		if (sex == null || sex.trim().isEmpty()
 				|| (!sex.equalsIgnoreCase("Masculino") &&
 					!sex.equalsIgnoreCase("Feminino") &&
-					!sex.equalsIgnoreCase(Constantes.NAO_INFORMADO))) {
+					!sex.equalsIgnoreCase("Não informado"))) {
 			return false;
 		}
 		return true;
@@ -44,17 +43,14 @@ public enum Sexo {
 	 */
 	public static Sexo setadorSexo(String sex) throws SexoInvalidoException {
 		if (!verificaSexo(sex)) {
-			throw new SexoInvalidoException(Constantes.SEXO_INVALIDO);
+			throw new SexoInvalidoException(Constantes2.SEXO_INVALIDO.getName());
 		}	
 		if (sex.equalsIgnoreCase(Sexo.Feminino.getSexo())) {
-			//this.tipo = Sexo.Feminino.getSexo();
 			return Sexo.Feminino;
 		}
 		else if (sex.equalsIgnoreCase(Sexo.Masculino.getSexo())) {
-			//this.tipo = Sexo.Masculino.getSexo();
 			return Sexo.Masculino;
 		}
-		//this.tipo = Sexo.Nao_Inf.getSexo();
 		return Sexo.Nao_Inf;		
 	}
 	
