@@ -16,7 +16,7 @@ public class FacadeDados {
 	}
 	
 	private FacadeDados() {
-		gerenteDados = new GerenciadorDeDados();
+		gerenteDados = GerenciadorDeDados.getInstance();
 	}
 	
 	public void loadData() throws Exception {
