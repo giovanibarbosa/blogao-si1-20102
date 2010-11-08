@@ -31,22 +31,27 @@ import interfaces.Gerenciador;
  * 
  */
 public class GerenciadorDeComentarios implements Gerenciador {
-
-	private GerenciadorDeDados gerenteDados;
-	private List<String> listaIdsComentarios;
-	private HashMap<String, Comentario> mapaComentarios;
+	
+	private static GerenciadorDeComentarios instancia;
+	private List<String> listaIdsComentarios = new ArrayList<String>();
+	private HashMap<String, Comentario> mapaComentarios = new HashMap<String, Comentario>();
 	private ComentariosDAO comentariosDAO = ComentariosDAO.getInstance();
-
+	
 	/**
-	 * Construtor para este {@link GerenciadorDeComentarios}
-	 * 
-	 * @param gerenteDados
-	 *            {@link GerenciadorDeDados}
+	 * Construtor privado, para reforçar o singleton
 	 */
-	public GerenciadorDeComentarios(GerenciadorDeDados gerenteDados) {
-		listaIdsComentarios = new ArrayList<String>();
-		mapaComentarios = new HashMap<String, Comentario>();
-		this.gerenteDados = gerenteDados;
+	private GerenciadorDeComentarios() {	
+		
+	}
+	
+	/**
+	 * Recupera a instancia unica para esta classe
+	 * @return A a instancia unica para esta classe
+	 */
+	public static GerenciadorDeComentarios getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDeComentarios();
+		return instancia;
 	}
 
 	@Override
@@ -152,7 +157,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 		validaIdComentario(idComentario);
 
 		String idSessaoDono = getSessionIdOwner(idComentario);
-		for (Usuario user : gerenteDados.getGerenciadorDeUsuarios()
+		for (Usuario user : GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios()
 				.getListaUsuarios()) {
 			if (String.valueOf(user.getLogin().getName().hashCode()).equals(
 					idSessaoDono)) {
@@ -261,12 +266,12 @@ public class GerenciadorDeComentarios implements Gerenciador {
 	}
 
 	private Post getPost(String postId) throws PersistenceException {
-		return gerenteDados.getGerentePosts().getPostPorId(postId);
+		return GerenciadorDeDados.getInstance().getGerentePosts().getPostPorId(postId);
 	}
 
 	private Sessao verificaSessaoValida(String sessionId)
 			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getSessao(sessionId);
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().getSessao(sessionId);
 	}
 
 	private String getCorpoComentario(String idComentario) {
@@ -302,7 +307,7 @@ public class GerenciadorDeComentarios implements Gerenciador {
 
 	private String validaLogin(String sessionId)
 			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getLoginPorSessao(sessionId);
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().getLoginPorSessao(sessionId);
 	}
 
 	private String getIdComentario(int index, Comentario coment) {
