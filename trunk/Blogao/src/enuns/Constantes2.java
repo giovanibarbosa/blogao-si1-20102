@@ -27,7 +27,8 @@ public enum Constantes2 {
 	TITULO_INVALIDO ("Você deve especificar um título para o blog"),
 	EMAIL_INVALIDO ("Email inválido"),
 	TITULO_OBRIGATORIO ("Título obrigatório"),
-	SENHA_INVALIDA ("Senha inválida");
+	SENHA_INVALIDA ("Senha inválida"),
+	DATA_INVALIDA ("Data inválida");
 	
 	
 	private String name;

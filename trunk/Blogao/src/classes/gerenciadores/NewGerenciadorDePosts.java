@@ -12,14 +12,14 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import persistencia.daos.PostsDAO;
+import classes.Blog;
+import classes.Comentario;
+import classes.Post;
 import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
 import classes.func.usuario.Usuario;
-import classes.Comentario;
-import classes.Post;
-import classes.Blog;
 
 /**
  * Classe que gerencia Posts.
