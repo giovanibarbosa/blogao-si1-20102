@@ -1,12 +1,11 @@
 package classes;
 
-import interfaces.Constantes;
+import enuns.Constantes2;
 import ourExceptions.ArgumentInvalidException;
 
 /**
  * Classe que gera um objeto {@link Senha} para um determinado usuario.
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
@@ -37,7 +36,7 @@ public class Senha {
 	 */
 	public void setSenha(String novaSenha) throws ArgumentInvalidException {
 		if (!validaSenha(novaSenha)) {
-			throw new ArgumentInvalidException(Constantes.SENHA_INVALIDA);
+			throw new ArgumentInvalidException(Constantes2.SENHA_INVALIDA.getName());
 		}
 		this.senha = novaSenha;
 	}

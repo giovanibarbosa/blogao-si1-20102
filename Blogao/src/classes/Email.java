@@ -1,6 +1,6 @@
 package classes;
 
-import interfaces.Constantes;
+import enuns.Constantes2;
 
 
 import ourExceptions.ArgumentInvalidException;
@@ -8,7 +8,6 @@ import ourExceptions.ArgumentInvalidException;
 /**
  * Classe utilizada para gerar um novo email.
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
@@ -42,7 +41,7 @@ public class Email {
 	 */
 	public void setEmail(String novoEmail) throws ArgumentInvalidException {
 		if (novoEmail == null || novoEmail.trim().isEmpty()) {
-			throw new ArgumentInvalidException(Constantes.EMAIL_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.EMAIL_INVALIDO.getName());
 		}
 		this.email = novoEmail;
 	}

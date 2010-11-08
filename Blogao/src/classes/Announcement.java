@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Classe que inicializa um Announcement
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
@@ -16,9 +15,9 @@ import java.util.List;
  */
 public class Announcement {
 
-	String id;
-	String idBlogDeInteresse;
-	List<String> atualizacoes;
+	private String id;
+	private String idBlogDeInteresse;
+	private List<String> atualizacoes;
 
 	/**
 	 * Construtor da classe
