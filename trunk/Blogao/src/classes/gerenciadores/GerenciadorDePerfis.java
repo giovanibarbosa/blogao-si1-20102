@@ -5,7 +5,9 @@ import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
@@ -16,6 +18,7 @@ import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 import classes.Blog;
 import classes.Login;
+import classes.Post;
 import classes.Senha;
 import classes.Email;
 import enuns.Constantes2;
@@ -140,7 +143,9 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	public List<String> getPerfilPorNome(String nome) {
 		List<String> listaPerfil = new ArrayList<String>();
-		for (Perfil perfil : listaPerfis) {
+		Iterator<Perfil> it = iteradorPerfil();
+		while(it.hasNext()){
+			Perfil perfil = (Perfil) it.next();
 			if (primeiraLetraPerfil(nome, perfil)
 					|| primeiraLetraDono(nome, perfil))
 				listaPerfil.add(perfil.getLoginUsuarioDono());
@@ -150,7 +155,9 @@ public class GerenciadorDePerfis implements Gerenciador {
 
 	public List<String> getPerfilPorInteresse(String interesse) {
 		List<String> listaPerfil = new ArrayList<String>();
-		for (Perfil perfil : listaPerfis) {
+		Iterator<Perfil> it = iteradorPerfil();
+		while(it.hasNext()){
+			Perfil perfil = (Perfil) it.next();
 			if (interessesEquivalentes(interesse, perfil))
 				listaPerfil.add(perfil.getLoginUsuarioDono());
 		}
@@ -161,15 +168,19 @@ public class GerenciadorDePerfis implements Gerenciador {
 	public List<String> getPerfilPorSexo(String sexo) {
 		List<String> listaPerfil = new ArrayList<String>();
 		if (sexo.equalsIgnoreCase(Sexo.Nao_Inf.getSexo())) {
-			for (Perfil perfil : listaPerfis) {
+			Iterator<Perfil> it = iteradorPerfil();
+			while(it.hasNext()){
+				Perfil perfil = (Perfil) it.next();
 				listaPerfil.add(perfil.getLoginUsuarioDono());
 			}
 		ordenaPerfisPorNome(listaPerfil);	
 		return listaPerfil; 
 		} 
-		for (Perfil pf : listaPerfis) {
-			if (pf.getSexo().getSexo().equalsIgnoreCase(sexo))
-				listaPerfil.add(pf.getLoginUsuarioDono());
+		Iterator<Perfil> it = iteradorPerfil();
+		while(it.hasNext()){
+			Perfil perfil = (Perfil) it.next();
+			if (perfil.getSexo().getSexo().equalsIgnoreCase(sexo))
+				listaPerfil.add(perfil.getLoginUsuarioDono());
 			}
 		ordenaPerfisPorNome(listaPerfil);
 		return listaPerfil;
@@ -201,8 +212,10 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 
 	private void validaEmail(Email mail) throws ArgumentInvalidException {
-		for (Perfil perf : listaPerfis) {
-			if (perf.getEmail().equals(mail))
+		Iterator<Perfil> it = iteradorPerfil();
+		while(it.hasNext()){
+			Perfil perfil = (Perfil) it.next();
+			if (perfil.getEmail().equals(mail))
 				throw new ArgumentInvalidException(Constantes2.EMAIL_EXISTENTE.getName());
 		}
 	}
@@ -280,6 +293,48 @@ public class GerenciadorDePerfis implements Gerenciador {
 			ArgumentInvalidException, PersistenceException {
 		Usuario user = getUserBySessionId(sessionId);
 		return user.getPerfil();
+	}
+	
+	/**
+	 * Iterador sobre a lista de Posts.
+	 * @return Iterator<Blog>
+	 */
+	public Iterator<Perfil> iteradorPerfil(){
+		return new Iterator<Perfil>() {
+			private int cursor = 0;
+
+
+			@Override
+			public boolean hasNext() {
+				while(cursor < listaPerfis.size()) {
+					if(listaPerfis.get(cursor) instanceof Perfil)
+						return true;
+					cursor++;
+				}				
+				return false;
+			}
+
+
+			@Override
+			public Perfil next() {
+				try {
+					Perfil b = listaPerfis.get(cursor);
+					if(b instanceof Perfil) {
+						cursor++;
+						return b;
+					}
+					cursor++;
+				} catch (NoSuchElementException e) {
+					throw e;
+				}
+				return next();
+			}
+
+
+			@Override
+			public void remove() {				
+			}
+		};
 	}
 
 }
