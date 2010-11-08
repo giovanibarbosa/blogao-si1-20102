@@ -9,16 +9,15 @@ import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 
 import classes.Blog;
-import classes.gerenciadores.NewGerenciadorDeBlogs;
-import classes.gerenciadores.NewGerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDeBlogs;
 
 public class FacadeBlog {
 
 	private static FacadeBlog instance;
-	private NewGerenciadorDeBlogs gerenteBlog;
+	private GerenciadorDeBlogs gerenteBlog;
 
 	protected FacadeBlog() {
-		gerenteBlog = new NewGerenciadorDeBlogs(NewGerenciadorDeDados.getInstance());
+		gerenteBlog = GerenciadorDeBlogs.getInstance();
 	}
 
 	public static FacadeBlog getInstance() {
@@ -93,15 +92,25 @@ public class FacadeBlog {
 	}
 
 	public void changeBlogInformation(String idSessao, String idBlog,
-			String atributo, String novoValor) throws ArgumentInvalidException,
-			PersistenceException, UserInvalidException, IOException {
-		gerenteBlog
-				.changeBlogInformation(idSessao, idBlog, atributo, novoValor);
+			String atributo, String novoValor) throws Exception {
+		gerenteBlog.changeBlogInformation(idSessao, idBlog, atributo, novoValor);
 	}
 
 	public void validateBlogOwner(Blog blog, String sessionId)
 			throws ArgumentInvalidException {
 		gerenteBlog.validaDonoBlog(blog, sessionId);
+	}
+	
+	public String recuperaIdBlogPorLogin(String login, int index)
+		throws FileNotFoundException, PersistenceException,
+			UserInvalidException, ArgumentInvalidException {
+		return gerenteBlog.recuperaIdBlogPorLogin(login, index);
+	}
+	
+	public String recuperaIdBlogDesejado(String sessionID, int index)
+		throws FileNotFoundException, ArgumentInvalidException,
+			PersistenceException, UserInvalidException {
+		return gerenteBlog.recuperaIdBlogDesejado(sessionID, index);
 	}
 
 	public String getBlogInformation(String idBlog, String atributo)
@@ -112,6 +121,10 @@ public class FacadeBlog {
 
 	public List<Blog> getListBlogs() {
 		return gerenteBlog.getListaDeBlogs();
+	}
+	
+	public List<String> getBlogPorNome(String match) {
+		return gerenteBlog.getBlogPorNome(match);
 	}
 
 	public void saveData() throws PersistenceException, IOException {

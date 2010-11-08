@@ -1,20 +1,11 @@
 package facades;
 
-import interfaces.Constantes;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.Sessao;
-import classes.func.usuario.Perfil;
-import classes.func.usuario.Usuario;
-import classes.gerenciadores.GerenciadorDeBlogs;
-import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDeSessoes;
 
 public class FacadeSessao {
@@ -22,7 +13,7 @@ public class FacadeSessao {
 	private GerenciadorDeSessoes gerenteSessao;
 
 	protected FacadeSessao() {
-		gerenteSessao = new GerenciadorDeSessoes(GerenciadorDeDados.getInstance());
+		gerenteSessao = GerenciadorDeSessoes.getInstance();
 	}
 
 	public static FacadeSessao getInstance() {
@@ -36,11 +27,9 @@ public class FacadeSessao {
 	 * @param login
 	 * @param senha
 	 * @return
-	 * @throws PersistenceException 
-	 * @throws ArgumentInvalidException 
-	 * @throws FileNotFoundException 
+	 * @throws Exception 
 	 */
-	public String logon(String login, String senha) throws FileNotFoundException, ArgumentInvalidException, PersistenceException{
+	public String logon(String login, String senha) throws Exception{
 		return gerenteSessao.logon(login, senha);
 
 	}
@@ -51,14 +40,9 @@ public class FacadeSessao {
 	* @param login
 	*            {@link String}
 	* @return {@link boolean}
-	* @throws PersistenceException
-	* @throws FileNotFoundException
-	* @throws ArgumentInvalidException
-	* @throws UserInvalidException
+	 * @throws Exception 
 	*/
-	public boolean isUserLogged(String login) throws PersistenceException,
-		FileNotFoundException, ArgumentInvalidException,
-		UserInvalidException {
+	public boolean isUserLogged(String login) throws Exception {
 		return gerenteSessao.isUserLogged(login);
 	
 	}

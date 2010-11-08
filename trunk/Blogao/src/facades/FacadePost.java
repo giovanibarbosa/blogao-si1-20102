@@ -1,10 +1,7 @@
 package facades;
 
-import interfaces.Constantes;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
@@ -13,20 +10,14 @@ import ourExceptions.UserInvalidException;
 import classes.Blog;
 import classes.Comentario;
 import classes.Post;
-import classes.func.multimidia.Audio;
-import classes.func.multimidia.Imagem;
-import classes.func.multimidia.Video;
-import classes.func.usuario.Usuario;
-import classes.gerenciadores.NewGerenciadorDeBlogs;
-import classes.gerenciadores.NewGerenciadorDeDados;
-import classes.gerenciadores.NewGerenciadorDePosts;
+import classes.gerenciadores.GerenciadorDePosts;
 
 public class FacadePost {
 	private static FacadePost instance;
-	private NewGerenciadorDePosts gerentePost;
+	private GerenciadorDePosts gerentePost;
 
 	protected FacadePost() {
-		gerentePost = new NewGerenciadorDePosts(NewGerenciadorDeDados.getInstance());
+		gerentePost = GerenciadorDePosts.getInstance();
 	}
 
 
