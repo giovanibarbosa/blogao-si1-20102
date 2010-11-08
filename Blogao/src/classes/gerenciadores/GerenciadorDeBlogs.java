@@ -34,10 +34,10 @@ public class GerenciadorDeBlogs implements Gerenciador {
 
 	private BlogsDAO blogsDAO = BlogsDAO.getInstance();
 
-	private GerenciadorDeDados gerenteDados;
+	//private GerenciadorDeDados gerenteDados;
 
-	private List<Blog> listaDeBlogs;
-	private List<Blog> listaDeSubBlogs;
+	private List<Blog> listaDeBlogs = new ArrayList<Blog>();
+	private List<Blog> listaDeSubBlogs = new ArrayList<Blog>();
 
 	private static final int DESCRICAO = 1499866697;
 	private static final int TITULO = -873444423;
@@ -50,9 +50,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	 *            {@link GerenciadorDeDados}
 	 */
 	public GerenciadorDeBlogs(GerenciadorDeDados gerenteDados) {
-		listaDeBlogs = new ArrayList<Blog>();
-		listaDeSubBlogs = new ArrayList<Blog>();
-		this.gerenteDados = gerenteDados;
+		
 	}
 
 	@Override
@@ -665,7 +663,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	}
 
 		private Usuario getUserByLogin(String login) throws UserInvalidException {
-		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+		return GerenciadorDeDados.getInstance().getGerenteUsuarios().getUsuario(login);
 	}
 
 	private boolean titulosEquivalentes(String match, Blog blog) {
@@ -673,26 +671,26 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	}
 
 	private Usuario getUser(String login) throws UserInvalidException {
-		return gerenteDados.getGerenciadorDeUsuarios().getUsuario(login);
+		return GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios().getUsuario(login);
 	}
 
 	private boolean usuarioLogado(String login) throws Exception {
-		return gerenteDados.getGerenteSessoes().isUserLogged(login);
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().isUserLogged(login);
 	}
 
 	private String getLogin(String idSessao) throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getLoginPorSessao(
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().getLoginPorSessao(
 				idSessao);
 	}
 
 		private void apagaPost(List<Post> postsAApagar)
 			throws PersistenceException, ArgumentInvalidException {
-		gerenteDados.getGerentePosts().removePost(
+			GerenciadorDeDados.getInstance().getGerentePosts().removePost(
 				postsAApagar.get(0).getId());
 	}
 
 	private List<Post> getPostsDel(Blog blog) {
-		return gerenteDados.getGerentePosts()
+		return GerenciadorDeDados.getInstance().getGerentePosts()
 				.getListaPostsPorBlog(blog);
 	}
 
@@ -703,17 +701,17 @@ public class GerenciadorDeBlogs implements Gerenciador {
 
 	private String getInformation(String atributo, Blog blog)
 			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs().getAtributo(blog, atributo);
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getAtributo(blog, atributo);
 	}
 
 	private Blog getBlogById(String idBlog) throws ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs().getBlog(idBlog);
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getBlog(idBlog);
 	}
 
 	private Blog getPaiDoBlog(String idSessao, String idBlogPai)
 			throws FileNotFoundException, PersistenceException,
 			ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs().getBlog(idBlogPai,
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getBlog(idBlogPai,
 				idSessao);
 	}
 
