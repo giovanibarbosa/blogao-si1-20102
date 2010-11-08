@@ -15,16 +15,16 @@ import classes.Blog;
 import classes.Login;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
-import classes.gerenciadores.NewGerenciadorDeBlogs;
-import classes.gerenciadores.NewGerenciadorDeDados;
-import classes.gerenciadores.NewGerenciadorDeUsuarios;
+import classes.gerenciadores.GerenciadorDeBlogs;
+import classes.gerenciadores.GerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDeUsuarios;
 
 public class FacadeUsuario {
 	private static FacadeUsuario instance;
-	private NewGerenciadorDeUsuarios gerenteUsuario;
+	private GerenciadorDeUsuarios gerenteUsuario;
 
 	protected FacadeUsuario() {
-		gerenteUsuario = new NewGerenciadorDeUsuarios(NewGerenciadorDeDados.getInstance());
+		gerenteUsuario = new GerenciadorDeUsuarios(GerenciadorDeDados.getInstance());
 	}
 
 	public static FacadeUsuario getInstance() {
