@@ -32,24 +32,22 @@ import enuns.Constantes2;
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 public class GerenciadorDePosts implements Gerenciador {
-	private GerenciadorDeDados gerenteDados;
-	private List<Post> listaPosts;
+	private List<Post> listaPosts = new ArrayList<Post>();
 	private PostsDAO postsDAO = PostsDAO.getInstance();
+	private static GerenciadorDePosts instancia;
 
 	private static final int TEXTO = 110256354;
 	private static final int TITULO = -873444423;
 	private static final int DATA_CRIACAO = 358082837;
-
-	/**
-	 * Construtor da classe.
-	 * 
-	 * @param gerenteDados
-	 *            {@link GerenciadorDeDados}
-	 */
-	public GerenciadorDePosts(GerenciadorDeDados gerenteDados) {
-		this.gerenteDados = gerenteDados;
-		listaPosts = new ArrayList<Post>();
-
+	
+	private GerenciadorDePosts() {
+		
+	}
+	
+	public static GerenciadorDePosts getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDePosts();
+		return instancia;
 	}
 
 	@Override
@@ -888,26 +886,26 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	private void avisaListeners(Blog blog, Post post)
 			throws UserInvalidException {
-		gerenteDados.getGerenteBlogs().avisaListeners(blog, post.getId());
+		GerenciadorDeDados.getInstance().getGerenteBlogs().avisaListeners(blog, post.getId());
 	}
 
 	private Usuario recuperaUsuarioPorLogin(String login)
 			throws UserInvalidException {
-		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+		return GerenciadorDeDados.getInstance().getGerenteUsuarios().getUsuario(login);
 	}
 
 	private String recuperaLoginPorSessionId(String idSessao)
 			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getLoginPorSessao(idSessao);
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().getLoginPorSessao(idSessao);
 	}
 
 	private void verificaDonoDoBlog(String idSessao, Blog blog)
 			throws ArgumentInvalidException {
-		gerenteDados.getGerenteBlogs().validaDonoBlog(blog, idSessao);
+		GerenciadorDeDados.getInstance().getGerenteBlogs().validaDonoBlog(blog, idSessao);
 	}
 
 	private Blog getBlog(Post post) throws ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs()
+		return GerenciadorDeDados.getInstance().getGerenteBlogs()
 				.getBlog(post.getIdBlogDono());
 	}
 
@@ -992,39 +990,39 @@ public class GerenciadorDePosts implements Gerenciador {
 
 	private int numeroDeComentarios(String idPostagem)
 			throws PersistenceException {
-		return gerenteDados.getGerentePosts().getNumberOfComments(idPostagem);
+		return GerenciadorDeDados.getInstance().getGerentePosts().getNumberOfComments(idPostagem);
 	}
 
 	private List<Blog> getBlogs() {
-		return gerenteDados.getGerenteBlogs().getListaDeBlogs();
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getListaDeBlogs();
 	}
 
 	private void validateLoggedUser(String login) throws UserInvalidException {
-		Usuario user = getUser(login);
+		getUser(login);
 	}
 
 	private Usuario getUser(String login) throws UserInvalidException {
-		return gerenteDados.getGerenciadorDeUsuarios()
+		return GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios()
 				.getUsuario(login);
 	}
 
 	private void removeComentario(Comentario removido) {
-		gerenteDados.getGerenteComentarios().remove(removido);
+		GerenciadorDeDados.getInstance().getGerenteComentarios().remove(removido);
 	}
 
 	private Blog getBlog(String blogDonoId) throws ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs().getBlog(blogDonoId);
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getBlog(blogDonoId);
 	}
 
 	private Blog getBlogByIdDono(String postId)
 			throws ArgumentInvalidException, PersistenceException {
-		return gerenteDados.getGerenteBlogs().getBlog(
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getBlog(
 				getPostPorId(postId).getIdBlogDono());
 	}
 
 	private void validateSession(String sessionId)
 			throws ArgumentInvalidException {
-		gerenteDados.getGerenteSessoes().validaSessao(sessionId);
+		GerenciadorDeDados.getInstance().getGerenteSessoes().validaSessao(sessionId);
 	}
 	
 	/**
