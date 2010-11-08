@@ -5,12 +5,15 @@ import interfaces.Gerenciador;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
+import classes.Post;
 import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
@@ -43,8 +46,9 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	@Override
 	public void saveData() throws PersistenceException, IOException {
 		sessoesDAO.limparSessoes();
-		for (Sessao ses : listaSessoes) {
-			sessoesDAO.criar(ses);
+		Iterator<Sessao> it = iteradorSessao();
+		while(it.hasNext()){
+			sessoesDAO.criar(it.next());
 		}
 	}
 
@@ -83,8 +87,10 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 */
 	public boolean isUserLogged(String login) throws Exception {
 		Usuario user = getUserByLogin(login); //verifica se o usuario esta logado
-		for (Sessao ses : listaSessoes) {
-			if (ses.getLogin().equals(login)) {
+		Iterator<Sessao> it = iteradorSessao();
+		while(it.hasNext()){
+			Sessao sessao = it.next();
+			if (sessao.getLogin().equals(login)) {
 				return true;
 			}
 		}
@@ -101,9 +107,11 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 */
 	public Sessao getSessao(String idSessao) throws ArgumentInvalidException {
-		for (Sessao ses : listaSessoes) {
-			if (ses.getIdSessao().equals(idSessao)) {
-				return ses;
+		Iterator<Sessao> it = iteradorSessao();
+		while(it.hasNext()){
+			Sessao sessao = it.next();
+			if (sessao.getIdSessao().equals(idSessao)) {
+				return sessao;
 			}
 		}
 		throw new ArgumentInvalidException(Constantes2.SESSAO_INVALIDA.getName());
@@ -213,7 +221,9 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 */
 	public void validaSessao(String sessionId) throws ArgumentInvalidException {
-		for (Sessao idSessao : listaSessoes) {
+		Iterator<Sessao> it = iteradorSessao();
+		while(it.hasNext()){
+			Sessao idSessao = it.next();
 			if (idSessao.getIdSessao().equals(sessionId))
 				return;
 		}
@@ -232,12 +242,56 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @return booleano.
 	 */
 	private boolean sessaoExistente(String idsessao) {
-		for (Sessao ses : listaSessoes) {
-			if (ses.getIdSessao().equals(idsessao)) {
+		Iterator<Sessao> it = iteradorSessao();
+		while(it.hasNext()){
+			Sessao sessao = it.next();
+			if (sessao.getIdSessao().equals(idsessao)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	
+	/**
+	 * Iterador sobre a lista de Sessoes.
+	 * @return Iterator<Sessao>
+	 */
+	public Iterator<Sessao> iteradorSessao(){
+		return new Iterator<Sessao>() {
+			private int cursor = 0;
+
+
+			@Override
+			public boolean hasNext() {
+				while(cursor < listaSessoes.size()) {
+					if(listaSessoes.get(cursor) instanceof Sessao)
+						return true;
+					cursor++;
+				}				
+				return false;
+			}
+
+
+			@Override
+			public Sessao next() {
+				try {
+					Sessao b = listaSessoes.get(cursor);
+					if(b instanceof Sessao) {
+						cursor++;
+						return b;
+					}
+					cursor++;
+				} catch (NoSuchElementException e) {
+					throw e;
+				}
+				return next();
+			}
+
+
+			@Override
+			public void remove() {				
+			}
+		};
+	}
 }

@@ -296,8 +296,8 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 	
 	/**
-	 * Iterador sobre a lista de Posts.
-	 * @return Iterator<Blog>
+	 * Iterador sobre a lista de Perfis.
+	 * @return Iterator<Perfil>
 	 */
 	public Iterator<Perfil> iteradorPerfil(){
 		return new Iterator<Perfil>() {
