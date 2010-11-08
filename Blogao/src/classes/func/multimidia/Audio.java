@@ -1,6 +1,6 @@
 package classes.func.multimidia;
 
-import interfaces.Constantes;
+import enuns.Constantes2;
 import ourExceptions.ArgumentInvalidException;
 
 /**
@@ -13,7 +13,6 @@ import ourExceptions.ArgumentInvalidException;
  */
 public class Audio extends Midia{
 
-	//private String id;
 	private String descricao;
 	private String dado;
 
@@ -78,28 +77,9 @@ public class Audio extends Midia{
 	 */
 	public void setDado(String dado) throws ArgumentInvalidException{
 		if (dado == null || dado.trim().isEmpty())
-			throw new ArgumentInvalidException(Constantes.DADO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.DADO_INVALIDO.getName());
 		this.dado = dado;
 	}
-
-	/**
-	 * Metodo acessador de ids do audio.
-	 * 
-	 * @return String idAudio
-	 */
-//	public String getId() {
-//		return id;
-//	}
-
-	/**
-	 * Metodo modificador de id do Audio.
-	 * 
-	 * @param id
-	 *            {@link String}
-	 */
-//	public void setId(String id) {
-//		this.id = id;
-//	}
 
 	private String gerarId() {
 		return String.valueOf(this.hashCode());

@@ -1,9 +1,6 @@
 package classes.func.multimidia;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
-import interfaces.Constantes;
+import enuns.Constantes2;
 import ourExceptions.ArgumentInvalidException;
 
 public class Midia{
@@ -37,7 +34,7 @@ public class Midia{
 		else if(midia.equalsIgnoreCase("audio"))
 			return new Audio(descricao, dado);
 		else
-			throw new ArgumentInvalidException(Constantes.MIDIA_INVALIDA);
+			throw new ArgumentInvalidException(Constantes2.MIDIA_INVALIDA.getName());
 
 		
 	}
