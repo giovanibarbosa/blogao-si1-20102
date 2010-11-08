@@ -16,12 +16,12 @@ import ourExceptions.PersistenceException;
  */
 public class GerenciadorDeDados {
 	
-	private GerenciadorDeUsuarios gerenteUsuarios;
-	private GerenciadorDeSessoes gerenteSessoes;
-	private GerenciadorDeBlogs gerenteBlogs;
-	private GerenciadorDeComentarios gerenteComentarios;
-	private GerenciadorDePerfis gerentePerfis;
-	private GerenciadorDePosts gerentePosts;	
+	private GerenciadorDeUsuarios gerenteUsuarios = GerenciadorDeUsuarios.getInstance();
+	private GerenciadorDeSessoes gerenteSessoes = GerenciadorDeSessoes.getInstance();
+	private GerenciadorDeBlogs gerenteBlogs = GerenciadorDeBlogs.getInstance();
+	private GerenciadorDeComentarios gerenteComentarios = GerenciadorDeComentarios.getInstance();
+	private GerenciadorDePerfis gerentePerfis = GerenciadorDePerfis.getInstance();
+	private GerenciadorDePosts gerentePosts = GerenciadorDePosts.getInstance();	
 	private static GerenciadorDeDados instancia;
 	
 	/**
