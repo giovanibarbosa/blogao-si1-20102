@@ -1,6 +1,7 @@
 package classes.gerenciadores;
 
-import java.io.FileNotFoundException;
+import interfaces.Gerenciador;
+
 import java.io.IOException;
 
 import ourExceptions.PersistenceException;
@@ -14,7 +15,7 @@ import ourExceptions.PersistenceException;
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  * 
  */
-public class GerenciadorDeDados {
+public class GerenciadorDeDados implements Gerenciador {
 	
 	private GerenciadorDeUsuarios gerenteUsuarios = GerenciadorDeUsuarios.getInstance();
 	private GerenciadorDeSessoes gerenteSessoes = GerenciadorDeSessoes.getInstance();
@@ -43,10 +44,8 @@ public class GerenciadorDeDados {
 
 	/**
 	 * Metodo que carrega todos* os dados do BD para a aplicação.
-	 * 
-	 * @throws FileNotFoundException
 	 */
-	public void loadData() throws FileNotFoundException {
+	public void loadData() {
 		gerenteUsuarios.loadData();
 		gerentePerfis.loadData();
 		gerenteSessoes.loadData();
