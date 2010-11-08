@@ -30,7 +30,8 @@ public enum Constantes2 {
 	SENHA_INVALIDA ("Senha inválida"),
 	DATA_INVALIDA ("Data inválida"),
 	MIDIA_INVALIDA ("Midia inválida"),
-	DADO_INVALIDO ("Dado inválido");
+	DADO_INVALIDO ("Dado inválido"),
+	ANNOUNCEMENT_CADASTRADO ("Announcement já cadastrado");
 	
 	
 	private String name;
