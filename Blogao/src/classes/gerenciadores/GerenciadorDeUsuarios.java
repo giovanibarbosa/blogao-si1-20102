@@ -10,10 +10,13 @@ import persistencia.daos.UsuariosDAO;
 import classes.Announcement;
 import classes.Blog;
 import classes.Login;
+import classes.Post;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import enuns.Constantes2;
 import facades.FacadeUsuario;
@@ -49,8 +52,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	@Override
 	public void saveData() throws PersistenceException, IOException {
 		userDAO.limparUsuarios();
-		for (Usuario user : listaUsuarios) {
-			userDAO.criar(user);
+		Iterator<Usuario> it = iteradorUsuario();
+		while(it.hasNext()){
+			userDAO.criar(it.next());
 		}
 	}
 
@@ -84,7 +88,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 			throws ArgumentInvalidException, FileNotFoundException,
 						PersistenceException {
 		String login = getLoginPorSessao(sessionID);
-		for (Usuario user : listaUsuarios) {
+		Iterator<Usuario> it = iteradorUsuario();
+		while(it.hasNext()){
+			Usuario user = it.next();
 			if (login.equals(getLoginUser(user))) {
 				return user;
 			}
@@ -101,7 +107,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	 * @throws UserInvalidException
 	 */
 	public Usuario getUsuario(String login) throws UserInvalidException {
-		for (Usuario user : listaUsuarios) {
+		Iterator<Usuario> it = iteradorUsuario();
+		while(it.hasNext()){
+			Usuario user = it.next();
 			if (getLoginUser(user).equals(login)) {
 				return user;
 			}
@@ -123,7 +131,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	 */
 	public List<Perfil> getListaPerfis() {
 		List<Perfil> listaPerfis = new ArrayList<Perfil>();
-		for (Usuario user : listaUsuarios) {
+		Iterator<Usuario> it = iteradorUsuario();
+		while(it.hasNext()){
+			Usuario user = it.next();
 			listaPerfis.add(user.getPerfil());
 		}
 		return listaPerfis;
@@ -181,7 +191,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	 */
 	public String getPostJustCreated(String announcementId)
 			throws ArgumentInvalidException {
-		for (Usuario user : listaUsuarios) {
+		Iterator<Usuario> it = iteradorUsuario();
+		while(it.hasNext()){
+			Usuario user = it.next();
 			for (Announcement announcement : user.getListaAnnouncement()) {
 				if (announcement.getId().equals(announcementId)) {
 					List<String> atualizacoes = announcement.getAtualizacoes();
@@ -233,7 +245,9 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	 * @throws ArgumentInvalidException
 	 */
 	public void validaLogin(Login log) throws ArgumentInvalidException {
-		for (Usuario user : listaUsuarios) {
+		Iterator<Usuario> it = iteradorUsuario();
+		while(it.hasNext()){
+			Usuario user = it.next();
 			if (user.getLogin().equals(log))
 				throw new ArgumentInvalidException(Constantes2.LOGIN_EXISTENTE.getName());
 		}
@@ -312,6 +326,48 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	private void removeAnnouncement(Usuario user, Announcement announcement) {
 		user.getListaAnnouncement().remove(announcement);
+	}
+	
+	/**
+	 * Iterador sobre a lista de Usuarios.
+	 * @return Iterator<Usuario>
+	 */
+	public Iterator<Usuario> iteradorUsuario(){
+		return new Iterator<Usuario>() {
+			private int cursor = 0;
+
+
+			@Override
+			public boolean hasNext() {
+				while(cursor < listaUsuarios.size()) {
+					if(listaUsuarios.get(cursor) instanceof Usuario)
+						return true;
+					cursor++;
+				}				
+				return false;
+			}
+
+
+			@Override
+			public Usuario next() {
+				try {
+					Usuario b = listaUsuarios.get(cursor);
+					if(b instanceof Usuario) {
+						cursor++;
+						return b;
+					}
+					cursor++;
+				} catch (NoSuchElementException e) {
+					throw e;
+				}
+				return next();
+			}
+
+
+			@Override
+			public void remove() {				
+			}
+		};
 	}
 
 }
