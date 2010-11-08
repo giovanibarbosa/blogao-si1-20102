@@ -26,13 +26,17 @@ import enuns.Sexo;
 public class GerenciadorDePerfis implements Gerenciador {
 
 	private Perfil perfil;
-	private List<Perfil> listaPerfis;
+	private List<Perfil> listaPerfis = new ArrayList<Perfil>();;
+	private static GerenciadorDePerfis instancia;
 
-	private GerenciadorDeDados gerenteDados;
-
-	public GerenciadorDePerfis(GerenciadorDeDados gerenteDados) {
-		listaPerfis = new ArrayList<Perfil>();
-		this.gerenteDados = gerenteDados;
+	
+	private GerenciadorDePerfis() {
+	}
+	
+	public static GerenciadorDePerfis getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDePerfis();
+		return instancia;
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class GerenciadorDePerfis implements Gerenciador {
 	@Override
 	public void loadData() {
 		try {
-			listaPerfis = gerenteDados.getGerenteUsuarios().getListaPerfis();
+			listaPerfis = GerenciadorDeDados.getInstance().getGerenteUsuarios().getListaPerfis();
 		} catch (Exception e) {
 			listaPerfis = new ArrayList<Perfil>();
 		}
@@ -199,15 +203,15 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 
 	private void criaUsuario(Usuario user1) {
-		gerenteDados.getGerenciadorDeUsuarios().criarUsuario(user1);
+		GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios().criarUsuario(user1);
 	}
 
 	private void validaLogin(Login log) throws ArgumentInvalidException {
-		gerenteDados.getGerenteUsuarios().validaLogin(log);
+		GerenciadorDeDados.getInstance().getGerenteUsuarios().validaLogin(log);
 	}
 
 	private Usuario getUser(String login) throws UserInvalidException {
-		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+		return GerenciadorDeDados.getInstance().getGerenteUsuarios().getUsuario(login);
 	}
 
 	private void validaEmail(Email mail) throws ArgumentInvalidException {
@@ -220,26 +224,26 @@ public class GerenciadorDePerfis implements Gerenciador {
 	}
 
 	private void addUsuario(Usuario usuario) {
-		gerenteDados.getGerenciadorDeUsuarios().adicionar(usuario);
+		GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios().adicionar(usuario);
 	}
 
 	private void removeUsuario(Usuario usuario) {
-		gerenteDados.getGerenciadorDeUsuarios().remover(usuario);
+		GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios().remover(usuario);
 	}
 
 	private void validaLogin(String novoValor) throws ArgumentInvalidException {
-		gerenteDados.getGerenciadorDeUsuarios().validaLogin(
+		GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios().validaLogin(
 				new Login(novoValor));
 	}
 
 	private Usuario getUserByLogin(String login) throws UserInvalidException {
-		return gerenteDados.getGerenciadorDeUsuarios().getUsuario(
+		return GerenciadorDeDados.getInstance().getGerenciadorDeUsuarios().getUsuario(
 				login);
 	}
 
 	private String getLoginBySessionId(String idSessao)
 			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getLoginPorSessao(
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().getLoginPorSessao(
 				idSessao);
 	}
 
@@ -274,17 +278,17 @@ public class GerenciadorDePerfis implements Gerenciador {
 	private Usuario getUserBySessionId(String sessionId)
 			throws ArgumentInvalidException, FileNotFoundException,
 			PersistenceException {
-		return gerenteDados.getGerenteUsuarios()
+		return GerenciadorDeDados.getInstance().getGerenteUsuarios()
 				.recuperaUsuarioPorIdSessao(sessionId);
 	}
 
 	private void deletaBlog(List<Blog> listaBlogsAApagar)
 			throws PersistenceException, ArgumentInvalidException {
-		gerenteDados.getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
+		GerenciadorDeDados.getInstance().getGerenteBlogs().deleteBlog(listaBlogsAApagar.get(0));
 	}
 
 	private List<Blog> listaBlogsDel(String sessionId) {
-		return gerenteDados.getGerenteBlogs()
+		return GerenciadorDeDados.getInstance().getGerenteBlogs()
 				.getListaDeBlogsPorIdSessao(sessionId);
 	}
 
