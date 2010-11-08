@@ -1,33 +1,23 @@
 package facades;
 
 
-import interfaces.Constantes;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import classes.Comentario;
-import classes.Post;
-import classes.func.usuario.Usuario;
-import classes.gerenciadores.GerenciadorDeDados;
-import classes.gerenciadores.NewGerenciadorDeBlogs;
-import classes.gerenciadores.NewGerenciadorDeComentarios;
-import classes.gerenciadores.NewGerenciadorDeDados;
+import classes.gerenciadores.GerenciadorDeComentarios;
 
 public class FacadeComentarios {
 	private static FacadeComentarios instance;
-	private NewGerenciadorDeComentarios gerenteComentario;
+	private GerenciadorDeComentarios gerenteComentario;
 	
 	/**
 	 * Contrutor da facade de comentarios.
 	 */
 	protected FacadeComentarios() {
-		gerenteComentario = new NewGerenciadorDeComentarios(NewGerenciadorDeDados.getInstance());
+		gerenteComentario = GerenciadorDeComentarios.getInstance();
 	}
 
 	/**

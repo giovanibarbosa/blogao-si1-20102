@@ -1,22 +1,16 @@
 package facades;
 
-import interfaces.Constantes;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.Announcement;
-import classes.Blog;
 import classes.Login;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;
-import classes.gerenciadores.GerenciadorDeBlogs;
-import classes.gerenciadores.GerenciadorDeDados;
 import classes.gerenciadores.GerenciadorDeUsuarios;
 
 public class FacadeUsuario {
@@ -24,7 +18,7 @@ public class FacadeUsuario {
 	private GerenciadorDeUsuarios gerenteUsuario;
 
 	protected FacadeUsuario() {
-		gerenteUsuario = new GerenciadorDeUsuarios(GerenciadorDeDados.getInstance());
+		gerenteUsuario = GerenciadorDeUsuarios.getInstance();
 	}
 
 	public static FacadeUsuario getInstance() {

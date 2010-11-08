@@ -6,14 +6,26 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
 import classes.func.Data;
-import classes.gerenciadores.GerenciadorDeDados;
+import facades.FacadeBlog;
+import facades.FacadeComentarios;
+import facades.FacadeDados;
+import facades.FacadePerfil;
+import facades.FacadePost;
+import facades.FacadeSessao;
+import facades.FacadeUsuario;
 
 /**
  * @author tiagohsl
  *
  */
 public class BlogWSImpl implements BlogWS {
-	private GerenciadorDeDados gerenteDados = GerenciadorDeDados.getInstance();
+	private FacadeDados facadeDados = FacadeDados.getInstance();
+	private FacadePost facadePost = FacadePost.getInstance();
+	private FacadeComentarios facadeComent = FacadeComentarios.getInstance();
+	private FacadeUsuario facadeUser = FacadeUsuario.getInstance();
+	private FacadeBlog facadeBlog = FacadeBlog.getInstance();
+	private FacadePerfil facadePerfil = FacadePerfil.getInstance();
+	private FacadeSessao facadeSessao = FacadeSessao.getInstance();
 
 	/* (non-Javadoc)
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#addComment(java.lang.String, java.lang.String, java.lang.String)
@@ -21,8 +33,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String addComment(String sessionId, String postId, String texto)
 			throws Exception {
-		return gerenteDados.getGerenteComentarios().addComentario(sessionId,
-				postId, texto);
+		return facadeComent.addComentario(sessionId, postId, texto);
 	}
 
 	/* (non-Javadoc)
@@ -31,7 +42,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void addPostAnnouncements(String sessionId, String blogId)
 			throws Exception {
-		gerenteDados.getGerenciadorDeUsuarios().addPostAnnouncement(sessionId, blogId);
+		facadeUser.addPostAnnouncement(sessionId, blogId);
 		
 	}
 
@@ -41,7 +52,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String addSubComment(String sessionId, String commentId, String texto)
 			throws Exception {
-		return gerenteDados.getGerenteComentarios().addSubComment(sessionId, commentId, texto);
+		return facadeComent.addSubComment(sessionId, commentId, texto);
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +61,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String attachMovie(String sessionId, String postId,
 			String descricao, String dado) throws Exception {
-		return gerenteDados.getGerentePosts().attachMovie(sessionId, postId, descricao, dado);
+		return facadePost.attachMovie(sessionId, postId, descricao, dado);
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +70,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String attachPicture(String sessionId, String postId,
 			String descricao, String dado) throws Exception {
-		return gerenteDados.getGerentePosts().attachPicture(sessionId, postId, descricao, dado);
+		return facadePost.attachPicture(sessionId, postId, descricao, dado);
 	}
 
 	/* (non-Javadoc)
@@ -68,7 +79,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String attachSound(String sessionId, String postId,
 			String descricao, String dado) throws Exception {
-		return gerenteDados.getGerentePosts().attachSound(sessionId, postId, descricao, dado);
+		return facadePost.attachSound(sessionId, postId, descricao, dado);
 	}
 
 	/* (non-Javadoc)
@@ -77,8 +88,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void changeBlogInformation(String sessionId, String BlogId,
 			String atributo, String valor) throws Exception {
-		gerenteDados.getGerenteBlogs().changeBlogInformation(sessionId, BlogId,
-				atributo, valor);
+		facadeBlog.changeBlogInformation(sessionId, BlogId, atributo, valor);
 		
 	}
 
@@ -88,8 +98,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void changePostInformation(String sessionId, String postId,
 			String atributo, String valor) throws Exception {
-		gerenteDados.getGerentePosts().mudarInformacaoDoPost(sessionId, postId,
-				atributo, valor);	
+		facadePost.mudarInformacaoDoPost(sessionId, postId, atributo, valor);
 		
 	}
 
@@ -99,8 +108,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void changeProfileInformation(String sessionId, String atributo, String valor)
 			throws Exception {
-		gerenteDados.getGerentePerfis().changeProfileInformation(sessionId, atributo, valor);
-		
+		facadePerfil.changeProfileInformation(sessionId, atributo, valor);
 	}
 
 	/* (non-Javadoc)
@@ -109,7 +117,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String createBlog(String sessionId, String titulo, String descricao)
 			throws Exception {
-		return gerenteDados.getGerenteBlogs().createBlog(sessionId, titulo, descricao);
+		return facadeBlog.createBlog(sessionId, titulo, descricao); //FIXME caso quebrar verificar aqui
 	}
 
 	/* (non-Javadoc)
@@ -118,21 +126,21 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String createPost(String sessionId, String blogId, String titulo,
 			String texto) throws Exception {
-		return gerenteDados.getGerentePosts().createPost(sessionId, blogId, titulo, texto);
+		return facadePost.createPost(sessionId, blogId, titulo, texto);
 	}
 
 	/* (non-Javadoc)
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#createProfile(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void createProfile(String login, String senha, String nome_exibicao,
+	public void createProfile(String login, String senha, String nomeExibicao,
 			String email, String sexo, String dataNasc, String endereco,
-			String interesses, String quem_sou_eu, String filmes,
+			String interesses, String quemEuSou, String filmes,
 			String musicas, String livros) throws Exception {
 		
-		gerenteDados.getGerentePerfis().createProfile(login, senha, nome_exibicao, email, sexo,
-				dataNasc, endereco, interesses, quem_sou_eu, filmes, musicas, livros);
-		
+		facadePerfil.createProfile(login, senha, nomeExibicao, 
+				email, sexo, dataNasc, endereco, interesses, quemEuSou, filmes,
+				musicas, livros);
 	}
 
 	/* (non-Javadoc)
@@ -141,7 +149,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String createSubBlog(String sessionId, String blogId, String titulo,
 			String descricao) throws Exception {
-		return gerenteDados.getGerenteBlogs().createSubBlog(sessionId, blogId, titulo, descricao);
+		return facadeBlog.createSubBlog(sessionId, blogId, titulo, descricao);
 	}
 
 	/* (non-Javadoc)
@@ -150,7 +158,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void deleteAnnouncement(String sessionId, String announcementId)
 			throws Exception {
-		gerenteDados.getGerenciadorDeUsuarios().deleteAnnouncement(sessionId, announcementId);
+		facadeUser.deleteAnnouncement(sessionId, announcementId);
 	}
 
 	/* (non-Javadoc)
@@ -158,8 +166,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public void deleteBlog(String sessionId, String blogId) throws Exception {
-		gerenteDados.getGerenteBlogs().deleteBlog(sessionId, blogId);
-		
+		facadeBlog.deleteBlog(sessionId, blogId);
 	}
 
 	/* (non-Javadoc)
@@ -167,8 +174,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public void deleteMovie(String sessionId, String videoId) throws Exception {
-		gerenteDados.getGerentePosts().deletaVideo(sessionId, videoId);	
-		
+		facadePost.deletaVideo(sessionId, videoId);
 	}
 
 	/* (non-Javadoc)
@@ -177,8 +183,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public void deletePicture(String sessionId, String pictureId)
 			throws Exception {
-		gerenteDados.getGerentePosts().deletaImagem(sessionId, pictureId);	
-		
+		facadePost.deletaImagem(sessionId, pictureId);
 	}
 
 	/* (non-Javadoc)
@@ -186,7 +191,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public void deletePost(String sessionId, String postId) throws Exception {
-		gerenteDados.getGerentePosts().deletePost(sessionId, postId);	
+		facadePost.deletePost(sessionId, postId);	
 		
 	}
 
@@ -195,7 +200,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public void deleteProfile(String sessionId) throws Exception {
-		gerenteDados.getGerentePerfis().deletePerfil(sessionId);
+		facadePerfil.deletePerfil(sessionId);
 		
 	}
 
@@ -204,7 +209,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public void deleteSound(String sessionId, String soundId) throws Exception {
-		gerenteDados.getGerentePosts().deletaAudio(sessionId, soundId);	
+		facadePost.deletaAudio(sessionId, soundId);	
 		
 	}
 
@@ -213,8 +218,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String findBlogByName(String match) {
-		return gerenteDados.getGerenteBlogs().getBlogPorNome(match)
-						.toString().replace(" ", "");
+		return facadeBlog.getBlogsByName(match).toString().replace(" ", "");
 		
 	}
 
@@ -223,7 +227,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String findProfileByGender(String match) {
-		return gerenteDados.getGerentePerfis().getPerfilPorSexo(match)
+		return facadePerfil.getPerfilPorSexo(match)
 		.toString().replace(" ", "");
 		
 	}
@@ -233,7 +237,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String findProfileByInterests(String match) {
-		return gerenteDados.getGerentePerfis().getPerfilPorInteresse(match).toString().replace(" ", "");
+		return facadePerfil.getPerfilPorInteresse(match).toString().replace(" ", "");
 		
 	}
 
@@ -242,7 +246,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String findProfileByName(String match) {
-		return gerenteDados.getGerentePerfis().getPerfilPorNome(match).toString().replace(" ", "");
+		return facadePerfil.getPerfilPorNome(match).toString().replace(" ", "");
 		
 	}
 
@@ -252,7 +256,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String getAnnouncement(String sessionId, Integer index)
 			throws Exception {
-		return gerenteDados.getGerenciadorDeUsuarios().getAnnouncement(sessionId, index);
+		return facadeUser.getAnnouncement(sessionId, index);
 	}
 
 	/* (non-Javadoc)
@@ -260,7 +264,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getBlogByLogin(String login, Integer index) throws Exception {
-		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdBlogPorLogin(login,
+		return Integer.valueOf(facadeBlog.recuperaIdBlogPorLogin(login,
 				index));
 	}
 
@@ -270,7 +274,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public Integer getBlogBySessionId(String sessiongId, Integer index)
 			throws Exception {
-		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdBlogDesejado(sessiongId,
+		return Integer.valueOf(facadeBlog.recuperaIdBlogDesejado(sessiongId,
 				index));
 	}
 
@@ -280,7 +284,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String getBlogInformation(String BlogId, String atributo)
 			throws Exception {
-		return gerenteDados.getGerenteBlogs().getBlogInformation(BlogId, atributo);
+		return facadeBlog.getBlogInformation(BlogId, atributo);
 	}
 
 	/* (non-Javadoc)
@@ -288,7 +292,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getComment(String postId, Integer index) throws Exception {
-		return gerenteDados.getGerentePosts().GetComentario(postId, index).getId();
+		return facadePost.GetComentario(postId, index).getId();
 	}
 
 	/* (non-Javadoc)
@@ -296,7 +300,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getCommentAuthor(String commentId) throws Exception {
-		return gerenteDados.getGerenteComentarios().getCommentAuthor(commentId);
+		return facadeComent.getCommentAuthor(commentId);
 	}
 
 	/* (non-Javadoc)
@@ -304,7 +308,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getCommentText(String commentId) throws Exception {
-		return gerenteDados.getGerenteComentarios().getTextoComentario(commentId);
+		return facadeComent.getTextoComentario(commentId);
 	}
 
 	/* (non-Javadoc)
@@ -312,7 +316,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getMovie(String postId, Integer index) throws Exception {
-		return gerenteDados.getGerentePosts().getVideo(postId, index);
+		return facadePost.getVideo(postId, index);
 	}
 
 	/* (non-Javadoc)
@@ -320,7 +324,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getMovieData(String movieId) throws Exception {
-		return gerenteDados.getGerentePosts().getDadoDoVideo(movieId);
+		return facadePost.getDadoDoVideo(movieId);
 	}
 
 	/* (non-Javadoc)
@@ -328,7 +332,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getMovieDescription(String movieId) throws Exception {
-		return gerenteDados.getGerentePosts().getDescricaoDoVideo(movieId);
+		return facadePost.getDescricaoDoVideo(movieId);
 	}
 
 	/* (non-Javadoc)
@@ -336,7 +340,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfAllSubComments(String commentId) throws Exception {
-		return gerenteDados.getGerenteComentarios().getNumberOfAllSubComments(commentId);
+		return facadeComent.getNumberOfAllSubComments(commentId);
 	}
 
 	/* (non-Javadoc)
@@ -344,7 +348,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfAnnouncements(String sessionId) throws Exception {
-		return gerenteDados.getGerenciadorDeUsuarios().getNumberOfAnnouncements(sessionId);
+		return facadeUser.getNumberOfAnnouncements(sessionId);
 	}
 
 	/* (non-Javadoc)
@@ -352,7 +356,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfBlogsByLogin(String login) throws Exception {
-		return gerenteDados.getGerenteBlogs().totalDeBlogsPorLogin(login);
+		return facadeBlog.totalBlogsByLogin(login);
 	}
 
 	/* (non-Javadoc)
@@ -361,25 +365,25 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public Integer getNumberOfBlogsBySessionId(String sessionId)
 			throws Exception {
-		return gerenteDados.getGerenteBlogs().totalDeBlogsPorSessao(sessionId);
+		return facadeBlog.totalBlogsBySessionId(sessionId);
 	}
 
 	@Override
 	public Integer getNumberOfAllPosts(String blogId) throws ArgumentInvalidException{
-		return gerenteDados.getGerenteBlogs().getNumberOfAllPosts(blogId);
+		return facadeBlog.getNumberOfAllPosts(blogId);
 	}
 	/* (non-Javadoc)
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getNumberOfComments(java.lang.String)
 	 */
 	@Override
 	public Integer getNumberOfComments(String postId) throws Exception {
-		return gerenteDados.getGerentePosts().getNumberOfComments(postId);
+		return facadePost.getNumberOfComments(postId);
 	}
 	/* (non-Javadoc
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getNumberOfComments(java.lang.String)
 	 */
 	public String getNumberOfComments(String login, String blogId) throws UserInvalidException, ArgumentInvalidException, PersistenceException{
-		return String.valueOf(gerenteDados.getGerentePosts().getNumberOfComments(login, blogId));
+		return String.valueOf(facadePost.getNumberOfComments(login, blogId));
 	}
 
 	/* (non-Javadoc)
@@ -387,7 +391,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfMovies(String postId) {
-		return gerenteDados.getGerentePosts().getNumeroDeVideos(postId);
+		return facadePost.getNumeroDeVideos(postId);
 	}
 
 	/* (non-Javadoc)
@@ -395,7 +399,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfPictures(String postId) {
-		return gerenteDados.getGerentePosts().getNumeroDeImagens(postId);
+		return facadePost.getNumeroDeImagens(postId);
 	}
 
 	/* (non-Javadoc)
@@ -403,7 +407,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfPosts(String blogId) throws Exception {
-		return gerenteDados.getGerenteBlogs().totalDePosts(blogId);
+		return facadeBlog.totalPostsByIdBlog(blogId);
 	}
 
 	/* (non-Javadoc)
@@ -411,7 +415,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfSounds(String postId) {
-		return gerenteDados.getGerentePosts().getNumeroDeSons(postId);
+		return facadePost.getNumeroDeSons(postId);
 	}
 
 	/* (non-Javadoc)
@@ -419,7 +423,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfAllSubBlogs(String blogId) throws Exception {
-		return gerenteDados.getGerenteBlogs().getNumberOfAllSubBlogs(blogId);
+		return facadeBlog.getNumberOfAllSubBlogs(blogId);
 	}
 
 	/* (non-Javadoc)
@@ -427,7 +431,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfSubBlogs(String blogId) throws Exception {
-		return gerenteDados.getGerenteBlogs().getNumberOfSubBlogs(blogId);
+		return facadeBlog.getNumberOfSubBlogs(blogId);
 	}
 
 	/* (non-Javadoc)
@@ -435,7 +439,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getNumberOfSubComments(String commentId) throws Exception {
-		return gerenteDados.getGerenteComentarios().getNumberOfSubComments(commentId);
+		return facadeComent.getNumberOfSubComments(commentId);
 	}
 
 	/* (non-Javadoc)
@@ -443,7 +447,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getPicture(String postId, Integer index) throws Exception {
-		return gerenteDados.getGerentePosts().getImagem(postId, index);
+		return facadePost.getImagem(postId, index);
 	}
 
 	/* (non-Javadoc)
@@ -451,7 +455,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getPictureData(String pictureId) throws Exception {
-		return gerenteDados.getGerentePosts().getDadoDaImagem(pictureId);
+		return facadePost.getDadoDaImagem(pictureId);
 	}
 
 	/* (non-Javadoc)
@@ -459,7 +463,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getPictureDescription(String pictureId) throws Exception {
-		return gerenteDados.getGerentePosts().getDescricaoDaImagem(pictureId);
+		return facadePost.getDescricaoDaImagem(pictureId);
 	}
 
 	/* (non-Javadoc)
@@ -467,7 +471,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getPost(String blogId, Integer index) throws Exception {
-		return Integer.valueOf(gerenteDados.getGerenteBlogs().recuperaIdDoPost(blogId, index));
+		return Integer.valueOf(facadeBlog.getIdPost(blogId, index));
 	}
 
 	/* (non-Javadoc)
@@ -476,7 +480,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String getPostInformation(String postId, String atributo)
 			throws Exception {
-		return gerenteDados.getGerentePosts().informacaoDoPost(postId, atributo);
+		return facadePost.informacaoDoPost(postId, atributo);
 	}
 
 	/* (non-Javadoc)
@@ -484,7 +488,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getPostJustCreated(String announcementId) throws Exception {
-		return gerenteDados.getGerenciadorDeUsuarios().getPostJustCreated(announcementId);
+		return facadeUser.getPostJustCreated(announcementId);
 	}
 
 	/* (non-Javadoc)
@@ -494,7 +498,7 @@ public class BlogWSImpl implements BlogWS {
 	public String getProfileInformation(String login, String atributo)
 			throws Exception {
 		
-		return gerenteDados.getGerentePerfis().getProfileInformation(login, atributo);
+		return facadePerfil.getProfileInformation(login, atributo);
 	}
 
 	/* (non-Javadoc)
@@ -502,17 +506,17 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getProfileInformationBySessionId(String sessionId,
-			String atributo) throws Exception {
-		
-		return gerenteDados.getGerenteSessoes().getProfileInformationBySessionId(sessionId, atributo);
+			String atributo) throws Exception {		
+		return facadeSessao.getProfileInformationBySessionId(sessionId, atributo);
 	}
+	//TODO AQUI
 
 	/* (non-Javadoc)
 	 * @see br.edu.ufcg.dsc.si.blog.webservice.BlogWS#getSound(java.lang.String, java.lang.Integer)
 	 */
 	@Override
 	public String getSound(String postId, Integer index) throws Exception {
-		return gerenteDados.getGerentePosts().getSom(postId, index);
+		return facadePost.getSom(postId, index);
 	}
 
 	/* (non-Javadoc)
@@ -520,7 +524,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getSoundData(String soundId) throws Exception {
-		return gerenteDados.getGerentePosts().getDadoDoSom(soundId);
+		return facadePost.getDadoDoSom(soundId);
 	}
 
 	/* (non-Javadoc)
@@ -528,7 +532,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String getSoundDescription(String soundId) throws Exception {
-		return gerenteDados.getGerentePosts().getDescricaoDoSom(soundId);
+		return facadePost.getDescricaoDoSom(soundId);
 	}
 
 	/* (non-Javadoc)
@@ -536,7 +540,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Integer getSubBlog(String blogId, Integer index) throws Exception {
-		return Integer.valueOf(gerenteDados.getGerenteBlogs().getSubBlog(blogId, index));
+		return Integer.valueOf(facadeBlog.getSubBlogId(blogId, index));
 	}
 
 	/* (non-Javadoc)
@@ -545,7 +549,7 @@ public class BlogWSImpl implements BlogWS {
 	@Override
 	public String getSubComment(String commentId, Integer index)
 			throws Exception {
-		return gerenteDados.getGerenteComentarios().getSubComment(commentId, index);
+		return facadeComent.getSubComment(commentId, index);
 	}
 
 	/* (non-Javadoc)
@@ -553,8 +557,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public Boolean isUserLogged(String login) throws Exception {
-		return gerenteDados.getGerenteSessoes().isUserLogged(login);
-		
+		return facadeSessao.isUserLogged(login);		
 	}
 	
 	public String todaysDate(){
@@ -563,17 +566,16 @@ public class BlogWSImpl implements BlogWS {
 
 	
 	public void cleanPersistence() {
-		gerenteDados.cleanPersistence();
-		
+		facadeDados.cleanPersistence();
 	}
 
 	public void loadData() throws Exception {
-		gerenteDados.loadData();
+		facadeDados.loadData();
 		
 	}
 
 	public void saveData() throws Exception {
-		gerenteDados.saveData();
+		facadeDados.saveData();
 		
 	}
 
@@ -582,7 +584,7 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public void logoff(String sessionId) throws Exception {
-		gerenteDados.getGerenteSessoes().logoff(sessionId);		
+		facadeSessao.logoff(sessionId);		
 		
 	}
 
@@ -591,38 +593,6 @@ public class BlogWSImpl implements BlogWS {
 	 */
 	@Override
 	public String logon(String login, String senha) throws Exception {
-		return gerenteDados.getGerenteSessoes().logon(login, senha);
+		return facadeSessao.logon(login, senha);
 	}
-	
-//	public static void main(String[] args) throws Exception {
-//		BlogWSImpl teste = new BlogWSImpl();
-//		
-//		teste.loadData();
-//		//teste.createProfile("tiagohsl", "abcd", "Sei La", "qualquer@gmail", "Masculino",
-//			//	"27/12/1987", "rua", "nada", "ninguem", "nao gosto", "tbm nao", "menos ainda");
-//		//String sessionId = teste.logon("tiagohsl", "abcd");
-//		
-//		
-//		teste.logoff("1876702669");
-//		teste.saveData(); //1876702669
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
