@@ -1,7 +1,5 @@
 package persistencia.daos;
 
-import interfaces.Constantes;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,6 +14,8 @@ import classes.Comentario;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import enuns.Constantes2;
 
 /**
  * Classe DAO que cria, deleta, atualiza e recupera comentarios ({@link Comentario})
@@ -60,7 +60,7 @@ public class ComentariosDAO {
 	 */
 	public void criar(Comentario comentario) throws PersistenceException, IOException {
 		if (comentario == null)
-			throw new PersistenceException(Constantes.COMENTARIO_NAO_CRIADO);
+			throw new PersistenceException(Constantes2.COMENTARIO_NAO_CRIADO.getName());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		file.getParentFile().mkdirs();
 		xstream.toXML(comentario, new FileOutputStream(file));
@@ -78,7 +78,7 @@ public class ComentariosDAO {
 	public void deletar(Comentario comentario) throws PersistenceException {
 		if (comentario == null
 				|| !(new File(CAMINHO + comentario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.COMENTARIO_NAO_PODE_SER_REMOVIDO);
+			throw new PersistenceException(Constantes2.COMENTARIO_NAO_PODE_SER_REMOVIDO.getName());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
@@ -120,7 +120,7 @@ public class ComentariosDAO {
 			FileNotFoundException {
 		if (comentario == null
 				|| !(new File(CAMINHO + comentario + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.COMENTARIO_INEXISTENTE);
+			throw new PersistenceException(Constantes2.COMENTARIO_INEXISTENTE.getName());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
 		return (Comentario) xstream.fromXML(new FileInputStream(file));
 	}

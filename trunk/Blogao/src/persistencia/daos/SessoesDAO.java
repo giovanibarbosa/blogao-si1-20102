@@ -17,6 +17,8 @@ import classes.Sessao;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import enuns.Constantes2;
+
 /**
  * Classe DAO que cria, deleta, atualiza e recupera sessoes ({@link Sessao})
  * no BD.
@@ -61,7 +63,7 @@ public class SessoesDAO {
 	 */
 	public void criar(Sessao sessao) throws PersistenceException, IOException {
 		if (sessao == null)
-			throw new PersistenceException(Constantes.SESSAO_INVALIDA);
+			throw new PersistenceException(Constantes2.SESSAO_INVALIDA.getName());
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
 		file.getParentFile().mkdirs();
 		xstream.toXML(sessao, new FileOutputStream(file));
@@ -78,7 +80,7 @@ public class SessoesDAO {
 	public void deletar(Sessao sessao) throws PersistenceException {
 		if (sessao == null
 				|| !(new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists()))
-			throw new PersistenceException(Constantes.EMAIL_NAO_VALIDO);
+			throw new PersistenceException(Constantes2.EMAIL_NAO_VALIDO.getName());
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
 		file.delete();
 	}
