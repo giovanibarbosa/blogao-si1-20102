@@ -29,14 +29,19 @@ import persistencia.daos.SessoesDAO;
  * @author Tiago H S Leite - tiagohsl@lcc.ufcg.edu.br
  */
 public class GerenciadorDeSessoes implements Gerenciador {
-	private List<Sessao> listaSessoes;
+	private List<Sessao> listaSessoes = new ArrayList<Sessao>();
 
 	private SessoesDAO sessoesDAO = SessoesDAO.getInstance();
-	private GerenciadorDeDados gerenteDados;
-
-	public GerenciadorDeSessoes(GerenciadorDeDados gerenciadorDeDados) {
-		listaSessoes = new ArrayList<Sessao>();
-		this.gerenteDados = gerenciadorDeDados;
+	private static GerenciadorDeSessoes instancia;
+	
+	private GerenciadorDeSessoes() {
+		
+	}
+	
+	public static GerenciadorDeSessoes getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDeSessoes();
+		return instancia;
 	}
 
 	/**
@@ -85,7 +90,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	 * @throws UserInvalidException
 	 */
 	public boolean isUserLogged(String login) throws Exception {
-		Usuario user = getUserByLogin(login); //verifica se o usuario esta logado
+		getUserByLogin(login); //verifica se o usuario esta logado
 		Iterator<Sessao> it = iteradorSessao();
 		while(it.hasNext()){
 			Sessao sessao = it.next();
@@ -230,7 +235,7 @@ public class GerenciadorDeSessoes implements Gerenciador {
 	}
 
 	private Usuario getUserByLogin(String login) throws UserInvalidException {
-		return gerenteDados.getGerenteUsuarios().getUsuario(login);
+		return GerenciadorDeDados.getInstance().getGerenteUsuarios().getUsuario(login);
 	}
 
 	/**
