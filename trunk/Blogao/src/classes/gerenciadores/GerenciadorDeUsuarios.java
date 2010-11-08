@@ -33,18 +33,16 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	private UsuariosDAO userDAO = UsuariosDAO.getInstance();
 
-	private List<Usuario> listaUsuarios;
-	private GerenciadorDeDados gerenteDados;
-
-	/**
-	 * Construtor da classe.
-	 * 
-	 * @param gerenciadorDeDados
-	 *            {@link GerenciadorDeDados}
-	 */
-	public GerenciadorDeUsuarios(GerenciadorDeDados gerenciadorDeDados) {
-		listaUsuarios = new ArrayList<Usuario>();
-		this.gerenteDados = gerenciadorDeDados;
+	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	private static GerenciadorDeUsuarios instancia;
+	
+	private GerenciadorDeUsuarios() {
+	}
+	
+	public static GerenciadorDeUsuarios getInstance() {
+		if(instancia == null)
+			instancia = new GerenciadorDeUsuarios();
+		return instancia;
 	}
 
 	@Override
@@ -310,7 +308,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 
 	private String getLoginPorSessao(String sessionID)
 			throws ArgumentInvalidException {
-		return gerenteDados.getGerenteSessoes().getLoginPorSessao(
+		return GerenciadorDeDados.getInstance().getGerenteSessoes().getLoginPorSessao(
 				sessionID);
 	}
 
@@ -319,7 +317,7 @@ public class GerenciadorDeUsuarios implements Gerenciador {
 	}
 
 	private Blog recuperaBlog(String idBlog) throws ArgumentInvalidException {
-		return gerenteDados.getGerenteBlogs().getBlog(idBlog);
+		return GerenciadorDeDados.getInstance().getGerenteBlogs().getBlog(idBlog);
 	}
 
 	private void removeAnnouncement(Usuario user, Announcement announcement) {
