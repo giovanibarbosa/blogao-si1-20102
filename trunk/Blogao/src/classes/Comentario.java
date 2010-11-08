@@ -8,7 +8,6 @@ import ourExceptions.ArgumentInvalidException;
 /**
  * Classe que inicializa um Comentario.
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br

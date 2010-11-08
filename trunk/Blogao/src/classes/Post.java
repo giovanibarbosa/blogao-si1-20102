@@ -1,7 +1,5 @@
 package classes;
 
-import interfaces.Constantes;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,13 +10,13 @@ import classes.func.multimidia.Audio;
 import classes.func.multimidia.Imagem;
 import classes.func.multimidia.Midia;
 import classes.func.multimidia.Video;
+import enuns.Constantes2;
 
 import ourExceptions.ArgumentInvalidException;
 
 /**
  * Classe que inicializa um Blog.
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
@@ -33,11 +31,6 @@ public class Post {
 	private List<Comentario> comentarios;
 	
 	private Map<String, Midia>mapaMidias;
-	
-	/*private Map<String, Video> mapaVideos;
-
-	private Map<String, Audio> mapaAudio;
-	private Map<String, Imagem> mapaImagens;*/
 	
 	private List<String> listaIDsVideos;
 	private List<String> listaIDsAudios;
@@ -66,9 +59,6 @@ public class Post {
 		this.idBlogDono = idBlogDono;
 		comentarios = new ArrayList<Comentario>();
 		mapaMidias = new HashMap<String, Midia>();
-		/*mapaVideos = new HashMap<String, Video>();
-		mapaAudio = new HashMap<String, Audio>();
-		mapaImagens = new HashMap<String, Imagem>();*/
 		listaIDsVideos = new ArrayList<String>();
 		listaIDsAudios = new ArrayList<String>();
 		listaIDsImagens = new ArrayList<String>();
@@ -82,7 +72,7 @@ public class Post {
 	 */
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
 		if (titulo == null || titulo.trim().equals("")) {
-			throw new ArgumentInvalidException(Constantes.TITULO_OBRIGATORIO);
+			throw new ArgumentInvalidException(Constantes2.TITULO_OBRIGATORIO.getName());
 		}
 		this.titulo = titulo;
 	}
@@ -154,71 +144,6 @@ public class Post {
 		}
 	}
 	
-//	/**
-//	 * Metodo que adiciona um audio ao post.
-//	 * @param audio {@link Audio}
-//	 */
-//	public void addAudio(Audio audio) {
-//		if (!mapaMidias.containsValue(audio)){
-//			mapaMidias.put(audio.getId(),audio);
-//			listaIDsAudios.add(audio.getId());
-//		}
-//	}
-//
-//	/**
-//	 * Metodo que remove um audio do post.
-//	 * @param audio {@link Audio}
-//	 */
-//	public void removeAudio(Audio audio) {
-//		if (mapaMidias.containsValue(audio)){
-//			mapaMidias.remove(audio.getId());
-//			listaIDsAudios.remove(audio.getId());
-//		}
-//	}
-//
-//	/**
-//	 * Metodo que adiciona uma {@link Imagem} ao post
-//	 * @param imagem {@link Imagem}
-//	 */
-//	public void addImagem(Imagem imagem) {
-//		if (!mapaMidias.containsValue(imagem)){
-//			mapaMidias.put(imagem.getId(),imagem);
-//			listaIDsImagens.add(imagem.getId());
-//		}
-//	}
-//	
-//	/**
-//	 * Metodo que remove uma {@link Imagem} do post.
-//	 * @param {@link Imagem} imagem
-//	 */
-//	public void removeImagem(Imagem imagem) {
-//		if (mapaMidias.containsValue(imagem)){
-//			mapaMidias.remove(imagem.getId());
-//			listaIDsImagens.remove(imagem.getId());
-//		}
-//	}
-//	
-//	/**
-//	 * Metodo que adiciona um {@link Video} ao post
-//	 * @param {@link Video} video
-//	 */
-//	public void addVideo(Video video) {
-//		if (!mapaMidias.containsValue(video)){
-//			mapaMidias.put(video.getId(), video);
-//			listaIDsVideos.add(video.getId());
-//		}
-//	}
-//	/**
-//	 * Metodo que remove um {@link Video} do post
-//	 * @param {@link Video} video
-//	 */
-//	public void removeVideo(Video video) {
-//		if (mapaMidias.containsValue(video)){
-//			mapaMidias.remove(video);
-//			listaIDsVideos.remove(video.getId());
-//		}
-//	}
-	
 	/**
 	 * Metodo acessador do id do blog
 	 * @return id do dono do blog
@@ -252,7 +177,7 @@ public class Post {
 	public void setAtributo(String atributo, String mudanca)
 			throws ArgumentInvalidException {
 		if (atributo == null) {
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
 		}
 		int codigoAtributo = atributo.hashCode();
 		
@@ -265,7 +190,7 @@ public class Post {
 			this.setTitulo(mudanca);
 			break;
 		default:
-			throw new ArgumentInvalidException(Constantes.ATRIBUTO_INVALIDO2);
+			throw new ArgumentInvalidException(Constantes2.ATRIBUTO_INVALIDO2.getName());
 		}
 	}
 

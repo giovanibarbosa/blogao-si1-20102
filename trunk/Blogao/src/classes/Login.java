@@ -1,12 +1,11 @@
 package classes;
 
-import interfaces.Constantes;
+import enuns.Constantes2;
 import ourExceptions.ArgumentInvalidException;
 
 /**
  * Classe que inicializa um {@link Login}
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
@@ -37,7 +36,7 @@ public class Login {
 	 */
 	public void setLogin(String login) throws ArgumentInvalidException {
 		if (!validaLogin(login)) {
-			throw new ArgumentInvalidException(Constantes.LOGIN_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.LOGIN_INVALIDO.getName());
 		}
 		this.login = login;
 

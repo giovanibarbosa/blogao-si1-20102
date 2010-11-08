@@ -7,12 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import enuns.Constantes2;
+
 import ourExceptions.ArgumentInvalidException;
 
 /**
  * Classe que inicializa um Blog.
  * 
- * @author Ana Clara Lacerda - anacls@lcc.ufcg.edu.br
  * @author Giovani Barbosa - giovanicb@lcc.ufcg.edu.br
  * @author Rodolfo Marinho - rodolfoams@lcc.ufcg.edu.br
  * @author Tiago Brasileiro - tiagoba@lcc.ufcg.edu.br
@@ -60,15 +61,6 @@ public class Blog {
 	}
 
 	/**
-	 * Metodo gera uma id do blog.
-	 * 
-	 * @return String id do blog
-	 */
-	private String gerarId() {
-		return String.valueOf(this.hashCode());
-	}
-
-	/**
 	 * Metodo acessador de titulo
 	 * 
 	 * @return String titulo do blog
@@ -87,7 +79,7 @@ public class Blog {
 	 */
 	public void setTitulo(String titulo) throws ArgumentInvalidException {
 		if (!validaTitulo(titulo))
-			throw new ArgumentInvalidException(Constantes.TITULO_INVALIDO);
+			throw new ArgumentInvalidException(Constantes2.TITULO_INVALIDO.getName());
 		this.titulo = titulo;
 	}
 
@@ -108,20 +100,6 @@ public class Blog {
 	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	/**
-	 * Metodo validador que verifica o titulo
-	 * 
-	 * @param titulo
-	 *            {@link String}
-	 * @return True caso o titulo seja valido
-	 */
-	private boolean validaTitulo(String titulo) {
-		if (titulo == null || titulo.trim().isEmpty())
-			return false;
-		else
-			return true;
 	}
 
 	/**
@@ -212,9 +190,32 @@ public class Blog {
 		return posts.size();
 	}
 
-	@Override
-	public String toString() {
-		return getId();
+	public void removePost2(Post post) {
+		posts.remove(post);
+
+	}
+
+	/**
+	 * Metodo gera uma id do blog.
+	 * 
+	 * @return String id do blog
+	 */
+	private String gerarId() {
+		return String.valueOf(this.hashCode());
+	}
+
+	/**
+	 * Metodo validador que verifica o titulo
+	 * 
+	 * @param titulo
+	 *            {@link String}
+	 * @return True caso o titulo seja valido
+	 */
+	private boolean validaTitulo(String titulo) {
+		if (titulo == null || titulo.trim().isEmpty())
+			return false;
+		else
+			return true;
 	}
 
 	/**
@@ -231,9 +232,9 @@ public class Blog {
 		return getId().equals(outra.getId());
 	}
 
-	public void removePost2(Post post) {
-		posts.remove(post);
-
+	@Override
+	public String toString() {
+		return getId();
 	}
 	
 	
