@@ -33,7 +33,20 @@ public enum Constantes2 {
 	DADO_INVALIDO ("Dado inválido"),
 	ANNOUNCEMENT_CADASTRADO ("Announcement já cadastrado"),
 	USUARIO_NAO_PODE_SER_REMOVIDO ("O usuário não pode ser removido"),
-	USUARIO_EXISTENTE ("Usuário existente");
+	USUARIO_EXISTENTE ("Usuário existente"),
+	BLOG_NAO_REMOVIDO ("O blog não pode ser removido"),
+	BLOG_INEXISTENTE ("Blog inexistente"),
+	BLOG_NAO_CRIADO ("O blog nao pode ser criado"),
+	BLOG_NAO_PODE_SER_ATUALIZADO ("O blog não pode ser atualizado"),
+	COMENTARIO_NAO_CRIADO ("O comentario não pode ser criado"),
+	COMENTARIO_NAO_PODE_SER_REMOVIDO ("O comentario não pode ser removido"),
+	POST_NAO_PODE_SER_CRIADO ("O post não pode ser criado"),
+	POST_NAO_PODE_SER_REMOVIDO ("O post não pode ser removido"),
+	POST_NAO_PODE_SER_ATUALIZADO ("O post não pode ser atualizado"),
+	EMAIL_NAO_VALIDO ("O email não é válido"),
+	EMAIL_INEXISTENTE ("Email inexistente");
+
+
 	
 	
 	private String name;
