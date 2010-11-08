@@ -13,7 +13,6 @@ import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.UserInvalidException;
-import classes.Post;
 import classes.Sessao;
 import classes.func.usuario.Perfil;
 import classes.func.usuario.Usuario;

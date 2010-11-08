@@ -1,6 +1,5 @@
 package classes.gerenciadores;
 
-import interfaces.Constantes;
 import interfaces.Gerenciador;
 
 import java.io.FileNotFoundException;
@@ -226,7 +225,7 @@ public class GerenciadorDeBlogs implements Gerenciador {
 			Iterator<Blog> it = iteradorBlog();
 			while(it.hasNext()){
 				Blog blog = it.next();
-				if (blog.getTitulo().toLowerCase().contains(match.toLowerCase()))
+				if (titulosEquivalentes(match, blog))
 					listaBlog.add(blog.getId());
 			}
 		return listaBlog;
