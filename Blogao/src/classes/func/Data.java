@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import enuns.Constantes2;
+
 import ourExceptions.ArgumentInvalidException;
 import ourExceptions.DataInvalidaException;
 
@@ -72,7 +74,7 @@ public class Data {
 	 */
 	public static String calendarToString(Calendar data) throws DataInvalidaException {
 		if (data == null) {
-			throw new DataInvalidaException(Constantes.DATA_INVALIDA);
+			throw new DataInvalidaException(Constantes2.DATA_INVALIDA.getName());
 		}
 		String strdate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -121,14 +123,14 @@ public class Data {
 	 */
 	public void setData(String data) throws DataInvalidaException {
 		if (!verificaData(data)) {
-			throw new DataInvalidaException(Constantes.DATA_INVALIDA);
+			throw new DataInvalidaException(Constantes2.DATA_INVALIDA.getName());
 		}
 		try {
 			Calendar date = conversorData(data);
 			this.data = date;
 
 		} catch (Exception e) {
-			throw new DataInvalidaException(Constantes.DATA_INVALIDA);
+			throw new DataInvalidaException(Constantes2.DATA_INVALIDA.getName());
 		}
 	}
 
@@ -148,10 +150,8 @@ public class Data {
 		try {
 			return calendarToString(data);
 		} catch (DataInvalidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return "";
 		}
-		return "";
 	}
 
 }

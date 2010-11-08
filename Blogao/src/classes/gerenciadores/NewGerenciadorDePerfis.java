@@ -13,12 +13,12 @@ import ourExceptions.DataInvalidaException;
 import ourExceptions.PersistenceException;
 import ourExceptions.SexoInvalidoException;
 import ourExceptions.UserInvalidException;
-import classes.func.usuario.Perfil;
-import classes.func.usuario.Usuario;
 import classes.Blog;
+import classes.Email;
 import classes.Login;
 import classes.Senha;
-import classes.Email;
+import classes.func.usuario.Perfil;
+import classes.func.usuario.Usuario;
 import enuns.Sexo;
 
 public class NewGerenciadorDePerfis implements Gerenciador {
