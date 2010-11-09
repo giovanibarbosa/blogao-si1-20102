@@ -1,5 +1,10 @@
 package enuns;
 
+/**
+ * Enum que armazena as constantes do projeto
+ * @author Tiago Leite
+ *
+ */
 public enum Constantes {
 	
 	SEXO_INVALIDO ("Sexo inválido"), 
@@ -11,16 +16,11 @@ public enum Constantes {
 	INDICE_INCORRETO ("Índice incorreto"),
 	ANNOUNCEMENT_INVALIDO ("Announcement inválido"),
 	LOGIN_OU_SENHA_INVALIDO ("Login ou senha inválido"),
-	AUDIO ("audio"),
-	VIDEO ("video"),
 	ATRIBUTO_INVALIDO ("Atributo Inválido"),
 	POST_INVALIDO ("Post inválido"),
 	BLOG_INVALIDO ("Blog inválido"),
 	EMAIL_EXISTENTE ("Email existente"),
 	LOGIN_INVALIDO ("Login inválido"),
-	SENHA ("senha"),
-	EMAIL ("email"),
-	LOGIN ("login"),
 	COMENTARIO_INVALIDO ("Comentário inválido"),
 	COMENTARIO_INEXISTENTE ("Comentario inexistente"),
 	ATRIBUTO_INVALIDO2 ("Atributo inválido"),
@@ -44,9 +44,13 @@ public enum Constantes {
 	POST_NAO_PODE_SER_REMOVIDO ("O post não pode ser removido"),
 	POST_NAO_PODE_SER_ATUALIZADO ("O post não pode ser atualizado"),
 	EMAIL_NAO_VALIDO ("O email não é válido"),
-	EMAIL_INEXISTENTE ("Email inexistente");
-
-
+	EMAIL_INEXISTENTE ("Email inexistente"),
+	AUDIO ("audio"),
+	VIDEO ("video"),
+	SENHA ("senha"),
+	EMAIL ("email"),
+	LOGIN ("login");
+	
 	
 	
 	private String name;
