@@ -1,3 +1,5 @@
+MIDlet-1: LoginOnBlog,,login.LoginOnBlog
+MIDlet-2: MenuAfterLogin,,menu.MenuAfterLogin
 MIDlet-Jar-URL: BlogaoCelular.jar
 MIDlet-Name: BlogaoCelular MIDlet Suite
 MIDlet-Vendor: MIDlet Suite Vendor
