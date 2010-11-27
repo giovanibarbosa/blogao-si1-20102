@@ -1,5 +1,7 @@
 package guiDesktop;
 
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
+import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import classes.func.usuario.Usuario;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,11 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import org.apache.cxf.binding.corba.wsdl.Exception;
-
-import facades.FacadeSessao;
-
 public class Login extends JFrame implements KeyListener, ActionListener {
 	/**
          * 
@@ -38,6 +35,7 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 	private static JPasswordField campoSenha;
 	private static JButton jBEntrar, jBCadastrar, jBSair;
 	private static Font fonte1;
+	@SuppressWarnings("unused")
 	private static Login tela;
 	private static Color cor1, cor2, cor5;
 	private static Usuario usuario;
@@ -48,13 +46,13 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) {
-		FacadeSessao facadeSessao = FacadeSessao.getInstance();
+		BlogWS fachada = HelperClient.getInstance("8080"); // FIXME
 		if ("entrar".equals(e.getActionCommand())) {
 			String loginUser = campoLogin.getText();
 			String senhaUser = campoSenha.getText();
 
 			try {
-				facadeSessao.logon(loginUser, senhaUser);
+				fachada.logon(loginUser, senhaUser);
 				new FramePrincipal();
 
 			} catch (HeadlessException e1) {
@@ -211,11 +209,11 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			String loginUser = campoLogin.getText();
 			String senhaUser = campoSenha.getText();
-			FacadeSessao facadeSessao = FacadeSessao.getInstance();
+			BlogWS fachada = HelperClient.getInstance("8080"); //FIXME
 
 			try {
 
-				facadeSessao.logon(loginUser, senhaUser);
+				fachada.logon(loginUser, senhaUser);
 				new FramePrincipal();
 
 
