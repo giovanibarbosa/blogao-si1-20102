@@ -68,7 +68,7 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 		} else if ("sair".equals(e.getActionCommand())) {
 			frame.dispose();
 		} else if ("cadastrar".equals(e.getActionCommand())) {
-			new CadastramentoUsuario();
+			new CriarPerfil();
 			frame.dispose();
 		}
 	}
