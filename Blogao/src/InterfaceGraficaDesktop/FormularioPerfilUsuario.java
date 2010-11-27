@@ -80,9 +80,6 @@ public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyLi
         fieldCidade.addKeyListener(this);
         fieldCidade.show();
 
-        fieldCodigo.addKeyListener(this);
-        fieldCodigo.show();
-
         fieldComplemento.addKeyListener(this);
         fieldComplemento.show();
 
@@ -144,7 +141,6 @@ public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyLi
     }
 
     private void reiniciaCampos() {
-        fieldCodigo.setText(null);
         fieldBairro.setText(null);
         fieldCEP.setText(null);
         fieldCidade.setText(null);
