@@ -563,11 +563,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Problemas",
+                    "Problemas ao criar um perfil",
                     JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Problemas",
+                    "Problemas ao criar um perfil",
                     JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_botaoCadastrarActionPerformed
