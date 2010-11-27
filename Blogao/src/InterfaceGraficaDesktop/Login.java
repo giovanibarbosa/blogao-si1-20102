@@ -54,15 +54,8 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 			String senhaUser = campoSenha.getText();
 
 			try {
-				if (!facadeSessao.isUserLogged(loginUser)) {
-					facadeSessao.logon(loginUser, senhaUser);
-					new FramePrincipal();
-					frame.dispose();
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Usuário já está logado!", "ERRO",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				facadeSessao.logon(loginUser, senhaUser);
+				new FramePrincipal();
 
 			} catch (HeadlessException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO",
@@ -75,8 +68,7 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 		} else if ("sair".equals(e.getActionCommand())) {
 			frame.dispose();
 		} else if ("cadastrar".equals(e.getActionCommand())) {
-			//TODO form de cadastro do usuário.
-			new FramePrincipal();
+			new CadastramentoUsuario();
 			frame.dispose();
 		}
 	}
@@ -222,14 +214,10 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 			FacadeSessao facadeSessao = FacadeSessao.getInstance();
 
 			try {
-				if (!facadeSessao.isUserLogged(loginUser)) {
-					facadeSessao.logon(loginUser, senhaUser);
-					new FramePrincipal();
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Usuário já está logado!", "ERRO",
-							JOptionPane.ERROR_MESSAGE);
-				}
+
+				facadeSessao.logon(loginUser, senhaUser);
+				new FramePrincipal();
+
 
 			} catch (HeadlessException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO",
