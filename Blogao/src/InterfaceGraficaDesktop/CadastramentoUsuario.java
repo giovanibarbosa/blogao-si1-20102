@@ -96,21 +96,22 @@ public class CadastramentoUsuario extends javax.swing.JFrame implements KeyListe
         jLabel2 = new javax.swing.JLabel();
         fieldLogin = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        fieldConfirmaSenha = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         botaoCadastrar = new javax.swing.JButton();
         botaoLimpar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
-        fieldSenha = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        fieldConfirmaSenha = new javax.swing.JPasswordField();
+        fieldSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel2.setText("Login");
 
         jLabel8.setText("Confirmação da Senha");
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18));
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setText("Cadastro Blogão");
 
         botaoCadastrar.setText("Cadastrar");
@@ -135,6 +136,12 @@ public class CadastramentoUsuario extends javax.swing.JFrame implements KeyListe
         });
 
         jLabel9.setText("Senha");
+
+        fieldSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldSenhaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,9 +168,9 @@ public class CadastramentoUsuario extends javax.swing.JFrame implements KeyListe
                                 .addComponent(jLabel8))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(fieldLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                                 .addComponent(fieldSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                                .addComponent(fieldConfirmaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)))))
+                                .addComponent(fieldConfirmaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                                .addComponent(fieldLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)))))
                 .addContainerGap(141, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -177,12 +184,12 @@ public class CadastramentoUsuario extends javax.swing.JFrame implements KeyListe
                     .addComponent(jLabel2))
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldConfirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(fieldConfirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCancelar)
@@ -233,15 +240,19 @@ public class CadastramentoUsuario extends javax.swing.JFrame implements KeyListe
 
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
+    private void fieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldSenhaActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoLimpar;
-    private javax.swing.JTextField fieldConfirmaSenha;
+    private javax.swing.JPasswordField fieldConfirmaSenha;
     private javax.swing.JTextField fieldLogin;
-    private javax.swing.JTextField fieldSenha;
+    private javax.swing.JPasswordField fieldSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
