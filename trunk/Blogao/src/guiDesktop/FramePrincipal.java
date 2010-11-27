@@ -9,7 +9,7 @@
  * Created on 20/11/2010, 21:32:20
  */
 
-package InterfaceGraficaDesktop;
+package guiDesktop;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;

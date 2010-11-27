@@ -9,7 +9,7 @@
  * Created on 27/11/2010, 14:25:49
  */
 
-package InterfaceGraficaDesktop;
+package guiDesktop;
 
 
 
@@ -111,7 +111,7 @@ public class CadastramentoUsuario extends javax.swing.JFrame implements KeyListe
 
         jLabel8.setText("Confirmação da Senha");
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18));
         jLabel1.setText("Cadastro Blogão");
 
         botaoCadastrar.setText("Cadastrar");

@@ -1,4 +1,4 @@
-package InterfaceGraficaDesktop;
+package guiDesktop;
 
 import javax.swing.ImageIcon;
 
