@@ -28,8 +28,7 @@ import javax.swing.JTabbedPane;
  * @author usuário
  */
 public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyListener {
-    private JTabbedPane tabbed;
-    private JScrollPane scroll;
+
     private FacadeUsuario fachada = FacadeUsuario.getInstance();
 
     @SuppressWarnings("deprecation")
@@ -57,16 +56,10 @@ public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyLi
 
     /** Creates new form FormularioCliente */
     @SuppressWarnings("deprecation")
-    public FormularioPerfilUsuario(JTabbedPane tabbed, JScrollPane scroll) {
-        this.tabbed = tabbed;
-        this.scroll = scroll;
+    public FormularioPerfilUsuario() {
+
         initComponents();
 
-        scroll.addKeyListener(this);
-        scroll.show();
-
-        tabbed.addKeyListener(this);
-        tabbed.show();
 
         this.addKeyListener(this);
         this.show();
@@ -416,7 +409,7 @@ public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyLi
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
                             .addComponent(fieldMusicas, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(fieldLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,7 +432,7 @@ public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyLi
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         reiniciaCampos();
-        tabbed.remove(scroll);
+
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
@@ -457,8 +450,8 @@ public class FormularioPerfilUsuario extends javax.swing.JPanel implements KeyLi
 			fieldInteresse.getText(), fieldQmSouEu.getText(), fieldFilmes.getText(),
 			fieldMusicas.getText(), fieldLivros.getText());
 
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso",
-                "Cadastrado",
+            JOptionPane.showMessageDialog(null, "Perfil criado com sucesso!",
+                "Perfil",
                 JOptionPane.CLOSED_OPTION);
             reiniciaCampos();
         } catch (IOException ex) {
