@@ -29,8 +29,8 @@ public class UsuariosDAO {
 
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
-	private final static String CAMINHO = "src" + SEPARADOR + "persistencia"
-			+ SEPARADOR + "arquivosXML" + SEPARADOR + "usuarios" + SEPARADOR;
+	private final static String CAMINHO = "arquivos" + SEPARADOR + "usuarios"
+	+ SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static UsuariosDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());

@@ -28,8 +28,8 @@ import enuns.Constantes;
 public class BlogsDAO {
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
-	private final static String CAMINHO = "src" + SEPARADOR + "persistencia"
-			+ SEPARADOR + "arquivosXML" + SEPARADOR + "blogs" + SEPARADOR;
+	private final static String CAMINHO = "arquivos" + SEPARADOR + "blogs"
+	+ SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static BlogsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
@@ -144,6 +144,7 @@ public class BlogsDAO {
 			throw new PersistenceException(Constantes.BLOG_INVALIDO.getName());
 
 		File file = new File(CAMINHO + id + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		return (Blog) xstream.fromXML(new FileInputStream(file));
 	}
 
@@ -174,8 +175,10 @@ public class BlogsDAO {
 	 */
 	public void limparBlogs() {
 		for (File arquivo : arrayDosArquivos()) {
-			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
+				System.gc();
 				arquivo.delete();
+			}
 		}
 	}
 	

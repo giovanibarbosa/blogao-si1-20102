@@ -27,8 +27,8 @@ public class SessoesDAO {
 
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
-	private final static String CAMINHO = "src" + SEPARADOR + "persistencia"
-			+ SEPARADOR + "arquivosXML" + SEPARADOR + "sessoesAbertas" + SEPARADOR;
+	private final static String CAMINHO = "arquivos" + SEPARADOR + "sessoes"
+	+ SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static SessoesDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
@@ -121,6 +121,7 @@ public class SessoesDAO {
 				|| !(new File(CAMINHO + sessao + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.EMAIL_INEXISTENTE.getName());
 		File file = new File(CAMINHO + sessao + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		return (Sessao) xstream.fromXML(new FileInputStream(file));
 	}
 
@@ -129,8 +130,10 @@ public class SessoesDAO {
 	 */
 	public void limparSessoes() {
 		for (File arquivo : arrayDosArquivos()) {
-			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
+				System.gc();
 				arquivo.delete();
+			}
 		}
 	}
 
