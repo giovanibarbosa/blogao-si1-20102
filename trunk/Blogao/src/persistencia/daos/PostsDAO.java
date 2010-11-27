@@ -27,8 +27,8 @@ import enuns.Constantes;
 public class PostsDAO {
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
-	private final static String CAMINHO = "src" + SEPARADOR + "persistencia"
-			+ SEPARADOR + "arquivosXML" + SEPARADOR + "posts" + SEPARADOR;
+	private final static String CAMINHO = "arquivos" + SEPARADOR + "posts"
+	+ SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static PostsDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
@@ -81,6 +81,7 @@ public class PostsDAO {
 				|| !(new File(CAMINHO + post + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.POST_NAO_PODE_SER_REMOVIDO.getName());
 		File file = new File(CAMINHO + post + TIPO_DE_ARQUIVO);
+		System.gc();
 		file.delete();
 	}
 
@@ -135,8 +136,10 @@ public class PostsDAO {
 	 */
 	public void limparPosts() {
 		for (File arquivo : arrayDosArquivos()) {
-			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
+				System.gc();
 				arquivo.delete();
+			}
 		}
 	}
 

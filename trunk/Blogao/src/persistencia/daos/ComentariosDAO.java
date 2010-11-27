@@ -27,8 +27,8 @@ public class ComentariosDAO {
 
 	private final static String SEPARADOR = System
 			.getProperty("file.separator");
-	private final static String CAMINHO = "src" + SEPARADOR + "persistencia"
-			+ SEPARADOR + "arquivosXML" + SEPARADOR + "comentarios" + SEPARADOR;
+	private final static String CAMINHO = "arquivos" + SEPARADOR + "comentarios"
+	+ SEPARADOR;
 	private final static String TIPO_DE_ARQUIVO = ".xml";
 	private static ComentariosDAO instancia;
 	private static XStream xstream = new XStream(new DomDriver());
@@ -80,6 +80,7 @@ public class ComentariosDAO {
 				|| !(new File(CAMINHO + comentario + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.COMENTARIO_NAO_PODE_SER_REMOVIDO.getName());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
+		System.gc();
 		file.delete();
 	}
 	
@@ -122,6 +123,7 @@ public class ComentariosDAO {
 				|| !(new File(CAMINHO + comentario + TIPO_DE_ARQUIVO).exists()))
 			throw new PersistenceException(Constantes.COMENTARIO_INEXISTENTE.getName());
 		File file = new File(CAMINHO + comentario + TIPO_DE_ARQUIVO);
+		file.getParentFile().mkdirs();
 		return (Comentario) xstream.fromXML(new FileInputStream(file));
 	}
 	
@@ -130,8 +132,10 @@ public class ComentariosDAO {
 	 */
 	public void limparComentarios() {
 		for (File arquivo : arrayDosArquivos()) {
-			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO))
+			if (arquivo.toString().endsWith(TIPO_DE_ARQUIVO)) {
+				System.gc();
 				arquivo.delete();
+			}
 		}
 	}
 	
