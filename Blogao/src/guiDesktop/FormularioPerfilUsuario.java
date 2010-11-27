@@ -9,7 +9,7 @@
  * Created on 04/11/2010, 12:03:18
  */
 
-package InterfaceGraficaDesktop;
+package guiDesktop;
 
 
 import classes.func.usuario.Usuario;

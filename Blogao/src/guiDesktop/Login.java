@@ -1,4 +1,4 @@
-package InterfaceGraficaDesktop;
+package guiDesktop;
 
 import classes.func.usuario.Usuario;
 import java.awt.Color;
