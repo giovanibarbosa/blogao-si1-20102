@@ -11,17 +11,15 @@
 
 package guiDesktop;
 
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
-import classes.func.usuario.Usuario;
+import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import enuns.Sexo;
 import facades.FacadePerfil;
-import facades.FacadeUsuario;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 
 
 /**
@@ -54,7 +52,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     }
 
     /** Creates new form FormularioCliente */
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "LeakingThisInConstructor"})
 
     public CriarPerfil() {
 
@@ -540,12 +538,13 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         // TODO add your handling code here:
 }//GEN-LAST:event_fieldRuaActionPerformed
 
+    @SuppressWarnings("ResultOfObjectAllocationIgnored")
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         try {
             //TODO RELACIONAMETO COM ESSE USUARIO u.
-            BlogWSImpl fachada = new BlogWSImpl();
+            BlogWS fachada = HelperClient.getInstance("8080"); //FIXME não sei se eh essa porta
             if(fieldConfirmaSenha.getText().equals(fieldSenha.getText())){
-                FacadePerfil.getInstance().createProfile(fieldLogin.getText(), fieldSenha.getText(), fieldNome.getText(),
+                fachada.createProfile(fieldLogin.getText(), fieldSenha.getText(), fieldNome.getText(),
                         fieldEmail.getText(), String.valueOf(comboSexo.getSelectedItem()),String.valueOf(comboDia.getSelectedItem()) + "/"
                         + String.valueOf(comboMes.getSelectedItem())
                         + "/" + String.valueOf(comboAno.getSelectedItem()), fieldRua.getText(),
@@ -564,11 +563,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Problemas com o cadastro",
+                    "Problemas",
                     JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Problemas com o cadastro",
+                    "Problemas",
                     JOptionPane.ERROR_MESSAGE);
         }
 }//GEN-LAST:event_botaoCadastrarActionPerformed
@@ -589,16 +588,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollBar1AdjustmentValueChanged
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CriarPerfil().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
