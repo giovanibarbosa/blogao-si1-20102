@@ -218,7 +218,9 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
 }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.dispose();
         reiniciaCampos();
+        new FramePrincipal(idSessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
 
