@@ -22,11 +22,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="botaoMeusBlogs" alignment="0" pref="87" max="32767" attributes="1"/>
-                  <Component id="botaoEditaPerfil" alignment="1" max="32767" attributes="1"/>
+                  <Component id="botaoCriarBlogs" alignment="0" pref="87" max="32767" attributes="1"/>
+                  <Component id="botaoEditaPerfil" alignment="0" max="32767" attributes="1"/>
                   <Component id="botaoLogout" alignment="0" pref="87" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="629" pref="629" max="-2" attributes="0"/>
@@ -38,11 +39,13 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
               <Component id="botaoMeusBlogs" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="botaoCriarBlogs" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="botaoEditaPerfil" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="botaoLogout" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="181" max="32767" attributes="0"/>
+              <EmptySpace pref="137" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,6 +73,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoLogoutActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="botaoCriarBlogs">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Criar Blog"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCriarBlogsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
