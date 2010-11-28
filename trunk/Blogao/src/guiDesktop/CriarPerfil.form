@@ -55,20 +55,20 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="fieldConfirmaSenha" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="fieldSenha" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="fieldLogin" alignment="0" min="-2" pref="255" max="-2" attributes="1"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldSenha" alignment="0" pref="255" max="32767" attributes="1"/>
+                                  <Component id="fieldConfirmaSenha" alignment="0" pref="255" max="32767" attributes="1"/>
                               </Group>
+                              <Component id="fieldLogin" min="-2" pref="255" max="-2" attributes="1"/>
                           </Group>
-                          <EmptySpace pref="737" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="737" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -156,9 +156,9 @@
                   </Group>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="758" max="32767" attributes="0"/>
+                  <EmptySpace pref="915" max="32767" attributes="0"/>
                   <Component id="jScrollBar1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -166,17 +166,17 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="fieldLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fieldLogin" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="fieldSenha" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                       <Component id="fieldMusicas" min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="fieldLivros" min="-2" pref="77" max="-2" attributes="0"/>
@@ -269,7 +269,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
               </Group>
-              <Component id="jScrollBar1" alignment="0" pref="1074" max="32767" attributes="1"/>
+              <Component id="jScrollBar1" alignment="0" pref="1059" max="32767" attributes="1"/>
           </Group>
         </DimensionLayout>
       </Layout>
