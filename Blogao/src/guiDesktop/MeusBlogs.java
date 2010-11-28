@@ -202,16 +202,7 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
         new FramePrincipal(idSessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MeusBlogs().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
