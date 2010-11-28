@@ -11,6 +11,10 @@
 
 package guiDesktop;
 
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -20,6 +24,7 @@ import javax.swing.UIManager;
  */
 public class FramePrincipal extends javax.swing.JFrame {
     private String idSessao;
+    private BlogWSImpl fachada = new BlogWSImpl();
     /** Creates new form FramePrincipal */
     public FramePrincipal(String idSessao) {
         this.idSessao = idSessao;
@@ -28,7 +33,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception ex) {
-            setDefaultLookAndFeelDecorated(true);
+            JOptionPane.showMessageDialog(null, "Nenhum Blog foi selecionado",
+                "Blog",
+                JOptionPane.ERROR_MESSAGE);
         }
         SwingUtilities.updateComponentTreeUI(this);
 
@@ -112,7 +119,16 @@ public class FramePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLogoutActionPerformed
-        // TODO add your handling code here:
+        try {
+            fachada.logoff(idSessao);
+            fachada.saveData();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),
+                "Blog",
+                JOptionPane.ERROR_MESSAGE);
+        }
+        this.dispose();
+        new Login();
 }//GEN-LAST:event_botaoLogoutActionPerformed
 
     private void botaoEditaPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditaPerfilActionPerformed

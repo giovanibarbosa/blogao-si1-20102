@@ -12,6 +12,7 @@
 package guiDesktop;
 
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import enuns.Sexo;
 import java.awt.event.KeyEvent;
@@ -529,7 +530,8 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         try {
             //TODO RELACIONAMETO COM ESSE USUARIO u.
-            BlogWS fachada = HelperClient.getInstance("8080"); //FIXME não sei se eh essa porta
+            //BlogWS fachada = HelperClient.getInstance("8080"); //FIXME não sei se eh essa porta
+            BlogWSImpl fachada = new BlogWSImpl();
             if(fieldConfirmaSenha.getText().equals(fieldSenha.getText())){
                 fachada.createProfile(fieldLogin.getText(), fieldSenha.getText(), fieldNome.getText(),
                         fieldEmail.getText(), String.valueOf(comboSexo.getSelectedItem()),String.valueOf(comboDia.getSelectedItem()) + "/"
@@ -538,6 +540,8 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                         fieldInteresse.getText(), fieldQmSouEu.getText(), fieldFilmes.getText(),
                         fieldMusicas.getText(), fieldLivros.getText());
 
+                fachada.saveData();
+                
                 JOptionPane.showMessageDialog(null, "Perfil criado com sucesso!",
                         "Perfil",
                         JOptionPane.CLOSED_OPTION);
@@ -545,7 +549,8 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                 throw new Exception("Senha e confirmação da senha devem ser iguais!");
             }
             reiniciaCampos();
-            this.disable();
+            this.dispose();
+            new Login();
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
@@ -564,6 +569,8 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         reiniciaCampos();
+        this.dispose();
+        new Login();
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void fieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldSenhaActionPerformed

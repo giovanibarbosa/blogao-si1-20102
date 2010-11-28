@@ -190,7 +190,7 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
                 "Blog",
                 JOptionPane.ERROR_MESSAGE);
         else {
-            this.dispose();
+            //this.dispose();
             //TODO abre um novo frame com o blog escolhido:
             //new CadastroEditavelFrame((Cliente)jList1.getSelectedValue());
             

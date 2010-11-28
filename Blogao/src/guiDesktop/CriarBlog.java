@@ -12,6 +12,7 @@
 package guiDesktop;
 
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -141,26 +142,25 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addComponent(jLabel1)
-                        .addGap(27, 27, 27)
-                        .addComponent(fieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(358, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(27, 27, 27))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botaoCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCadastrar))
-                    .addComponent(fieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(444, Short.MAX_VALUE)
+                .addComponent(botaoCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoLimpar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoCadastrar)
                 .addGap(105, 105, 105))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(69, 69, 69)
-                    .addComponent(jLabel3)
-                    .addContainerGap(629, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,19 +171,17 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(fieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(fieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoLimpar)
-                    .addComponent(botaoCancelar)
-                    .addComponent(botaoCadastrar))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoLimpar)
+                            .addComponent(botaoCancelar)
+                            .addComponent(botaoCadastrar)))
+                    .addComponent(jLabel3))
                 .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(179, 179, 179)
-                    .addComponent(jLabel3)
-                    .addContainerGap(208, Short.MAX_VALUE)))
         );
 
         pack();
@@ -194,10 +192,11 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
     }//GEN-LAST:event_fieldTituloActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        BlogWS fachada = HelperClient.getInstance("8080");
+        //BlogWS fachada = HelperClient.getInstance("8080");
+        BlogWSImpl fachada = new BlogWSImpl();
         try {
             fachada.createBlog(idSessao, fieldTitulo.getText(), fieldDescricao.getText());
-
+            fachada.saveData();
             JOptionPane.showMessageDialog(null, "Blog criado com sucesso!",
             "Blog",
             JOptionPane.CLOSED_OPTION);
