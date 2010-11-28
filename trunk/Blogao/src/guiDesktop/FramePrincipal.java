@@ -21,7 +21,7 @@ import javax.swing.UIManager;
 public class FramePrincipal extends javax.swing.JFrame {
 
     /** Creates new form FramePrincipal */
-    public FramePrincipal() {
+    public FramePrincipal(String idSessao) {
         initComponents();
 
         try {
@@ -48,6 +48,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         botaoMeusBlogs = new javax.swing.JToggleButton();
         botaoEditaPerfil = new javax.swing.JToggleButton();
         botaoLogout = new javax.swing.JToggleButton();
+        botaoCriarBlogs = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +73,13 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        botaoCriarBlogs.setText("Criar Blog");
+        botaoCriarBlogs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarBlogsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,7 +88,8 @@ public class FramePrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoMeusBlogs, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                    .addComponent(botaoEditaPerfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoCriarBlogs, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                    .addComponent(botaoEditaPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botaoLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
                 .addGap(629, 629, 629))
         );
@@ -89,11 +98,13 @@ public class FramePrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(botaoMeusBlogs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoCriarBlogs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoEditaPerfil)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoLogout)
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         pack();
@@ -111,8 +122,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_botaoMeusBlogsActionPerformed
 
+    private void botaoCriarBlogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarBlogsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoCriarBlogsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton botaoCriarBlogs;
     private javax.swing.JToggleButton botaoEditaPerfil;
     private javax.swing.JToggleButton botaoLogout;
     private javax.swing.JToggleButton botaoMeusBlogs;

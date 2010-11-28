@@ -52,8 +52,8 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 			String senhaUser = campoSenha.getText();
 
 			try {
-				fachada.logon(loginUser, senhaUser);
-				new FramePrincipal();
+				String idSessao = fachada.logon(loginUser, senhaUser);
+				new FramePrincipal(idSessao);
 
 			} catch (HeadlessException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO",
@@ -213,8 +213,8 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 
 			try {
 
-				fachada.logon(loginUser, senhaUser);
-				new FramePrincipal();
+				String idSessao = fachada.logon(loginUser, senhaUser);
+				new FramePrincipal(idSessao);
 
 
 			} catch (HeadlessException e1) {
