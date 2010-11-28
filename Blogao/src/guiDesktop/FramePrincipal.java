@@ -19,9 +19,10 @@ import javax.swing.UIManager;
  * @author Tiago Brasileiro
  */
 public class FramePrincipal extends javax.swing.JFrame {
-
+    private String idSessao;
     /** Creates new form FramePrincipal */
     public FramePrincipal(String idSessao) {
+        this.idSessao = idSessao;
         initComponents();
 
         try {
@@ -123,7 +124,8 @@ public class FramePrincipal extends javax.swing.JFrame {
 }//GEN-LAST:event_botaoMeusBlogsActionPerformed
 
     private void botaoCriarBlogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarBlogsActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new CriarBlog(idSessao);
     }//GEN-LAST:event_botaoCriarBlogsActionPerformed
 
 

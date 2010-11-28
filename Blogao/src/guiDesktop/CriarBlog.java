@@ -13,12 +13,8 @@ package guiDesktop;
 
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
-import enuns.Sexo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -113,7 +109,7 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
             }
         });
 
-        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setText("Criar");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCadastrarActionPerformed(evt);
