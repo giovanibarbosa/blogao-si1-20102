@@ -1,0 +1,32 @@
+<classes.func.usuario.Usuario>
+  <logavel class="classes.func.usuario.LogavelImpl">
+    <login>
+      <login>Tiago</login>
+    </login>
+    <senha>
+      <senha>123</senha>
+    </senha>
+  </logavel>
+  <perfil>
+    <email>
+      <email>t@gmail.com</email>
+    </email>
+    <nomeDeExibicao></nomeDeExibicao>
+    <endereco></endereco>
+    <interesses></interesses>
+    <dataDeNascimento>
+      <data>
+        <time>682398000000</time>
+        <timezone>America/Sao_Paulo</timezone>
+      </data>
+    </dataDeNascimento>
+    <sexo>Masculino</sexo>
+    <quemSouEu></quemSouEu>
+    <filmesFavoritos></filmesFavoritos>
+    <musicasFavoritas></musicasFavoritas>
+    <livrosFavoritos></livrosFavoritos>
+    <loginUsuarioDono>Tiago</loginUsuarioDono>
+  </perfil>
+  <listaBlogs/>
+  <listaAnnouncements/>
+</classes.func.usuario.Usuario>
