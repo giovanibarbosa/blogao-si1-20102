@@ -25,7 +25,6 @@ import javax.swing.JOptionPane;
  * @author Tiago
  */
 public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
-    private String idSessao;
     
     @SuppressWarnings("deprecation")
     @Override
@@ -53,8 +52,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     /** Creates new form FormularioCliente */
     @SuppressWarnings({"deprecation", "LeakingThisInConstructor"})
 
-    public CriarPerfil(String idSessao) {
-        this.idSessao = idSessao;
+    public CriarPerfil() {
         initComponents();
 
 
@@ -548,7 +546,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
             }
             reiniciaCampos();
             this.disable();
-            new FramePrincipal(idSessao);
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
