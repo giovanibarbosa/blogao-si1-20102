@@ -1,6 +1,7 @@
 package guiDesktop;
 
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import classes.func.usuario.Usuario;
 import java.awt.Color;
@@ -39,6 +40,7 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 	private static Login tela;
 	private static Color cor1, cor2, cor5;
 	private static Usuario usuario;
+	private BlogWSImpl fachada = new BlogWSImpl();
 
 	public static Usuario getUsuario() {
 		return usuario;
@@ -46,13 +48,15 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) {
-		BlogWS fachada = HelperClient.getInstance("8080"); // FIXME
+		//BlogWS fachada = HelperClient.getInstance("8080"); // FIXME
 		if ("entrar".equals(e.getActionCommand())) {
 			String loginUser = campoLogin.getText();
 			String senhaUser = campoSenha.getText();
 
 			try {
 				String idSessao = fachada.logon(loginUser, senhaUser);
+				fachada.saveData();
+				this.dispose();
 				new FramePrincipal(idSessao);
 
 			} catch (HeadlessException e1) {
@@ -73,6 +77,13 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 
 	@SuppressWarnings("deprecation")
 	public Login() {
+		try {
+			fachada.loadData();
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage(), "ERRO",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
 		frame = new JFrame("Blogão SI");
 
 		frame.addKeyListener(this);
@@ -209,11 +220,12 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			String loginUser = campoLogin.getText();
 			String senhaUser = campoSenha.getText();
-			BlogWS fachada = HelperClient.getInstance("8080"); //FIXME
-
+			//BlogWS fachada = HelperClient.getInstance("8080"); //FIXME
 			try {
 
 				String idSessao = fachada.logon(loginUser, senhaUser);
+				fachada.saveData();
+				this.dispose();
 				new FramePrincipal(idSessao);
 
 
