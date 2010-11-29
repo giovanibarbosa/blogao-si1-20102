@@ -11,14 +11,11 @@
 
 package guiDesktop;
 
-import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
-import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
+
 import classes.Blog;
-import enuns.Sexo;
 import facades.FacadeBlog;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -70,6 +67,14 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
 
         reiniciaCampos();
 
+        try {
+           buscaBlogs();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage(),
+                "Busca Sem Sucesso",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+
 
     }
 
@@ -79,7 +84,8 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
             jListBlogs.setModel(new javax.swing.AbstractListModel() {
             List<Blog> clientes = fachada.getBlogsBySessionId(idSessao);
             public int getSize() {return clientes.size();}
-            public Blog getElementAt(int i){return clientes.get(i);}
+            public String getElement(int i){ return clientes.get(i).getTitulo();}
+            public String getElementAt(int i){return clientes.get(i).getId();}
             });
             jScrollPane1.setViewportView(jListBlogs);
         } else
@@ -109,7 +115,6 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jListBlogs = new javax.swing.JList();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         botaoCadastrar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
@@ -117,9 +122,6 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPane1.setViewportView(jListBlogs);
-
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18));
-        jLabel1.setText("Cadastro do Cliente");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18));
         jLabel2.setText("Blogs");
@@ -143,42 +145,31 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(169, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(322, 322, 322))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoCadastrar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(135, 135, 135))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(292, 292, 292)
-                    .addComponent(jLabel1)
-                    .addContainerGap(292, Short.MAX_VALUE)))
+                .addGap(169, 169, 169)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botaoCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoCadastrar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(135, 135, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(357, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(332, 332, 332))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(59, 59, 59)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCadastrar)
                     .addComponent(botaoCancelar))
                 .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(190, 190, 190)
-                    .addComponent(jLabel1)
-                    .addContainerGap(190, Short.MAX_VALUE)))
         );
 
         pack();
@@ -190,9 +181,9 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
                 "Blog",
                 JOptionPane.ERROR_MESSAGE);
         else {
-            //this.dispose();
-            //TODO abre um novo frame com o blog escolhido:
-            //new CadastroEditavelFrame((Cliente)jList1.getSelectedValue());
+            String blog = (String)jListBlogs.getSelectedValue();
+            this.dispose();
+            new MenuBlog(blog, idSessao);
             
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
@@ -207,7 +198,6 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jListBlogs;
     private javax.swing.JScrollPane jScrollPane1;

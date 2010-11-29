@@ -24,8 +24,7 @@ import javax.swing.JOptionPane;
  * @author Tiago
  */
 public class MenuBlog extends javax.swing.JFrame implements KeyListener{
-
-    private String idSessao;
+    private String idBlog, idSessao;
     private BlogWSImpl fachada = new BlogWSImpl();
 
 
@@ -55,8 +54,9 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
     /** Creates new form FormularioCliente */
     @SuppressWarnings({"deprecation", "LeakingThisInConstructor"})
 
-    public MenuBlog(String IdSessao) {
-        idSessao = IdSessao;
+    public MenuBlog(String IdBlog, String idSessao) {
+        this.idBlog = IdBlog;
+        this.idSessao = idSessao;
 
         String blogTitulo = "";
         String blogDescricao = "";
@@ -66,10 +66,9 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
 
         try {
             fachada.loadData();
-            System.out.print(fachada.getNumberOfBlogsBySessionId(idSessao));
-            Integer blogID = fachada.getBlogBySessionId(idSessao, 0);//FIXME TEM QUE VER ESSE INDEX
-            blogTitulo = fachada.getBlogInformation(String.valueOf(blogID), "titulo");
-            blogDescricao = fachada.getBlogInformation(String.valueOf(blogID), "descricao");
+            String blogID = idBlog;//FIXME TEM QUE VER ESSE INDEX
+            blogTitulo = fachada.getBlogInformation(blogID, "titulo");
+            blogDescricao = fachada.getBlogInformation(blogID, "descricao");
             //TODO FAZER A PARTE DO POST
             /*Integer postID = fachada.getPost(String.valueOf(blogID), 0);
             postTitulo = fachada.getPostInformation(String.valueOf(postID), "titulo");

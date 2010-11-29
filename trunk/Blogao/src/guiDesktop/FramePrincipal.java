@@ -137,7 +137,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void botaoMeusBlogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMeusBlogsActionPerformed
         this.dispose();
-        new MenuBlog(idSessao);
+        new MeusBlogs(idSessao);
 }//GEN-LAST:event_botaoMeusBlogsActionPerformed
 
     private void botaoCriarBlogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarBlogsActionPerformed
