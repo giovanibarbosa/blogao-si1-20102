@@ -56,13 +56,8 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
     @SuppressWarnings({"deprecation", "LeakingThisInConstructor"})
 
     public MenuBlog(String IdSessao) {
-        try {
-            fachada.loadData();
-        } catch (Exception ex) {
-           JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Problemas ao carregar os dados!",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        idSessao = IdSessao;
+
         String blogTitulo = "";
         String blogDescricao = "";
         String postTitulo = "";
@@ -70,12 +65,15 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
 
 
         try {
+            fachada.loadData();
+            System.out.print(fachada.getNumberOfBlogsBySessionId(idSessao));
             Integer blogID = fachada.getBlogBySessionId(idSessao, 0);//FIXME TEM QUE VER ESSE INDEX
             blogTitulo = fachada.getBlogInformation(String.valueOf(blogID), "titulo");
             blogDescricao = fachada.getBlogInformation(String.valueOf(blogID), "descricao");
-            Integer postID = fachada.getPost(String.valueOf(blogID), 0);
+            //TODO FAZER A PARTE DO POST
+            /*Integer postID = fachada.getPost(String.valueOf(blogID), 0);
             postTitulo = fachada.getPostInformation(String.valueOf(postID), "titulo");
-            postCorpo = fachada.getPostInformation(String.valueOf(postID), "corpo");
+            postCorpo = fachada.getPostInformation(String.valueOf(postID), "corpo");*/
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
@@ -87,10 +85,9 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
         jLabelTitulo.setText(blogTitulo);
         jLabelDescricao.setText(blogDescricao);
 
-        jLabelPost.setText(IdSessao);
-
-        jLabelPost.setText(postCorpo);
-        jLabelTituloPost.setText(postTitulo);
+        //TODO FAZER A PARTE DO POST
+        /*.setText(postCorpo);
+        jLabelTituloPost.setText(postTitulo);*/
 
         this.addKeyListener(this);
         this.show();
@@ -145,6 +142,11 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabelTitulo.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        jLabelDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         jLabel1.setText("Posts");
 
         jScrollPane2.setViewportView(jListPosts);
@@ -172,36 +174,34 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                     .addComponent(jLabelPost, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(botaoCancelar)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(botaoCadastrar)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(96, 96, 96))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botaoCancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoCadastrar))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(jLabel1)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(100, 100, 100)
@@ -212,33 +212,33 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botaoCadastrar)
                             .addComponent(botaoCancelar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabelPost, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(242, 242, 242)
                     .addComponent(jLabelTituloPost, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(243, Short.MAX_VALUE)))
+                    .addContainerGap(407, Short.MAX_VALUE)))
         );
 
         pack();
