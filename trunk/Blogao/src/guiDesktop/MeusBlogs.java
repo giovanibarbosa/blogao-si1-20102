@@ -12,6 +12,7 @@
 package guiDesktop;
 
 
+import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import classes.Blog;
 import facades.FacadeBlog;
 import java.awt.event.KeyEvent;
@@ -26,6 +27,7 @@ import javax.swing.JOptionPane;
 public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
     /** Creates new form MeusBlogs */
     private String idSessao;
+    BlogWSImpl fachada = new BlogWSImpl();
 
     @SuppressWarnings("deprecation")
     @Override
@@ -119,13 +121,18 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
         botaoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(jListBlogs);
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18));
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel2.setText("Blogs");
 
-        botaoCadastrar.setText("Entrar");
+        botaoCadastrar.setText("Acessar");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCadastrarActionPerformed(evt);
@@ -150,25 +157,23 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
                         .addComponent(botaoCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(botaoCadastrar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(135, 135, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(357, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(332, 332, 332))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCadastrar)
                     .addComponent(botaoCancelar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -191,6 +196,17 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
         this.dispose();
         new FramePrincipal(idSessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            fachada.logoff(idSessao);
+            fachada.saveData();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, "Logoff sem sucesso!",
+                "Logoff sem sucesso!",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
 
 

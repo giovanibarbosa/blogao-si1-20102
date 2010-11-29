@@ -19,6 +19,8 @@ import facades.FacadePost;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -100,8 +102,8 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
         reiniciaCampos();
 
         try {
-           buscaSubBlogs();
            buscaPosts();
+           buscaSubBlogs();
         } catch (Exception ex) {
            JOptionPane.showMessageDialog(null, ex.getMessage(),
                 "Busca Sem Sucesso",
@@ -118,7 +120,7 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
             public int getSize() {return clientes.size();}
             public String getElementAt(int i){return clientes.get(i).getId();}
             });
-            jScrollPane1.setViewportView(jListSubBlogs);
+            jScrollPane2.setViewportView(jListSubBlogs);
         } else
             throw new Exception("ID da sessão inválida");
     }
@@ -163,36 +165,39 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
         jLabelTitulo = new javax.swing.JLabel();
         jLabelDescricao = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jListPosts = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListSubBlogs = new javax.swing.JList();
-        botaoCadastrar = new javax.swing.JButton();
+        botaoCriarSubBlog = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
         jLabelPost = new javax.swing.JLabel();
-        jLabelTituloPost = new javax.swing.JLabel();
         jLabelTituloPost1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListPosts = new javax.swing.JList();
+        botaoCriarPost = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabelTitulo.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jLabelDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelDescricao.setFont(new java.awt.Font("Tahoma", 0, 14));
 
         jLabel1.setText("Posts");
-
-        jScrollPane2.setViewportView(jListPosts);
 
         jLabel3.setText("SubBlogs");
 
         jScrollPane1.setViewportView(jListSubBlogs);
 
-        botaoCadastrar.setText("Criar Post");
-        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        botaoCriarSubBlog.setText("Criar SubBlog");
+        botaoCriarSubBlog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarActionPerformed(evt);
+                botaoCriarSubBlogActionPerformed(evt);
             }
         });
 
@@ -203,101 +208,131 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
             }
         });
 
+        jScrollPane2.setViewportView(jListPosts);
+
+        botaoCriarPost.setText("Criar Post");
+        botaoCriarPost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarPostActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
-                    .addComponent(jLabelPost, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoCadastrar))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel1)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(100, 100, 100)
-                    .addComponent(jLabelTituloPost, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
-                    .addGap(101, 101, 101)))
+                            .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                            .addComponent(jLabelPost, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addContainerGap())
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(61, 61, 61)
+                                            .addComponent(botaoCancelar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(botaoCriarSubBlog)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(botaoCriarPost)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap()))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3)
+                                    .addGap(88, 88, 88)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addGap(96, 96, 96))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jLabelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addGap(11, 11, 11)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botaoCadastrar)
+                            .addComponent(botaoCriarPost)
+                            .addComponent(botaoCriarSubBlog)
                             .addComponent(botaoCancelar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelPost, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelPost, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(242, 242, 242)
-                    .addComponent(jLabelTituloPost, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(407, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+    private void botaoCriarSubBlogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarSubBlogActionPerformed
         this.dispose();
-        new CriarPost(idSessao, idBlog);
-}//GEN-LAST:event_botaoCadastrarActionPerformed
+        //new CriarBlog(idSessao, idBlog);
+}//GEN-LAST:event_botaoCriarSubBlogActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         this.dispose();
         new FramePrincipal(idSessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            fachada.logoff(idSessao);
+            fachada.saveData();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, "Logoff sem sucesso!",
+                "Logoff sem sucesso!",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void botaoCriarPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarPostActionPerformed
+        this.dispose();
+        new CriarPost(idSessao, idBlog);
+    }//GEN-LAST:event_botaoCriarPostActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
+    private javax.swing.JButton botaoCriarPost;
+    private javax.swing.JButton botaoCriarSubBlog;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelDescricao;
     private javax.swing.JLabel jLabelPost;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JLabel jLabelTituloPost;
     private javax.swing.JLabel jLabelTituloPost1;
     private javax.swing.JList jListPosts;
     private javax.swing.JList jListSubBlogs;
