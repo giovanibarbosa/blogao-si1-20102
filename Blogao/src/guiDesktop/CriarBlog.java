@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class CriarBlog extends javax.swing.JFrame implements KeyListener {
     private String idSessao;
+    BlogWSImpl fachada = new BlogWSImpl();
 
     @SuppressWarnings("deprecation")
     @Override
@@ -97,14 +98,19 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
         fieldDescricao = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel1.setText("Título:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setText("Descrição:");
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 24));
         jLabel2.setText("Criar Blog");
 
         fieldTitulo.addActionListener(new java.awt.event.ActionListener() {
@@ -200,7 +206,7 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         //BlogWS fachada = HelperClient.getInstance("8080");
-        BlogWSImpl fachada = new BlogWSImpl();
+        fachada = new BlogWSImpl();
         try {
             fachada.createBlog(idSessao, fieldTitulo.getText(), fieldDescricao.getText());
             fachada.saveData();
@@ -229,6 +235,17 @@ public class CriarBlog extends javax.swing.JFrame implements KeyListener {
         reiniciaCampos();
         new FramePrincipal(idSessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            fachada.logoff(idSessao);
+            fachada.saveData();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, "Logoff sem sucesso!",
+                "Logoff sem sucesso!",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

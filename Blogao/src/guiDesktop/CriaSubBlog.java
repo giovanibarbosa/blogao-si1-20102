@@ -4,29 +4,30 @@
  */
 
 /*
- * MenuPost.java
+ * CriaSubBlog.java
  *
- * Created on 29/11/2010, 10:45:36
+ * Created on 29/11/2010, 17:25:36
  */
 
 package guiDesktop;
 
-
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
+import enuns.Sexo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Tiago Brasileiro
  */
-public class CriarPost extends javax.swing.JFrame implements KeyListener{
-    private BlogWSImpl fachada = new BlogWSImpl();
+public class CriaSubBlog extends javax.swing.JFrame implements KeyListener{
     private String idSessao;
     private String idBlog;
+    BlogWSImpl fachada = new BlogWSImpl();
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -50,34 +51,34 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
             // TODO Auto-generated method stub
 
     }
-    public CriarPost(String idSessao,String idBlog) {
 
-        initComponents();
 
+
+    private void reiniciaCampos() {
+        fieldDescricao.setText(null);
+        fieldTitulo.setText(null);
+
+
+    }
+
+    /** Creates new form CriaSubBlog */
+    public CriaSubBlog(String idSessao, String idBlog) {
         this.idSessao = idSessao;
         this.idBlog = idBlog;
-        
         this.addKeyListener(this);
         this.show();
 
 
-        CorpoPost.addKeyListener(this);
-        CorpoPost.show();
+        fieldTitulo.addKeyListener(this);
+        fieldTitulo.show();
 
-        TituloPost.addKeyListener(this);
-        TituloPost.show();
+        fieldDescricao.addKeyListener(this);
+        fieldDescricao.show();
 
         setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
 
         reiniciaCampos();
-
-
-    }
-
-    private void reiniciaCampos() {
-        TituloPost.setText(null);
-        CorpoPost.setText(null);
 
 
     }
@@ -91,42 +92,21 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TituloPost = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        CorpoPost = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        botaoCadastrar = new javax.swing.JButton();
+        fieldTitulo = new javax.swing.JTextField();
         botaoLimpar = new javax.swing.JButton();
+        botaoCadastrar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        fieldDescricao = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
-        TituloPost.setFont(new java.awt.Font("Tahoma", 0, 12));
-
-        CorpoPost.setColumns(20);
-        CorpoPost.setRows(5);
-        jScrollPane1.setViewportView(CorpoPost);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24));
-        jLabel1.setText("Posts");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18));
-        jLabel2.setText("Título:");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
-        jLabel3.setText("Texto:");
-
-        botaoCadastrar.setText("Postar");
-        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        fieldTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarActionPerformed(evt);
+                fieldTituloActionPerformed(evt);
             }
         });
 
@@ -137,6 +117,13 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
             }
         });
 
+        botaoCadastrar.setText("Criar");
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarActionPerformed(evt);
+            }
+        });
+
         botaoCancelar.setText("Voltar");
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,107 +131,119 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
             }
         });
 
+        fieldDescricao.setColumns(20);
+        fieldDescricao.setRows(5);
+        jScrollPane1.setViewportView(fieldDescricao);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel1.setText("Título:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel3.setText("Descrição:");
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 24));
+        jLabel2.setText("Criar SubBlog");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 805, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(20, 20, 20))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(fieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(228, 228, 228))
+                            .addComponent(jScrollPane1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addContainerGap(484, Short.MAX_VALUE)
                         .addComponent(botaoCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCadastrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(TituloPost, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(13, 13, 13)))))
-                .addGap(244, 244, 244))
+                        .addComponent(botaoCadastrar)))
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(93, 93, 93)
+                .addComponent(jLabel2)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(TituloPost, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                    .addComponent(fieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoLimpar)
-                    .addComponent(botaoCancelar)
-                    .addComponent(botaoCadastrar))
-                .addGap(48, 48, 48))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoLimpar)
+                            .addComponent(botaoCancelar)
+                            .addComponent(botaoCadastrar)))
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        //BlogWS fachada = HelperClient.getInstance("8080");
-        fachada = new BlogWSImpl();
-        try {
-            fachada.createPost(idSessao, idBlog, TituloPost.getText(), CorpoPost.getText());
-            fachada.saveData();
-            JOptionPane.showMessageDialog(null, "Post criado com sucesso!",
-                    "Blog",
-                    JOptionPane.CLOSED_OPTION);
-
-            reiniciaCampos();
-            this.dispose();
-            new FramePrincipal(idSessao);
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Problemas ao criar um post.",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_botaoCadastrarActionPerformed
+    private void fieldTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTituloActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_fieldTituloActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
         reiniciaCampos();
 }//GEN-LAST:event_botaoLimparActionPerformed
 
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        //BlogWS fachada = HelperClient.getInstance("8080");
+        fachada = new BlogWSImpl();
+        try {
+            fachada.createSubBlog(idSessao, idBlog, fieldTitulo.getText(), fieldDescricao.getText());
+            fachada.saveData();
+            JOptionPane.showMessageDialog(null, "Blog criado com sucesso!",
+                    "Blog",
+                    JOptionPane.CLOSED_OPTION);
+
+            reiniciaCampos();
+            this.dispose();
+            new MenuBlog(idSessao, idBlog);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),
+                    "Problemas ao criar um perfil",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
+
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         this.dispose();
         reiniciaCampos();
-        new MenuBlog(idSessao, idBlog);
+        new FramePrincipal(idSessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            fachada.logoff(idSessao);
-            fachada.saveData();
-        } catch (Exception ex) {
-           JOptionPane.showMessageDialog(null, "Logoff sem sucesso!",
-                "Logoff sem sucesso!",
-                JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea CorpoPost;
-    private javax.swing.JTextField TituloPost;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoLimpar;
+    private javax.swing.JTextArea fieldDescricao;
+    private javax.swing.JTextField fieldTitulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

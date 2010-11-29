@@ -26,7 +26,6 @@ import javax.swing.JOptionPane;
  * @author Tiago
  */
 public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
-    
     @SuppressWarnings("deprecation")
     @Override
     public void keyPressed(KeyEvent e) {
@@ -228,6 +227,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         jScrollBar1 = new javax.swing.JScrollBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 507));
 
@@ -580,6 +584,10 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private void jScrollBar1AdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_jScrollBar1AdjustmentValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollBar1AdjustmentValueChanged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

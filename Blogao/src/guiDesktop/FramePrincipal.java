@@ -59,6 +59,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         botaoCriarBlogs = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         botaoMeusBlogs.setText("Meus Blogs");
         botaoMeusBlogs.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +149,17 @@ public class FramePrincipal extends javax.swing.JFrame {
         this.dispose();
         new CriarBlog(idSessao);
     }//GEN-LAST:event_botaoCriarBlogsActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            fachada.logoff(idSessao);
+            fachada.saveData();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, "Logoff sem sucesso!",
+                "Logoff sem sucesso!",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
