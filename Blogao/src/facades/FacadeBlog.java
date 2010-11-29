@@ -192,10 +192,15 @@ public class FacadeBlog {
 			throws ArgumentInvalidException {
 		return gerenteBlog.getSubBlog(blogId, index);
 	}
+	
 
 	public int getNumberOfAllPosts(String blogId)
 			throws ArgumentInvalidException {
 		return gerenteBlog.getNumberOfAllPosts(blogId);
+	}
+	
+	public List<Blog> getListOfSubBlogs(String blogId)throws ArgumentInvalidException {
+		return gerenteBlog.getListOfSubBlogs(blogId);
 	}
 
 }

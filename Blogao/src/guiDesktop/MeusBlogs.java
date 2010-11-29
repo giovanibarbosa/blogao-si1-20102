@@ -84,7 +84,6 @@ public class MeusBlogs extends javax.swing.JFrame implements KeyListener {
             jListBlogs.setModel(new javax.swing.AbstractListModel() {
             List<Blog> clientes = fachada.getBlogsBySessionId(idSessao);
             public int getSize() {return clientes.size();}
-            public String getElement(int i){ return clientes.get(i).getTitulo();}
             public String getElementAt(int i){return clientes.get(i).getId();}
             });
             jScrollPane1.setViewportView(jListBlogs);
