@@ -14,8 +14,11 @@ package guiDesktop;
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import classes.Blog;
 import classes.Post;
+import facades.FacadeBlog;
+import facades.FacadePost;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -84,15 +87,11 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
         jLabelTitulo.setText(blogTitulo);
         jLabelDescricao.setText(blogDescricao);
 
-        //TODO FAZER A PARTE DO POST
-        /*.setText(postCorpo);
-        jLabelTituloPost.setText(postTitulo);*/
 
         this.addKeyListener(this);
         this.show();
 
-        /*fieldLogin.addKeyListener(this);
-        fieldLogin.show();*/
+
 
 
         setVisible(true);
@@ -100,7 +99,43 @@ public class MenuBlog extends javax.swing.JFrame implements KeyListener{
 
         reiniciaCampos();
 
+        try {
+           buscaSubBlogs();
+           buscaPosts();
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage(),
+                "Busca Sem Sucesso",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
 
+    }
+
+    private void buscaSubBlogs() throws Exception {
+        final FacadeBlog fachada = FacadeBlog.getInstance();
+    	if(idSessao != null) {
+            jListSubBlogs.setModel(new javax.swing.AbstractListModel() {
+            List<Blog> clientes = fachada.getListOfSubBlogs(idBlog);
+            public int getSize() {return clientes.size();}
+            public String getElementAt(int i){return clientes.get(i).getId();}
+            });
+            jScrollPane1.setViewportView(jListSubBlogs);
+        } else
+            throw new Exception("ID da sessão inválida");
+    }
+
+    private void buscaPosts() throws Exception {
+        final FacadePost fachada = FacadePost.getInstance();
+        final FacadeBlog fachadaBlog = FacadeBlog.getInstance();
+    	if(idSessao != null) {
+            final Blog blog = fachadaBlog.getBlogByIdBlog(idBlog);
+            jListPosts.setModel(new javax.swing.AbstractListModel() {
+            List<Post> clientes = fachada.getListaPostsPorBlog(blog);
+            public int getSize() {return clientes.size();}
+            public String getElementAt(int i){return clientes.get(i).getId();}
+            });
+            jScrollPane1.setViewportView(jListPosts);
+        } else
+            throw new Exception("ID da sessão inválida");
     }
 
     private void reiniciaCampos() {

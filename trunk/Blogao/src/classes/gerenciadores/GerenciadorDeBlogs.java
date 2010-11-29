@@ -828,5 +828,9 @@ public class GerenciadorDeBlogs implements Gerenciador {
 				}
 			};
 		}
+		
+		public List<Blog> getListOfSubBlogs(String blogId) throws ArgumentInvalidException{
+			return GerenciadorDeDados.getInstance().getGerenteBlogs().getBlog(blogId).getListaSubBlogs();
+		}
 
 }
