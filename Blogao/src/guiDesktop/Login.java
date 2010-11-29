@@ -56,7 +56,7 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 			try {
 				String idSessao = fachada.logon(loginUser, senhaUser);
 				fachada.saveData();
-				this.dispose();
+				frame.dispose();
 				new FramePrincipal(idSessao);
 
 			} catch (HeadlessException e1) {
@@ -225,7 +225,7 @@ public class Login extends JFrame implements KeyListener, ActionListener {
 
 				String idSessao = fachada.logon(loginUser, senhaUser);
 				fachada.saveData();
-				this.dispose();
+				frame.dispose();
 				new FramePrincipal(idSessao);
 
 
