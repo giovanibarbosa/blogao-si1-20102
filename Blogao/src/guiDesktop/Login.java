@@ -1,8 +1,6 @@
 package guiDesktop;
 
-import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
-import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import classes.func.usuario.Usuario;
 import java.awt.Color;
 import java.awt.Font;
