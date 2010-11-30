@@ -208,7 +208,8 @@ public class FramePrincipal extends javax.swing.JFrame {
 }//GEN-LAST:event_botaoLogoutActionPerformed
 
     private void botaoEditaPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditaPerfilActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new EditarPerfil(idSessao);
 }//GEN-LAST:event_botaoEditaPerfilActionPerformed
 
     private void botaoMeusBlogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMeusBlogsActionPerformed

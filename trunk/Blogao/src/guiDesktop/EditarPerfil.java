@@ -4,154 +4,95 @@
  */
 
 /*
- * CriarPerfil.java
+ * EditarPerfil.java
  *
- * Created on 27/11/2010, 18:00:05
+ * Created on 30/11/2010, 19:43:09
  */
 
 package guiDesktop;
 
-import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
-import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import enuns.Sexo;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
-
 /**
  *
- * @author Tiago
+ * @author usuário
  */
-public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
-    @SuppressWarnings("deprecation")
-    @Override
-    public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    botaoCadastrarActionPerformed(null);
+public class EditarPerfil extends javax.swing.JFrame {
+    private String sessao;
 
-            } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    botaoCancelarActionPerformed(null);
-            }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
-            // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent arg0) {
-            // TODO Auto-generated method stub
-
-    }
-
-    /** Creates new form FormularioCliente */
-    @SuppressWarnings({"deprecation", "LeakingThisInConstructor"})
-
-    public CriarPerfil() {
+    /** Creates new form EditarPerfil */
+    public EditarPerfil(String sessao) {
+        this.sessao = sessao;
         initComponents();
-
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(jPanel1);
         setContentPane(scroll);
-
-        this.addKeyListener(this);
-        this.show();
-
-        fieldBairro.addKeyListener(this);
-        fieldBairro.show();
-
-        fieldCEP.addKeyListener(this);
-        fieldCEP.show();
-
-        fieldCidade.addKeyListener(this);
-        fieldCidade.show();
-
-        fieldComplemento.addKeyListener(this);
-        fieldComplemento.show();
-
-        fieldEmail.addKeyListener(this);
-        fieldEmail.show();
-
-        fieldNome.addKeyListener(this);
-        fieldNome.show();
-
-        fieldNumero.addKeyListener(this);
-        fieldNumero.show();
-
-        fieldFilmes.addKeyListener(this);
-        fieldFilmes.show();
-
-        fieldInteresse.addKeyListener(this);
-        fieldInteresse.show();
-
-        fieldLivros.addKeyListener(this);
-        fieldLivros.show();
-
-        fieldMusicas.addKeyListener(this);
-        fieldMusicas.show();
-
-        fieldQmSouEu.addKeyListener(this);
-        fieldQmSouEu.show();
-
-        fieldRua.addKeyListener(this);
-        fieldRua.show();
-
-        botaoCadastrar.addKeyListener(this);
-        botaoCadastrar.show();
-
-        botaoCancelar.addKeyListener(this);
-        botaoCancelar.show();
-
-        botaoLimpar.addKeyListener(this);
-        botaoLimpar.show();
-
-
-        comboAno.addKeyListener(this);
-        comboAno.show();
-
-        comboDia.addKeyListener(this);
-        comboDia.show();
-
-
-        comboMes.addKeyListener(this);
-        comboMes.show();
-
-        comboSexo.addKeyListener(this);
-        comboSexo.show();
-
-        fieldLogin.addKeyListener(this);
-        fieldLogin.show();
-
-        fieldSenha.addKeyListener(this);
-        fieldSenha.show();
-
-
-        fieldConfirmaSenha.addKeyListener(this);
-        fieldConfirmaSenha.show();
-
         setVisible(true);
+        jPanel1.setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
-
+        inicializaDados();
         carregaCombosEnums();
-        reiniciaCampos();
+    }
 
+    private void inicializaDados() {
+        BlogWSImpl ws = new BlogWSImpl();
+        try {
+            fieldLogin.setText(ws.getProfileInformationBySessionId(sessao, "login"));
+            fieldNome.setText(ws.getProfileInformationBySessionId(sessao, "nome_exibicao"));
+            fieldEmail.setText(ws.getProfileInformationBySessionId(sessao, "email"));
+            fieldRua.setText(ws.getProfileInformationBySessionId(sessao, "endereco"));
+            fieldInteresse.setText(ws.getProfileInformationBySessionId(sessao, "interesses"));
+            fieldQmSouEu.setText(ws.getProfileInformationBySessionId(sessao, "quem_sou_eu"));
+            fieldFilmes.setText(ws.getProfileInformationBySessionId(sessao, "filmes"));
+            fieldMusicas.setText(ws.getProfileInformationBySessionId(sessao, "musicas"));
+            fieldLivros.setText(ws.getProfileInformationBySessionId(sessao, "livros"));
+            String ano = ws.getProfileInformationBySessionId(sessao, "dataNasc").split("/")[0];
+            String dia = ws.getProfileInformationBySessionId(sessao, "dataNasc").split("/")[1];
+            String mes = ws.getProfileInformationBySessionId(sessao, "dataNasc").split("/")[2];
+            if(ano != null)
+                comboAno.setSelectedItem(ano);
+            else
+                comboAno.setSelectedIndex(-1);
 
+            if(dia != null)
+                comboDia.setSelectedItem(dia);
+            else
+                comboDia.setSelectedIndex(-1);
+
+            if(mes != null)
+                comboMes.setSelectedItem(mes);
+            else
+                comboMes.setSelectedIndex(-1);
+
+        }  catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(),
+                    "Problemas ao editar um perfil",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void carregaCombosEnums() {
+        comboSexo.setModel(new javax.swing.
+                DefaultComboBoxModel(Sexo.values()));
+         comboAno.setModel(new javax.swing.
+                DefaultComboBoxModel(arrayAnos()));
+    }
+    
+    private String[] arrayAnos() {
+        String[] retorno = new String[111];
+        for(int i = 1910; i - 1910 < retorno.length; i++)
+            retorno[i - 1910] = String.valueOf(i);
+        return retorno;
     }
 
     private void reiniciaCampos() {
-        fieldBairro.setText(null);
-        fieldCEP.setText(null);
         fieldCidade.setText(null);
-        fieldComplemento.setText(null);
         fieldEmail.setText(null);
         fieldNome.setText(null);
-        fieldNumero.setText(null);
         fieldRua.setText(null);
         fieldFilmes.setText(null);
         fieldInteresse.setText(null);
@@ -167,19 +108,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         comboSexo.setSelectedIndex(-1);
     }
 
-    private void carregaCombosEnums() {
-        comboSexo.setModel(new javax.swing.
-                DefaultComboBoxModel(Sexo.values()));
-         comboAno.setModel(new javax.swing.
-                DefaultComboBoxModel(arrayAnos()));
-    }
-
-    private String[] arrayAnos() {
-        String[] retorno = new String[111];
-        for(int i = 1910; i - 1910 < retorno.length; i++)
-            retorno[i - 1910] = String.valueOf(i);
-        return retorno;
-    }
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -190,21 +123,13 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         comboDia = new javax.swing.JComboBox();
         comboMes = new javax.swing.JComboBox();
         comboAno = new javax.swing.JComboBox();
-        fieldNumero = new javax.swing.JTextField();
-        fieldComplemento = new javax.swing.JTextField();
         fieldEmail = new javax.swing.JTextField();
         fieldRua = new javax.swing.JTextField();
-        fieldBairro = new javax.swing.JTextField();
-        fieldCEP = new javax.swing.JTextField();
         fieldCidade = new javax.swing.JTextField();
         comboSexo = new javax.swing.JComboBox();
         botaoCadastrar = new javax.swing.JButton();
@@ -223,7 +148,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         jLabel15 = new javax.swing.JLabel();
         fieldConfirmaSenha = new javax.swing.JPasswordField();
         fieldSenha = new javax.swing.JPasswordField();
-        jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         fieldInteresse = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -235,7 +159,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         jScrollPane5 = new javax.swing.JScrollPane();
         fieldLivros = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -244,7 +167,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 507));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18));
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setText("Cadastro do Perfil");
 
         jLabel2.setText("Nome");
@@ -253,17 +176,9 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
 
         jLabel8.setText("E-mail");
 
-        jLabel10.setText("Rua");
-
-        jLabel11.setText("Número");
-
-        jLabel12.setText("Compl.");
-
-        jLabel13.setText("Bairro");
+        jLabel10.setText("Endereco");
 
         jLabel14.setText("Cidade");
-
-        jLabel16.setText("CEP");
 
         jLabel17.setText("Sexo");
 
@@ -274,12 +189,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         fieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldEmailActionPerformed(evt);
-            }
-        });
-
-        fieldRua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldRuaActionPerformed(evt);
             }
         });
 
@@ -320,18 +229,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
 
         jLabel15.setText("Senha");
 
-        fieldSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldSenhaActionPerformed(evt);
-            }
-        });
-
-        jScrollBar1.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
-            public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                jScrollBar1AdjustmentValueChanged(evt);
-            }
-        });
-
         fieldInteresse.setColumns(20);
         fieldInteresse.setRows(5);
         jScrollPane1.setViewportView(fieldInteresse);
@@ -371,80 +268,55 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                                 .addComponent(fieldSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                                 .addComponent(fieldConfirmaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
                             .addComponent(fieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(737, 737, 737))
+                        .addGap(805, 805, 805))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10)
                             .addComponent(jLabel17)
-                            .addComponent(jLabel11)
                             .addComponent(jLabel5)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel13))
-                                .addGap(5, 5, 5))
                             .addComponent(jLabel18)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel8)
                             .addComponent(jLabel19)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel21))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addGap(8, 8, 8))
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel22))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(fieldCEP, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(fieldBairro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(fieldNumero)
-                                            .addComponent(fieldRua)
-                                            .addComponent(fieldNome)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(comboAno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(68, 68, 68)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(fieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel12)
-                                                    .addComponent(jLabel14))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(fieldComplemento, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                                                    .addComponent(fieldCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(botaoCancelar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botaoLimpar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botaoCadastrar))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
-                                .addGap(254, 254, 254)))
-                        .addGap(124, 124, 124))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fieldNome)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboAno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fieldCidade)
+                            .addComponent(fieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4)
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1)
+                            .addComponent(fieldRua)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77)
+                                .addComponent(botaoCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoLimpar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoCadastrar))
+                            .addComponent(jScrollPane5))
+                        .addContainerGap(114, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 928, Short.MAX_VALUE)
-                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(531, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1096, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -473,76 +345,67 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                     .addComponent(jLabel5)
                     .addComponent(comboAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(fieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(fieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(fieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(fieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13)
-                    .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel8)
+                    .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
                     .addComponent(botaoLimpar)
                     .addComponent(botaoCancelar)
                     .addComponent(botaoCadastrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel19))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel22))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel21))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1096, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
         );
 
         pack();
@@ -552,13 +415,8 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         // TODO add your handling code here:
 }//GEN-LAST:event_fieldEmailActionPerformed
 
-    private void fieldRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldRuaActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_fieldRuaActionPerformed
-
-    @SuppressWarnings("ResultOfObjectAllocationIgnored")
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        try {
+        /*try {
             //TODO RELACIONAMETO COM ESSE USUARIO u.
             //BlogWS fachada = HelperClient.getInstance("8080"); //FIXME não sei se eh essa porta
             BlogWSImpl fachada = new BlogWSImpl();
@@ -571,7 +429,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                         fieldMusicas.getText(), fieldLivros.getText());
 
                 fachada.saveData();
-                
+
                 JOptionPane.showMessageDialog(null, "Perfil criado com sucesso!",
                         "Perfil",
                         JOptionPane.CLOSED_OPTION);
@@ -590,7 +448,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Problemas ao criar um perfil",
                     JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
 }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
@@ -601,18 +459,12 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         reiniciaCampos();
         this.dispose();
         new Login();
-    }//GEN-LAST:event_botaoCancelarActionPerformed
-
-    private void fieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldSenhaActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_fieldSenhaActionPerformed
-
-    private void jScrollBar1AdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_jScrollBar1AdjustmentValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollBar1AdjustmentValueChanged
+}//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
+        reiniciaCampos();
+        dispose();
+        new FramePrincipal(sessao);
     }//GEN-LAST:event_formWindowClosing
 
 
@@ -624,10 +476,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JComboBox comboDia;
     private javax.swing.JComboBox comboMes;
     private javax.swing.JComboBox comboSexo;
-    private javax.swing.JTextField fieldBairro;
-    private javax.swing.JTextField fieldCEP;
     private javax.swing.JTextField fieldCidade;
-    private javax.swing.JTextField fieldComplemento;
     private javax.swing.JPasswordField fieldConfirmaSenha;
     private javax.swing.JTextField fieldEmail;
     private javax.swing.JTextArea fieldFilmes;
@@ -636,18 +485,13 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JTextField fieldLogin;
     private javax.swing.JTextArea fieldMusicas;
     private javax.swing.JTextField fieldNome;
-    private javax.swing.JTextField fieldNumero;
     private javax.swing.JTextArea fieldQmSouEu;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JPasswordField fieldSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -661,7 +505,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
