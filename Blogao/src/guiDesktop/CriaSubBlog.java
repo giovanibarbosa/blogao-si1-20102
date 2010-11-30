@@ -18,6 +18,8 @@ import enuns.Sexo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -63,10 +65,13 @@ public class CriaSubBlog extends javax.swing.JFrame implements KeyListener{
 
     /** Creates new form CriaSubBlog */
     public CriaSubBlog(String idSessao, String idBlog) {
+
         this.idSessao = idSessao;
         this.idBlog = idBlog;
         this.addKeyListener(this);
         this.show();
+
+        initComponents();
 
 
         fieldTitulo.addKeyListener(this);
@@ -212,11 +217,10 @@ public class CriaSubBlog extends javax.swing.JFrame implements KeyListener{
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         //BlogWS fachada = HelperClient.getInstance("8080");
-        fachada = new BlogWSImpl();
         try {
             fachada.createSubBlog(idSessao, idBlog, fieldTitulo.getText(), fieldDescricao.getText());
             fachada.saveData();
-            JOptionPane.showMessageDialog(null, "Blog criado com sucesso!",
+            JOptionPane.showMessageDialog(null, "SubBlog criado com sucesso!",
                     "Blog",
                     JOptionPane.CLOSED_OPTION);
 
@@ -228,6 +232,11 @@ public class CriaSubBlog extends javax.swing.JFrame implements KeyListener{
             JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Problemas ao criar um perfil",
                     JOptionPane.ERROR_MESSAGE);
+            try {
+                fachada.logoff(idSessao);
+            } catch (Exception ex1) {
+                Logger.getLogger(CriaSubBlog.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 

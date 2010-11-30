@@ -29,52 +29,49 @@
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabelDescricao" pref="845" max="32767" attributes="0"/>
+                      <Component id="jLabelDescricao" pref="847" max="32767" attributes="0"/>
                       <EmptySpace min="10" pref="10" max="10" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabelTitulo" pref="845" max="32767" attributes="0"/>
+                      <Component id="jLabelTitulo" pref="847" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelTituloPost1" pref="545" max="32767" attributes="1"/>
-                          <Component id="jLabelPost" pref="545" max="32767" attributes="1"/>
+                          <Component id="jLabelTituloPost1" pref="652" max="32767" attributes="1"/>
+                          <Component id="jLabelPost" pref="652" max="32767" attributes="1"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="botaoCancelar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="botaoCriarSubBlog" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="botaoCriarPost" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace pref="111" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane1" min="-2" pref="189" max="-2" attributes="1"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                          <Component id="botaoCancelar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="botaoCriarSubBlog" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="botaoCriarPost" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jScrollPane2" min="-2" pref="189" max="-2" attributes="1"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="189" max="-2" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -98,24 +95,24 @@
                   </Group>
               </Group>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="216" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="216" max="-2" attributes="0"/>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="botaoCriarPost" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoCriarSubBlog" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabelPost" min="-2" pref="474" max="-2" attributes="0"/>
                   </Group>
+              </Group>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botaoCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCriarSubBlog" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCriarPost" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>

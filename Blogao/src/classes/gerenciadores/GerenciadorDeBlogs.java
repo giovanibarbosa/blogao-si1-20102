@@ -500,7 +500,6 @@ public class GerenciadorDeBlogs implements Gerenciador {
 	public String createSubBlog(String idSessao, String idBlogPai,
 			String titulo, String descricao) throws ArgumentInvalidException,
 			PersistenceException, IOException, UserInvalidException {
-
 		Blog blogPai = getPaiDoBlog(idSessao, idBlogPai);
 		Blog subBlog = new Blog(titulo, descricao, idSessao);
 		blogPai.addSubBlog(subBlog);
