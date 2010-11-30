@@ -208,16 +208,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         botaoCancelar = new javax.swing.JButton();
         fieldNome = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        fieldInteresse = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        fieldQmSouEu = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        fieldFilmes = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        fieldMusicas = new javax.swing.JTextField();
-        fieldLivros = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         fieldLogin = new javax.swing.JTextField();
@@ -225,6 +220,16 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         fieldConfirmaSenha = new javax.swing.JPasswordField();
         fieldSenha = new javax.swing.JPasswordField();
         jScrollBar1 = new javax.swing.JScrollBar();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        fieldInteresse = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        fieldQmSouEu = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        fieldFilmes = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        fieldMusicas = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        fieldLivros = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -323,6 +328,26 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
             }
         });
 
+        fieldInteresse.setColumns(20);
+        fieldInteresse.setRows(5);
+        jScrollPane1.setViewportView(fieldInteresse);
+
+        fieldQmSouEu.setColumns(20);
+        fieldQmSouEu.setRows(5);
+        jScrollPane2.setViewportView(fieldQmSouEu);
+
+        fieldFilmes.setColumns(20);
+        fieldFilmes.setRows(5);
+        jScrollPane3.setViewportView(fieldFilmes);
+
+        fieldMusicas.setColumns(20);
+        fieldMusicas.setRows(5);
+        jScrollPane4.setViewportView(fieldMusicas);
+
+        fieldLivros.setColumns(20);
+        fieldLivros.setRows(5);
+        jScrollPane5.setViewportView(fieldLivros);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -347,7 +372,6 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel18)
                             .addComponent(jLabel17)
                             .addComponent(jLabel11)
                             .addComponent(jLabel5)
@@ -357,11 +381,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                                     .addComponent(jLabel16)
                                     .addComponent(jLabel13))
                                 .addGap(5, 5, 5))
+                            .addComponent(jLabel18)
                             .addComponent(jLabel19)
-                            .addComponent(jLabel21)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel22)
-                                .addComponent(jLabel20)))
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel21))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -370,11 +394,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                                 .addComponent(fieldBairro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(fieldLivros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(fieldMusicas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(fieldFilmes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(fieldQmSouEu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                                    .addComponent(fieldInteresse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(fieldNumero)
@@ -405,7 +425,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(botaoLimpar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botaoCadastrar)))
+                                        .addComponent(botaoCadastrar))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
                                 .addGap(254, 254, 254)))
                         .addGap(124, 124, 124))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -416,6 +440,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -473,33 +498,32 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(fieldInteresse, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
-                    .addComponent(fieldQmSouEu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(fieldFilmes, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(fieldMusicas, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21)
-                    .addComponent(fieldLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(92, 92, 92)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoLimpar)
                     .addComponent(botaoCancelar)
                     .addComponent(botaoCadastrar))
-                .addGap(119, 119, 119))
-            .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -604,14 +628,14 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JTextField fieldComplemento;
     private javax.swing.JPasswordField fieldConfirmaSenha;
     private javax.swing.JTextField fieldEmail;
-    private javax.swing.JTextField fieldFilmes;
-    private javax.swing.JTextField fieldInteresse;
-    private javax.swing.JTextField fieldLivros;
+    private javax.swing.JTextArea fieldFilmes;
+    private javax.swing.JTextArea fieldInteresse;
+    private javax.swing.JTextArea fieldLivros;
     private javax.swing.JTextField fieldLogin;
-    private javax.swing.JTextField fieldMusicas;
+    private javax.swing.JTextArea fieldMusicas;
     private javax.swing.JTextField fieldNome;
     private javax.swing.JTextField fieldNumero;
-    private javax.swing.JTextField fieldQmSouEu;
+    private javax.swing.JTextArea fieldQmSouEu;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JPasswordField fieldSenha;
     private javax.swing.JLabel jLabel1;
@@ -636,6 +660,11 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     // End of variables declaration//GEN-END:variables
 
 }
