@@ -105,7 +105,7 @@
                               </Group>
                               <Component id="jScrollPane5" alignment="0" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace pref="120" max="32767" attributes="0"/>
+                          <EmptySpace pref="124" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -349,7 +349,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="botaoCancelar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fechar"/>
+            <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarActionPerformed"/>

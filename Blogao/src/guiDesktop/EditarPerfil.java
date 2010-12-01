@@ -172,7 +172,7 @@ public class EditarPerfil extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 507));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 18));
         jLabel1.setText("Cadastro do Perfil");
 
         jLabel2.setText("Nome");
@@ -198,7 +198,7 @@ public class EditarPerfil extends javax.swing.JFrame {
             }
         });
 
-        botaoCancelar.setText("Fechar");
+        botaoCancelar.setText("Voltar");
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCancelarActionPerformed(evt);
@@ -299,7 +299,7 @@ public class EditarPerfil extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botaoCadastrar))
                             .addComponent(jScrollPane5))
-                        .addContainerGap(120, Short.MAX_VALUE))))
+                        .addContainerGap(124, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
