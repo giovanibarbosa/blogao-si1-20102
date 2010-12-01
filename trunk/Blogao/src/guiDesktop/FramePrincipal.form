@@ -42,6 +42,7 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="botaoExcluiBlog" pref="87" max="32767" attributes="1"/>
                           <Component id="botaoVisualizarBlog" pref="87" max="32767" attributes="1"/>
                           <Component id="botaoPesquisa" alignment="0" pref="87" max="32767" attributes="1"/>
                       </Group>
@@ -77,6 +78,8 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="botaoLogout" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="botaoExcluiBlog" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="botaoVisualizarBlog" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" min="-2" pref="216" max="-2" attributes="0"/>
@@ -159,6 +162,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoVisualizarBlogActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="botaoExcluiBlog">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Excluir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluiBlogActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

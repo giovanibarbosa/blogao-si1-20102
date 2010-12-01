@@ -48,6 +48,15 @@ public class FramePrincipal extends javax.swing.JFrame {
         setTitle("Blogão");
     }
 
+    private void reiniciaCampos() {
+        jListBlogs.setModel(new javax.swing.AbstractListModel() {
+            Blog[] blogs = {};
+            public int getSize() {return blogs.length;}
+            public Blog getElementAt(int i){return blogs[i];}
+        });
+
+    }
+
      private void buscaSubBlogs(final String nome) throws Exception {
         final FacadeBlog fachadaBlog = FacadeBlog.getInstance();
     	if(idSessao != null) {
@@ -80,6 +89,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jListBlogs = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
         botaoVisualizarBlog = new javax.swing.JToggleButton();
+        botaoExcluiBlog = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -140,6 +150,13 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        botaoExcluiBlog.setText("Excluir");
+        botaoExcluiBlog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluiBlogActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,6 +176,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                             .addComponent(jTextPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoExcluiBlog, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                             .addComponent(botaoVisualizarBlog, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                             .addComponent(botaoPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
                         .addGap(26, 26, 26))
@@ -186,6 +204,8 @@ public class FramePrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoLogout)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoExcluiBlog)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoVisualizarBlog))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -272,10 +292,41 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
 }//GEN-LAST:event_botaoPesquisaActionPerformed
 
+    private void botaoExcluiBlogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluiBlogActionPerformed
+       FacadeBlog fachadaBlog = FacadeBlog.getInstance();
+        if(jListBlogs.isSelectionEmpty())
+            JOptionPane.showMessageDialog(null, "Nenhum Blog foi selecionado",
+                "Blog",
+                JOptionPane.ERROR_MESSAGE);
+        else {
+            String blog = (String)jListBlogs.getSelectedValue();
+            Blog b = null;
+            try {
+                b = fachadaBlog.getBlogByIdBlog(blog);
+            } catch (ArgumentInvalidException ex) {
+                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+            if(b != null){
+                try {
+                    fachada.deleteBlog(idSessao, b.getId());
+                    fachada.saveData();
+                    reiniciaCampos();
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(),
+                "Blog",
+                JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_botaoExcluiBlogActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton botaoCriarBlogs;
     private javax.swing.JToggleButton botaoEditaPerfil;
+    private javax.swing.JToggleButton botaoExcluiBlog;
     private javax.swing.JToggleButton botaoLogout;
     private javax.swing.JToggleButton botaoMeusBlogs;
     private javax.swing.JToggleButton botaoPesquisa;
