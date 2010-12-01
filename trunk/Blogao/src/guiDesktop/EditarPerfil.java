@@ -34,8 +34,8 @@ public class EditarPerfil extends javax.swing.JFrame {
         setVisible(true);
         jPanel1.setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
-        inicializaDados();
         carregaCombosEnums();
+        inicializaDados();        
     }
 
     private void inicializaDados() {
@@ -67,6 +67,12 @@ public class EditarPerfil extends javax.swing.JFrame {
                 comboMes.setSelectedItem(mes);
             else
                 comboMes.setSelectedIndex(-1);
+
+            String sexo = ws.getProfileInformationBySessionId(sessao, "sexo");
+            if(sexo != null)
+                comboSexo.setSelectedItem(sexo);
+            else
+                comboSexo.setSelectedIndex(-1);
 
         }  catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(),
@@ -133,7 +139,6 @@ public class EditarPerfil extends javax.swing.JFrame {
         fieldCidade = new javax.swing.JTextField();
         comboSexo = new javax.swing.JComboBox();
         botaoCadastrar = new javax.swing.JButton();
-        botaoLimpar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
         fieldNome = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -186,23 +191,10 @@ public class EditarPerfil extends javax.swing.JFrame {
 
         comboMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
-        fieldEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldEmailActionPerformed(evt);
-            }
-        });
-
-        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setText("Atualizar");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoCadastrarActionPerformed(evt);
-            }
-        });
-
-        botaoLimpar.setText("Limpar");
-        botaoLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoLimparActionPerformed(evt);
             }
         });
 
@@ -302,14 +294,12 @@ public class EditarPerfil extends javax.swing.JFrame {
                             .addComponent(fieldRua)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77)
+                                .addGap(146, 146, 146)
                                 .addComponent(botaoCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botaoLimpar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botaoCadastrar))
                             .addComponent(jScrollPane5))
-                        .addContainerGap(114, Short.MAX_VALUE))))
+                        .addContainerGap(120, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
@@ -362,9 +352,8 @@ public class EditarPerfil extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
-                    .addComponent(botaoLimpar)
-                    .addComponent(botaoCancelar)
-                    .addComponent(botaoCadastrar))
+                    .addComponent(botaoCadastrar)
+                    .addComponent(botaoCancelar))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
@@ -411,26 +400,32 @@ public class EditarPerfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEmailActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_fieldEmailActionPerformed
-
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        /*try {
+        try {
             //TODO RELACIONAMETO COM ESSE USUARIO u.
             //BlogWS fachada = HelperClient.getInstance("8080"); //FIXME não sei se eh essa porta
-            BlogWSImpl fachada = new BlogWSImpl();
+            BlogWSImpl ws = new BlogWSImpl();
             if(fieldConfirmaSenha.getText().equals(fieldSenha.getText())){
-                fachada.createProfile(fieldLogin.getText(), fieldSenha.getText(), fieldNome.getText(),
-                        fieldEmail.getText(), String.valueOf(comboSexo.getSelectedItem()),String.valueOf(comboDia.getSelectedItem()) + "/"
-                        + String.valueOf(comboMes.getSelectedItem())
-                        + "/" + String.valueOf(comboAno.getSelectedItem()), fieldRua.getText(),
-                        fieldInteresse.getText(), fieldQmSouEu.getText(), fieldFilmes.getText(),
-                        fieldMusicas.getText(), fieldLivros.getText());
+                if(!ws.getProfileInformationBySessionId(sessao, "login").equals(fieldLogin.getText()))
+                    ws.changeProfileInformation(sessao, "login", fieldLogin.getText());
+                if(!fieldSenha.getText().trim().isEmpty())
+                    ws.changeProfileInformation(sessao, "senha", fieldSenha.getText());
+                ws.changeProfileInformation(sessao, "nome_exibicao", fieldNome.getText());
+                ws.changeProfileInformation(sessao, "dataNasc", String.valueOf(comboDia.getSelectedItem())
+                        + "/" + String.valueOf(comboMes.getSelectedItem()) + "/" +
+                        String.valueOf(comboAno.getSelectedItem()));
+                ws.changeProfileInformation(sessao, "endereco", fieldRua.getText());
+                ws.changeProfileInformation(sessao, "sexo",
+                        String.valueOf(comboSexo.getSelectedItem()));
+                ws.changeProfileInformation(sessao, "interesses", fieldInteresse.getText());
+                ws.changeProfileInformation(sessao, "quem_sou_eu", fieldQmSouEu.getText());
+                ws.changeProfileInformation(sessao, "filmes", fieldFilmes.getText());
+                ws.changeProfileInformation(sessao, "musicas", fieldMusicas.getText());
+                ws.changeProfileInformation(sessao, "livros", fieldLivros.getText());
 
-                fachada.saveData();
+                ws.saveData();
 
-                JOptionPane.showMessageDialog(null, "Perfil criado com sucesso!",
+                JOptionPane.showMessageDialog(null, "Perfil atualizado com sucesso!",
                         "Perfil",
                         JOptionPane.CLOSED_OPTION);
             }else{
@@ -438,7 +433,7 @@ public class EditarPerfil extends javax.swing.JFrame {
             }
             reiniciaCampos();
             this.dispose();
-            new Login();
+            new FramePrincipal(sessao);
 
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
@@ -448,17 +443,13 @@ public class EditarPerfil extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Problemas ao criar um perfil",
                     JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
 }//GEN-LAST:event_botaoCadastrarActionPerformed
-
-    private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
-        reiniciaCampos();
-}//GEN-LAST:event_botaoLimparActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         reiniciaCampos();
         this.dispose();
-        new Login();
+        new FramePrincipal(sessao);
 }//GEN-LAST:event_botaoCancelarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -471,7 +462,6 @@ public class EditarPerfil extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
-    private javax.swing.JButton botaoLimpar;
     private javax.swing.JComboBox comboAno;
     private javax.swing.JComboBox comboDia;
     private javax.swing.JComboBox comboMes;
