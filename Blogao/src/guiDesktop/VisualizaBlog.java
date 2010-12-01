@@ -55,9 +55,18 @@ public class VisualizaBlog extends javax.swing.JFrame implements KeyListener{
     }
 
     /** Creates new form VisualizaBlog */
-    public VisualizaBlog(Blog blog) {
+    public VisualizaBlog(Blog blog, String idSessao) {
         this.idSessao = idSessao;
         initComponents();
+
+        jLabelTitulo.setText(blog.getTitulo());
+        jLabelDescricao.setText(blog.getDescricao());
+        try {
+            fachada.saveData();
+        } catch (Exception ex) {
+            Logger.getLogger(VisualizaBlog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -83,8 +92,6 @@ public class VisualizaBlog extends javax.swing.JFrame implements KeyListener{
 
         jLabelTitulo = new javax.swing.JLabel();
         jLabelDescricao = new javax.swing.JLabel();
-        jLabelTituloPost1 = new javax.swing.JLabel();
-        jLabelPost = new javax.swing.JLabel();
         botaoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,42 +112,34 @@ public class VisualizaBlog extends javax.swing.JFrame implements KeyListener{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelPost, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
-                            .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE))))
-                .addGap(108, 108, 108))
+                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(727, 727, 727))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
-                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
-                .addComponent(jLabelTituloPost1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jLabelPost, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
                 .addComponent(botaoCancelar)
                 .addGap(19, 19, 19))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(11, 11, 11)
-                    .addComponent(jLabelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(612, Short.MAX_VALUE)))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(655, Short.MAX_VALUE)))
         );
 
         pack();
@@ -148,6 +147,11 @@ public class VisualizaBlog extends javax.swing.JFrame implements KeyListener{
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         this.dispose();
+        try {
+            fachada.saveData();
+        } catch (Exception ex) {
+            Logger.getLogger(VisualizaBlog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new FramePrincipal(idSessao);
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
@@ -155,9 +159,7 @@ public class VisualizaBlog extends javax.swing.JFrame implements KeyListener{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JLabel jLabelDescricao;
-    private javax.swing.JLabel jLabelPost;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JLabel jLabelTituloPost1;
     // End of variables declaration//GEN-END:variables
 
 }

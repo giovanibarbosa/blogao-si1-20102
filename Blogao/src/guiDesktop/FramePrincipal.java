@@ -216,12 +216,19 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void botaoLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLogoutActionPerformed
         try {
+            fachada.loadData();
+        } catch (Exception ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             fachada.logoff(idSessao);
+        } catch (Exception ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             fachada.saveData();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(),
-                "Blog",
-                JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
         new Login();
@@ -273,7 +280,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
             this.dispose();
             if(b != null)
-                new VisualizaBlog(b);
+                new VisualizaBlog(b, idSessao);
             try {
                 fachada.logoff(idSessao);
             } catch (Exception ex) {
@@ -306,7 +313,6 @@ public class FramePrincipal extends javax.swing.JFrame {
             } catch (ArgumentInvalidException ex) {
                 Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.dispose();
             if(b != null){
                 try {
                     fachada.deleteBlog(idSessao, b.getId());
