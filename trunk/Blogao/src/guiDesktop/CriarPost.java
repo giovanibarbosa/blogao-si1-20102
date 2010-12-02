@@ -199,7 +199,7 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         //BlogWS fachada = HelperClient.getInstance("8080");
-        fachada = new BlogWSImpl();
+        //fachada = new BlogWSImpl();
         try {
             fachada.createPost(idSessao, idBlog, TituloPost.getText(), CorpoPost.getText());
             fachada.saveData();
@@ -209,7 +209,7 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
 
             reiniciaCampos();
             this.dispose();
-            new FramePrincipal(idSessao);
+            new MenuBlog(idSessao, idBlog);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
@@ -232,6 +232,7 @@ public class CriarPost extends javax.swing.JFrame implements KeyListener{
         try {
             fachada.logoff(idSessao);
             fachada.saveData();
+            System.exit(0);
         } catch (Exception ex) {
            JOptionPane.showMessageDialog(null, "Logoff sem sucesso!",
                 "Logoff sem sucesso!",
