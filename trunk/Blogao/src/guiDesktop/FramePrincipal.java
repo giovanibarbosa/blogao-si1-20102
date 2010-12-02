@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import ourExceptions.ArgumentInvalidException;
@@ -42,7 +43,6 @@ public class FramePrincipal extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
         }
         SwingUtilities.updateComponentTreeUI(this);
-
         setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
         setTitle("Blogão");
