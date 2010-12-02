@@ -13,6 +13,7 @@ package guiDesktop;
 
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import enuns.Sexo;
+import java.awt.Dimension;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -28,11 +29,14 @@ public class EditarPerfil extends javax.swing.JFrame {
     public EditarPerfil(String sessao) {
         this.sessao = sessao;
         initComponents();
+
         JScrollPane scroll = new JScrollPane();
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setViewportView(jPanel1);
         setContentPane(scroll);
         setVisible(true);
-        jPanel1.setVisible(true);
+        jPanel1.setPreferredSize(new Dimension(800, 1200));
         setExtendedState(MAXIMIZED_BOTH);
         carregaCombosEnums();
         inicializaDados();        

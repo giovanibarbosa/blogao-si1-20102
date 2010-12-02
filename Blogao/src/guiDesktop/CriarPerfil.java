@@ -15,6 +15,7 @@ import br.edu.ufcg.dsc.si.blog.webservice.BlogWS;
 import br.edu.ufcg.dsc.si.blog.webservice.BlogWSImpl;
 import br.edu.ufcg.dsc.si.blog.webservice.HelperClient;
 import enuns.Sexo;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -57,6 +58,7 @@ public class CriarPerfil extends javax.swing.JFrame implements KeyListener {
         initComponents();
 
         JScrollPane scroll = new JScrollPane();
+        jPanel1.setPreferredSize(new Dimension(800, 1600));
         scroll.setViewportView(jPanel1);
         setContentPane(scroll);
 
